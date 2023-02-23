@@ -1,0 +1,29 @@
+.navbar {
+  /* Positioning */
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  /* Display & Box model */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90px;
+  /* Color */
+  background-color: transparent;
+  /* Transition */
+  transition: 0.4s;
+}
+
+.navbar:hover {
+  transition: 0.4s;
+  background-color: white;
+}
+
+.navbar.active {
+  transition: 0.4s;
+  background-color: white;
+}
+
+.navBrand {
+  font-family: 'Gill Sans';
+}

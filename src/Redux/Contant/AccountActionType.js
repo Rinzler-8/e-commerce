@@ -1,0 +1,12 @@
+export const FETCH_ACCOUNT_LIST = "FETCH_ACCOUNT_LIST";
+
+export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
+
+export const SHOW_ACCOUNT_FORM = "SHOW_ACCOUNT_FORM";
+
+export const CLOSE_ACCOUNT_FORM = "CLOSE_ACCOUNT_FORM";
+
+// user login info
+export const USER_LOGIN_INFO = "USER_LOGIN_INFO";
+export const TOKEN_INFO = "TOKEN_INFO";
+export const REMEMBER_ME_INFO = "REMEMBER_ME_INFO";

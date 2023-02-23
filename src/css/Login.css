@@ -1,0 +1,37 @@
+.left,
+.right {
+  width: 100%;
+  height: 100vh;
+}
+
+.left > img {
+  width: 702px;
+  height: 100vh;
+}
+
+.checkbox {
+  display: flex;
+  width: 100%;
+  font-size: 17px;
+}
+
+input[type="checkbox"] {
+  accent-color: red;
+}
+
+.loginThirdParties {
+  padding: 10px;
+}
+
+.socialIcons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.button {
+  padding: 10px 10px;
+}
+
+.input {
+  margin-bottom: 10px;
+}
