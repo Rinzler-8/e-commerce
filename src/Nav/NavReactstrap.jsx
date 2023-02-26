@@ -1,13 +1,11 @@
 import React from "react";
 import { Navbar, NavItem, NavLink, Nav, NavbarBrand, CardTitle, CardText, Button } from "reactstrap";
-import { CardContent, IconButton, Box, List } from "@mui/material";
+import { CardContent, IconButton, Box, List, ListItem, ListItemButton, ListItemText, Divider, Badge, Drawer, Typography } from "@mui/material";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import CartDrawer from "../Components/Cart/CartDrawer";
 import { styled, useTheme } from "@mui/material/styles";
-import Drawer from "@mui/material/Drawer";
-import Divider from "@mui/material/Divider";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import Badge from "@mui/material/Badge";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetCartByUserIdAPI, actionAddItemQty, actionDecItemQty, actionUpdateCartAPI, actionDeleteCartItemAPI } from "../Redux/Action/CartAction";
@@ -50,9 +48,9 @@ function NavReactstrap() {
   const updateQty = (id, cartObj, e) => {
     let obj = { cart_id: cartObj.cart_id, quantity: e.target.value, price: cartObj.price * e.target.value };
     dispatchRedux(actionUpdateCartAPI(id, obj));
-    console.log("totalPrice: ", cartObj.price * e.currentTarget.value);
-    console.log("OBject: ", obj);
   };
+
+  let total = 0;
 
   const removeItem = (cartId, userId) => {
     dispatchRedux(actionDeleteCartItemAPI(cartId, userId));
@@ -66,7 +64,6 @@ function NavReactstrap() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
   const drawerWidth = 240;
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
@@ -109,51 +106,68 @@ function NavReactstrap() {
             <ShoppingBagOutlinedIcon color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" />
           </Badge>
           <Drawer variant="persistent" anchor="right" open={open}>
-            <DrawerHeader>
-              <IconButton onClick={handleDrawerClose} style={{ marginRight: "400px" }}>
+            <DrawerHeader style={{ alignSelf: "start" }}>
+              <IconButton onClick={handleDrawerClose}>
                 <ChevronRightIcon />
                 Your Bag ({cart.cartItems.length})
               </IconButton>
             </DrawerHeader>
             <Divider />
 
-            {cart.cartItems.map((cartProduct, index) => (
-              // <List></List>
-              <Box key={index}>
-                <NavLink href={`/products/${cartProduct.product_id}`}>
-                  <CardContent align="center">
-                    <img alt="Sample" src={cartProduct.imageName} style={{ paddingTop: 30 }} />
-                    <CardTitle tag="h5">{cartProduct.productName}</CardTitle>
-                    <CardText>{cartProduct.info}</CardText>
-                    <CardText>{cartProduct.detail}</CardText>
-                    <CardText>{cartProduct.price}</CardText>
-                  </CardContent>
-                </NavLink>
-                <span>
-                  <Button disabled={cartProduct.quantity <= 1} onClick={() => decQty(cartProduct)} className="qty_btn">
-                    -
-                  </Button>
-                  <input type="text" className="input_qty" value={cartProduct.quantity} onChange={(e) => updateQty(id, cartProduct, e)} size="3" />
-                  <Button className="qty_btn" onClick={() => addQty(cartProduct)}>
-                    +
-                  </Button>
-                  <CardText>{cartProduct.total_price}đ</CardText>
-                </span>
-                <Button onClick={() => removeItem(cartProduct.cart_id, cartProduct.user_id)} color="danger">
-                  Remove
+            {cart.cartItems.map(
+              (cartProduct, index) => (
+                (total += cartProduct.total_price),
+                (
+                  <Box key={index} className="drawer">
+                    <List>
+                      <ListItem>
+                        <div>
+                          <NavLink href={`/products/${cartProduct.product_id}`}>
+                            <img alt="Sample" src={cartProduct.imageName} />
+                          </NavLink>
+                        </div>
+                        <span>
+                          <ListItemText>
+                            <NavLink href={`/products/${cartProduct.product_id}`} style={{ padding: 0 }}>
+                              <Typography style={{ fontSize: 20 }}>{cartProduct.productName}</Typography>
+                            </NavLink>
+                            <Typography>{cartProduct.price}đ</Typography>
+                            <Typography>{cartProduct.info}đ</Typography>
+                          </ListItemText>
+                          <span>
+                            <Button disabled={cartProduct.quantity <= 1} onClick={() => decQty(cartProduct)} className="qty_btn">
+                              -
+                            </Button>
+                            <input type="text" className="input_qty" value={cartProduct.quantity} onChange={(e) => updateQty(id, cartProduct, e)} size="3" />
+                            <Button className="qty_btn" onClick={() => addQty(cartProduct)}>
+                              +
+                            </Button>
+                          </span>
+                          <ListItemText>Subtotal: {cartProduct.total_price}đ</ListItemText>
+                        </span>
+                        <span style={{ alignSelf: "start" }}>
+                          <IconButton onClick={() => removeItem(cartProduct.cart_id, cartProduct.user_id)}>
+                            <DeleteForeverOutlinedIcon />
+                          </IconButton>
+                        </span>
+                      </ListItem>
+                    </List>
+                    <Divider />
+                  </Box>
+                )
+              )
+            )}
+            <div className="drawer_footer">
+              <div>Estimated total: {total}đ</div>
+              <span className="minicart_action">
+                <Button className="drawer_btn" href={"/cart"}>
+                  VIEW CART
                 </Button>
-
-                <Divider />
-              </Box>
-            ))}
-            <span>
-              <Button color="primary" href={"/cart"}>
-                VIEW CART
-              </Button>
-              <Button color="primary" href={"/checkout"}>
-                CHECKOUT
-              </Button>
-            </span>
+                <Button className="drawer_btn" href={"/checkout"}>
+                  CHECKOUT
+                </Button>
+              </span>
+            </div>
           </Drawer>
         </Nav>
       </Navbar>

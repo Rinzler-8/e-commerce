@@ -1,0 +1,105 @@
+.shipping {
+  /* Positioning */
+
+  /* Display & Box model */
+
+  /* Font */
+  font-family: gill sans, sans-serif;
+  letter-spacing: 0.04cm;
+  /* font-size: 150%; */
+
+  /* Color */
+
+  /* Transition */
+}
+
+.input {
+  /* Positioning */
+
+  /* Display & Box model */
+
+  /* Font */
+
+  /* Color */
+
+  /* border-style: none none solid; */
+  /* Transition */
+}
+.input:hover {
+  /* Positioning */
+
+  /* Display & Box model */
+
+  /* Font */
+
+  /* Color */
+  /* border-style: none none solid; */
+  /* Transition */
+}
+
+.error {
+  /* Positioning */
+
+  /* Display & Box model */
+
+  /* Font */
+
+  /* Color */
+  color: red;
+  /* Transition */
+}
+
+.payment {
+  /* Positioning */
+
+  /* Display & Box model */
+  margin: 20px 20px;
+  /* Font */
+  font-family: gill sans, sans-serif;
+  /* Color */
+
+  /* Transition */
+}
+.payment_radio {
+  /* Positioning */
+
+  /* Display & Box model */
+  margin: 10px;
+  /* Font */
+
+  /* Color */
+
+  /* Transition */
+}
+
+.checkmark {
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.summary_container {
+  /* Positioning */
+
+  /* Display & Box model */
+  padding: 20px;
+  /* Font */
+
+  /* Color */
+
+  /* Transition */
+}
+
+.order_summary {
+  /* Positioning */
+  margin-left: 20px;
+  /* Display & Box model */
+
+  font-family: 'Gill Sans MT', Calibri, sans-serif;
+  /* Font */
+  letter-spacing: 0.2cqmin;
+  font-variant: small-caps;
+  font-size: 30px;
+  /* Color */
+
+  /* Transition */
+}

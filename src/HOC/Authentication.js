@@ -3,6 +3,8 @@ import { Outlet, Navigate } from "react-router-dom";
 import NavReactstrap from "../Nav/NavReactstrap";
 import Footer from "../Components/Home/Footer";
 
+
+
 function AdminAuth() {
   let role = localStorage.getItem("role");
   return role === "ADMIN" && localStorage.getItem("token") ? <Outlet /> : <Navigate to="/" />;

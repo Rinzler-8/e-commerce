@@ -1,39 +1,206 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, CardBody, CardTitle, CardSubtitle, CardText, Button } from "reactstrap";
-import { NavLink, Link } from "react-router-dom";
-import { Card, CardContent, Grid, Box, Typography, Rating } from "@mui/material";
-import { Container } from "reactstrap";
+import { Row, Col, CardBody, CardTitle, CardSubtitle, CardText, Button, Container, NavLink } from "reactstrap";
+import { Link } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  Grid,
+  Box,
+  Typography,
+  Rating,
+  Item,
+  Paper,
+  TextField,
+  Avatar,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+  FormLabel,
+  FormControl,
+  ListItemText,
+  List,
+  ListItem,
+} from "@mui/material";
+import { Formik, Field, Form } from "formik";
+// import CustomInput from "../Components/Register/CustomInput";
+import { ToastContainer, toast } from "react-toastify";
+import * as Yup from "yup";
 import { actionGetCartByUserIdAPI, actionAddItemQty, actionDecItemQty, actionUpdateCartAPI } from "../Redux/Action/CartAction";
+import { checkoutAPI } from "../API/CheckoutAPI";
+import "../../src/css/CheckoutPage.css";
 
 const CheckOutList = () => {
+  const [isShown, setIsShown] = useState(false);
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
   let cart = stateRedux.cartReducer;
   let id = localStorage.getItem("id");
-  useEffect(() => {
-    if (id && id !== "") dispatchRedux(actionGetCartByUserIdAPI(id));
-  }, [id]);
-  // Khai báo item hiển thị dữ liệu
-  // Kiểm tra nếu listProduct !="" sẽ hiển thị dữ liệu
+  let total = 0;
+  const togglePassword = () => {
+    setIsShown((isShown) => !isShown);
+  };
+  function CustomInput(props) {
+    let {
+      field, // { name, value, onChange, onBlur }
+      form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+      ...propsOther
+    } = props;
+    // InputProps= {{className: "input"}}
+    return (
+      <div>
+        <TextField {...field} {...propsOther} variant="standard" style={{ marginBottom: "20px" }} />
+        {touched[field.name] && errors[field.name] && <div className="error">{errors[field.name]}</div>}
+      </div>
+    );
+  }
   if (cart) {
     return (
-      <Grid container >
-        {cart.cartItems.map((product, index) => (
-          <Col className="bg" sm="4" xs="6" key={index} align="center">
-            <Box>
-              <NavLink to={`/products/${product.product_id}`}>
-                <img alt="Sample" src={product.imageName} style={{ paddingTop: 30 }} />
-                <CardContent>
-                  <CardTitle tag="h5">{product.name}</CardTitle>
-                  <CardText>{product.price}</CardText>
-                  <CardText>{product.info}</CardText>
-                  <CardText>{product.detail}</CardText>
-                </CardContent>
-              </NavLink>
-            </Box>
-          </Col>
-        ))}
+      <Grid container style={{ marginTop: "90px", backgroundColor: "lightgray" }}>
+        <Grid item md={7}>
+          <Paper style={{ marginRight: "80px", marginLeft: "300px", marginTop: "80px" }}>
+            <Formik
+              initialValues={{
+                first_name: "",
+                last_name: "",
+                mobile: "",
+                delivery_address: "",
+                paymentType: "COD",
+              }}
+              validationSchema={Yup.object({
+                first_name: Yup.string().required("Không được để trống first name"),
+                last_name: Yup.string().required("Không được để trống last name"),
+
+                delivery_address: Yup.string().required("Không được để trống address"),
+
+                mobile: Yup.string()
+                  .min(6, "Must be between 6 and 10 characters")
+                  .max(10, "Must be between 6 and 10 characters")
+                  .required("Không được để trống số điện thoại"),
+              })}
+              onSubmit={(values) => {
+                try {
+                  const checkout = {
+                    first_name: values.first_name,
+                    last_name: values.last_name,
+                    mobile: values.mobile,
+                    delivery_address: values.delivery_address,
+                    paymentType: values.paymentType,
+                  };
+                  checkoutAPI(id, checkout);
+                  toast.success("Tạo đơn thành công.", {
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                } catch (error) {
+                  alert("Hãy kiểm tra lại thông tin!");
+                  // navigate("/login");
+                }
+              }}
+              validateOnChange={true}
+              validateOnBlur={true}
+            >
+              {({ validateField, validateForm }) => (
+                <Container>
+                  <Row>
+                    <Col
+                      // sm={{
+                      //   offset: 1,
+                      //   size: 7,
+                      // }}
+                      style={{ marginTop: 60 }}
+                    >
+                      <Form>
+                        <span>
+                          <Avatar style={{ backgroundColor: "blue" }}>1</Avatar>
+                          <h3 className="shipping">SHIPPING</h3>
+                        </span>
+
+                        {/* <TextField fullWidth id="first_name" name="first_name" label="firstName" type="text"/> */}
+                        <Field fullWidth name="first_name" type="text" label="Tên" component={CustomInput} />
+                        <Field fullWidth name="last_name" type="text" placeholder="Nhập Họ" label="Họ:" component={CustomInput} />
+                        <Field
+                          className="input"
+                          fullWidth
+                          name="mobile"
+                          type="text"
+                          placeholder="Nhập số điện thoại"
+                          label="Số điện thoại:"
+                          component={CustomInput}
+                        />
+                        <Field
+                          className="input"
+                          fullWidth
+                          name="delivery_address"
+                          type="text"
+                          placeholder="Nhập địa chỉ"
+                          label="Địa chỉ:"
+                          component={CustomInput}
+                        />
+                        <div>Payment Type</div>
+
+                        <label className="payment">
+                          COD
+                          <Field type="radio" name="paymentType" value="COD" className="payment_radio" />
+                          <span className="checkmark"></span>
+                        </label>
+                        <label className="payment">
+                          BANKING
+                          <Field type="radio" name="paymentType" value="BANKING" className="payment_radio" />
+                          <span className="checkmark"></span>
+                        </label>
+                        {/* Submit */}
+                        <Row className="button">
+                          <Button type="submit">Mua hàng</Button>
+                          <Link to={"/login"} className="link">
+                            Quay lại
+                          </Link>
+                        </Row>
+                      </Form>
+                    </Col>
+                  </Row>
+                </Container>
+              )}
+            </Formik>
+            <ToastContainer />
+          </Paper>
+        </Grid>
+        <Grid item md={5}>
+          <Paper style={{ marginRight: "200px" }}>
+            <Container className="summary_container">
+              <div className="order_summary">order summary</div>
+              {cart.cartItems.map((product, index) => (
+                total += product.total_price,
+                <List key = {index}>
+                  <ListItem>
+                    <div>
+                      <NavLink href={`/products/${product.product_id}`}>
+                        <img alt="Sample" src={product.imageName} style={{ width: 100, height: 100 }} />
+                      </NavLink>
+                    </div>
+                    <span>
+                      <ListItemText>
+                        <NavLink href={`/products/${product.product_id}`} style={{ padding: 0 }}>
+                          <Typography style={{ fontSize: 20 }}>{product.productName}</Typography>
+                        </NavLink>
+                        <Typography>{product.price}đ</Typography>
+                        <Typography>Quantity: {product.quantity}</Typography>
+                      </ListItemText>
+                      <ListItemText>Subtotal: {product.total_price}đ</ListItemText>
+                    </span>
+                  </ListItem>
+                </List>
+              ))}
+              <div className="">
+                <div>Estimated total: {total}đ</div>
+              </div>
+            </Container>
+          </Paper>
+        </Grid>
       </Grid>
     );
   }

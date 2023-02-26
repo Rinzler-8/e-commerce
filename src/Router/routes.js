@@ -7,6 +7,7 @@ import NotFoundPage from "../Page/NotFoundPage";
 import AuthenRoute from "../AuthenRoute/AuthenRoute";
 import ProductPage from "./../Page/ProductPage";
 import CheckoutPage from "./../Page/CheckoutPage";
+import CheckOutSuccess from "../Page/CheckoutSuccessPage";
 import ForgotPasswordPage from "./../Page/ForgotPasswordPage";
 import { AdminAuth, WithAuth, WithNav, WithoutNav } from "../HOC/Authentication";
 import ProductDetail from "../Components/Product/ProductDetail";
@@ -30,6 +31,7 @@ export const routes = (
       <Route path="/products/:id" element={<ProductDetail />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
+      <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
       <Route path="/test" element={<TestPage />} />
       <Route path="*" element={<NotFoundPage />} />
       <Route path="/forgot" element={<ForgotPasswordPage />} />

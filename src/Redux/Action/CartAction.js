@@ -8,7 +8,7 @@ export const actionGetCartByUserIdAPI = (id) => {
   return (dispatch) => {
     return getCartByUserIdAPI(id).then((response) => {
       dispatch(actionGetCartByUserIdRedux(response));
-      console.log("Cart Redux: ", response);
+      // console.log("Cart Redux: ", response);
     });
   };
 };

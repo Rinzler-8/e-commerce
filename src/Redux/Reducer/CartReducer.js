@@ -10,7 +10,7 @@ const Cart = (state = initialState, action) => {
   switch (action.type) {
     case Types.FETCH_CART_USER_ID:
       state = action.payload;
-      console.log("state: ", state);
+      // console.log("state: ", state);
       return {
         ...state,
         cartItems: [...state],

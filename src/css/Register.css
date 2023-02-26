@@ -1,0 +1,49 @@
+.shipping {
+  /* Positioning */
+
+  /* Display & Box model */
+
+  /* Font */
+  font-family: gill sans,sans-serif;
+  letter-spacing: 0.04cm;
+  /* font-size: 150%; */
+
+  /* Color */
+
+  /* Transition */
+}
+
+.input {
+    /* Positioning */
+
+  /* Display & Box model */
+
+  /* Font */
+
+  /* Color */
+  /* border-style: none none solid; */
+  /* Transition */
+}
+.input:hover {
+    /* Positioning */
+
+  /* Display & Box model */
+
+  /* Font */
+
+  /* Color */
+  /* border-style: none none solid; */
+  /* Transition */
+}
+
+.payment {
+  /* Positioning */
+
+  /* Display & Box model */
+  margin: 20px 20px;
+  /* Font */
+
+  /* Color */
+  
+  /* Transition */
+}

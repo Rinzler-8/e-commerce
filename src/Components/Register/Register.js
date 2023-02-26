@@ -3,20 +3,17 @@ import { Button, Container, Row, Col } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import CustomInput from "./CustomInput";
 import * as Yup from "yup";
-// import "./../../css/AccountForm.css";
 import { Link, useNavigate } from "react-router-dom";
 import { getUsernameExists, getEmailExists } from "../../API/AccountAPI";
 import { addAccountNewAPI } from "../../API/RegisterAPI";
-
+import "./../../../src/css/Register.css";
 import "./../../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function RegisterComponent(props) {
   const [isShown, setIsShown] = useState(false);
-  // Quản lý trạng thái ẩn hiện Moadal
-
-  // Xử lý ẩn hiện modal
+  // Quản lý trạng thái ẩn hiện Password
 
   let navigate = useNavigate();
 
@@ -72,10 +69,10 @@ function RegisterComponent(props) {
                   is: (val) => (val && val.length > 0 ? true : false),
                   then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp."),
                 }),
-                mobile: Yup.string()
+              mobile: Yup.string()
                 .min(6, "Must be between 6 and 10 characters")
                 .max(10, "Must be between 6 and 10 characters")
-                .required("Không được để trống số điện thoại"), 
+                .required("Không được để trống số điện thoại"),
             })}
             onSubmit={(values) => {
               try {
@@ -128,8 +125,8 @@ function RegisterComponent(props) {
                       <Field className="input" name="username" type="text" placeholder="Nhập Tên Đăng Ký" label="Tên đăng ký:" component={CustomInput} />
                       {/* email */}
                       <Field className="input" name="email" type="email" placeholder="Nhập email" label="Email:" component={CustomInput} />
-                       {/* mobile */}
-                       <Field className="input" name="mobile" type="text" placeholder="Nhập số điện thoại" label="Số điện thoại:" component={CustomInput} />
+                      {/* mobile */}
+                      <Field className="input" name="mobile" type="text" placeholder="Nhập số điện thoại" label="Số điện thoại:" component={CustomInput} />
                       {/* password */}
                       <Field
                         className="input"

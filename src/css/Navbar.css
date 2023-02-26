@@ -25,5 +25,114 @@
 }
 
 .navBrand {
-  font-family: 'Gill Sans';
+  font-family: "Gill Sans";
+}
+
+.drawer {
+  /* Positioning */
+
+  /* Display & Box model */
+  max-width: 600px;
+  /* Font */
+
+  /* Color */
+  /* background-color: darkgray; */
+  /* Transition */
+}
+
+.drawer img {
+  /* Positioning */
+
+  /* Display & Box model */
+  width: 150px;
+  height: 150px;
+  /* Color */
+
+  /* Transition */
+}
+
+.drawer_footer {
+  /* Positioning */
+  position: fixed;
+  bottom: 0;
+  /* Display & Box model */
+  height: 90px;
+  width: 100%;
+  /* Font */
+
+  /* Color */
+  border-top: 1px solid;
+  background-color: white;
+  /* Transition */
+}
+
+.minicart_action {
+  /* Positioning */
+  display: flex;
+  gap: 8px;
+  
+  /* Display & Box model */
+
+  /* Font */
+
+  /* Color */
+  background-color: red;
+  /* Transition */
+}
+
+.minicart_action .drawer_btn {
+  /* Positioning */
+
+  /* Display & Box model */
+  padding: 10px 24px;
+  /* Color */
+  color: red;
+
+  /* Transition */
+}
+.qty_btn:hover {
+  /* Color */
+  background-color: white;
+  color: rgb(2, 2, 241);
+  /* Transition */
+}
+.qty_btn:active {
+  /* Color */
+  outline: none;
+  /* Transition */
+}
+.qty_btn:focus {
+  /* Color */
+  color: black;
+  background-color: white;
+  box-shadow: none;
+  /* Transition */
+}
+
+.qty_btn:disabled {
+  /* Color */
+  background-color: white;
+  color: black;
+  border-style: none;
+  /* Transition */
+}
+.input_qty {
+  /* Positioning */
+
+  /* Display & Box model */
+  text-align: center;
+  border-width: 0.1em;
+  border-style: none none solid;
+  /* Color */
+  /* Transition */
+}
+.input_qty:focus {
+  /* Positioning */
+
+  /* Display & Box model */
+  border-width: 0.1em;
+  outline: none;
+  /* Color */
+
+  /* Transition */
 }
