@@ -15,8 +15,8 @@ const CheckOutSuccess = () => {
   let orderItemsState = stateRedux.orderItemsReducer;
   let userId = localStorage.getItem("id");
   // let sessionId = orderState.orderInfo[0].session_id;
-  let sessionId = 23148;
-  console.log("session id: ", orderItemsState);
+  let sessionId = orderState.session_id;
+  console.log("session id: ", orderState.session_id);
   let buyer = "";
   useEffect(() => {
     if (userId && userId !== "") {
@@ -31,7 +31,7 @@ const CheckOutSuccess = () => {
       <Container className="checkout_success_container">
         <h1 className="thank">Thank you for your purchase!</h1>
         <div className="success_paper">
-          <h5>Hi </h5>
+          <h5>Hi {orderState.first_name}</h5>
           <div>Thanks for your purchase from Genuine & Dignity.</div>
           {orderItemsState.map((item, index) => (
             <List key={index}>
