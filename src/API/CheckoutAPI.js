@@ -2,6 +2,7 @@ import { api } from "./api";
 
 // get single Cart
 const getOrderInfoAPI = (userId) => {
+  // let url = "/v1/order/getOrderInfo/" + userId + "/" + orderId;
   let url = "/v1/order/getOrderInfo/" + userId;
   return api("GET", url, null, null);
 };

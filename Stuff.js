@@ -33,13 +33,28 @@ UPDATE `shop`.`product` SET `product_image_name` = 'https://www.reliancedigital.
 
 --------------------------------------------------------------------------------------------------------------------------
 Final project:
-- Dùng redux-persist để lưu redux state => có thể refresh trang product details mà không bị mất dữ liệu reducer
-- 
-                        td(v-if = "item.type == `OEM_MATERIALS`") Mua vật tư
-                        td(v-if = "item.type == `OEM`") Mua thành phẩm
+1. BUG:
+   - Dùng redux-persist để lưu redux state => có thể refresh trang product details mà không bị mất dữ liệu reducer
+   - JPA query: @Query("Select item FROM OrderItems item WHERE item.order_id=:order_id") => OrderItems là entity được khai báo 
+   ở be chứ không phải từ database.
+   - fasterxml.jackson.databind: thêm jsonignore dưới entity
+   - Không lấy được dữ liệu sau khi checkout ?
+      => vì initial state rỗng nên không có khả năng lấy order_id, session_id. 
+      => SOLUTION: sau khi checkoutAPI, dispatch actionGetOrderInfoRedux với response của checkoutAPI để checkoutReducer có dữ liệu
+      (đã có redux-persist ở trên để lưu reducer state)
+   - Muốn dùng action thì phải có useDispatch
 
-checkout: 
-lấy firstname, lastname, mobile, address, payment
-- user chỉ có 1 cart => cartId = userId
+2. FEATURE
+ * checkout: 
+ - fe:
+    + lấy firstname, lastname, mobile, address, payment
+    + user chỉ có 1 cart => cartId = userId
+    + 
+ - be:
+    + checkout gồm 2 phần: order info và order items
+    + mỗi order sẽ phân biệt theo session_id. Lấy orderInfo theo orderId, orderItems theo session_id (hoặc order_id)
 
-xử lý add to cart các trang khác, fe của checkout
+3. REMAININGS:
+   - sort
+   - danh sách order
+   - phân quyền

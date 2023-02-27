@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, CardBody, CardTitle, CardSubtitle, CardText, Button, Container, NavLink } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -23,15 +23,15 @@ import {
   ListItem,
 } from "@mui/material";
 import { Formik, Field, Form } from "formik";
-// import CustomInput from "../Components/Register/CustomInput";
 import { ToastContainer, toast } from "react-toastify";
 import * as Yup from "yup";
-import { actionGetCartByUserIdAPI, actionAddItemQty, actionDecItemQty, actionUpdateCartAPI } from "../Redux/Action/CartAction";
 import { checkoutAPI } from "../API/CheckoutAPI";
 import "../../src/css/CheckoutPage.css";
+import { actionCheckoutAPI } from "../Redux/Action/CheckoutAction";
 
 const CheckOutList = () => {
   const [isShown, setIsShown] = useState(false);
+  let navigate = useNavigate();
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
   let cart = stateRedux.cartReducer;
@@ -87,7 +87,7 @@ const CheckOutList = () => {
                     delivery_address: values.delivery_address,
                     paymentType: values.paymentType,
                   };
-                  checkoutAPI(id, checkout);
+                  dispatchRedux(actionCheckoutAPI(id, checkout));
                   toast.success("Tạo đơn thành công.", {
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -96,9 +96,17 @@ const CheckOutList = () => {
                     draggable: true,
                     progress: undefined,
                   });
+                  setTimeout(() => navigate("/checkoutSuccess"), 1000);
                 } catch (error) {
-                  alert("Hãy kiểm tra lại thông tin!");
-                  // navigate("/login");
+                  toast.error(error, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
                 }
               }}
               validateOnChange={true}

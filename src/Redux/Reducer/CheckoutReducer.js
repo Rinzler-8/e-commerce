@@ -1,17 +1,18 @@
 import * as Types from "../Contant/CheckoutActionType";
 
-var orderInfo = [];
+var orderInfo = {};
 var orderItems = [];
 
 const OrderInfo = (state, action) => {
   switch (action.type) {
     case Types.FETCH_CHECKOUT:
-      orderInfo = action.payload;
-      // console.log("order info state: ", orderInfo);
-      return orderInfo;
+      state = action.payload;
+      // state = orderInfo;
+      console.log("order info state: ", state);
+      return {...state};
 
     default:
-      return orderInfo;
+      return {...state};
   }
 };
 
@@ -19,11 +20,12 @@ const OrderItems = (state, action) => {
   switch (action.type) {
     case Types.FETCH_ORDER_ITEMS:
       orderItems = action.payload;
-      console.log("order items state: ", orderItems);
+      // state = orderItems;
+      console.log("order items state: ", action.payload);
       // return [...state];
-      return action.payload;
-    default:
       return orderItems;
+    default:
+      return [state];
   }
 };
 

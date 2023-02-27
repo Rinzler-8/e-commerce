@@ -1,12 +1,20 @@
-import { getOrderInfoAPI, getOrderItemsAPI } from "../../API/CheckoutAPI";
+import { getOrderInfoAPI, getOrderItemsAPI, checkoutAPI } from "../../API/CheckoutAPI";
 import * as Types from "../Contant/CheckoutActionType";
 
 // Viết các Action liên quan đến Call API
+export const actionCheckoutAPI = (userId, item) => {
+  return (dispatch) => {
+    return checkoutAPI(userId, item).then((response) => {
+      dispatch(actionGetOrderInfoRedux(response));
+    });
+  };
+};
+
+
 export const actionGetOrderInfoAPI = (userId) => {
   return (dispatch) => {
     return getOrderInfoAPI(userId).then((response) => {
       dispatch(actionGetOrderInfoRedux(response));
-      // console.log("Order info Redux: ", response);
     });
   };
 };

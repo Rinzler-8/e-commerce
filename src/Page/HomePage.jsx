@@ -15,7 +15,6 @@ function HomePage() {
   let dispatchRedux = useDispatch();
   let stateRedux = useSelector((state) => state);
   let listProduct = stateRedux.listProductReducer;
-  console.log("session id: ", stateRedux);
   let id = localStorage.getItem("id");
   const handleAddToCart = (id, cartItem) => {
     let obj = {
