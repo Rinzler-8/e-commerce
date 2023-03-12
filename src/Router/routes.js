@@ -4,7 +4,6 @@ import HomePage from "../Page/HomePage";
 import AdminPage from "../Page/AdminPage";
 import RegisterPage from "../Page/RegisterPage";
 import NotFoundPage from "../Page/NotFoundPage";
-import AuthenRoute from "../AuthenRoute/AuthenRoute";
 import ProductPage from "./../Page/ProductPage";
 import CheckoutPage from "./../Page/CheckoutPage";
 import CheckOutSuccess from "../Page/CheckoutSuccessPage";
@@ -13,6 +12,7 @@ import { AdminAuth, WithAuth, WithNav, WithoutNav } from "../HOC/Authentication"
 import ProductDetail from "../Components/Product/ProductDetail";
 import CartPage from "../Page/CartPage";
 import TestPage from "../Page/TestPage";
+import ProductPageAdmin from "../Page/ProductPageAdmin";
 
 export const routes = (
   <Routes>
@@ -21,6 +21,7 @@ export const routes = (
     <Route element={<WithNav />}>
       <Route element={<AdminAuth />}>
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/products-admin" element={<ProductPageAdmin />} />
       </Route>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />

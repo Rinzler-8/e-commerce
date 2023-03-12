@@ -19,8 +19,6 @@ function AccountResultForm(props) {
             <th>Mobile</th>
             <th>Role</th>
             <th>Status</th>
-            <th>Ban Days</th>
-            <th>Deactivate</th>
             <th>Update</th>
           </tr>
         </thead>

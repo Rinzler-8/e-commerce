@@ -12,13 +12,9 @@ const CheckOutSuccess = () => {
   let actionRedux = useSelector((action) => action);
   let dispatchRedux = useDispatch();
   let orderState = stateRedux.checkoutReducer;
-  let orderAction = actionRedux.checkoutReducer;
   let orderItemsState = stateRedux.orderItemsReducer;
-  let userId = localStorage.getItem("id");
   let sessionId = orderState.session_id;
   let orderId = orderState.order_id;
-  console.log("session id: ", sessionId);
-  console.log("orderItemsState: ", orderState);
   useEffect(() => {
     if (orderId && orderId !== "") {
       dispatchRedux(actionGetOrderInfoAPI(orderId));
@@ -39,6 +35,13 @@ const CheckOutSuccess = () => {
       <div className="success_paper">
         <h5>Hi {orderState.first_name}</h5>
         <div>Thanks for your purchase from Genuine & Dignity.</div>
+        <h2>INVOICE ID:</h2>
+        <h2>{orderState.session_id}</h2>
+        <div>YOUR ORDER INFORMATION:</div>
+        <hr />
+        <h5>Order ID: {orderState.order_id}</h5>
+        <h5>Order Date: {orderState.created_at}</h5>
+        <h5>HERE'S WHAT YOU ORDERED:</h5>
         {orderItemsState.map((item, index) => (
           <List key={index}>
             <ListItem>

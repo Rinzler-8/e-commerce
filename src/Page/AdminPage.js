@@ -7,7 +7,6 @@ import {
   actionAddAccountAPI,
   actionDeleteAccountAPI,
   actionFetchAccountAPI,
-  actionDeactivateAccountAPI,
   actionUpdateAccountAPI,
 } from "../Redux/Action/AccountAction";
 import PaginationButton from "../Components/Paging/PaginationButton";
@@ -17,9 +16,7 @@ import AccountFieldSortButton from "../Components/Paging/AccountFieldSortButton"
 import DirectionSortButton from "../Components/Paging/DirectionSortButton";
 import SearchComponent from "../Components/SearchComponent/SearchComponent";
 import ModalCreateNewAccount from "../Components/Admin/CreateNewAccount/ModalCreateNewAccount";
-import { actionFetchAccountDeactivateInfoRedux, actionToggleDeactivateFormRedux } from "../Redux/Action/FormDeactivateAction";
 import { actionFetchAccountUpdateInfoRedux, actionToggleUpdateFormRedux } from "../Redux/Action/FormUpdateAction";
-import ModalDeactivate from "../Components/Admin/DeactivateAccount/ModalDeactivate";
 import ModalUpdateAccount from "../Components/Admin/UpdateAccount/ModalUpdateAccount";
 import { useNavigate } from "react-router-dom";
 import storage from "./../Storage/Storage";
@@ -66,20 +63,7 @@ function AdminPage(props) {
     // Hiển thị formUpdate
     dispatchRedux(actionToggleUpdateFormRedux());
   };
-  // Xử lý khi nhấn nút Deactivate
-  let onHandleDeactivateBtn = (AccountDeactivate) => {
-    console.log("Thông tin của Account cần deactivate:", AccountDeactivate);
-    // Lưu thông tin Account Update lên Redux
-    dispatchRedux(actionFetchAccountDeactivateInfoRedux(AccountDeactivate));
-    // Hiển thị formUpdate
-    dispatchRedux(actionToggleDeactivateFormRedux());
-  };
 
-  // Xử lý Deactivate Account
-  let onHandleDeactivate = (accountDeactivate) => {
-    let id = stateRedux.formDeactivateReducer.accountDeactivateInfo.id;
-    dispatchRedux(actionDeactivateAccountAPI(id, accountDeactivate));
-  };
   // Xử lý Update Account
   let onHandleUpdateAccount = (accountUpdate) => {
     let id = stateRedux.formUpdateReducer.accountUpdateInfo.id;
@@ -121,8 +105,6 @@ function AdminPage(props) {
     <Container>
       {/* Hiển thị modal form update */}
       <ModalUpdateAccount onHandleUpdateAccount={onHandleUpdateAccount} />
-      {/* Hiển thị modal form deactivate */}
-      <ModalDeactivate onHandleDeactivate={onHandleDeactivate} />
       {/* Thông báo thêm mới thành công */}
       <Toast isOpen={showNotificationDelete}>
         <ToastHeader
@@ -145,7 +127,7 @@ function AdminPage(props) {
       <br />
       <SearchComponent onHandleSearch={onHandleSearch} />
       {/* Form kết quả */}
-      <AccountResultForm onHandleEditBtn={onHandleEditBtn} onHandleDeactivateBtn={onHandleDeactivateBtn}></AccountResultForm>
+      <AccountResultForm onHandleEditBtn={onHandleEditBtn} onHandleDelete={onHandleDelete}></AccountResultForm>
 
       {/* Phân trang */}
       <br />

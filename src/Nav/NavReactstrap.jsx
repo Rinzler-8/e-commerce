@@ -81,7 +81,12 @@ function NavReactstrap() {
       <Navbar className={navbar ? "navbar active" : "navbar"} expand="xl" fixed="top">
         <Nav className="" navbar>
           <NavItem>
-            <NavLink href="/admin">Account</NavLink>
+            {localStorage.getItem("role") == "ADMIN" && (
+              <NavItem>
+                <NavLink href="/admin">Account</NavLink>
+                <NavLink href="/products-admin">Product Admin</NavLink>
+              </NavItem>  
+            )}
           </NavItem>
           <NavItem>
             <NavLink href="/products">Product</NavLink>
@@ -95,7 +100,7 @@ function NavReactstrap() {
         <Nav className="" navbar>
           {!localStorage.getItem("token") && (
             <NavItem>
-              <NavLink href={"/login"}>Login</NavLink>
+              <NavLink href="/login">Login</NavLink>
             </NavItem>
           )}
           <NavItem>
@@ -106,14 +111,13 @@ function NavReactstrap() {
             <ShoppingBagOutlinedIcon color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" />
           </Badge>
           <Drawer variant="persistent" anchor="right" open={open}>
-            <DrawerHeader style={{ alignSelf: "start" }}>
+            <DrawerHeader style={{ alignSelf: "start"}}>
               <IconButton onClick={handleDrawerClose}>
                 <ChevronRightIcon />
                 Your Bag ({cart.cartItems.length})
               </IconButton>
             </DrawerHeader>
             <Divider />
-
             {cart.cartItems.map(
               (cartProduct, index) => (
                 (total += cartProduct.total_price),
@@ -160,10 +164,10 @@ function NavReactstrap() {
             <div className="drawer_footer">
               <div>Estimated total: {total}đ</div>
               <span className="minicart_action">
-                <Button className="drawer_btn" href={"/cart"}>
+                <Button className="view_cart" href={"/cart"}>
                   VIEW CART
                 </Button>
-                <Button className="drawer_btn" href={"/checkout"}>
+                <Button className="checkout" href={"/checkout"}>
                   CHECKOUT
                 </Button>
               </span>

@@ -30,8 +30,7 @@ function UpdateInputFormComponent(props) {
             .required("Không được để trống username"),
           Avatar: Yup.string()
             .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
-            .required("Không được để trống avatar"),
+            .max(50, "Must be between 6 and 50 characters"),
           Mobile: Yup.string()
             .min(6, "Must be between 6 and 50 characters")
             .max(50, "Must be between 6 and 50 characters")

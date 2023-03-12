@@ -1,7 +1,6 @@
 import { addAccountNewAPI, deleteAccountAPI, getAccountAPIList, updateAccountAPI, deactivateAccountAPI } from "../../API/AccountAPI";
 import * as Types from "../Contant/AccountActionType";
 import * as Types_Page from "../Contant/PageActionType";
-import { actionToggleDeactivateFormRedux } from "./FormDeactivateAction";
 import { actionToggleUpdateFormRedux } from "./FormUpdateAction";
 import { actionChangePage, actionChangeSortDirection, actionChangeSortField } from "./PageAction";
 
@@ -68,18 +67,6 @@ export const actionUpdateAccountAPI = (id, accountUpdate) => {
       console.log("response sau khi Update Account: ", response);
       dispatch(actionFetchAccountAPI()); // Load lại dữ liệu API
       dispatch(actionToggleUpdateFormRedux()); // Đóng FormUpdate
-    });
-  };
-};
-// Acction Deactivate Account
-export const actionDeactivateAccountAPI = (id, accountDeactivate) => {
-  // console.log("accountUpdate: ", accountUpdate);
-  // console.log("id: ", id);
-  return (dispatch) => {
-    return deactivateAccountAPI(id, accountDeactivate).then((response) => {
-      console.log("response sau khi Update Account: ", response);
-      dispatch(actionFetchAccountAPI()); // Load lại dữ liệu API
-      dispatch(actionToggleDeactivateFormRedux()); // Đóng FormUpdate
     });
   };
 };

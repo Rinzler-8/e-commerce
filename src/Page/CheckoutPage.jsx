@@ -181,28 +181,32 @@ const CheckOutList = () => {
           <Paper style={{ marginRight: "200px" }}>
             <Container className="summary_container">
               <div className="order_summary">order summary</div>
-              {cart.cartItems.map((product, index) => (
-                total += product.total_price,
-                <List key = {index}>
-                  <ListItem>
-                    <div>
-                      <NavLink href={`/products/${product.product_id}`}>
-                        <img alt="Sample" src={product.imageName} style={{ width: 100, height: 100 }} />
-                      </NavLink>
-                    </div>
-                    <span>
-                      <ListItemText>
-                        <NavLink href={`/products/${product.product_id}`} style={{ padding: 0 }}>
-                          <Typography style={{ fontSize: 20 }}>{product.productName}</Typography>
-                        </NavLink>
-                        <Typography>{product.price}đ</Typography>
-                        <Typography>Quantity: {product.quantity}</Typography>
-                      </ListItemText>
-                      <ListItemText>Subtotal: {product.total_price}đ</ListItemText>
-                    </span>
-                  </ListItem>
-                </List>
-              ))}
+              {cart.cartItems.map(
+                (product, index) => (
+                  (total += product.total_price),
+                  (
+                    <List key={index}>
+                      <ListItem>
+                        <div>
+                          <NavLink href={`/products/${product.product_id}`}>
+                            <img alt="Sample" src={product.imageName} style={{ width: 100, height: 100 }} />
+                          </NavLink>
+                        </div>
+                        <span>
+                          <ListItemText>
+                            <NavLink href={`/products/${product.product_id}`} style={{ padding: 0 }}>
+                              <Typography style={{ fontSize: 20 }}>{product.productName}</Typography>
+                            </NavLink>
+                            <Typography>{product.price}đ</Typography>
+                            <Typography>Quantity: {product.quantity}</Typography>
+                          </ListItemText>
+                          <ListItemText>Subtotal: {product.total_price}đ</ListItemText>
+                        </span>
+                      </ListItem>
+                    </List>
+                  )
+                )
+              )}
               <div className="">
                 <div>Estimated total: {total}đ</div>
               </div>

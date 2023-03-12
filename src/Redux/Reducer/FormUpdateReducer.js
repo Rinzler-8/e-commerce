@@ -14,12 +14,20 @@ const formUpdateStatus = (state = initialState, action) => {
         isShowFormUpdate: !state.isShowFormUpdate,
       };
     case Types.FETCH_ACCOUNT_UPDATE_INFO:
-      console.log("account update payload: ", action.payload);
       return {
         ...state,
         accountUpdateInfo: action.payload,
       };
     case Types.FETCH_PRODUCT_UPDATE_INFO:
+      console.log("product update payload: ", action.payload);
+
+      return {
+        ...state,
+        productUpdateInfo: action.payload,
+      };
+    case Types.FETCH_ORDER_UPDATE_INFO:
+      console.log("product update payload: ", action.payload);
+
       return {
         ...state,
         productUpdateInfo: action.payload,

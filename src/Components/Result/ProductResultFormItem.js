@@ -30,7 +30,9 @@ function ProductResultFormItem(props) {
           <td>{product.info}</td>
           <td>{product.detail}</td>
           <td>{product.ratingStar}</td>
-          <td>{product.imageName}</td>
+          <td>
+            <img alt="Sample" src={product.imageName} style={{ width: "150px", height: "150px" }} />
+          </td>
           <td>{product.manufacturerName}</td>
           <td>{product.categoryName}</td>
           <td>

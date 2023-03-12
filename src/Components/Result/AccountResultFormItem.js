@@ -43,7 +43,7 @@ function AccountResultFormItem(props) {
           <td>{account.bandays}</td>
           <td>
             <Button color="danger" onClick={() => handleDeactivateButton(account)}>
-              Deactivate
+              Delete
             </Button>
           </td>
           <td>
