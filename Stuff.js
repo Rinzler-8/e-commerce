@@ -43,6 +43,8 @@ Final project:
       => SOLUTION: sau khi checkoutAPI, dispatch actionGetOrderInfoRedux với response của checkoutAPI để checkoutReducer có dữ liệu
       (đã có redux-persist ở trên để lưu reducer state)
    - Muốn dùng action thì phải có useDispatch
+   - this.passwordEncoder is null khi reset password ?
+      => SOLUTION: đổi từ private PasswordEncoder passwordEncoder -> BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
 
 2. FEATURE
  * checkout: 
@@ -55,6 +57,29 @@ Final project:
     + mỗi order sẽ phân biệt theo session_id. Lấy orderInfo theo orderId, orderItems theo session_id (hoặc order_id)
 
 3. REMAININGS:
+ * User:
    - sort
    - danh sách order
    - phân quyền
+   - đặt điều kiện cho các function
+   - delete account
+   - 
+ * Admin:
+   1. Manage account
+   •  Log In/Log Out
+   * View account list
+   * Create account
+   * Edit Account
+   * Delete account
+   •  Change Password
+   2. Manage product
+   •  View product
+   •  Add a new product
+   •  Edit a product
+   •  Delete a product
+   •  Search for a product 
+   3. Manage order
+   •  View order
+   •  Search order
+   •  Change order’s status
+   •  Cancel Order

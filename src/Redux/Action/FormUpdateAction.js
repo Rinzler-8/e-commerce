@@ -21,3 +21,11 @@ export const actionFetchProductUpdateInfoRedux = (productUpdate) => {
     payload: productUpdate,
   };
 };
+
+// Lưu thông tin của Account Update lên redux
+export const actionFetchOrderUpdateInfoRedux = (orderUpdate) => {
+  return {
+    type: Types.FETCH_ORDER_UPDATE_INFO,
+    payload: orderUpdate,
+  };
+};

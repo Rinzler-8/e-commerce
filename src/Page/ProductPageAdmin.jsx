@@ -59,8 +59,7 @@ function ProductPage(props) {
 
   // Xử lý Update Product
   let onHandleUpdateProduct = (ProductUpdate_New) => {
-    console.log("ProductUpdate_New:", ProductUpdate_New);
-    let id = stateRedux.formUpdateReducer.productUpdateInfo.id;
+    let id = stateRedux.formUpdateReducer.productUpdateInfo.product_id;
     dispatchRedux(actionUpdateProductAPI(id, ProductUpdate_New));
   };
 
@@ -122,8 +121,7 @@ function ProductPage(props) {
       <br />
       <SearchComponent onHandleSearch={onHandleSearch} />
       {/* Form kết quả */}
-      {/* <ProductResultForm onHandleDelete={onHandleDelete} onHandleEdit={onHandleEdit}></ProductResultForm> */}
-      <ProductList/>
+      <ProductResultForm onHandleDelete={onHandleDelete} onHandleEdit={onHandleEdit}></ProductResultForm>
 
       {/* Phân trang */}
       <br />
