@@ -32,6 +32,13 @@ UPDATE `shop`.`product` SET `product_image_name` = 'https://www.reliancedigital.
 
 
 --------------------------------------------------------------------------------------------------------------------------
+Zalo:
+1. UI:
+   - Đổi ngôn ngữ
+2. Function:
+
+
+----------------------------------------------------------------------------------------------------
 Final project:
 1. BUG:
    - Dùng redux-persist để lưu redux state => có thể refresh trang product details mà không bị mất dữ liệu reducer

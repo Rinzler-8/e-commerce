@@ -3,8 +3,9 @@ import LoginComponent from "./../Components/Login/LoginComponent";
 import { checkLoginAPI } from "../API/LoginAPI";
 import storage from "../Storage/Storage";
 import { Outlet, Navigate, useNavigate } from "react-router-dom";
-
-
+import { Grid, Box, Typography, Rating, Item, Paper, TextField } from "@mui/material";
+import Register from "../Components/Register/RegisterComponent";
+import "./../../src/css/LoginPage.css";
 import "./../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,7 +30,7 @@ function LoginPage(props) {
           // Lưu thông tin Account vào LocalStorage để sử dụng về sau
           storage.setUserInfo(accountLoginSaveToStorage);
           storage.setToken(accountLoginSaveToStorage);
-          console.log('ROLE: ', localStorage.getItem("role"));
+          console.log("ROLE: ", localStorage.getItem("role"));
           toast.success("Login thành công.", {
             position: "top-right",
             autoClose: 1000,
@@ -66,29 +67,26 @@ function LoginPage(props) {
       });
   };
 
-  // useEffect(() => {
-  //   let accountLoginSaveToStorage = storage.getUserInfo();
-  //   if (accountLoginSaveToStorage) {
-  //     // TH này khi User đã login sẽ chuyển tới trang home
-  //      navigate("/admin");
-  //   }
-  //   else {
-  //      navigate("/login");
-  //   }
-  // }, []);
   useEffect(() => {
     if (localStorage.getItem("token")) {
-       navigate("/");
-    }
-    else {
-       navigate("/login");
+      navigate("/");
+    } else {
+      navigate("/login");
     }
   }, []);
   return (
-    <div>
-      <LoginComponent handleLogin={handleLogin} />
-      <ToastContainer />;
-    </div>
+    <Grid container style={{ marginTop: "90px" }}>
+      {/* SHIPPING INFORMATION */}
+      <Grid item md={6}>
+        <LoginComponent handleLogin={handleLogin} />
+        <ToastContainer />;
+      </Grid>
+      <div className="vl"></div>
+      {/* ORDER SUMMARY */}
+      <Grid item md={5.9}>
+        <Register />
+      </Grid>
+    </Grid>
   );
 }
 

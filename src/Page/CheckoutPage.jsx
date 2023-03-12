@@ -57,6 +57,8 @@ const CheckOutList = () => {
   if (cart) {
     return (
       <Grid container style={{ marginTop: "90px", backgroundColor: "lightgray" }}>
+
+      {/* SHIPPING INFORMATION */}
         <Grid item md={7}>
           <Paper style={{ marginRight: "80px", marginLeft: "300px", marginTop: "80px" }}>
             <Formik
@@ -128,7 +130,6 @@ const CheckOutList = () => {
                           <h3 className="shipping">SHIPPING</h3>
                         </span>
 
-                        {/* <TextField fullWidth id="first_name" name="first_name" label="firstName" type="text"/> */}
                         <Field fullWidth name="first_name" type="text" label="Tên" component={CustomInput} />
                         <Field fullWidth name="last_name" type="text" placeholder="Nhập Họ" label="Họ:" component={CustomInput} />
                         <Field
@@ -177,6 +178,8 @@ const CheckOutList = () => {
             <ToastContainer />
           </Paper>
         </Grid>
+
+        {/* ORDER SUMMARY */}
         <Grid item md={5}>
           <Paper style={{ marginRight: "200px" }}>
             <Container className="summary_container">

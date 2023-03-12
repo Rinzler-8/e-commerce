@@ -1,6 +1,6 @@
 import React from "react";
 
-import Register from "./../Components/Register/Register";
+import Register from "../Components/Register/RegisterComponent";
 
 function RegisterPage(props) {
   return (

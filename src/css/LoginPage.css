@@ -1,0 +1,16 @@
+.vl {
+    border-left: 1px solid lightgray;
+    height: 500px;
+  }
+
+  .checkout {
+    /* Positioning */
+  
+    /* Display & Box  model */
+    border-radius: 0;
+    padding: 10px 24px;
+    /* Color */
+    border-color: rgb(3, 3, 172);
+    background-color: rgb(3, 3, 172);
+    /* Transition */
+  }
