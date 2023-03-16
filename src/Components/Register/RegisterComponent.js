@@ -29,7 +29,7 @@ function RegisterComponent(props) {
           email: "",
           mobile: "",
           password: "",
-          ConfirmPassword: "",
+          confirmPassword: "",
         }}
         validationSchema={Yup.object({
           username: Yup.string()
@@ -53,16 +53,16 @@ function RegisterComponent(props) {
             }),
 
           password: Yup.string().min(6, "Must be between 6 and 50 characters").max(50, "Must be between 6 and 50 characters").required("The field is required"),
-          ConfirmPassword: Yup.string()
+          confirmPassword: Yup.string()
             .required("The field is required")
             .when("password", {
               is: (val) => (val && val.length > 0 ? true : false),
               then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp."),
             }),
           mobile: Yup.string()
-            .min(6, "Must be between 6 and 10 characters")
-            .max(10, "Must be between 6 and 10 characters")
-            .required("Không được để trống số điện thoại"),
+            .min(10, "Must be 10 numbers")
+            .max(10, "Must be 10 numbers")
+            .required("The field is required"),
         })}
         onSubmit={(values) => {
           try {
@@ -115,7 +115,7 @@ function RegisterComponent(props) {
                     fullWidth
                     className="input"
                     name="mobile"
-                    type="text"
+                    type="number"
                     placeholder="Nhập số điện thoại"
                     label="Số điện thoại:"
                     component={CustomInput}
@@ -133,7 +133,7 @@ function RegisterComponent(props) {
                   <Field
                     fullWidth
                     className="input"
-                    name="ConfirmPassword"
+                    name="confirmPassword"
                     type={isShown ? "text" : "password"}
                     placeholder="Nhập lại Mật Khẩu"
                     label="Nhập lại Mật Khẩu:"

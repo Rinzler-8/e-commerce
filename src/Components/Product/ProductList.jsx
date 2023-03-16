@@ -14,7 +14,7 @@ const ProductList = () => {
   const handleAddToCart = (id, cartItem) => {
     dispatchRedux(actionAddToCartAPI(id, cartItem));
   };
-
+// console.log("image: ", listProduct)
   // Khai báo item hiển thị dữ liệu
   // Kiểm tra nếu listProduct !="" sẽ hiển thị dữ liệu
   if (listProduct) {
@@ -24,7 +24,7 @@ const ProductList = () => {
           <Col className="bg" sm="4" xs="6" key={index} align="center">
             <Box>
               <NavLink href={`/products/${product.product_id}`}>
-                <img alt="Sample" src={product.imageName} style={{ paddingTop: 30 }} />
+                <img alt="Sample" src={require('../../Assets/Product/' + product.imageName)} style={{ paddingTop: 30 }} />
                 <CardContent>
                   <CardTitle tag="h5">{product.name}</CardTitle>
                   <CardText>{product.price}</CardText>

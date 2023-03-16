@@ -15,9 +15,9 @@ function ModalCreateNewAccount(props) {
   return (
     <Container>
       <br />
-      {/* <Button color="primary" onClick={toggle}>
+      <Button color="primary" onClick={toggle}>
         Create New Account
-      </Button> */}
+      </Button>
       <Modal isOpen={showModal} toggle={toggle}>
         <ModalHeader>
           <h3>Create New Account</h3>

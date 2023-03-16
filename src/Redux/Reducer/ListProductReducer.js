@@ -5,8 +5,8 @@ var initialState = [];
 const ListProduct = (state = initialState, action) => {
   switch (action.type) {
     case Types.FETCH_PRODUCT_LIST:
-      // console.log("payload: ", action.payload);
       state = action.payload;
+      // console.log("payload: ", state);
       return [...state];
     case Types.DELETE_PRODUCT:
       let idDel = action.payload;

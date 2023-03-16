@@ -10,7 +10,7 @@ export const actionFetchProductAPI = (filter) => {
       // console.log("reponseAPI:", response);
       dispatch(actionFetchProductRedux(response.content));
       dispatch(actionSetTotalPageProductRedux(response.totalPages));
-      // console.log("Products Redux: ", dispatch(actionFetchProductRedux(response.content)));
+      // console.log("Products Redux: ", response);
     });
   };
 };
@@ -18,7 +18,7 @@ export const actionFetchSingleProductAPI = (id) => {
   return (dispatch) => {
     return getSingleProductAPI(id).then((response) => {
       dispatch(actionFetchSingleProductRedux(response));
-      console.log("single Product Redux: ", dispatch(actionFetchSingleProductRedux(response)));
+      // console.log("single Product Redux: ", response);
     });
   };
 };

@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap";
 import { Link, Route, Routes, useParams } from "react-router-dom";
 import { Card, CardContent, Grid, Box, Button } from "@mui/material";
 import { Container } from "reactstrap";
-import { useEffect } from "react";
 import { actionFetchSingleProductAPI } from "../../Redux/Action/ProductAction";
 import { actionAddToCartAPI, actionAddItemQty, actionDecItemQty, actionUpdateCartAPI } from "../../Redux/Action/CartAction";
 import "../../../src/css/ProductDetailPage.css";
+import queryString from "query-string";
 
 function ProductDetail(props) {
   let stateRedux = useSelector((state) => state);
@@ -26,13 +26,17 @@ function ProductDetail(props) {
     alert("Them san pham vao gio thanh cong");
     window.location.reload();
   };
+  console.log("product: ", product);
   useEffect(() => {
-    if (id && id !== "") dispatchRedux(actionFetchSingleProductAPI(prodId.id));
-  }, [id]);
+    dispatchRedux(actionFetchSingleProductAPI(prodId.id));
+  }, [prodId.id]);
+  // dispatchRedux(actionFetchSingleProductAPI(prodId.id));
   return (
     <Col sm="4" style={{ padding: 30 }}>
       <Box>
-        <img alt="Sample" src={product.imageName} style={{ paddingTop: 30 }} />
+        {/* <img alt="Sample" src= {require('../../Assets/Product/' + product.imageName)} style={{ paddingTop: 30 }} /> */}
+        <img alt="Sample" src= {product.imageName} style={{ paddingTop: 30 }} />
+        {/* <img alt="Sample" src= "../../Assets/Product/prod1.png" style={{ paddingTop: 30 }} /> */}
         <CardBody>
           <CardTitle tag="h5">{product.name}</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">

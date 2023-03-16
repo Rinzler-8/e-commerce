@@ -7,7 +7,7 @@ import NotFoundPage from "../Page/NotFoundPage";
 import ProductPage from "./../Page/ProductPage";
 import CheckoutPage from "./../Page/CheckoutPage";
 import CheckOutSuccess from "../Page/CheckoutSuccessPage";
-import ForgotPasswordPage from "./../Page/ForgotPasswordPage";
+import ForgotPasswordPage from "./../Page/ForgotPassPage";
 import { AdminAuth, WithAuth, WithNav, WithoutNav } from "../HOC/Authentication";
 import ProductDetail from "../Components/Product/ProductDetail";
 import CartPage from "../Page/CartPage";

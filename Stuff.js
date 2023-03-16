@@ -44,14 +44,23 @@ Final project:
    - Dùng redux-persist để lưu redux state => có thể refresh trang product details mà không bị mất dữ liệu reducer
    - JPA query: @Query("Select item FROM OrderItems item WHERE item.order_id=:order_id") => OrderItems là entity được khai báo 
    ở be chứ không phải từ database.
-   - fasterxml.jackson.databind: thêm jsonignore dưới entity
-   - Không lấy được dữ liệu sau khi checkout ?
+   - BE: fasterxml.jackson.databind: thêm jsonignore dưới entity
+   - FE: Không lấy được dữ liệu sau khi checkout ?
       => vì initial state rỗng nên không có khả năng lấy order_id, session_id. 
       => SOLUTION: sau khi checkoutAPI, dispatch actionGetOrderInfoRedux với response của checkoutAPI để checkoutReducer có dữ liệu
       (đã có redux-persist ở trên để lưu reducer state)
-   - Muốn dùng action thì phải có useDispatch
-   - this.passwordEncoder is null khi reset password ?
+   - FE: Muốn dùng action thì phải có useDispatch
+   - BE: this.passwordEncoder is null khi reset password ?
       => SOLUTION: đổi từ private PasswordEncoder passwordEncoder -> BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
+   - FE: không lấy được ảnh trong product detail ?
+      + useEffect đang lấy điều kiện userId để render
+      + <img alt="Sample" src={require('../../Assets/Product/' + product.imageName)}/> không chạy được vì:
+      => Based on how the packager works, this isn't really possible with require. Packaging happens once before runtime so those variables don't have values yet.
+      +
+   - Consider defining a bean of type 'com.vti.security.service.IOrderService' in your configuration.
+   => 
+
+
 
 2. FEATURE
  * checkout: 
@@ -66,11 +75,15 @@ Final project:
 3. REMAININGS:
  * User:
    - sort
-   - danh sách order
+   - danh sách order (get all orders)
    - phân quyền
    - đặt điều kiện cho các function
    - delete account
-   - 
+   - user edit account
+   - user change password
+   - forgot/reset password
+
+   
  * Admin:
    1. Manage account
    •  Log In/Log Out

@@ -50,7 +50,7 @@ function HomePage() {
           <Col className="bg" sm="4" xs="6" key={index} align="center">
             <Box>
               <NavLink href={`/products/${product.product_id}`}>
-                <img alt="Sample" src={product.imageName} />
+                <img alt="Sample" src={require('../Assets/Product/' + product.imageName)} />
                 <CardBody>
                   <CardTitle tag="h5">{product.name}</CardTitle>
                   <CardSubtitle className="mb-2 text-muted" tag="h6">
