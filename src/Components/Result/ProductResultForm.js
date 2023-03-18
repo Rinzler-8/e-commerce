@@ -18,7 +18,6 @@ function ProductResultForm(props) {
             <th>Detail</th>
             <th>Rating Star</th>
             <th>Image</th>
-            <th>Manufacturer</th>
             <th>Category</th>
             <th>Edit</th>
             <th>Delete</th>

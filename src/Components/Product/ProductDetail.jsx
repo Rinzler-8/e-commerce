@@ -35,8 +35,7 @@ function ProductDetail(props) {
     <Col sm="4" style={{ padding: 30 }}>
       <Box>
         {/* <img alt="Sample" src= {require('../../Assets/Product/' + product.imageName)} style={{ paddingTop: 30 }} /> */}
-        <img alt="Sample" src= {product.imageName} style={{ paddingTop: 30 }} />
-        {/* <img alt="Sample" src= "../../Assets/Product/prod1.png" style={{ paddingTop: 30 }} /> */}
+        <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} style={{ paddingTop: 30 }} />
         <CardBody>
           <CardTitle tag="h5">{product.name}</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">

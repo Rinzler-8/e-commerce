@@ -1,4 +1,4 @@
-import { addAccountNewAPI, deleteAccountAPI, getAccountAPIList, updateAccountAPI, deactivateAccountAPI } from "../../API/AccountAPI";
+import { addAccountNewAPI, deleteAccountAPI, getAccountAPIList, updateAccountAPI, getSingleAccountAPI } from "../../API/AccountAPI";
 import * as Types from "../Contant/AccountActionType";
 import * as Types_Page from "../Contant/PageActionType";
 import { actionToggleUpdateFormRedux } from "./FormUpdateAction";
@@ -15,11 +15,28 @@ export const actionFetchAccountAPI = (filter) => {
   };
 };
 
+export const actionFetchSingleAccountAPI = (id) => {
+  return (dispatch) => {
+    return getSingleAccountAPI(id).then((response) => {
+      dispatch(actionFetchSingleAccountRedux(response));
+      // console.log("single Product Redux: ", response);
+    });
+  };
+};
+
 // Dispath action này tới redux để lưu list Account vào redux
 export const actionFetchAccountRedux = (accounts) => {
   return {
     type: Types.FETCH_ACCOUNT_LIST,
     payload: accounts,
+  };
+};
+
+// Dispath action này tới redux để lưu 1 Account vào redux
+export const actionFetchSingleAccountRedux = (account) => {
+  return {
+    type: Types.FETCH_SINGLE_ACCOUNT,
+    payload: account,
   };
 };
 

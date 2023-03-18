@@ -50,7 +50,7 @@ function HomePage() {
           <Col className="bg" sm="4" xs="6" key={index} align="center">
             <Box>
               <NavLink href={`/products/${product.product_id}`}>
-                <img alt="Sample" src={require('../Assets/Product/' + product.imageName)} />
+                <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} />
                 <CardBody>
                   <CardTitle tag="h5">{product.name}</CardTitle>
                   <CardSubtitle className="mb-2 text-muted" tag="h6">

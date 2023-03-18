@@ -23,12 +23,12 @@ function DeactivateInputFormComponent(props) {
         }}
         validationSchema={Yup.object({
           Fullname: Yup.string()
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
+            .min(6, "Phải từ 6 đến 50 ký tự.")
+            .max(50, "Phải từ 6 đến 50 ký tự.")
             .required("Không được để trống fullname"),
           Avatar: Yup.string()
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
+            .min(6, "Phải từ 6 đến 50 ký tự.")
+            .max(50, "Phải từ 6 đến 50 ký tự.")
             .required("Không được để trống avatar"),
         })}
         onSubmit={(values) => {

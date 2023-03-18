@@ -47,7 +47,7 @@ const CheckOutSuccess = () => {
             <ListItem>
               <div>
                 <NavLink href={`/products/${item.product_id}`}>
-                  <img alt="Sample" src={item.imageName} />
+                  <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + item.imageName} />
                 </NavLink>
               </div>
               <span>

@@ -13,6 +13,8 @@ import ProductDetail from "../Components/Product/ProductDetail";
 import CartPage from "../Page/CartPage";
 import TestPage from "../Page/TestPage";
 import ProductPageAdmin from "../Page/ProductPageAdmin";
+import AccountPage from "../Page/AccountPage";
+import ResetPassPage from "../Page/ResetPassPage";
 
 export const routes = (
   <Routes>
@@ -28,6 +30,7 @@ export const routes = (
       <Route element={<WithAuth />}>
         <Route path="/" element={<HomePage />} />
       </Route>
+      <Route path="/accounts/:id" element={<AccountPage />} />
       <Route path="/products" element={<ProductPage />} />
       <Route path="/products/:id" element={<ProductDetail />} />
       <Route path="/cart" element={<CartPage />} />
@@ -35,7 +38,9 @@ export const routes = (
       <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
       <Route path="/test" element={<TestPage />} />
       <Route path="*" element={<NotFoundPage />} />
-      <Route path="/forgot" element={<ForgotPasswordPage />} />
+      <Route path="/forgotPass" element={<ForgotPasswordPage />} />
+      <Route path="/resetPass/:token" element={<ResetPassPage />} />
+      <Route path="/changePass" element={<ForgotPasswordPage />} />
     </Route>
   </Routes>
 );

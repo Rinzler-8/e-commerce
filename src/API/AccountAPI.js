@@ -32,6 +32,12 @@ const getAccountAPIList = (filter) => {
   return api("GET", url, null, null);
 };
 
+// get single product
+const getSingleAccountAPI = (id) => {
+  let url = "v1/accounts/" + id;
+  return api("GET", url, null, null);
+};
+
 // Check exist by Email
 const getEmailExists = (email) => {
   let url = "v1/accounts/email/" + email;
@@ -66,4 +72,4 @@ const deactivateAccountAPI = (id, accountDeactivate) => {
   return api("PUT", url, accountDeactivate);
 };
 
-export { getAccountAPIList, getEmailExists, getUsernameExists, addAccountNewAPI, deleteAccountAPI, updateAccountAPI, deactivateAccountAPI };
+export { getAccountAPIList, getEmailExists, getUsernameExists, addAccountNewAPI, deleteAccountAPI, updateAccountAPI, deactivateAccountAPI, getSingleAccountAPI };

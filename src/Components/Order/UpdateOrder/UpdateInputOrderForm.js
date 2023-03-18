@@ -10,15 +10,12 @@ import { useSelector } from "react-redux";
 function UpdateInputProductForm(props) {
   let { onHandleUpdateProduct } = props;
 
-  let listManufacturer = useSelector((state) => state.listManufacturerReducer);
-
   let listCategory = useSelector((state) => state.listCategoryReducer);
 
   // Lấy thông tin AccountUpdateInfo từ Redux để fill dữ liệu
   let productUpdateInfo = useSelector((state) => state.formUpdateReducer.productUpdateInfo);
 
   // Tìm depid và posid để fill vào thẻ select
-  let manufacturerIdUpdate = listManufacturer.find((man) => man.name === productUpdateInfo.manufacturerName).id; //manufacturerName from ProductDto
   let categoryIdUpdate = listCategory.find((cat) => cat.name === productUpdateInfo.categoryName).id;
 
   return (
@@ -27,12 +24,10 @@ function UpdateInputProductForm(props) {
       <Formik
         initialValues={{
           Name: productUpdateInfo.name,
-          Manufacturer: manufacturerIdUpdate,
           Category: categoryIdUpdate,
         }}
         validationSchema={Yup.object({
-          Name: Yup.string().min(6, "Must be between 6 and 50 characters").max(50, "Must be between 6 and 50 characters").required("Required"),
-          Manufacturer: Yup.number().required("Pls, Select a Manufacturer"),
+          Name: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Required"),
           Category: Yup.number().required("Pls, Select a Category"),
         })}
         onSubmit={(values) => {
@@ -40,7 +35,6 @@ function UpdateInputProductForm(props) {
             //FormForUpdating(backend): values.name
             name: values.Name,
             categoryId: values.Category,
-            manufacturerId: values.Manufacturer,
           };
           console.log("Thông tin Product Sau khi chỉnh sửa: ", productUpdateNew);
           onHandleUpdateProduct(productUpdateNew);
@@ -61,14 +55,6 @@ function UpdateInputProductForm(props) {
                 <Form>
                   {/* name */}
                   <Field name="Name" type="text" placeholder="Enter name" label="name:" component={InputComponent} />
-                  {/* Manufacturer */}
-                  <Field
-                    name="Manufacturer"
-                    placeholder="Select a Manufacturer"
-                    label="Manufacturer:"
-                    listItem={listManufacturer}
-                    component={SelectComponent}
-                  />
                   {/* Category */}
                   <Field name="Category" placeholder="Select a Category" label="Category:" listItem={listCategory} component={SelectComponent} />
                   <br />

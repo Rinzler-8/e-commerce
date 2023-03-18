@@ -19,7 +19,7 @@ import ModalCreateNewAccount from "../Components/Admin/CreateNewAccount/ModalCre
 import { actionFetchAccountUpdateInfoRedux, actionToggleUpdateFormRedux } from "../Redux/Action/FormUpdateAction";
 import ModalUpdateAccount from "../Components/Admin/UpdateAccount/ModalUpdateAccount";
 import { useNavigate } from "react-router-dom";
-import storage from "./../Storage/Storage";
+import storage from "../Storage/Storage";
 
 function AdminPage(props) {
   let stateRedux = useSelector((state) => state);

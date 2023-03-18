@@ -76,8 +76,8 @@ const CheckOutList = () => {
                 delivery_address: Yup.string().required("Không được để trống address"),
 
                 mobile: Yup.string()
-                  .min(6, "Must be between 6 and 10 characters")
-                  .max(10, "Must be between 6 and 10 characters")
+                  .min(6, "Phải từ 6 đến 10 ký tự.")
+                  .max(10, "Phải từ 6 đến 10 ký tự.")
                   .required("Không được để trống số điện thoại"),
               })}
               onSubmit={(values) => {
@@ -192,7 +192,7 @@ const CheckOutList = () => {
                       <ListItem>
                         <div>
                           <NavLink href={`/products/${product.product_id}`}>
-                            <img alt="Sample" src={product.imageName} style={{ width: 100, height: 100 }} />
+                            <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} style={{ width: 100, height: 100 }} />
                           </NavLink>
                         </div>
                         <span>

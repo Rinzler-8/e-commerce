@@ -12,10 +12,6 @@ function CreateInputFormComponent(props) {
 
   // State quản lý đóng mở thông báo.
   let [showNotificationCreate, setShowNotificationCreate] = useState(false);
-  // Khai báo List Manufacturer chứa danh sách phòng ban Fake
-
-  let listManufacturer = useSelector((state) => state.listManufacturerReducer);
-  // Khai báo List Manufacturer chứa danh sách positon Fake
 
   let listCategory = useSelector((state) => state.listCategoryReducer);
   return (
@@ -41,23 +37,21 @@ function CreateInputFormComponent(props) {
           Detail: "",
           RatingStar: "",
           ProductImage: "",
-          Manufacturer: "",
           Category: "",
         }}
         validationSchema={Yup.object({
           Name: Yup.string()
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
+            .min(6, "Phải từ 6 đến 50 ký tự.")
+            .max(50, "Phải từ 6 đến 50 ký tự.")
             .required("Khong duoc de trong ten san pham"),
           Price: Yup.string()
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
+            .min(6, "Phải từ 6 đến 50 ký tự.")
+            .max(50, "Phải từ 6 đến 50 ký tự.")
             .required("Khong duoc de trong gia san pham"),
-          Info: Yup.string().min(6, "Must be between 6 and 50 characters").max(50, "Must be between 6 and 50 characters").required("Required"),
-          Detail: Yup.string().min(6, "Must be between 6 and 50 characters").max(50, "Must be between 6 and 50 characters").required("Required"),
+          Info: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Required"),
+          Detail: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Required"),
           RatingStar: Yup.string().max(1, "Only 1 to 5 stars"),
-          ProductImage: Yup.string().min(6, "Must be between 6 and 50 characters").max(50, "Must be between 6 and 50 characters"),
-          Manufacturer: Yup.number().required("Pls, Select a Manufacturer"),
+          ProductImage: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự."),
           Category: Yup.number().required("Pls, Select a Category"),
         })}
         onSubmit={(values, actions) => {
@@ -69,7 +63,6 @@ function CreateInputFormComponent(props) {
             detail: values.Detail,
             ratingStar: values.RatingStar,
             imageName: values.ProductImage,
-            manufacturerId: values.Manufacturer,
             categoryId: values.Category,
           };
           console.log("Thông tin Product tạo mới: ", productCreateNew);
@@ -112,14 +105,6 @@ function CreateInputFormComponent(props) {
                   {/* ProductImage */}
                   <Field name="ProductImage" type="text" placeholder="Enter ProductImage" label="ProductImage:" component={InputComponent} />
 
-                  {/* Manufacturer */}
-                  <Field
-                    name="Manufacturer"
-                    placeholder="Select a Manufacturer"
-                    label="Manufacturer:"
-                    listItem={listManufacturer}
-                    component={SelectComponent}
-                  />
                   {/* Category */}
                   <Field name="Category" placeholder="Select a Category" label="Category:" listItem={listCategory} component={SelectComponent} />
                   <br />

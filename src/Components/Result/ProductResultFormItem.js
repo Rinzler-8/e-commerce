@@ -33,7 +33,6 @@ function ProductResultFormItem(props) {
           <td>
             <img alt="Sample" src={product.imageName} style={{ width: "150px", height: "150px" }} />
           </td>
-          <td>{product.manufacturerName}</td>
           <td>{product.categoryName}</td>
           <td>
             <Button color="warning" onClick={() => handleEditButton(product)}>

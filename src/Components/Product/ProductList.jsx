@@ -24,7 +24,7 @@ const ProductList = () => {
           <Col className="bg" sm="4" xs="6" key={index} align="center">
             <Box>
               <NavLink href={`/products/${product.product_id}`}>
-                <img alt="Sample" src={require('../../Assets/Product/' + product.imageName)} style={{ paddingTop: 30 }} />
+                <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} style={{ paddingTop: 30 }} />
                 <CardContent>
                   <CardTitle tag="h5">{product.name}</CardTitle>
                   <CardText>{product.price}</CardText>

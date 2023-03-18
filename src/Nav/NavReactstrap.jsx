@@ -85,6 +85,7 @@ function NavReactstrap() {
               <NavItem>
                 <NavLink href="/admin">Account</NavLink>
                 <NavLink href="/products-admin">Product Admin</NavLink>
+                <NavLink href="/forgotPass">Forgot Password</NavLink>
               </NavItem>  
             )}
           </NavItem>
@@ -127,7 +128,7 @@ function NavReactstrap() {
                       <ListItem>
                         <div>
                           <NavLink href={`/products/${cartProduct.product_id}`}>
-                            <img alt="Sample" src={cartProduct.imageName} />
+                            <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + cartProduct.imageName} />
                           </NavLink>
                         </div>
                         <span>
@@ -136,7 +137,7 @@ function NavReactstrap() {
                               <Typography style={{ fontSize: 20 }}>{cartProduct.productName}</Typography>
                             </NavLink>
                             <Typography>{cartProduct.price}đ</Typography>
-                            <Typography>{cartProduct.info}đ</Typography>
+                            <Typography>{cartProduct.info}</Typography>
                           </ListItemText>
                           <span>
                             <Button disabled={cartProduct.quantity <= 1} onClick={() => decQty(cartProduct)} className="qty_btn">

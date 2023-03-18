@@ -57,8 +57,9 @@ Final project:
       + <img alt="Sample" src={require('../../Assets/Product/' + product.imageName)}/> không chạy được vì:
       => Based on how the packager works, this isn't really possible with require. Packaging happens once before runtime so those variables don't have values yet.
       +
-   - Consider defining a bean of type 'com.vti.security.service.IOrderService' in your configuration.
-   => 
+      => SOLUTION: lấy ảnh từ server (be)
+   - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near
+   => Đổi tên table trong entity ("Order" => "`Order`")
 
 
 

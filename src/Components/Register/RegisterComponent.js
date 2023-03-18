@@ -33,9 +33,9 @@ function RegisterComponent(props) {
         }}
         validationSchema={Yup.object({
           username: Yup.string()
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
-            .required("The field is required")
+            .min(6, "Phải từ 6 đến 50 ký tự.")
+            .max(50, "Phải từ 6 đến 50 ký tự.")
+            .required("Trường này là bắt buộc.")
             .test("checkUniqueUsername", "Tên người dùng đã được đăng ký.", async (username) => {
               // call api
               const isExists = await getUsernameExists(username);
@@ -43,18 +43,18 @@ function RegisterComponent(props) {
             }),
 
           email: Yup.string()
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
-            .required("The field is required")
+            .min(6, "Phải từ 6 đến 50 ký tự.")
+            .max(50, "Phải từ 6 đến 50 ký tự.")
+            .required("Trường này là bắt buộc.")
             .test("checkUniqueEmail", "Email đã được đăng ký.", async (email) => {
               // call api
               const isExists = await getEmailExists(email);
               return !isExists;
             }),
 
-          password: Yup.string().min(6, "Must be between 6 and 50 characters").max(50, "Must be between 6 and 50 characters").required("The field is required"),
+          password: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Trường này là bắt buộc."),
           confirmPassword: Yup.string()
-            .required("The field is required")
+            .required("Trường này là bắt buộc.")
             .when("password", {
               is: (val) => (val && val.length > 0 ? true : false),
               then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp."),
@@ -62,7 +62,7 @@ function RegisterComponent(props) {
           mobile: Yup.string()
             .min(10, "Must be 10 numbers")
             .max(10, "Must be 10 numbers")
-            .required("The field is required"),
+            .required("Trường này là bắt buộc."),
         })}
         onSubmit={(values) => {
           try {
@@ -84,8 +84,15 @@ function RegisterComponent(props) {
             });
             setTimeout(() => navigate("/login"), 3000);
           } catch (error) {
-            // alert("Hãy kiểm tra lại thông tin!");
-            // navigate("/login");
+            toast.error("Đã có lỗi! Vui lòng thử lại.", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
           }
         }}
         validateOnChange={true}

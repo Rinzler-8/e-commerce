@@ -6,6 +6,8 @@ export const SHOW_ACCOUNT_FORM = "SHOW_ACCOUNT_FORM";
 
 export const CLOSE_ACCOUNT_FORM = "CLOSE_ACCOUNT_FORM";
 
+export const FETCH_SINGLE_ACCOUNT = "FETCH_SINGLE_ACCOUNT";
+
 // user login info
 export const USER_LOGIN_INFO = "USER_LOGIN_INFO";
 export const TOKEN_INFO = "TOKEN_INFO";

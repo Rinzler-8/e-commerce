@@ -21,16 +21,16 @@ function LoginComponent(props) {
         </div> */}
       <Formik
         initialValues={{
-          username: "",
+          email: "",
           password: "",
         }}
         validationSchema={Yup.object({
-          username: Yup.string().min(6, "Must be between 6 and 50 characters").max(50, "Must be between 6 and 50 characters").required("The field is required"),
-          password: Yup.string().min(6, "Must be between 6 and 50 characters").max(50, "Must be between 6 and 50 characters").required("The field is required"),
+          email: Yup.string().required("Trường này là bắt buộc."),
+          password: Yup.string().required("Trường này là bắt buộc."),
         })}
         onSubmit={(values) => {
           let accountLogin = {
-            username: values.username,
+            email: values.email,
             password: values.password,
           };
           handleLogin(accountLogin);
@@ -55,14 +55,14 @@ function LoginComponent(props) {
                     <hr></hr>
                   </div>
 
-                  {/* username */}
+                  {/* email */}
                   <Field
                     fullWidth
-                    lassName="input"
-                    name="username"
+                    className="input"
+                    name="email"
                     type="text"
-                    placeholder="Nhập Tên Đăng Nhập"
-                    label="Tên đăng nhập:"
+                    placeholder="Nhập Email"
+                    label="Email:"
                     component={CustomInput}
                   />
                   {/* password */}

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import LoginComponent from "./../Components/Login/LoginComponent";
+import LoginComponent from "../Components/Login/LoginComponent";
 import { checkLoginAPI } from "../API/LoginAPI";
 import storage from "../Storage/Storage";
 import { Outlet, Navigate, useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ function LoginPage(props) {
           console.log("response: ", response);
           let accountLoginSaveToStorage = {
             id: response.id,
-            username: accountLogin.username,
+            username: response.username,
             email: response.email,
             role: response.roles,
             status: response.status,

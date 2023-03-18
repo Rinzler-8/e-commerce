@@ -38,8 +38,8 @@ function CreateInputFormComponent(props) {
         }}
         validationSchema={Yup.object({
           Email: Yup.string()
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
+            .min(6, "Phải từ 6 đến 50 ký tự.")
+            .max(50, "Phải từ 6 đến 50 ký tự.")
             .email("Email trùng ")
             .required("Không được để trống Email"),
           // Check email exist
@@ -49,8 +49,8 @@ function CreateInputFormComponent(props) {
           //   return !isExists;
           // }),
           Username: Yup.string()
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
+            .min(6, "Phải từ 6 đến 50 ký tự.")
+            .max(50, "Phải từ 6 đến 50 ký tự.")
             .required("Không được để trống Username"),
           // Check email exist
           // .test("checkUniqueUsername", "This username is already registered.", async (username) => {
@@ -59,20 +59,20 @@ function CreateInputFormComponent(props) {
           //   return !isExists;
           // }),
           Fullname: Yup.string()
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
+            .min(6, "Phải từ 6 đến 50 ký tự.")
+            .max(50, "Phải từ 6 đến 50 ký tự.")
             .required("Không được để trống Fullname"),
           Avatar: Yup.string()
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
+            .min(6, "Phải từ 6 đến 50 ký tự.")
+            .max(50, "Phải từ 6 đến 50 ký tự.")
             .required("Không được để trống Avatar"),
           Mobile: Yup.string()
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
+            .min(6, "Phải từ 6 đến 50 ký tự.")
+            .max(50, "Phải từ 6 đến 50 ký tự.")
             .required("Không được để trống Mobile"),
           Address: Yup.string()
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters")
+            .min(6, "Phải từ 6 đến 50 ký tự.")
+            .max(50, "Phải từ 6 đến 50 ký tự.")
             .required("Không được để trống Address"),
         })}
         onSubmit={(values, actions) => {
