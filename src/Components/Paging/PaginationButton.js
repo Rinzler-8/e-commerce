@@ -7,20 +7,21 @@ function PaginationButton(props) {
   };
 
   let page = [];
-  for (let index = 0; index <= currentPage.totalPages; index++) {
+  // let current = currentPage.page + 1;
+  for (let index = 1; index <= currentPage.totalPages; index++) {
     page.push(
       <PaginationItem active={currentPage.page === index} key={index}>
-        <PaginationLink onClick={() => handleChangePage(index)}>{index + 1}</PaginationLink>
+        <PaginationLink onClick={() => handleChangePage(index)}>{index}</PaginationLink>
       </PaginationItem>
     );
   }
 
   return (
     <Pagination>
-      <PaginationItem disabled={currentPage.page === 0}>
-        <PaginationLink first onClick={() => handleChangePage(0)}></PaginationLink>
+      <PaginationItem disabled={currentPage.page === 1}>
+        <PaginationLink first onClick={() => handleChangePage(1)}></PaginationLink>
       </PaginationItem>
-      <PaginationItem disabled={currentPage.page === 0}>
+      <PaginationItem disabled={currentPage.page === 1}>
         <PaginationLink onClick={() => handleChangePage(currentPage.page - 1)} previous />
       </PaginationItem>
       {page}

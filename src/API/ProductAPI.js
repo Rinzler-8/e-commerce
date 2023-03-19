@@ -2,7 +2,6 @@ import { api } from "./api";
 import queryString from "query-string";
 
 const getProductAPIList = (filter) => {
-  // console.log("filter getProductAPIList: ", filter);
   // page = 1, size = 10
   const parameters = {};
 

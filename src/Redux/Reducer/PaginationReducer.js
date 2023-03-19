@@ -1,7 +1,7 @@
 import { CHANGE_PAGE, SET_TOTAL_PAGE, CHANGE_SIZE, CHANGE_SORT_DIRECTION, CHANGE_SORT_FIELD, SEARCH } from "./../Contant/PageActionType";
 
 var initialState = {
-  page: 0,
+  page: 1,
   size: 5,
   totalPages: 0,
   sort: { sortField: "id", sortDirection: "ASC" },

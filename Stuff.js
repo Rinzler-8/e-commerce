@@ -75,7 +75,6 @@ Final project:
 
 3. REMAININGS:
  * User:
-   - sort
    - danh sách order (get all orders)
    - phân quyền
    - đặt điều kiện cho các function
