@@ -56,11 +56,11 @@ const CheckOutList = () => {
   }
   if (cart) {
     return (
-      <Grid container style={{ marginTop: "90px", backgroundColor: "lightgray" }}>
+      <Grid container style={{ marginTop: "90px" }}>
 
       {/* SHIPPING INFORMATION */}
         <Grid item md={7}>
-          <Paper style={{ marginRight: "80px", marginLeft: "300px", marginTop: "80px" }}>
+          <Paper style={{ marginRight: "80px", marginLeft: "300px", marginTop: "80px", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
             <Formik
               initialValues={{
                 first_name: "",
@@ -181,7 +181,7 @@ const CheckOutList = () => {
 
         {/* ORDER SUMMARY */}
         <Grid item md={5}>
-          <Paper style={{ marginRight: "200px" }}>
+          <Paper style={{ marginRight: "200px",  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
             <Container className="summary_container">
               <div className="order_summary">order summary</div>
               {cart.cartItems.map(

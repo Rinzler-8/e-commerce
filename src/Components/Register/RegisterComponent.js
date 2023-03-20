@@ -59,10 +59,7 @@ function RegisterComponent(props) {
               is: (val) => (val && val.length > 0 ? true : false),
               then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp."),
             }),
-          mobile: Yup.string()
-            .min(10, "Must be 10 numbers")
-            .max(10, "Must be 10 numbers")
-            .required("Trường này là bắt buộc."),
+          mobile: Yup.string().min(10, "Must be 10 numbers").max(10, "Must be 10 numbers").required("Trường này là bắt buộc."),
         })}
         onSubmit={(values) => {
           try {
@@ -74,7 +71,7 @@ function RegisterComponent(props) {
               role: values.role,
             };
             addAccountNewAPI(accountRegister);
-            toast.success("Hãy kiểm tra email.", {
+            toast.info("Hãy kiểm tra email để kích hoạt tài khoản.", {
               autoClose: 3000,
               hideProgressBar: false,
               closeOnClick: true,
@@ -82,7 +79,7 @@ function RegisterComponent(props) {
               draggable: true,
               progress: undefined,
             });
-            setTimeout(() => navigate("/login"), 3000);
+            // setTimeout(() => navigate("/login"), 3000);
           } catch (error) {
             toast.error("Đã có lỗi! Vui lòng thử lại.", {
               position: "top-right",

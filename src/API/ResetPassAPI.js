@@ -6,11 +6,14 @@ const resetPassAPI = (token, pass) => {
   parameters.token = token;
   let url = "auth/resetPassword?token=" + token.token;
   pass = {
-    password: pass.password
-  }
-  console.log("passAPI: ", pass);
-  console.log("tokenAPI: ", token);
+    password: pass.password,
+  };
   return api("POST", url, pass);
 };
 
-export { resetPassAPI };
+const forgotPassAPI = (email) => {
+  let url = "auth/resetPasswordRequest?email=" + email;
+  return api("GET", url);
+};
+
+export { resetPassAPI, forgotPassAPI };

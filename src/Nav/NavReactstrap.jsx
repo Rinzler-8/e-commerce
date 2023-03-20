@@ -1,6 +1,6 @@
 import React from "react";
-import { Navbar, NavItem, NavLink, Nav, NavbarBrand, CardTitle, CardText, Button } from "reactstrap";
-import { CardContent, IconButton, Box, List, ListItem, ListItemButton, ListItemText, Divider, Badge, Drawer, Typography } from "@mui/material";
+import { Navbar, NavItem, NavLink, Nav, NavbarBrand, Button } from "reactstrap";
+import { IconButton, Box, List, ListItem, ListItemButton, ListItemText, Divider, Badge, Drawer, Typography, Menu, MenuItem } from "@mui/material";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import CartDrawer from "../Components/Cart/CartDrawer";
 import { styled, useTheme } from "@mui/material/styles";
@@ -21,7 +21,14 @@ function NavReactstrap() {
   let dispatchRedux = useDispatch();
   let cart = stateRedux.cartReducer;
   let id = localStorage.getItem("id");
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openMenu = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   useEffect(() => {
     if (id && id !== "") dispatchRedux(actionGetCartByUserIdAPI(id));
   }, [id]);
@@ -81,12 +88,22 @@ function NavReactstrap() {
       <Navbar className={navbar ? "navbar active" : "navbar"} expand="xl" fixed="top">
         <Nav className="" navbar>
           <NavItem>
+            <Button onClick={handleClick}>Menu</Button>
             {localStorage.getItem("role") == "ADMIN" && (
-              <NavItem>
-                <NavLink href="/admin">Account</NavLink>
-                <NavLink href="/products-admin">Product Admin</NavLink>
-                <NavLink href="/forgotPass">Forgot Password</NavLink>
-              </NavItem>  
+              <Menu open={openMenu} onClose={handleClose} anchorEl={anchorEl}>
+                <MenuItem>
+                  <NavLink href="/admin">Account</NavLink>
+                </MenuItem>
+                <MenuItem>
+                  <NavLink href="/products-admin">Product Admin</NavLink>
+                </MenuItem>
+                <MenuItem>
+                  <NavLink href="/forgotPass">Forgot Password</NavLink>
+                </MenuItem>
+                <MenuItem>
+                  <NavLink href="/changePass">Change Password</NavLink>
+                </MenuItem>
+              </Menu>
             )}
           </NavItem>
           <NavItem>
@@ -105,6 +122,9 @@ function NavReactstrap() {
             </NavItem>
           )}
           <NavItem>
+            <NavLink href={`/accounts/${id}`}>Account</NavLink>
+          </NavItem>
+          <NavItem>
             <NavLink href={"/register"}>Register</NavLink>
           </NavItem>
           {/* /////////////////////////////////// */}
@@ -112,7 +132,7 @@ function NavReactstrap() {
             <ShoppingBagOutlinedIcon color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" />
           </Badge>
           <Drawer variant="persistent" anchor="right" open={open}>
-            <DrawerHeader style={{ alignSelf: "start"}}>
+            <DrawerHeader style={{ alignSelf: "start" }}>
               <IconButton onClick={handleDrawerClose}>
                 <ChevronRightIcon />
                 Your Bag ({cart.cartItems.length})
@@ -128,7 +148,7 @@ function NavReactstrap() {
                       <ListItem>
                         <div>
                           <NavLink href={`/products/${cartProduct.product_id}`}>
-                            <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + cartProduct.imageName} />
+                            <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + cartProduct.imageName} />
                           </NavLink>
                         </div>
                         <span>

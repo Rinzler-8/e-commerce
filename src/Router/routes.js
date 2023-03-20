@@ -15,6 +15,7 @@ import TestPage from "../Page/TestPage";
 import ProductPageAdmin from "../Page/ProductPageAdmin";
 import AccountPage from "../Page/AccountPage";
 import ResetPassPage from "../Page/ResetPassPage";
+import ChangePassPage from "../Page/ChangePassPage";
 
 export const routes = (
   <Routes>
@@ -40,7 +41,7 @@ export const routes = (
       <Route path="*" element={<NotFoundPage />} />
       <Route path="/forgotPass" element={<ForgotPasswordPage />} />
       <Route path="/resetPass/:token" element={<ResetPassPage />} />
-      <Route path="/changePass" element={<ForgotPasswordPage />} />
+      <Route path="/changePass" element={<ChangePassPage />} />
     </Route>
   </Routes>
 );

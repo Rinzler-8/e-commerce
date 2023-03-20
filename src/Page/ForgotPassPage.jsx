@@ -7,7 +7,7 @@ import { TextField } from "@mui/material";
 import "../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { resetPassAPI } from "../API/ResetPassAPI";
+import { forgotPassAPI } from "../API/ResetPassAPI";
 
 const ForgotPassPage = () => {
   let navigate = useNavigate();
@@ -36,13 +36,11 @@ const ForgotPassPage = () => {
       validationSchema={Yup.object({
         email: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Trường này là bắt buộc."),
       })}
-      onSubmit={(values) => {
+      onSubmit={
+        async (values) => {
         try {
-          let pass = {
-            email: values.email,
-          };
-          resetPassAPI(token,pass);
-          toast.success("Thành công.", {
+         await forgotPassAPI(values.email);
+          toast.info("Hãy kiểm tra email.", {
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -50,7 +48,6 @@ const ForgotPassPage = () => {
             draggable: true,
             progress: undefined,
           });
-          setTimeout(() => navigate("/"), 3000);
         } catch (error) {
           toast.error("Đã có lỗi! Vui lòng thử lại.", {
             position: "top-right",

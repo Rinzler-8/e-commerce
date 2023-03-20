@@ -82,8 +82,9 @@ Final project:
    - user edit account
    - user change password
    - forgot/reset password
-
-   
+   - validation on status
+   - edit account status (admin)
+   - upload avatar
  * Admin:
    1. Manage account
    •  Log In/Log Out

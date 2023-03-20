@@ -31,7 +31,6 @@ const ResetPassPage = () => {
     );
   }
 
-  
   return (
     <Formik
       initialValues={{
@@ -47,12 +46,12 @@ const ResetPassPage = () => {
             then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp."),
           }),
       })}
-      onSubmit={(values) => {
+      onSubmit={async (values) => {
         try {
           let pass = {
             password: values.password,
           };
-          resetPassAPI(token,pass);
+          await resetPassAPI(token, pass);
           toast.success("Thành công.", {
             autoClose: 3000,
             hideProgressBar: false,
@@ -95,23 +94,23 @@ const ResetPassPage = () => {
                 </div>
 
                 <Field
-                    fullWidth
-                    className="input"
-                    name="password"
-                    type={isShown ? "text" : "password"}
-                    placeholder="Nhập Mật khẩu"
-                    label="Mật khẩu:"
-                    component={CustomInput}
-                  />
-                  <Field
-                    fullWidth
-                    className="input"
-                    name="confirmPassword"
-                    type={isShown ? "text" : "password"}
-                    placeholder="Nhập lại Mật Khẩu"
-                    label="Nhập lại Mật Khẩu:"
-                    component={CustomInput}
-                  />
+                  fullWidth
+                  className="input"
+                  name="password"
+                  type={isShown ? "text" : "password"}
+                  placeholder="Nhập Mật khẩu"
+                  label="Mật khẩu:"
+                  component={CustomInput}
+                />
+                <Field
+                  fullWidth
+                  className="input"
+                  name="confirmPassword"
+                  type={isShown ? "text" : "password"}
+                  placeholder="Nhập lại Mật Khẩu"
+                  label="Nhập lại Mật Khẩu:"
+                  component={CustomInput}
+                />
                 <label className="checkbox">
                   <Field type="checkbox" name="toggle" checked={isShown} onChange={togglePassword} />
                   {`Hiện Mật Khẩu`}
