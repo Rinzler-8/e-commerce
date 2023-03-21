@@ -87,13 +87,6 @@ function NavReactstrap() {
       <Navbar className={navbar ? "navbar active" : "navbar"} expand="xl" fixed="top">
         <Nav className="" navbar>
           <NavItem>
-<<<<<<< HEAD
-            {localStorage.getItem("role") == "ADMIN" && (
-              <NavItem>
-                <NavLink href="/admin">Account</NavLink>
-                <NavLink href="/products-admin">Product Admin</NavLink>
-              </NavItem>  
-=======
             <Button onClick={handleClick}>Menu</Button>
             {localStorage.getItem("role") == "ADMIN" && (
               <Menu open={openMenu} onClose={handleClose} anchorEl={anchorEl}>
@@ -113,7 +106,6 @@ function NavReactstrap() {
                   <NavLink href="/changePass">Change Password</NavLink>
                 </MenuItem>
               </Menu>
->>>>>>> 1e2a83ac9c2a47d6346ddfe870f3ebdb2e5f6dea
             )}
           </NavItem>
           <NavItem>
