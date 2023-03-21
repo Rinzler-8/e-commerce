@@ -5,7 +5,7 @@ function FieldSortButton(props) {
   //Gọi lại các props từ trên truyền xuống
   let { onHandleChangeFieldSort } = props;
   //
-  let fieldOption = ["id", "price", "name", "ratingStar", "category", "createDate"];
+  let fieldOption = ["id", "session", "status", "created_At"];
   // State quản lý đóng mở dropdown
   let [dropdown, setDropdown] = useState(false);
   // State quản lý giá trị của item

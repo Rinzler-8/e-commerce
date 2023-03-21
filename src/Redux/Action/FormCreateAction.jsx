@@ -1,5 +1,5 @@
 import { SHOW_PRODUCT_FORM, CLOSE_PRODUCT_FORM } from "../Contant/ProductActionType";
-import { SHOW_ACCOUNT_FORM, CLOSE_ACCOUNT_FORM } from "./../Contant/AccountActionType";
+import { SHOW_ACCOUNT_FORM, CLOSE_ACCOUNT_FORM } from "../Contant/AccountActionType";
 export const actionShowAccountForm = () => {
   return {
     type: SHOW_ACCOUNT_FORM,

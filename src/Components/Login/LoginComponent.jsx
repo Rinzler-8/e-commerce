@@ -5,7 +5,7 @@ import CustomInput from "./CustomInput";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import "./../../../src/css/LoginForm.css";
-import storage from "./../../Storage/Storage";
+import storage from "../../Storage/Storage";
 
 function LoginComponent(props) {
   const [isShown, setIsShown] = useState(false);

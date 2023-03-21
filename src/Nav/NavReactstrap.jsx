@@ -2,7 +2,6 @@ import React from "react";
 import { Navbar, NavItem, NavLink, Nav, NavbarBrand, Button } from "reactstrap";
 import { IconButton, Box, List, ListItem, ListItemButton, ListItemText, Divider, Badge, Drawer, Typography, Menu, MenuItem } from "@mui/material";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import CartDrawer from "../Components/Cart/CartDrawer";
 import { styled, useTheme } from "@mui/material/styles";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
@@ -96,6 +95,9 @@ function NavReactstrap() {
                 </MenuItem>
                 <MenuItem>
                   <NavLink href="/products-admin">Product Admin</NavLink>
+                </MenuItem>
+                <MenuItem>
+                  <NavLink href="/orders-admin">Orders Admin</NavLink>
                 </MenuItem>
                 <MenuItem>
                   <NavLink href="/forgotPass">Forgot Password</NavLink>

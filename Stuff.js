@@ -79,12 +79,12 @@ Final project:
    - phân quyền
    - đặt điều kiện cho các function
    - delete account
-   - user edit account
    - user change password
    - forgot/reset password
    - validation on status
    - edit account status (admin)
    - upload avatar
+   
  * Admin:
    1. Manage account
    •  Log In/Log Out

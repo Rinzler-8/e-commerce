@@ -1,4 +1,4 @@
-import { CHANGE_PAGE, SET_TOTAL_PAGE, CHANGE_SIZE, CHANGE_SORT_DIRECTION, CHANGE_SORT_FIELD, SEARCH } from "./../Contant/PageActionType";
+import { CHANGE_PAGE, SET_TOTAL_PAGE, CHANGE_SIZE, CHANGE_SORT_DIRECTION, CHANGE_SORT_FIELD, SEARCH } from "../Contant/PageActionType";
 
 var initialState = {
   page: 1,

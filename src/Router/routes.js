@@ -13,6 +13,7 @@ import ProductDetail from "../Components/Product/ProductDetail";
 import CartPage from "../Page/CartPage";
 import TestPage from "../Page/TestPage";
 import ProductPageAdmin from "../Page/ProductPageAdmin";
+import OrderPageAdmin from "../Page/OrderPageAdmin";
 import AccountPage from "../Page/AccountPage";
 import ResetPassPage from "../Page/ResetPassPage";
 import ChangePassPage from "../Page/ChangePassPage";
@@ -25,6 +26,7 @@ export const routes = (
       <Route element={<AdminAuth />}>
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/products-admin" element={<ProductPageAdmin />} />
+        <Route path="/orders-admin" element={<OrderPageAdmin />} />
       </Route>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />

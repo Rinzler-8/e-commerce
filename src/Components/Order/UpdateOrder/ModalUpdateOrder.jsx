@@ -2,10 +2,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Input, Row, Col } from "reactstrap";
 import { actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
-import UpdateInputProductForm from "./UpdateInputProductForm";
+import UpdateInputOrderForm from "./UpdateInputOrderForm";
 
-function ModalUpdateProduct(props) {
-  let { onHandleUpdateProduct } = props;
+function ModalUpdateOrder(props) {
+  let { onHandleUpdateOrder } = props;
 
   let dispatchRedux = useDispatch();
 
@@ -22,10 +22,10 @@ function ModalUpdateProduct(props) {
     <Container>
       <Modal isOpen={showModal} toggle={toggle}>
         <ModalHeader>
-          <h3>Update Product</h3>
+          <h3>Update Order</h3>
         </ModalHeader>
         <ModalBody>
-          <UpdateInputProductForm onHandleUpdateProduct={onHandleUpdateProduct} />
+          <UpdateInputOrderForm onHandleUpdateOrder={onHandleUpdateOrder} />
         </ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={toggle}>
@@ -37,4 +37,4 @@ function ModalUpdateProduct(props) {
   );
 }
 
-export default ModalUpdateProduct;
+export default ModalUpdateOrder;
