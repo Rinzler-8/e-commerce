@@ -1,0 +1,41 @@
+.container {
+  /* Positioning */
+  margin: auto;
+  /* Display & Box model */
+  margin-top: 90px;
+
+  /* Font */
+
+  /* Color */
+
+  /* Transition */
+}
+
+.thank {
+  /* Positioning */
+
+  /* Display & Box model */
+  margin-top: 50px;
+  padding-top: 200px;
+
+  /* Font */
+
+  /* Color */
+
+  /* border-style: none none solid; */
+  /* Transition */
+}
+.success_paper {
+  /* Positioning */
+
+  /* Display & Box model */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Font */
+
+  /* Color */
+  /* background-color: lightgray; */
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  /* Transition */
+}

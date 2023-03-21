@@ -56,9 +56,11 @@ const CheckOutList = () => {
   }
   if (cart) {
     return (
-      <Grid container style={{ marginTop: "90px", backgroundColor: "lightgray" }}>
+      <Grid container style={{ marginTop: "90px" }}>
+
+      {/* SHIPPING INFORMATION */}
         <Grid item md={7}>
-          <Paper style={{ marginRight: "80px", marginLeft: "300px", marginTop: "80px" }}>
+          <Paper style={{ marginRight: "80px", marginLeft: "300px", marginTop: "80px", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
             <Formik
               initialValues={{
                 first_name: "",
@@ -74,8 +76,8 @@ const CheckOutList = () => {
                 delivery_address: Yup.string().required("Không được để trống address"),
 
                 mobile: Yup.string()
-                  .min(6, "Must be between 6 and 10 characters")
-                  .max(10, "Must be between 6 and 10 characters")
+                  .min(6, "Phải từ 6 đến 10 ký tự.")
+                  .max(10, "Phải từ 6 đến 10 ký tự.")
                   .required("Không được để trống số điện thoại"),
               })}
               onSubmit={(values) => {
@@ -128,7 +130,6 @@ const CheckOutList = () => {
                           <h3 className="shipping">SHIPPING</h3>
                         </span>
 
-                        {/* <TextField fullWidth id="first_name" name="first_name" label="firstName" type="text"/> */}
                         <Field fullWidth name="first_name" type="text" label="Tên" component={CustomInput} />
                         <Field fullWidth name="last_name" type="text" placeholder="Nhập Họ" label="Họ:" component={CustomInput} />
                         <Field
@@ -177,8 +178,10 @@ const CheckOutList = () => {
             <ToastContainer />
           </Paper>
         </Grid>
+
+        {/* ORDER SUMMARY */}
         <Grid item md={5}>
-          <Paper style={{ marginRight: "200px" }}>
+          <Paper style={{ marginRight: "200px",  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
             <Container className="summary_container">
               <div className="order_summary">order summary</div>
               {cart.cartItems.map(
@@ -189,7 +192,11 @@ const CheckOutList = () => {
                       <ListItem>
                         <div>
                           <NavLink href={`/products/${product.product_id}`}>
+<<<<<<< HEAD
                             <img alt="Sample" src={product.imageName} style={{ width: 100, height: 100 }} />
+=======
+                            <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} style={{ width: 100, height: 100 }} />
+>>>>>>> 1e2a83ac9c2a47d6346ddfe870f3ebdb2e5f6dea
                           </NavLink>
                         </div>
                         <span>

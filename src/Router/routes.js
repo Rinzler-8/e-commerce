@@ -7,12 +7,19 @@ import NotFoundPage from "../Page/NotFoundPage";
 import ProductPage from "./../Page/ProductPage";
 import CheckoutPage from "./../Page/CheckoutPage";
 import CheckOutSuccess from "../Page/CheckoutSuccessPage";
-import ForgotPasswordPage from "./../Page/ForgotPasswordPage";
+import ForgotPasswordPage from "./../Page/ForgotPassPage";
 import { AdminAuth, WithAuth, WithNav, WithoutNav } from "../HOC/Authentication";
 import ProductDetail from "../Components/Product/ProductDetail";
 import CartPage from "../Page/CartPage";
 import TestPage from "../Page/TestPage";
 import ProductPageAdmin from "../Page/ProductPageAdmin";
+<<<<<<< HEAD
+=======
+import OrderPageAdmin from "../Page/OrderPageAdmin";
+import AccountPage from "../Page/AccountPage";
+import ResetPassPage from "../Page/ResetPassPage";
+import ChangePassPage from "../Page/ChangePassPage";
+>>>>>>> 1e2a83ac9c2a47d6346ddfe870f3ebdb2e5f6dea
 
 export const routes = (
   <Routes>
@@ -22,12 +29,17 @@ export const routes = (
       <Route element={<AdminAuth />}>
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/products-admin" element={<ProductPageAdmin />} />
+<<<<<<< HEAD
+=======
+        <Route path="/orders-admin" element={<OrderPageAdmin />} />
+>>>>>>> 1e2a83ac9c2a47d6346ddfe870f3ebdb2e5f6dea
       </Route>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route element={<WithAuth />}>
         <Route path="/" element={<HomePage />} />
       </Route>
+      <Route path="/accounts/:id" element={<AccountPage />} />
       <Route path="/products" element={<ProductPage />} />
       <Route path="/products/:id" element={<ProductDetail />} />
       <Route path="/cart" element={<CartPage />} />
@@ -35,7 +47,9 @@ export const routes = (
       <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
       <Route path="/test" element={<TestPage />} />
       <Route path="*" element={<NotFoundPage />} />
-      <Route path="/forgot" element={<ForgotPasswordPage />} />
+      <Route path="/forgotPass" element={<ForgotPasswordPage />} />
+      <Route path="/resetPass/:token" element={<ResetPassPage />} />
+      <Route path="/changePass" element={<ChangePassPage />} />
     </Route>
   </Routes>
 );

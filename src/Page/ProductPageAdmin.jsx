@@ -14,7 +14,6 @@ import ModalCreateNewProduct from "../Components/Product/CreateNewProduct/ModalC
 import { actionFetchProductUpdateInfoRedux } from "../Redux/Action/FormUpdateAction";
 import ModalUpdateProduct from "../Components/Product/UpdateProduct/ModalUpdateProduct";
 import { actionFetchCategoryAPI } from "../Redux/Action/CategoryAction";
-import { actionFetchManufacturerAPI } from "../Redux/Action/ManufacturerAction";
 import { Grid } from "@mui/material";
 import ProductList from "../Components/Product/ProductList";
 import { actionToggleUpdateFormRedux } from "../Redux/Action/FormUpdateAction";
@@ -37,7 +36,6 @@ function ProductPage(props) {
   //gọi useEffect để load dữ liệu, chỉ gọi khi các state page hoặc size, ... từ redux thay đổi
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI(filter));
-    dispatchRedux(actionFetchManufacturerAPI());
     dispatchRedux(actionFetchCategoryAPI());
     // Gọi useEffect để load dữ liệu list Department và Positon
   }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
@@ -95,6 +93,7 @@ function ProductPage(props) {
   };
   // Thông tin trang hiện tại từ redux để truyền xuống PaginationButton hiển thị
   let currentPage = stateRedux.pageFilterReducer;
+  console.log("current page: ", currentPage)
   return (
     <>
       {/* Hiển thị modal form update */}

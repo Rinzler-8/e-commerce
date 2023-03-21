@@ -1,8 +1,7 @@
 import React from "react";
-import { Navbar, NavItem, NavLink, Nav, NavbarBrand, CardTitle, CardText, Button } from "reactstrap";
-import { CardContent, IconButton, Box, List, ListItem, ListItemButton, ListItemText, Divider, Badge, Drawer, Typography } from "@mui/material";
+import { Navbar, NavItem, NavLink, Nav, NavbarBrand, Button } from "reactstrap";
+import { IconButton, Box, List, ListItem, ListItemButton, ListItemText, Divider, Badge, Drawer, Typography, Menu, MenuItem } from "@mui/material";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import CartDrawer from "../Components/Cart/CartDrawer";
 import { styled, useTheme } from "@mui/material/styles";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
@@ -21,7 +20,14 @@ function NavReactstrap() {
   let dispatchRedux = useDispatch();
   let cart = stateRedux.cartReducer;
   let id = localStorage.getItem("id");
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openMenu = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   useEffect(() => {
     if (id && id !== "") dispatchRedux(actionGetCartByUserIdAPI(id));
   }, [id]);
@@ -81,11 +87,33 @@ function NavReactstrap() {
       <Navbar className={navbar ? "navbar active" : "navbar"} expand="xl" fixed="top">
         <Nav className="" navbar>
           <NavItem>
+<<<<<<< HEAD
             {localStorage.getItem("role") == "ADMIN" && (
               <NavItem>
                 <NavLink href="/admin">Account</NavLink>
                 <NavLink href="/products-admin">Product Admin</NavLink>
               </NavItem>  
+=======
+            <Button onClick={handleClick}>Menu</Button>
+            {localStorage.getItem("role") == "ADMIN" && (
+              <Menu open={openMenu} onClose={handleClose} anchorEl={anchorEl}>
+                <MenuItem>
+                  <NavLink href="/admin">Account</NavLink>
+                </MenuItem>
+                <MenuItem>
+                  <NavLink href="/products-admin">Product Admin</NavLink>
+                </MenuItem>
+                <MenuItem>
+                  <NavLink href="/orders-admin">Orders Admin</NavLink>
+                </MenuItem>
+                <MenuItem>
+                  <NavLink href="/forgotPass">Forgot Password</NavLink>
+                </MenuItem>
+                <MenuItem>
+                  <NavLink href="/changePass">Change Password</NavLink>
+                </MenuItem>
+              </Menu>
+>>>>>>> 1e2a83ac9c2a47d6346ddfe870f3ebdb2e5f6dea
             )}
           </NavItem>
           <NavItem>
@@ -103,6 +131,9 @@ function NavReactstrap() {
               <NavLink href="/login">Login</NavLink>
             </NavItem>
           )}
+          <NavItem>
+            <NavLink href={`/accounts/${id}`}>Account</NavLink>
+          </NavItem>
           <NavItem>
             <NavLink href={"/register"}>Register</NavLink>
           </NavItem>
@@ -127,7 +158,7 @@ function NavReactstrap() {
                       <ListItem>
                         <div>
                           <NavLink href={`/products/${cartProduct.product_id}`}>
-                            <img alt="Sample" src={cartProduct.imageName} />
+                            <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + cartProduct.imageName} />
                           </NavLink>
                         </div>
                         <span>
@@ -136,7 +167,7 @@ function NavReactstrap() {
                               <Typography style={{ fontSize: 20 }}>{cartProduct.productName}</Typography>
                             </NavLink>
                             <Typography>{cartProduct.price}đ</Typography>
-                            <Typography>{cartProduct.info}đ</Typography>
+                            <Typography>{cartProduct.info}</Typography>
                           </ListItemText>
                           <span>
                             <Button disabled={cartProduct.quantity <= 1} onClick={() => decQty(cartProduct)} className="qty_btn">
