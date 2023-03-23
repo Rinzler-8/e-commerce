@@ -1,22 +1,27 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, CardBody, CardTitle, CardSubtitle, CardText, Button, Container, NavLink } from "reactstrap";
+import { Row, Col, Button, Container } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { Card, CardContent, Grid, Box, Typography, Rating, Item, Paper, TextField, Avatar, ListItemText, ListItem, List } from "@mui/material";
+import { Paper, TextField, Avatar } from "@mui/material";
 import { actionFetchSingleAccountAPI, actionFetchSingleAccountRedux } from "../Redux/Action/AccountAction";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
-import { updateAccountAPI, getUsernameExists, getEmailExists } from "../API/AccountAPI";
+import { updateAccountAPI, getUsernameExists } from "../API/AccountAPI";
+import { uploadImgAPI } from "../API/ImageAPI";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 import "../../src/css/Profile.css";
 
 const AccountPage = () => {
-  let stateRedux = useSelector((state) => state);
-  let navigate = useNavigate();
-  let dispatchRedux = useDispatch();
-  let account = stateRedux.singleAccountReducer;
-  console.log("account: ", account.firstName);
-  let id = localStorage.getItem("id");
+  const stateRedux = useSelector((state) => state);
+  const navigate = useNavigate();
+  const dispatchRedux = useDispatch();
+  const account = stateRedux.singleAccountReducer;
+  const id = localStorage.getItem("id");
+  const [previewAvatarUrl, setPreviewAvatarUrl] = useState();
+
+  const [previewAvatarFile, setPreviewAvatarFile] = useState();
+
   useState(() => {
     if (id && id !== "") {
       dispatchRedux(actionFetchSingleAccountAPI(id));
@@ -37,6 +42,21 @@ const AccountPage = () => {
       </div>
     );
   }
+
+  const avatarInputFile = useRef(null);
+
+  const onChangeAvatarInput = (e) => {
+    // Assuming only image
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = (e) => {
+      setPreviewAvatarUrl(reader.result);
+      setPreviewAvatarFile(file);
+    };
+  };
+
   return (
     <Row className="container">
       {/* SHIPPING INFORMATION */}
@@ -51,23 +71,26 @@ const AccountPage = () => {
               address: account.address,
             }}
             validationSchema={Yup.object({
-              first_name: Yup.string().required("Trường này là bắt buộc."),
-              last_name: Yup.string().required("Trường này là bắt buộc."),
+              first_name: Yup.string(),
+              last_name: Yup.string(),
               email: Yup.string(),
-              address: Yup.string().required("Trường này là bắt buộc."),
+              address: Yup.string(),
 
-              mobile: Yup.string().min(6, "Phải đủ 10 ký tự.").max(10, "Phải đủ 10 ký tự.").required("Trường này là bắt buộc."),
+              mobile: Yup.string().min(6, "Phải đủ 10 ký tự.").max(10, "Phải đủ 10 ký tự."),
             })}
-            onSubmit={(values) => {
+            onSubmit={async (values) => {
               try {
+                let nameImage = await uploadImgAPI(previewAvatarFile);
+                console.log(nameImage);
                 const update = {
                   firstName: values.first_name,
                   lastName: values.last_name,
                   email: values.email,
                   mobile: values.mobile,
                   address: values.address,
+                  urlAvatar: nameImage,
                 };
-                updateAccountAPI(id, update).then((response) => {
+               await updateAccountAPI(id, update).then((response) => {
                   if (response !== null && response !== undefined) {
                     console.log("response: ", response);
                     toast.success("Thành công.", {
@@ -159,7 +182,7 @@ const AccountPage = () => {
 
                       {/* Submit */}
                       <Row className="button">
-                        <Button type="submit">Thay đổi</Button>
+                        <Button type="submit">Lưu thay đổi</Button>
                         <Link to={"/login"} className="link">
                           Quay lại
                         </Link>
@@ -176,9 +199,26 @@ const AccountPage = () => {
 
       {/* ORDER SUMMARY */}
       <Col xs={12} xl={4}>
-        <Paper style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px", backgroundColor: "lightgray" }}>
-          <Container>
-            <Avatar alt="Remy Sharp" src={"http://localhost:8080/api/v1/fileUpload/files/" + account.urlAvatar} sx={{ width: 200, height: 200 }} />
+        <Paper style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
+          <Container style={{ display: "flex" , flexDirection: "column", alignItems: "center"}}>
+            {/* src={previewAvatarUrl ? previewAvatarUrl : (userInfo.avatarUrl ? `http://127.0.0.1:8887/Avatar/${userInfo.avatarUrl}` : avatar1)} */}
+            <Avatar
+              alt="Remy Sharp"
+              src={
+                previewAvatarUrl
+                  ? previewAvatarUrl
+                  : account.urlAvatar
+                  ? "http://localhost:8080/api/v1/fileUpload/files/" + account.urlAvatar
+                  : "http://localhost:8080/api/v1/fileUpload/files/polish.png"
+              }
+              sx={{ width: 200, height: 200 }}
+            />
+            <div className="mt-2">
+              <Button color="primary" onClick={() => avatarInputFile.current.click()}>
+                <FileUploadIcon /> Upload
+              </Button>
+              <input type="file" id="avatarInput" ref={avatarInputFile} onChange={onChangeAvatarInput} style={{ display: "none" }} />
+            </div>
           </Container>
         </Paper>
       </Col>

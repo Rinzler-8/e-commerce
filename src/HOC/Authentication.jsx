@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
-import NavReactstrap from "../Nav/NavReactstrap";
+import Header from "../Components/Home/Header";
 import Footer from "../Components/Home/Footer";
 
 
@@ -18,19 +18,10 @@ function WithAuth() {
 function WithNav() {
   return (
     <>
-      <NavReactstrap />
+      <Header />
       <Outlet />
       <Footer />
     </>
   );
 }
-
-function WithoutNav() {
-  return (
-    <>
-      <Outlet />
-      <Footer />
-    </>
-  );
-}
-export { AdminAuth, WithAuth, WithNav, WithoutNav };
+export { AdminAuth, WithAuth, WithNav };

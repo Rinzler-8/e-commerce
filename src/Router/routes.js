@@ -8,7 +8,7 @@ import ProductPage from "./../Page/ProductPage";
 import CheckoutPage from "./../Page/CheckoutPage";
 import CheckOutSuccess from "../Page/CheckoutSuccessPage";
 import ForgotPasswordPage from "./../Page/ForgotPassPage";
-import { AdminAuth, WithAuth, WithNav, WithoutNav } from "../HOC/Authentication";
+import { AdminAuth, WithAuth, WithNav } from "../HOC/Authentication";
 import ProductDetail from "../Components/Product/ProductDetail";
 import CartPage from "../Page/CartPage";
 import TestPage from "../Page/TestPage";
@@ -20,7 +20,6 @@ import ChangePassPage from "../Page/ChangePassPage";
 
 export const routes = (
   <Routes>
-    <Route element={<WithoutNav />}></Route>
 
     <Route element={<WithNav />}>
       <Route element={<AdminAuth />}>

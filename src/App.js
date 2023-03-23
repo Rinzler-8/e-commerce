@@ -1,6 +1,5 @@
 import "./App.css";
 import { routes } from "./Router/routes";
-import NavReactstrap from "./Nav/NavReactstrap";
 function App() {
   return (
     <div className="App">

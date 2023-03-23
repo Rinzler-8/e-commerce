@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Row, Col, CardBody, CardTitle, CardSubtitle, CardText, Button, CardImg, NavLink, Container } from "reactstrap";
-import Carousels from "../Components/Home/Carousel";
-import Footer from "../Components/Home/Footer";
+import CarouselHome from "../Components/Home/CarouselHome";
 import "../css/style.css";
 import { Card, CardContent, Grid, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,63 +30,32 @@ function HomePage() {
   }, []);
   return (
     <>
-      {/* Carousels */}
-      {/* {<Carousels />} */}
-      <Row className="home">
-        <Col
-          className="h4"
-          md={{
-            offset: 3,
-            size: 6,
-          }}
-          sm="12"
-        >
-          <h4>SHOP AWARD-WINNING FAVORITES</h4>
-        </Col>
-      </Row>
-      <Grid container spacing={2}>
+      <div className="homepage-carousel-container">
+        <CarouselHome />
+      </div>
+      <div className="product-list-container">
+        <div className="product-list-title">SẢN PHẨM BÁN CHẠY</div>
+        <div className="list-item-container">
         {listProduct.map((product, index) => (
           <Col className="bg" sm="4" xs="6" key={index} align="center">
-            <Box>
+            <Box className="productItem-container">
               <NavLink href={`/products/${product.product_id}`}>
-                <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} />
-                <CardBody>
-                  <CardTitle tag="h5">{product.name}</CardTitle>
+                <img className="productItem-img" alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} />
+                <CardBody className="productItem-information">
+                  <CardTitle tag="h5" style = {{color :"black", fontFamily: "Lucida Sans, sans-serif"}}>{product.name}</CardTitle>
                   <CardSubtitle className="mb-2 text-muted" tag="h6">
-                    {product.detail}
+                    {product.info}
                   </CardSubtitle>
-                  <CardText>{product.info}</CardText>
-                  <CardText>{product.price}</CardText>
+                  <CardText style = {{color :"black"}}>{product.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</CardText>
+                  <CardText style = {{color :"black"}}>(Giá tham khảo)</CardText>
                 </CardBody>
               </NavLink>
             </Box>
-            <Button color="primary" onClick={() => handleAddToCart(id, product)}>
-              Add to cart
-            </Button>
+            <button className="add-to-cart-btn">Thêm vào giỏ hàng</button>
           </Col>
         ))}
-      </Grid>
-
-      {/* <ProductList /> */}
-      <br></br>
-
-      <Row>
-        <Col className="h4" sm="12">
-          <Card>
-            <CardImg
-              alt="Card image cap"
-              src="Cube.png"
-              style={{
-                height: 200,
-              }}
-              width="100%"
-            ></CardImg>
-          </Card>
-        </Col>
-      </Row>
-      <br></br>
-      <br></br>
-      <br></br>
+      </div>
+      </div>
     </>
   );
 }
