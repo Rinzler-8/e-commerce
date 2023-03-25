@@ -15,7 +15,6 @@
 }
 
 .header-left {
-  flex: 1;
   display: flex;
   align-items: center;
 }
@@ -51,7 +50,7 @@
 }
 
 .header-right {
-  flex: 1;
+  /* flex: 1; */
 }
 
 .header-icon-area {
@@ -75,7 +74,7 @@
 }
 
 .header-user-avatar img {
-  width: 35px;
+  width: 45px;
   border-radius: 50%;
 }
 

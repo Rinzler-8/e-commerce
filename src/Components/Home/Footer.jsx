@@ -1,5 +1,8 @@
 import React from "react";
 import "../../css/Footer.css";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PhoneIcon from '@mui/icons-material/Phone';
+import EmailIcon from '@mui/icons-material/Email';
 
 function Footer(props) {
   return (
@@ -12,19 +15,19 @@ function Footer(props) {
           <p className="shop-name">SHOP MỸ PHẨM GENUINE AND DIGNITY</p>
           <div className="footer-basic-info">
             <span>
-              <i className="fa-solid fa-location-dot"></i>
+              <LocationOnIcon/>
             </span>
             <span>Địa chỉ: 20 Phố Cửa Bắc, Trúc Bạch, Ba Đình, Hà Nội</span>
           </div>
           <div className="footer-basic-info">
             <span>
-              <i className="fa-solid fa-phone-flip"></i>
+            <PhoneIcon/>
             </span>
             <span>Hotline: 0919973623</span>
           </div>
           <div className="footer-basic-info">
             <span>
-              <i className="fa-solid fa-envelope"></i>
+            <EmailIcon/>
             </span>
             <span>Email: gnd1818@gmail.com</span>
           </div>

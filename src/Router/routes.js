@@ -38,7 +38,7 @@ export const routes = (
       <Route path="/cart" element={<CartPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
-      <Route path="/test" element={<TestPage />} />
+      {/* <Route path="/test" element={<TestPage />} /> */}
       <Route path="*" element={<NotFoundPage />} />
       <Route path="/forgotPass" element={<ForgotPasswordPage />} />
       <Route path="/resetPass/:token" element={<ResetPassPage />} />

@@ -1,7 +1,10 @@
-   "username": "user132",
-    "password" : "12345678",
-    "email" : "user@bezkoder.com",
-    "role": [""]
+{
+    "firstName" : "Sam",
+    "lastName": "Flynn",
+    "mobile": "0988818188",
+    "address": "New York - Bình Định",
+    "urlAvatar": "radicalNightRepair.png"
+}
 
 mvc model: route => middleware => controller => validate => model  
                                   => request

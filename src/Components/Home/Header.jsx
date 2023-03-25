@@ -108,6 +108,7 @@ function Header() {
           SẢN PHẨM
         </NavLink>
         <NavLink className="header-center-content">GIỚI THIỆU</NavLink>
+        <NavLink className="header-center-content">LIÊN HỆ</NavLink>
       </div>
       <div className="header-right">
         <div className="header-icon-area">

@@ -69,28 +69,32 @@ const AccountPage = () => {
               mobile: account.mobile,
               email: account.email,
               address: account.address,
+              // first_name: 'account.firstName',
+              // last_name: "account.lastName",
+              // mobile: '1234567891',
+              // email: 'account.email@gmail.com',
+              // address: 'account.address',
             }}
             validationSchema={Yup.object({
               first_name: Yup.string(),
               last_name: Yup.string(),
               email: Yup.string(),
               address: Yup.string(),
-
               mobile: Yup.string().min(6, "Phải đủ 10 ký tự.").max(10, "Phải đủ 10 ký tự."),
             })}
             onSubmit={async (values) => {
               try {
                 let nameImage = await uploadImgAPI(previewAvatarFile);
-                console.log(nameImage);
+                console.log("value: ", values.first_name);
                 const update = {
-                  firstName: values.first_name,
-                  lastName: values.last_name,
-                  email: values.email,
-                  mobile: values.mobile,
-                  address: values.address,
-                  urlAvatar: nameImage,
+                  firstName: values.first_name ? values.first_name : account.firstName,
+                  lastName: values.last_name ? values.last_name : account.lastName,
+                  email: values.email ? values.email : account.email,
+                  mobile: values.mobile ? values.mobile : account.mobile,
+                  address: values.address ? values.address : account.address,
+                  urlAvatar: nameImage ? nameImage : account.urlAvatar,
                 };
-               await updateAccountAPI(id, update).then((response) => {
+                await updateAccountAPI(id, update).then((response) => {
                   if (response !== null && response !== undefined) {
                     console.log("response: ", response);
                     toast.success("Thành công.", {
@@ -200,7 +204,7 @@ const AccountPage = () => {
       {/* ORDER SUMMARY */}
       <Col xs={12} xl={4}>
         <Paper style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
-          <Container style={{ display: "flex" , flexDirection: "column", alignItems: "center"}}>
+          <Container style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             {/* src={previewAvatarUrl ? previewAvatarUrl : (userInfo.avatarUrl ? `http://127.0.0.1:8887/Avatar/${userInfo.avatarUrl}` : avatar1)} */}
             <Avatar
               alt="Remy Sharp"
