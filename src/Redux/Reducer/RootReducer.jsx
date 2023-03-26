@@ -13,6 +13,7 @@ import { OrderInfo, OrderItems } from "./CheckoutReducer";
 const RootReducers = combineReducers({
   listAccountReducer: ListAccount,
   listProductReducer: ListProduct,
+  listCategoryReducer: ListCategory,
   listOrderReducer: ListOrder,
   singleProductReducer: SingleProduct,
   singleAccountReducer: SingleAccount,

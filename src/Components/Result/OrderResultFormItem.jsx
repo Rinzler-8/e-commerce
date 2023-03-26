@@ -17,7 +17,7 @@ function OrderResultFormItem(props) {
     // dispatchRedux(actionShowUpdateForm());
     onHandleEdit(order);
   };
-
+console.log("order: ", listOrder);
   // Khai báo item hiển thị dữ liệu
   let rowItem = "";
   // Kiểm tra nếu listOrder !="" sẽ hiển thị dữ liệu
@@ -32,20 +32,18 @@ function OrderResultFormItem(props) {
           <td>{order.mobile}</td>
           <td>{order.delivery_address}</td>
           <td>{order.paymentType}</td>
+          <td>{order.orderStatus}</td>
+          <td>{order.created_At}</td>
           <td>{order.note}</td>
-          <td>
-            {/* <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + order.imageName} style={{ width: "150px", height: "150px" }} /> */}
-          </td>
           <td>
             <Button color="warning" onClick={() => handleEditButton(order)}>
               Edit
             </Button>
-          </td>
-          <td>
             <Button color="danger" onClick={() => handleDelete(order.id)}>
               Delete
             </Button>
           </td>
+
         </tr>
       );
     });

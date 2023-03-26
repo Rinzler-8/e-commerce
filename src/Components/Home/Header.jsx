@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetCartByUserIdAPI, actionAddItemQty, actionDecItemQty, actionUpdateCartAPI, actionDeleteCartItemAPI } from "../../Redux/Action/CartAction";
 import { actionFetchSingleAccountAPI } from "../../Redux/Action/AccountAction";
+import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
 import { useNavigate } from "react-router-dom";
 import { updateCartAPI } from "../../API/CartAPI";
 import "../../css/Header.css";
@@ -25,10 +26,14 @@ function Header() {
   const dispatchRedux = useDispatch();
   const cart = stateRedux.cartReducer;
   const account = stateRedux.singleAccountReducer;
+  const listCategories = stateRedux.listCategoryReducer;
+  console.log("cat", listCategories);
   const id = localStorage.getItem("id");
   const username = localStorage.getItem("username");
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorCat, setAnchorCat] = React.useState(null);
   const openPopover = Boolean(anchorEl);
+  const openCategories = Boolean(anchorCat);
   const handleOpenPopover = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -36,9 +41,17 @@ function Header() {
   const handleClosePopover = () => {
     setAnchorEl(null);
   };
+  const handleOpenCategories = (event) => {
+    setAnchorCat(event.currentTarget);
+  };
+
+  const handleCloseCategories = () => {
+    setAnchorCat(null);
+  };
   useEffect(() => {
     if (id && id !== "") dispatchRedux(actionGetCartByUserIdAPI(id));
     dispatchRedux(actionFetchSingleAccountAPI(id));
+    dispatchRedux(actionFetchCategoryAPI(id));
   }, [id]);
 
   const changeNavBack = () => {
@@ -104,9 +117,32 @@ function Header() {
         <NavLink href="/" className="header-center-content">
           TRANG CHỦ
         </NavLink>
-        <NavLink href="/products" className="header-center-content">
+        <div className="header-center-content" onClick={handleOpenCategories}>
           SẢN PHẨM
-        </NavLink>
+        </div>
+        <Popover
+          id="CategoryPopover"
+          open={openCategories}
+          onClose={handleCloseCategories}
+          anchorEl={anchorCat}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          style={{ zIndex: 9999 }}
+        >
+          <div className="user-popover-wrapper">
+            {listCategories.map((cat, index) => (
+              <>
+                <NavLink className="popover-item">
+                  <span>{cat.name}</span>
+                </NavLink>
+                <Divider />
+              </>
+            ))}
+          </div>
+          <NavLink href="/products">Xem tất cả</NavLink>
+        </Popover>
         <NavLink className="header-center-content">GIỚI THIỆU</NavLink>
         <NavLink className="header-center-content">LIÊN HỆ</NavLink>
       </div>
@@ -121,7 +157,6 @@ function Header() {
           <div>
             {localStorage.getItem("token") ? (
               <>
-                {" "}
                 <div className="header-user-avatar" onClick={handleOpenPopover}>
                   <img
                     src={
@@ -155,21 +190,6 @@ function Header() {
                       <span>Đăng xuất</span>
                     </NavLink>
                   </div>
-                  {/* <MenuList>
-                    <MenuItem>
-                      <ListItemIcon>
-                        <PersonIcon />
-                      </ListItemIcon>
-                      <ListItemText>Tài khoản</ListItemText>
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem>
-                      <ListItemIcon>
-                        <LogoutIcon />
-                      </ListItemIcon>
-                      <ListItemText>Đăng xuất</ListItemText>
-                    </MenuItem>
-                  </MenuList> */}
                 </Popover>
               </>
             ) : (

@@ -18,8 +18,10 @@ function OrderResultForm(props) {
             <th>Số điện thoại</th>
             <th>Địa chỉ nhận hàng</th>
             <th>Phương thức thanh toán</th>
+            <th>Trạng thái</th>
             <th>Ngày tạo</th>
             <th>Ghi chú</th>
+            <th>Hành động</th>
           </tr>
         </thead>
         <tbody>

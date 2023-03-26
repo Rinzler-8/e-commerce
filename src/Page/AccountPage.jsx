@@ -69,11 +69,6 @@ const AccountPage = () => {
               mobile: account.mobile,
               email: account.email,
               address: account.address,
-              // first_name: 'account.firstName',
-              // last_name: "account.lastName",
-              // mobile: '1234567891',
-              // email: 'account.email@gmail.com',
-              // address: 'account.address',
             }}
             validationSchema={Yup.object({
               first_name: Yup.string(),

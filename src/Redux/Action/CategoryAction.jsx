@@ -5,7 +5,6 @@ import * as Types from "../Contant/CategoryActionType";
 export const actionFetchCategoryAPI = () => {
   return (dispatch) => {
     return getCategoryAPIList().then((response) => {
-      // console.log("reponseDepartmentAPI:", response);
       dispatch(actionFetchCategoryRedux(response));
     });
   };
