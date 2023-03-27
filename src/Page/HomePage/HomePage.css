@@ -1,0 +1,13 @@
+.homepage-carousel-container {
+  padding-bottom: 80px;
+}
+
+.product-list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+  padding: 0px 100px;
+}

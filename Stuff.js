@@ -78,15 +78,16 @@ Final project:
 
 3. REMAININGS:
  * User:
-   - danh sách order (get all orders)
-   - phân quyền
+   - danh sách order (get all orders) (DONE) 
+   - phân quyền 
+   - user edit account (DONE)
    - đặt điều kiện cho các function
    - delete account
-   - user change password
-   - forgot/reset password
-   - validation on status
+   - user change password (HALF), check old password ?
+   - forgot/reset password (HALF)
+   - validation on status 
    - edit account status (admin)
-   - upload avatar
+   - upload avatar (DONE)
    
  * Admin:
    1. Manage account

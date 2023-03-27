@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Toast, ToastHeader, ToastBody } from "reactstrap";
-import ProductResultForm from "../Components/Result/ProductResultForm";
+import ProductResultForm from "../../Components/Result/ProductResultForm";
 // import CreateButton from "./../Components/Admin/CreateButton";
 import { useDispatch, useSelector } from "react-redux";
-import { actionAddProductAPI, actionDeleteProductAPI, actionFetchProductAPI, actionUpdateProductAPI, actionFetchSingleProductAPI } from "../Redux/Action/ProductAction";
-import PaginationButton from "../Components/Paging/PaginationButton";
-import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../Redux/Action/PageAction";
-import SizeButton from "../Components/Paging/SizeButton";
-import ProductFieldSortButton from "../Components/Paging/ProductFieldSortButton";
-import DirectionSortButton from "../Components/Paging/DirectionSortButton";
-import SearchComponent from "../Components/SearchComponent/SearchComponent";
-import ModalCreateNewProduct from "../Components/Product/CreateNewProduct/ModalCreateNewProduct";
-import { actionFetchProductUpdateInfoRedux } from "../Redux/Action/FormUpdateAction";
-import ModalUpdateProduct from "../Components/Product/UpdateProduct/ModalUpdateProduct";
-import { actionFetchCategoryAPI } from "../Redux/Action/CategoryAction";
+import { actionAddProductAPI, actionDeleteProductAPI, actionFetchProductAPI, actionUpdateProductAPI, actionFetchSingleProductAPI } from "../../Redux/Action/ProductAction";
+import PaginationButton from "../../Components/Paging/PaginationButton";
+import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../../Redux/Action/PageAction";
+import SizeButton from "../../Components/Paging/SizeButton";
+import ProductFieldSortButton from "../../Components/Paging/ProductFieldSortButton";
+import DirectionSortButton from "../../Components/Paging/DirectionSortButton";
+import SearchComponent from "../../Components/SearchComponent/SearchComponent";
+import ModalCreateNewProduct from "../../Components/Product/CreateNewProduct/ModalCreateNewProduct";
+import { actionFetchProductUpdateInfoRedux } from "../../Redux/Action/FormUpdateAction";
+import ModalUpdateProduct from "../../Components/Product/UpdateProduct/ModalUpdateProduct";
+import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
 import { Grid } from "@mui/material";
-import ProductList from "../Components/Product/ProductList";
-import { actionToggleUpdateFormRedux } from "../Redux/Action/FormUpdateAction";
-import Product from "../Components/Product/Product";
+import ProductList from "../../Components/Product/ProductList";
+import { actionToggleUpdateFormRedux } from "../../Redux/Action/FormUpdateAction";
+import Product from "../../Components/Product/Product";
 import { useParams } from "react-router-dom";
 
 function ProductPage(props) {
@@ -70,7 +70,6 @@ function ProductPage(props) {
   };
   // Hàm xử lý khi người dùng ChangeSize
   let onHandleChangeSize = (item) => {
-    console.log("Size: ", item);
     dispatchRedux(actionChangeSize(item));
   };
   // Hàm xử lý khi người dùng thay đổi SortField
@@ -84,7 +83,6 @@ function ProductPage(props) {
   };
   // Hàm xử lý khi nhấn nút Search
   let onHandleSearch = (valueSearch) => {
-    console.log("valueSearch: ", valueSearch);
     dispatchRedux(actionSearch(valueSearch));
   };
   // Xử lý thêm mới Product

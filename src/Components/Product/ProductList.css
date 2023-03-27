@@ -1,0 +1,11 @@
+.product-list-title {
+  text-align: center;
+  font-size: 24px;
+  margin: 0 0 20px 0;
+}
+
+.list-item-container {
+  display: flex;
+  max-width: 1400px;
+  overflow-y: auto;
+}

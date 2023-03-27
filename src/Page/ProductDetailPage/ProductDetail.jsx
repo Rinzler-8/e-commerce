@@ -6,7 +6,7 @@ import { Card, CardContent, Grid, Box, Button } from "@mui/material";
 import { Container } from "reactstrap";
 import { actionFetchSingleProductAPI } from "../../Redux/Action/ProductAction";
 import { actionAddToCartAPI, actionAddItemQty, actionDecItemQty, actionUpdateCartAPI } from "../../Redux/Action/CartAction";
-import "../../../src/css/ProductDetailPage.css";
+import "./ProductDetail.css";
 import queryString from "query-string";
 
 function ProductDetail(props) {

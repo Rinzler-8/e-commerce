@@ -1,5 +1,5 @@
 import React from "react";
-import "../../css/Footer.css";
+import "./Footer.css";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
