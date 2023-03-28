@@ -9,7 +9,7 @@ import storage from "../../Storage/Storage";
 
 function LoginComponent(props) {
   const [isShown, setIsShown] = useState(false);
-
+  const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
   const togglePassword = () => {
     setIsShown((isShown) => !isShown);
   };
@@ -25,7 +25,7 @@ function LoginComponent(props) {
           password: "",
         }}
         validationSchema={Yup.object({
-          email: Yup.string().required("Trường này là bắt buộc."),
+          email: Yup.string().matches(emailRegExp, "Email không hợp lệ.").required("Trường này là bắt buộc."),
           password: Yup.string().required("Trường này là bắt buộc."),
         })}
         onSubmit={(values) => {
@@ -51,20 +51,12 @@ function LoginComponent(props) {
                 <Form>
                   {/* Login */}
                   <div className="title-header">
-                    <h5>SIGN IN</h5>
+                    <h5>ĐĂNG NHẬP</h5>
                     <hr></hr>
                   </div>
 
                   {/* email */}
-                  <Field
-                    fullWidth
-                    className="input"
-                    name="email"
-                    type="text"
-                    placeholder="Nhập Email"
-                    label="Email:"
-                    component={CustomInput}
-                  />
+                  <Field fullWidth className="input" name="email" type="text" placeholder="Nhập Email" label="Email:" component={CustomInput} />
                   {/* password */}
                   <Field
                     fullWidth

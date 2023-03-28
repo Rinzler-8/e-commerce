@@ -31,6 +31,7 @@ import { actionCheckoutAPI } from "../Redux/Action/CheckoutAction";
 
 const CheckOutList = () => {
   const [isShown, setIsShown] = useState(false);
+  const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   let navigate = useNavigate();
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
@@ -57,8 +58,7 @@ const CheckOutList = () => {
   if (cart) {
     return (
       <Grid container style={{ marginTop: "90px" }}>
-
-      {/* SHIPPING INFORMATION */}
+        {/* SHIPPING INFORMATION */}
         <Grid item md={7}>
           <Paper style={{ marginRight: "80px", marginLeft: "300px", marginTop: "80px", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
             <Formik
@@ -75,10 +75,7 @@ const CheckOutList = () => {
 
                 delivery_address: Yup.string().required("Không được để trống address"),
 
-                mobile: Yup.string()
-                  .min(6, "Phải từ 6 đến 10 ký tự.")
-                  .max(10, "Phải từ 6 đến 10 ký tự.")
-                  .required("Không được để trống số điện thoại"),
+                mobile: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ").required("Không được để trống số điện thoại"),
               })}
               onSubmit={(values) => {
                 try {
@@ -118,10 +115,6 @@ const CheckOutList = () => {
                 <Container>
                   <Row>
                     <Col
-                      // sm={{
-                      //   offset: 1,
-                      //   size: 7,
-                      // }}
                       style={{ marginTop: 60 }}
                     >
                       <Form>
@@ -181,7 +174,7 @@ const CheckOutList = () => {
 
         {/* ORDER SUMMARY */}
         <Grid item md={5}>
-          <Paper style={{ marginRight: "200px",  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
+          <Paper style={{ marginRight: "200px", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
             <Container className="summary_container">
               <div className="order_summary">order summary</div>
               {cart.cartItems.map(
@@ -192,7 +185,7 @@ const CheckOutList = () => {
                       <ListItem>
                         <div>
                           <NavLink href={`/products/${product.product_id}`}>
-                            <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} style={{ width: 100, height: 100 }} />
+                            <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} style={{ width: 100, height: 100 }} />
                           </NavLink>
                         </div>
                         <span>

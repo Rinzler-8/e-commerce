@@ -19,9 +19,10 @@ const AccountPage = () => {
   const account = stateRedux.singleAccountReducer;
   const id = localStorage.getItem("id");
   const [previewAvatarUrl, setPreviewAvatarUrl] = useState();
-
   const [previewAvatarFile, setPreviewAvatarFile] = useState();
-
+  const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
+  const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
+  
   useState(() => {
     if (id && id !== "") {
       dispatchRedux(actionFetchSingleAccountAPI(id));
@@ -73,9 +74,9 @@ const AccountPage = () => {
             validationSchema={Yup.object({
               first_name: Yup.string(),
               last_name: Yup.string(),
-              email: Yup.string(),
+              email: Yup.string().matches(emailRegExp, "Email không hợp lệ."),
               address: Yup.string(),
-              mobile: Yup.string().min(6, "Phải đủ 10 ký tự.").max(10, "Phải đủ 10 ký tự."),
+              mobile: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ"),
             })}
             onSubmit={async (values) => {
               try {

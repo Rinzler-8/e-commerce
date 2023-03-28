@@ -13,7 +13,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 function RegisterComponent(props) {
   const [isShown, setIsShown] = useState(false);
-  const phoneRegExp = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
+  const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
+  const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
   let navigate = useNavigate();
   // Quản lý trạng thái ẩn hiện Password
   const togglePassword = () => {
@@ -42,8 +43,7 @@ function RegisterComponent(props) {
             }),
 
           email: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự.")
+            .matches(emailRegExp, "Email không hợp lệ.")
             .required("Trường này là bắt buộc.")
             .test("checkUniqueEmail", "Email đã được đăng ký.", async (email) => {
               // call api
@@ -58,9 +58,7 @@ function RegisterComponent(props) {
               is: (val) => (val && val.length > 0 ? true : false),
               then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp."),
             }),
-          mobile: Yup.string()
-            .required("Trường này là bắt buộc.")
-            .matches(phoneRegExp, "Số điện thoại không hợp lệ"),
+          mobile: Yup.string().required("Trường này là bắt buộc.").matches(phoneRegExp, "Số điện thoại không hợp lệ."),
         })}
         onSubmit={(values) => {
           try {
@@ -108,7 +106,7 @@ function RegisterComponent(props) {
               >
                 <Form>
                   <div className="title-header">
-                    <h5>CREATE AN ACCOUNT</h5>
+                    <h5>TẠO TÀI KHOẢN MỚI</h5>
                     <hr></hr>
                   </div>
                   {/* username */}
@@ -116,14 +114,7 @@ function RegisterComponent(props) {
                   {/* email */}
                   <Field fullWidth className="input" name="email" type="email" placeholder="Nhập email" label="Email:" component={CustomInput} />
                   {/* mobile */}
-                  <Field
-                    fullWidth
-                    className="input"
-                    name="mobile"
-                    placeholder="Nhập số điện thoại"
-                    label="Số điện thoại:"
-                    component={CustomInput}
-                  />
+                  <Field fullWidth className="input" name="mobile" placeholder="Nhập số điện thoại" label="Số điện thoại:" component={CustomInput} />
                   {/* password */}
                   <Field
                     fullWidth
