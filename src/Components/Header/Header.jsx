@@ -118,7 +118,8 @@ function Header() {
         <NavLink href="/" className="header-center-content">
           TRANG CHỦ
         </NavLink>
-        <div className="header-center-content" onClick={handleOpenCategories}>
+        <div className="header-center-content"
+          onClick={handleOpenCategories}>
           SẢN PHẨM
         </div>
         <Popover
@@ -135,14 +136,15 @@ function Header() {
           <div className="user-popover-wrapper">
             {listCategories.map((cat) => (
               <>
-                <NavLink className="popover-item">
+                <NavLink href= {`/categories/${cat.id}`} className="popover-item">
                   <span>{cat.name}</span>
                 </NavLink>
                 <Divider />
               </>
             ))}
+            <NavLink href="/products">Xem tất cả</NavLink>
+
           </div>
-          <NavLink href="/products">Xem tất cả</NavLink>
         </Popover>
         <NavLink className="header-center-content">GIỚI THIỆU</NavLink>
         <NavLink className="header-center-content">LIÊN HỆ</NavLink>

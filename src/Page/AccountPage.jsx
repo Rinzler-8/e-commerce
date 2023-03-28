@@ -183,9 +183,6 @@ const AccountPage = () => {
                       {/* Submit */}
                       <Row className="button">
                         <Button type="submit">Lưu thay đổi</Button>
-                        <Link to={"/login"} className="link">
-                          Quay lại
-                        </Link>
                       </Row>
                     </Form>
                   </Col>
