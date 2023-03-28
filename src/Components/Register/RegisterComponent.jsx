@@ -13,10 +13,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 function RegisterComponent(props) {
   const [isShown, setIsShown] = useState(false);
-  // Quản lý trạng thái ẩn hiện Password
-
+  const phoneRegExp = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
   let navigate = useNavigate();
-
+  // Quản lý trạng thái ẩn hiện Password
   const togglePassword = () => {
     setIsShown((isShown) => !isShown);
   };
@@ -59,7 +58,9 @@ function RegisterComponent(props) {
               is: (val) => (val && val.length > 0 ? true : false),
               then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp."),
             }),
-          mobile: Yup.string().min(10, "Must be 10 numbers").max(10, "Must be 10 numbers").required("Trường này là bắt buộc."),
+          mobile: Yup.string()
+            .required("Trường này là bắt buộc.")
+            .matches(phoneRegExp, "Số điện thoại không hợp lệ"),
         })}
         onSubmit={(values) => {
           try {
@@ -119,7 +120,6 @@ function RegisterComponent(props) {
                     fullWidth
                     className="input"
                     name="mobile"
-                    type="number"
                     placeholder="Nhập số điện thoại"
                     label="Số điện thoại:"
                     component={CustomInput}
@@ -156,9 +156,6 @@ function RegisterComponent(props) {
                     <Button type="submit" className="register">
                       Đăng ký
                     </Button>
-                    <Link to={"/login"} className="link">
-                      Quay lại
-                    </Link>
                   </Row>
                 </Form>
               </Col>
