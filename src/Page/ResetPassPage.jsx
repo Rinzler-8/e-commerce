@@ -38,12 +38,12 @@ const ResetPassPage = () => {
         confirmPassword: "",
       }}
       validationSchema={Yup.object({
-        password: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Trường này là bắt buộc."),
+        password: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Trường này là bắt buộc!"),
         confirmPassword: Yup.string()
-          .required("Trường này là bắt buộc.")
+          .required("Trường này là bắt buộc!")
           .when("password", {
             is: (val) => (val && val.length > 0 ? true : false),
-            then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp."),
+            then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp!"),
           }),
       })}
       onSubmit={async (values) => {

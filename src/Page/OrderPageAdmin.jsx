@@ -88,7 +88,6 @@ function OrderPage(props) {
   };
   // Thông tin trang hiện tại từ redux để truyền xuống PaginationButton hiển thị
   let currentPage = stateRedux.pageFilterReducer;
-  console.log("current page: ", currentPage)
   return (
     <>
       {/* Hiển thị modal form update */}

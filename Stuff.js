@@ -88,7 +88,7 @@ Final project:
    - validation on status 
    - edit account status (admin)
    - upload avatar (DONE)
-   
+   - product page theo category (DONE)
  * Admin:
    1. Manage account
    •  Log In/Log Out

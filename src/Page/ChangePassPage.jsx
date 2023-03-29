@@ -39,17 +39,17 @@ const ChangePassPage = () => {
       }}
       validationSchema={Yup.object({
         oldPass: Yup.string()
-        .required("Trường này là bắt buộc.")
+        .required("Trường này là bắt buộc!")
         .when("newPass", {
           is: (val) => (val && val.length > 0 ? true : false),
-          then: Yup.string().oneOf([Yup.ref("newPass")], "Mật khẩu không khớp."),
+          then: Yup.string().oneOf([Yup.ref("newPass")], "Mật khẩu không khớp!"),
         }),
-        newPass: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Trường này là bắt buộc."),
+        newPass: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Trường này là bắt buộc!"),
         confirmPassword: Yup.string()
-          .required("Trường này là bắt buộc.")
+          .required("Trường này là bắt buộc!")
           .when("newPass", {
             is: (val) => (val && val.length > 0 ? true : false),
-            then: Yup.string().oneOf([Yup.ref("newPass")], "Mật khẩu không khớp."),
+            then: Yup.string().oneOf([Yup.ref("newPass")], "Mật khẩu không khớp!"),
           }),
       })}
       onSubmit={async (values) => {

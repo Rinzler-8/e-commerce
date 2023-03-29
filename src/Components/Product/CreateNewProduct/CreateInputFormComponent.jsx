@@ -41,17 +41,17 @@ function CreateInputFormComponent(props) {
         }}
         validationSchema={Yup.object({
           Name: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự.")
+            .min(6, "Phải từ 6 đến 50 ký tự!")
+            .max(50, "Phải từ 6 đến 50 ký tự!")
             .required("Khong duoc de trong ten san pham"),
           Price: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự.")
+            .min(6, "Phải từ 6 đến 50 ký tự!")
+            .max(50, "Phải từ 6 đến 50 ký tự!")
             .required("Khong duoc de trong gia san pham"),
-          Info: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Required"),
-          Detail: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Required"),
+          Info: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Required"),
+          Detail: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Required"),
           RatingStar: Yup.string().max(1, "Only 1 to 5 stars"),
-          ProductImage: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự."),
+          ProductImage: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!"),
           Category: Yup.number().required("Pls, Select a Category"),
         })}
         onSubmit={(values, actions) => {

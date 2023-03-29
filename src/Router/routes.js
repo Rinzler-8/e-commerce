@@ -10,6 +10,7 @@ import CheckOutSuccess from "../Page/CheckoutSuccessPage";
 import ForgotPasswordPage from "./../Page/ForgotPassPage";
 import { AdminAuth, WithAuth, WithNav } from "../HOC/Authentication";
 import ProductDetail from "../Page/ProductDetailPage/ProductDetail";
+import ProductCategoryPage from "../Page/ProductPage/ProductCategoryPage";
 import CartPage from "../Page/CartPage";
 import TestPage from "../Page/TestPage";
 import ProductPageAdmin from "../Page/ProductPageAdmin";
@@ -35,6 +36,7 @@ export const routes = (
       <Route path="/accounts/:id" element={<AccountPage />} />
       <Route path="/products" element={<ProductPage />} />
       <Route path="/products/:id" element={<ProductDetail />} />
+      <Route path="/categories/:id" element={<ProductCategoryPage />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />

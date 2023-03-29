@@ -36,10 +36,12 @@
   padding: 10px 24px;
   background-color: white;
   margin-top: 15px;
+  transition: 0.4s;
 }
 
 .add-to-cart-btn:hover {
   background-color: #0a0f9e;
   border-color: #0a0f9e;
   color: #fff;
+  transition: 0.4s;
 }

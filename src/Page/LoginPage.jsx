@@ -33,15 +33,14 @@ function LoginPage(props) {
           console.log("ROLE: ", localStorage.getItem("role"));
           toast.success("Login thành công.", {
             position: "top-right",
-            autoClose: 1000,
+            autoClose: 1500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
           });
-          window.location.reload();
-          setTimeout(() => navigate("/"), 1000);
+          setTimeout(() => navigate("/"), 1500);
         } else {
           toast.error("Thông tin đăng nhập sai! Vui lòng thử lại.", {
             position: "top-right",
@@ -79,7 +78,7 @@ function LoginPage(props) {
       {/* SHIPPING INFORMATION */}
       <Grid item md={6}>
         <LoginComponent handleLogin={handleLogin} />
-        <ToastContainer />;
+        <ToastContainer />
       </Grid>
       <div className="vl"></div>
       {/* ORDER SUMMARY */}
