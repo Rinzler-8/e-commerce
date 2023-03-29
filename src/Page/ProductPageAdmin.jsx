@@ -37,6 +37,7 @@ function ProductPage(props) {
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI(filter));
     dispatchRedux(actionFetchCategoryAPI());
+    dispatchRedux(actionChangeSize(filter.size));
     // Gọi useEffect để load dữ liệu list Department và Positon
   }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
 
@@ -82,7 +83,6 @@ function ProductPage(props) {
   };
   // Hàm xử lý khi nhấn nút Search
   let onHandleSearch = (valueSearch) => {
-    console.log("valueSearch: ", valueSearch);
     dispatchRedux(actionSearch(valueSearch));
   };
   // Xử lý thêm mới Product

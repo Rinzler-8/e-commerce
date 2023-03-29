@@ -21,6 +21,7 @@
 .productItem-information {
   text-align: center;
   font-size: 16px;
+  max-width: 380px;
 }
 
 .productItem-information p {
