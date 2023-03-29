@@ -1,6 +1,5 @@
 import React from "react";
 import ProductItem from "../../Components/Product/ProductItem";
-// import ProductList from "../../Components/Product/ProductList";
 import "./ProductPage.css";
 import { Progress } from "reactstrap";
 
@@ -12,10 +11,7 @@ function ProductPage(props) {
       </div>
       <div className="product-page-content">
         <div className="product-page-item-cotainer">
-          <div className="product-item-wrapper">
-            {/* <ProductList></ProductList> */}
-            <ProductItem></ProductItem>
-          </div>
+          <ProductItem></ProductItem>
         </div>
       </div>
       <div className="product-page-progress-bar-container">

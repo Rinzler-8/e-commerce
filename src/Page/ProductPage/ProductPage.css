@@ -20,10 +20,6 @@
   justify-content: center;
 }
 
-.product-item-wrapper {
-  padding-top: 45px;
-}
-
 .product-page-progress-bar-container {
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import "./ProductItem.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,23 +26,25 @@ function ProductItem({ img, name, shortDescription, price }) {
   return (
     <>
       {listProduct.map((product, index) => (
-        <div className="productItem-container">
-          <NavLink to={`/products/${product.product_id}`} style={{ textDecoration: "none" }}>
+        <div className="productItem-wrapper">
+          <div className="productItem-container">
+            {/* <NavLink to={`/products/${product.product_id}`} style={{ textDecoration: "none" }}> */}
             <div className="productItem-img">
               <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} />
             </div>
             <div className="productItem-information">
-              <h5 style={{ color: "black", fontFamily: "Lucida Sans, sans-serif" }}>
-                {product.name}
-              </h5>
+              <h5 style={{ color: "black", fontFamily: "Lucida Sans, sans-serif" }}>{product.name}</h5>
               <p className="mb-2 text-muted" tag="h6">
                 {product.info}
               </p>
               <p style={{ color: "black" }}>{product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</p>
               <p style={{ color: "black" }}>(Giá tham khảo)</p>
             </div>
-          </NavLink>
-          <button className="add-to-cart-btn" onClick={() => handleAddToCart(id, product)}>Thêm vào giỏ hàng</button>
+            {/* </NavLink> */}
+            <button className="add-to-cart-btn" onClick={() => handleAddToCart(id, product)}>
+              Thêm vào giỏ hàng
+            </button>
+          </div>
         </div>
       ))}
     </>
