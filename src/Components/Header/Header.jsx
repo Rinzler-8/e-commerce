@@ -134,13 +134,13 @@ function Header() {
           style={{ zIndex: 9999 }}
         >
           <div className="user-popover-wrapper">
-            {listCategories.map((cat) => (
-              <>
-                <NavLink href= {`/categories/${cat.id}`} className="popover-item">
+            {listCategories.map((cat, index) => (
+              <div key = {index}>
+                <NavLink href= {`/categories/${cat.name}`} className="popover-item">
                   <span>{cat.name}</span>
                 </NavLink>
                 <Divider />
-              </>
+              </div>
             ))}
             <NavLink href="/products">Xem tất cả</NavLink>
 

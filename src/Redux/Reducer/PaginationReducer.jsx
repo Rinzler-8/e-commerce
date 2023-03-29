@@ -5,7 +5,7 @@ var initialState = {
   size: 5,
   totalPages: 0,
   sort: { sortField: "id", sortDirection: "ASC" },
-  // search: "",
+  search: "",
 };
 
 const pageFilter = (state = initialState, action) => {
@@ -39,7 +39,7 @@ const pageFilter = (state = initialState, action) => {
       return {
         ...state,
         search: action.payload,
-        page: 0,
+        page: 1,
       };
     default:
       return { ...state };

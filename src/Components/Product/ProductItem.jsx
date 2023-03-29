@@ -26,7 +26,7 @@ function ProductItem({ img, name, shortDescription, price }) {
   return (
     <>
       {listProduct.map((product, index) => (
-        <div className="productItem-container">
+        <div className="productItem-container" key = {index}>
           <NavLink to={`/products/${product.product_id}`} style={{ textDecoration: "none" }}>
             <div className="productItem-img">
               <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} />

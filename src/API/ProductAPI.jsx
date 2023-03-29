@@ -24,6 +24,7 @@ const getProductAPIList = (filter) => {
   // Sử dụng thư viện queryString để chuyển đổi đối tượng thành các param
   // https://www.npmjs.com/package/query-string
   let url = "v1/products?" + queryString.stringify(parameters);
+  console.log("product url: ", url);
   // products?page=1&size=10
 
   return api("GET", url, null, null);
