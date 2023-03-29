@@ -34,7 +34,7 @@ const ForgotPassPage = () => {
         email: "",
       }}
       validationSchema={Yup.object({
-        email: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Trường này là bắt buộc."),
+        email: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Trường này là bắt buộc!"),
       })}
       onSubmit={
         async (values) => {

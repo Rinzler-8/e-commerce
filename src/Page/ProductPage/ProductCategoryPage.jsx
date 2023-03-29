@@ -19,7 +19,6 @@ function ProductCategoryPage(props) {
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
   let param = useParams();
-  console.log("param: ",param.id)
   let filter = {
     page: stateRedux.pageFilterReducer.page,
     size: stateRedux.pageFilterReducer.size,

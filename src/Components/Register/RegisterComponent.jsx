@@ -33,32 +33,32 @@ function RegisterComponent(props) {
         }}
         validationSchema={Yup.object({
           username: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự.")
-            .required("Trường này là bắt buộc.")
-            .test("checkUniqueUsername", "Tên người dùng đã được đăng ký.", async (username) => {
+            .min(6, "Phải từ 6 đến 50 ký tự!")
+            .max(50, "Phải từ 6 đến 50 ký tự!")
+            .required("Trường này là bắt buộc!")
+            .test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
               // call api
               const isExists = await getUsernameExists(username);
               return !isExists;
             }),
 
           email: Yup.string()
-            .matches(emailRegExp, "Email không hợp lệ.")
-            .required("Trường này là bắt buộc.")
-            .test("checkUniqueEmail", "Email đã được đăng ký.", async (email) => {
+            .matches(emailRegExp, "Email không hợp lệ!")
+            .required("Trường này là bắt buộc!")
+            .test("checkUniqueEmail", "Email đã được đăng ký!", async (email) => {
               // call api
               const isExists = await getEmailExists(email);
               return !isExists;
             }),
 
-          password: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Trường này là bắt buộc."),
+          password: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Trường này là bắt buộc!"),
           confirmPassword: Yup.string()
-            .required("Trường này là bắt buộc.")
+            .required("Trường này là bắt buộc!")
             .when("password", {
               is: (val) => (val && val.length > 0 ? true : false),
-              then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp."),
+              then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp!"),
             }),
-          mobile: Yup.string().required("Trường này là bắt buộc.").matches(phoneRegExp, "Số điện thoại không hợp lệ."),
+          mobile: Yup.string().required("Trường này là bắt buộc!").matches(phoneRegExp, "Số điện thoại không hợp lệ!"),
         })}
         onSubmit={(values) => {
           try {
@@ -154,7 +154,7 @@ function RegisterComponent(props) {
           </Container>
         )}
       </Formik>
-      <ToastContainer />;
+      <ToastContainer />
     </div>
   );
 }

@@ -78,7 +78,7 @@ function LoginPage(props) {
       {/* SHIPPING INFORMATION */}
       <Grid item md={6}>
         <LoginComponent handleLogin={handleLogin} />
-        <ToastContainer />;
+        <ToastContainer />
       </Grid>
       <div className="vl"></div>
       {/* ORDER SUMMARY */}

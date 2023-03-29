@@ -27,7 +27,7 @@ function UpdateInputProductForm(props) {
           Category: categoryIdUpdate,
         }}
         validationSchema={Yup.object({
-          Name: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Required"),
+          Name: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Required"),
           Category: Yup.number().required("Pls, Select a Category"),
         })}
         onSubmit={(values) => {

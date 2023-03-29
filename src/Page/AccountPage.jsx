@@ -74,7 +74,7 @@ const AccountPage = () => {
             validationSchema={Yup.object({
               first_name: Yup.string(),
               last_name: Yup.string(),
-              email: Yup.string().matches(emailRegExp, "Email không hợp lệ."),
+              email: Yup.string().matches(emailRegExp, "Email không hợp lệ!"),
               address: Yup.string(),
               mobile: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ"),
             })}

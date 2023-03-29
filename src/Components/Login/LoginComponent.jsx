@@ -25,8 +25,8 @@ function LoginComponent(props) {
           password: "",
         }}
         validationSchema={Yup.object({
-          email: Yup.string().matches(emailRegExp, "Email không hợp lệ.").required("Trường này là bắt buộc."),
-          password: Yup.string().required("Trường này là bắt buộc."),
+          email: Yup.string().matches(emailRegExp, "Email không hợp lệ!").required("Trường này là bắt buộc!"),
+          password: Yup.string().required("Trường này là bắt buộc!"),
         })}
         onSubmit={(values) => {
           let accountLogin = {

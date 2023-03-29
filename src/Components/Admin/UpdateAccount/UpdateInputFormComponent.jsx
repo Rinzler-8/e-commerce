@@ -25,19 +25,19 @@ function UpdateInputFormComponent(props) {
         }}
         validationSchema={Yup.object({
           Username: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự.")
+            .min(6, "Phải từ 6 đến 50 ký tự!")
+            .max(50, "Phải từ 6 đến 50 ký tự!")
             .required("Không được để trống username"),
           Avatar: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự."),
+            .min(6, "Phải từ 6 đến 50 ký tự!")
+            .max(50, "Phải từ 6 đến 50 ký tự!"),
           Mobile: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự.")
+            .min(6, "Phải từ 6 đến 50 ký tự!")
+            .max(50, "Phải từ 6 đến 50 ký tự!")
             .required("Không được để trống mobile"),
           Email: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự.")
+            .min(6, "Phải từ 6 đến 50 ký tự!")
+            .max(50, "Phải từ 6 đến 50 ký tự!")
             .required("Không được để trống email"),
         })}
         onSubmit={(values) => {
