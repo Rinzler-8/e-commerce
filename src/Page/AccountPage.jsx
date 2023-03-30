@@ -81,7 +81,6 @@ const AccountPage = () => {
             onSubmit={async (values) => {
               try {
                 let nameImage = await uploadImgAPI(previewAvatarFile);
-                console.log("value: ", values.first_name);
                 const update = {
                   firstName: values.first_name ? values.first_name : account.firstName,
                   lastName: values.last_name ? values.last_name : account.lastName,
@@ -91,7 +90,7 @@ const AccountPage = () => {
                   urlAvatar: nameImage ? nameImage : account.urlAvatar,
                 };
                 await updateAccountAPI(id, update).then((response) => {
-                  if (response !== null && response !== undefined) {
+                  if (response !== null && response !== undefined && nameImage) {
                     console.log("response: ", response);
                     toast.success("Thành công.", {
                       position: "top-right",
@@ -132,11 +131,11 @@ const AccountPage = () => {
             {({ validateField, validateForm }) => (
               <Container>
                 <Row>
-                  <Col style={{ marginTop: 50 }}>
+                  <Col style={{ marginTop: 20 }}>
                     <Form>
                       <span>
                         <Avatar style={{ backgroundColor: "blue" }}>1</Avatar>
-                        <h3 className="shipping">Thông tin</h3>
+                        <h3 className="infoTitle">Thông tin tài khoản</h3>
                       </span>
                       <Row>
                         <Col md={6} className="mb-3">

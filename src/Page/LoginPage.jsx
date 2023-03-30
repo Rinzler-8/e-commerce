@@ -31,7 +31,7 @@ function LoginPage(props) {
           storage.setUserInfo(accountLoginSaveToStorage);
           storage.setToken(accountLoginSaveToStorage);
           console.log("ROLE: ", localStorage.getItem("role"));
-          toast.success("Login thành công.", {
+          toast.success("Đăng nhập thành công.", {
             position: "top-right",
             autoClose: 1500,
             hideProgressBar: false,

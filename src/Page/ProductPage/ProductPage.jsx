@@ -17,6 +17,7 @@ function ProductPage(props) {
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
   let listProduct = stateRedux.listProductReducer;
+  let totalProd = stateRedux.pageFilterReducer.totalElements;
   // Lấy dữ liệu page, size được quản lý từ Redux
   let filter = {
     page: stateRedux.pageFilterReducer.page,
@@ -68,8 +69,8 @@ function ProductPage(props) {
       </div>
       <div className="product-page-progress-bar-container">
         <p className="progress-bar-description">Bạn đang xem {listProduct.length} trên tổng số 22 sản phẩm</p>
-        <Progress color="primary" value={listProduct.length} max = {22} className="progress-bar-custom-style" />
-        <LoadMoreButton onHandleChangeSize={onHandleChangeSize} />
+        <Progress color="primary" value={listProduct.length} max={totalProd} className="progress-bar-custom-style" />
+        {listProduct.length < totalProd ? <LoadMoreButton onHandleChangeSize={onHandleChangeSize} /> : <></>}
       </div>
     </>
   );

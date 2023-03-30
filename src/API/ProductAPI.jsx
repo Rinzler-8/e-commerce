@@ -8,6 +8,9 @@ const getProductAPIList = (filter) => {
   if (filter && filter.page) {
     parameters.page = filter.page;
   }
+  if (filter && filter.totalElements) {
+    parameters.totalElements = filter.totalElements;
+  }
   if (filter && filter.size) {
     parameters.size = filter.size;
   }
@@ -24,6 +27,7 @@ const getProductAPIList = (filter) => {
   // Sử dụng thư viện queryString để chuyển đổi đối tượng thành các param
   // https://www.npmjs.com/package/query-string
   let url = "v1/products?" + queryString.stringify(parameters);
+  // console.log("para: ", parameters);
   // products?page=1&size=10
 
   return api("GET", url, null, null);

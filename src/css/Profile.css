@@ -10,21 +10,6 @@
 
   /* Transition */
 }
-
-.thank {
-  /* Positioning */
-
-  /* Display & Box model */
-  margin-top: 50px;
-  padding-top: 200px;
-
-  /* Font */
-
-  /* Color */
-
-  /* border-style: none none solid; */
-  /* Transition */
-}
 .success_paper {
   /* Positioning */
 
@@ -38,4 +23,11 @@
   /* background-color: lightgray; */
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   /* Transition */
+}
+
+.infoTitle {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  letter-spacing: 0.04cm;
 }

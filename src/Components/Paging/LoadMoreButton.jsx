@@ -12,7 +12,6 @@ function LoadMoreButton(props) {
     let s = size + 6;
     onHandleChangeSize(s);
   };
-
   return (
     <div>
       <button className="btn-show-more" onClick={handleSelectItemDropDown}>Tải thêm</button>

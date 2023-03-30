@@ -10,7 +10,7 @@ import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionCh
 import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
 import { actionAddProductAPI, actionDeleteProductAPI, actionFetchProductAPI, actionUpdateProductAPI, actionFetchSingleProductAPI } from "../../Redux/Action/ProductAction";
 import ProductList from "../../Components/Product/ProductList";
-// import ProductList from "../../Components/Product/ProductList";
+import LoadMoreButton from "../../Components/Paging/LoadMoreButton";
 import "./ProductPage.css";
 import { Progress } from "reactstrap";
 import { useParams } from 'react-router-dom';
@@ -19,6 +19,7 @@ function ProductCategoryPage(props) {
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
   let param = useParams();
+  let listProduct = stateRedux.listProductReducer;
   let filter = {
     page: stateRedux.pageFilterReducer.page,
     size: stateRedux.pageFilterReducer.size,
@@ -67,9 +68,9 @@ function ProductCategoryPage(props) {
         </div>
       </div>
       <div className="product-page-progress-bar-container">
-        <p className="progress-bar-description">Bạn đang xem 24 trên tổng số 48 sản phẩm</p>
-        <Progress color="primary" value={57} className="progress-bar-custom-style" />
-        <button className="btn-show-more">Tải thêm</button>
+        <p className="progress-bar-description">Bạn đang xem {listProduct.length} trên tổng số 22 sản phẩm</p>
+        <Progress color="primary" value={listProduct.length} max={22} className="progress-bar-custom-style" />
+        <LoadMoreButton onHandleChangeSize={onHandleChangeSize} />
       </div>
     </>
   );

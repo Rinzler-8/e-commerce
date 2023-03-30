@@ -10,7 +10,7 @@ export const actionFetchProductAPI = (filter) => {
       // console.log("reponseAPI:", response);
       dispatch(actionFetchProductRedux(response.content));
       dispatch(actionSetTotalPageProductRedux(response.totalPages));
-      // console.log("Products Redux: ", response);
+      dispatch(actionSetTotalElementsProductRedux(response.totalElements));
     });
   };
 };
@@ -44,6 +44,13 @@ export const actionSetTotalPageProductRedux = (totalPage) => {
   return {
     type: Types_Page.SET_TOTAL_PAGE,
     payload: totalPage,
+  };
+};
+// Dispath action này tới redux để lấy tổng số trang Product
+export const actionSetTotalElementsProductRedux = (totalElements) => {
+  return {
+    type: Types_Page.SET_TOTAL_ELEMENTS,
+    payload: totalElements,
   };
 };
 

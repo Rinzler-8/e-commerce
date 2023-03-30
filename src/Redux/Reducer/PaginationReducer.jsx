@@ -1,4 +1,4 @@
-import { CHANGE_PAGE, SET_TOTAL_PAGE, CHANGE_SIZE, CHANGE_SORT_DIRECTION, CHANGE_SORT_FIELD, SEARCH } from "../Contant/PageActionType";
+import { CHANGE_PAGE, SET_TOTAL_PAGE, CHANGE_SIZE, CHANGE_SORT_DIRECTION, CHANGE_SORT_FIELD, SEARCH, SET_TOTAL_ELEMENTS } from "../Contant/PageActionType";
 
 var initialState = {
   page: 1,
@@ -6,6 +6,7 @@ var initialState = {
   totalPages: 0,
   sort: { sortField: "id", sortDirection: "ASC" },
   search: "",
+  totalElements: null,
 };
 
 const pageFilter = (state = initialState, action) => {
@@ -19,6 +20,11 @@ const pageFilter = (state = initialState, action) => {
       return {
         ...state,
         totalPages: action.payload,
+      };
+    case SET_TOTAL_ELEMENTS:
+      return {
+        ...state,
+        totalElements: action.payload,
       };
     case CHANGE_SIZE:
       return {

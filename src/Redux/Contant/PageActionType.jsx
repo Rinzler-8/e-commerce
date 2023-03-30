@@ -2,6 +2,8 @@ export const CHANGE_PAGE = "CHANGE_PAGE";
 
 export const SET_TOTAL_PAGE = "SET_TOTAL_PAGE";
 
+export const SET_TOTAL_ELEMENTS = "SET_TOTAL_ELEMENTS";
+
 export const CHANGE_SIZE = "CHANGE_SIZE";
 
 export const CHANGE_SORT_FIELD = "CHANGE_SORT_FIELD";
