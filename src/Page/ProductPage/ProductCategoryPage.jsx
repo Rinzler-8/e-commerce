@@ -63,10 +63,7 @@ function ProductCategoryPage(props) {
       </div>
       <div className="product-page-content">
         <div className="product-page-item-cotainer">
-          <div className="product-item-wrapper">
-            {/* <ProductList></ProductList> */}
-            <ProductList></ProductList>
-          </div>
+          <ProductItem></ProductItem>
         </div>
       </div>
       <div className="product-page-progress-bar-container">

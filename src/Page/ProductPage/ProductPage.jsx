@@ -67,8 +67,8 @@ function ProductPage(props) {
         </div>
       </div>
       <div className="product-page-progress-bar-container">
-        <p className="progress-bar-description">Bạn đang xem 24 trên tổng số 48 sản phẩm</p>
-        <Progress color="primary" value={57} className="progress-bar-custom-style" />
+        <p className="progress-bar-description">Bạn đang xem {listProduct.length} trên tổng số 22 sản phẩm</p>
+        <Progress color="primary" value={listProduct.length} max = {22} className="progress-bar-custom-style" />
         <LoadMoreButton onHandleChangeSize={onHandleChangeSize} />
       </div>
     </>

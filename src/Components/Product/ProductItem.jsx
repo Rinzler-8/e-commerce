@@ -44,8 +44,8 @@ function ProductItem({ img, name, shortDescription, price }) {
               <p className="mb-2 text-muted" tag="h6" style={{ height: "50px" }}>
                 {product.info}
               </p>
-              <p style={{ color: "black" }}>{product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</p>
-              <p style={{ color: "black" }}>(Giá tham khảo)</p>
+              <p style={{ color: "black", fontFamily: "Lucida Sans, sans-serif" }}>{product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</p>
+              <p style={{ color: "black", fontFamily: "Lucida Sans, sans-serif" }}>(Giá tham khảo)</p>
             </div>
             <button className="add-to-cart-btn" onClick={() => handleAddToCart(id, product)}>
               Thêm vào giỏ hàng
