@@ -133,16 +133,15 @@ function Header() {
           }}
           style={{ zIndex: 9999 }}
         >
-          <div className="user-popover-wrapper">
+          <div className="cat-popover-wrapper">
             {listCategories.map((cat, index) => (
               <div key = {index}>
                 <NavLink href= {`/categories/${cat.name}`} className="popover-item">
                   <span>{cat.name}</span>
                 </NavLink>
-                <Divider />
               </div>
             ))}
-            <NavLink href="/products">Xem tất cả</NavLink>
+            <NavLink href="/products" className="popover-viewAll">Xem tất cả</NavLink>
 
           </div>
         </Popover>

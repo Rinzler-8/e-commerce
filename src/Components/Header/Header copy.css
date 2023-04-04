@@ -100,7 +100,7 @@
 }
 
 .cat-popover-wrapper {
-  width: 200px;
+  width: 240px;
   min-height: 90px;
   max-height: 520px;
   overflow: hidden;
@@ -113,16 +113,12 @@
 
 .popover-item {
   color: #777;
-  text-align: left;
-  
+  text-align: center;
   width: 100%;
 }
 
 .popover-item:hover {
   color: #333;
-  margin-left: 15px;
-  border-left: 4px solid #0a0f9e;
-  transition: 0.3s ease;
 }
 
 .popover-viewAll {
@@ -130,15 +126,10 @@
   text-align: center;
   width: 100%;
   color: #0a0f9e;
-  margin-bottom: 15px;
 }
 
 .popover-viewAll:hover {
   color: #333;
-  margin-top: 15px;
-  /* border-top: 4px solid #0a0f9e; */
-  /* border-bottom: 4px solid #0a0f9e; */
-  transition: all 0.2s ease;
 }
 
 .user-popover-footer {

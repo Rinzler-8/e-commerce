@@ -31,3 +31,16 @@
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   letter-spacing: 0.04cm;
 }
+
+.submit-btn-profile {
+  background-color: #0a0f9e;
+  color: white;
+  cursor: pointer;
+}
+
+.submit-btn-profile:disabled {
+  /* background-color: #a0cfff; */
+  background-color: #073f77;
+  color: white;
+  cursor: not-allowed;
+}

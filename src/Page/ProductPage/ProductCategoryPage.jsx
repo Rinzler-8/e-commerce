@@ -19,6 +19,8 @@ function ProductCategoryPage(props) {
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
   let param = useParams();
+  console.log("param id", param.id);
+  let totalProd = stateRedux.pageFilterReducer.totalElements;
   let listProduct = stateRedux.listProductReducer;
   let filter = {
     page: stateRedux.pageFilterReducer.page,
@@ -28,10 +30,9 @@ function ProductCategoryPage(props) {
   };
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI(filter));
-    dispatchRedux(actionFetchCategoryAPI());
     dispatchRedux(actionSearch(param.id));
     // Gọi useEffect để load dữ liệu list Department và Positon
-  }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
+  }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search, param.id]);
   // Xử lý khi click vào các icon phân trang
   let onHandleChangePage = (page) => {
     // console.log("Trang hiện tại: ", page);
@@ -68,9 +69,9 @@ function ProductCategoryPage(props) {
         </div>
       </div>
       <div className="product-page-progress-bar-container">
-        <p className="progress-bar-description">Bạn đang xem {listProduct.length} trên tổng số 22 sản phẩm</p>
-        <Progress color="primary" value={listProduct.length} max={22} className="progress-bar-custom-style" />
-        <LoadMoreButton onHandleChangeSize={onHandleChangeSize} />
+        <p className="progress-bar-description">Bạn đang xem {listProduct.length} trên tổng số {totalProd} sản phẩm</p>
+        <Progress color="primary" value={listProduct.length} max={totalProd} className="progress-bar-custom-style" />
+        {listProduct.length < totalProd ? <LoadMoreButton onHandleChangeSize={onHandleChangeSize} /> : <></>}
       </div>
     </>
   );

@@ -60,10 +60,16 @@ Final project:
       + <img alt="Sample" src={require('../../Assets/Product/' + product.imageName)}/> không chạy được vì:
       => Based on how the packager works, this isn't really possible with require. Packaging happens once before runtime so those variables don't have values yet.
       +
-      => SOLUTION: lấy ảnh từ server (be)
+      => SOLUTION: lấy ảnh từ server (BE)
    - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near
-   => Đổi tên table trong entity ("Order" => "`Order`")
-
+   => Đổi tên table trong entity BE ("Order" => "`Order`") vì dưới db tên table là `Order`
+   - FE: productCategoryPage hiện sai mỗi lần refresh page =
+   => thêm param.id vào array second argument 
+   useEffect(() => {
+    dispatchRedux(actionFetchProductAPI(filter));
+    dispatchRedux(actionSearch(param.id));
+    // Gọi useEffect để load dữ liệu list Department và Positon
+  }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search, param.id]);
 
 
 2. FEATURE

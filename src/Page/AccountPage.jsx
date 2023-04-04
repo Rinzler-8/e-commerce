@@ -22,12 +22,12 @@ const AccountPage = () => {
   const [previewAvatarFile, setPreviewAvatarFile] = useState();
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
-  
+
   useState(() => {
     if (id && id !== "") {
       dispatchRedux(actionFetchSingleAccountAPI(id));
     }
-  }, []);
+  }, [id]);
 
   function CustomInput(props) {
     let {
@@ -60,20 +60,19 @@ const AccountPage = () => {
 
   return (
     <Row className="container">
-      {/* SHIPPING INFORMATION */}
       <Col xs={12} xl={8}>
         <Paper style={{ marginTop: "0px", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
           <Formik
             initialValues={{
-              first_name: account.firstName,
-              last_name: account.lastName,
+              firstName: account.firstName,
+              lastName: account.lastName,
               mobile: account.mobile,
               email: account.email,
               address: account.address,
             }}
             validationSchema={Yup.object({
-              first_name: Yup.string(),
-              last_name: Yup.string(),
+              firstName: Yup.string(),
+              lastName: Yup.string(),
               email: Yup.string().matches(emailRegExp, "Email không hợp lệ!"),
               address: Yup.string(),
               mobile: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ"),
@@ -82,15 +81,15 @@ const AccountPage = () => {
               try {
                 let nameImage = await uploadImgAPI(previewAvatarFile);
                 const update = {
-                  firstName: values.first_name ? values.first_name : account.firstName,
-                  lastName: values.last_name ? values.last_name : account.lastName,
+                  firstName: values.firstName ? values.firstName : account.firstName,
+                  lastName: values.lastName ? values.lastName : account.lastName,
                   email: values.email ? values.email : account.email,
                   mobile: values.mobile ? values.mobile : account.mobile,
                   address: values.address ? values.address : account.address,
                   urlAvatar: nameImage ? nameImage : account.urlAvatar,
                 };
                 await updateAccountAPI(id, update).then((response) => {
-                  if (response !== null && response !== undefined && nameImage) {
+                  if (response !== null && response !== undefined && (nameImage || require(`../Assets/img/account-default-img.png`))) {
                     console.log("response: ", response);
                     toast.success("Thành công.", {
                       position: "top-right",
@@ -128,7 +127,7 @@ const AccountPage = () => {
             validateOnChange={true}
             validateOnBlur={true}
           >
-            {({ validateField, validateForm }) => (
+            {({ values, dirty, isValid, initialValues, initialTouched }) => (
               <Container>
                 <Row>
                   <Col style={{ marginTop: 20 }}>
@@ -141,7 +140,7 @@ const AccountPage = () => {
                         <Col md={6} className="mb-3">
                           <Field
                             fullWidth
-                            name="first_name"
+                            name="firstName"
                             type="text"
                             defaultValue={account.firstName}
                             placeholder="Nhập tên"
@@ -152,7 +151,7 @@ const AccountPage = () => {
                         <Col md={6} className="mb-3">
                           <Field
                             fullWidth
-                            name="last_name"
+                            name="lastName"
                             type="text"
                             defaultValue={account.lastName}
                             placeholder="Nhập họ"
@@ -180,8 +179,24 @@ const AccountPage = () => {
                       <Field className="input" fullWidth name="address" type="text" defaultValue={account.address} label="Địa chỉ:" component={CustomInput} />
 
                       {/* Submit */}
-                      <Row className="button">
-                        <Button type="submit">Lưu thay đổi</Button>
+                      <Row>
+                        {/* <h1>Values:{values.firstName}</h1>
+                        <h1>Initial:{account.firstName}</h1> */}
+                        <Button
+                          className="submit-btn-profile"
+                          type="submit"
+                          disabled={
+                            !isValid || !dirty 
+                            // (values.firstName === account.firstName
+                            // values.lastName === account.lastName ||
+                            // values.mobile === account.mobile ||
+                            // values.address === account.address ||
+                            // values.email === account.email
+                            // )
+                          }
+                        >
+                          Lưu thay đổi
+                        </Button>
                       </Row>
                     </Form>
                   </Col>
@@ -205,7 +220,7 @@ const AccountPage = () => {
                   ? previewAvatarUrl
                   : account.urlAvatar
                   ? "http://localhost:8080/api/v1/fileUpload/files/" + account.urlAvatar
-                  : "http://localhost:8080/api/v1/fileUpload/files/polish.png"
+                  : require(`../Assets/img/account-default-img.png`)
               }
               sx={{ width: 200, height: 200 }}
             />

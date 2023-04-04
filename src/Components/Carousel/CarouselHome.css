@@ -1,0 +1,36 @@
+.carousel {
+  display: flex;
+}
+
+.carousel-text {
+  color: #000000;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 38px;
+  align-items: start;
+  font-family: "Symbols", "Title", "Arial", sans-serif;
+
+}
+
+.controls {
+  
+  height: 100%;
+  width: 100%;
+}
+
+.control-left {
+  position: absolute;
+  left : 0;
+  top: 40%;
+  z-index: 1;
+  transform: translateY(-50%);
+  margin-left: 50px;
+}
+.control-right {
+  position: absolute;
+  right : 0;
+  transform: translateY(-50%);
+  top: 40%; 
+  z-index: 1;
+  margin-right: 50px;
+}
