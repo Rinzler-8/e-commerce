@@ -105,6 +105,7 @@
   z-index: 1;
   color: white;
   margin-left: 50px;
+  cursor: pointer;
 }
 .control-right {
   position: absolute;
@@ -113,4 +114,5 @@
   color: white;
   z-index: 1;
   margin-right: 50px;
+  cursor: pointer;
 }
