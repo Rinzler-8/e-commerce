@@ -1,12 +1,24 @@
 .product-list-title {
   text-align: center;
-  font-size: 24px;
+  font-size: 34px;
   margin: 0 0 20px 0;
-  font-family: "Symbols", "Title", "Arial", sans-serif;
+  font-family: 'Univers LT Std', sans-serif;
+  font-stretch: ultra-condensed;
 }
 
 .list-item-container {
-  display: flex;
+  /* display: flex; */
   max-width: 1400px;
+  max-height: 1000px;
+  padding-bottom: 50px;
   overflow-y: auto;
+}
+
+.controlProd-left {
+  top: 45%;
+  color: red;
+}
+.controlProd-right {
+  top: 45%;
+  color: red;
 }

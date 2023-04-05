@@ -70,7 +70,10 @@ Final project:
     dispatchRedux(actionSearch(param.id));
     // Gọi useEffect để load dữ liệu list Department và Positon
   }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search, param.id]);
-
+   - FE: outline when select img
+   => Change  <div key={items[2].key} style={{ width: "100%", height: "700px", outline: "none" }}>
+   to <div key={items[0].key} className="carousel"> (.carousel {outline: none})
+   - FE: position absolute bị ẩn dưới position relative => z-index: 1
 
 2. FEATURE
  * checkout: 
@@ -114,3 +117,13 @@ Final project:
    •  Search order
    •  Change order’s status
    •  Cancel Order
+
+
+      <Slider {...settings}>
+        {items.map((item) => (
+          <div key={item.key} style={{ width: "100%", height: "700px"}}>
+            <img src={item.src} alt={item.altText} style={{ width: "100%", height: "700px" }} />
+            <h1 style={{ position: "absolute", zIndex: 1, top: "35%", marginLeft: "200px" }}>{item.caption}</h1>
+          </div>
+        ))}
+      </Slider>

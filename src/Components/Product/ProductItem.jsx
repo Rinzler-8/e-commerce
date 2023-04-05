@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionFetchProductAPI } from "../../Redux/Action/ProductAction";
 import { actionAddToCartAPI } from "../../Redux/Action/CartAction";
 
-function ProductItem({ img, name, shortDescription, price }) {
+function ProductItem() {
   let dispatchRedux = useDispatch();
   let stateRedux = useSelector((state) => state);
   let listProduct = stateRedux.listProductReducer;
@@ -27,7 +27,6 @@ function ProductItem({ img, name, shortDescription, price }) {
     <>
       {listProduct.map((product, index) => (
         <div className="productItem-wrapper" key={index}>
-          {/* <div className="productItem-container"> */}
           <NavLink to={`/products/${product.product_id}`} style={{
             textDecoration: "none",
             display: "flex",
