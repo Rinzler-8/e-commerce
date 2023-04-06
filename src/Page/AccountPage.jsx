@@ -179,20 +179,19 @@ const AccountPage = () => {
                       <Field className="input" fullWidth name="address" type="text" defaultValue={account.address} label="Địa chỉ:" component={CustomInput} />
 
                       {/* Submit */}
-                      <Row>
-                        {/* <h1>Values:{values.firstName}</h1>
-                        <h1>Initial:{account.firstName}</h1> */}
+                      <Row className="r">
                         <Button
                           className="submit-btn-profile"
                           type="submit"
                           disabled={
-                            !isValid || !dirty 
-                            // (values.firstName === account.firstName
-                            // values.lastName === account.lastName ||
+                            !isValid || !dirty ||
+                            (values.firstName === account.firstName ||
+                            values.lastName === account.lastName 
+                            // ||
                             // values.mobile === account.mobile ||
                             // values.address === account.address ||
                             // values.email === account.email
-                            // )
+                            )
                           }
                         >
                           Lưu thay đổi
@@ -211,8 +210,12 @@ const AccountPage = () => {
       {/* ORDER SUMMARY */}
       <Col xs={12} xl={4}>
         <Paper style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
+          {/* <span>
+            <Avatar style={{ backgroundColor: "blue" }}>2</Avatar>
+            <h2 style={{ display: "inline" }}>Ảnh đại diện</h2>
+          </span> */}
+
           <Container style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            {/* src={previewAvatarUrl ? previewAvatarUrl : (userInfo.avatarUrl ? `http://127.0.0.1:8887/Avatar/${userInfo.avatarUrl}` : avatar1)} */}
             <Avatar
               alt="Remy Sharp"
               src={
@@ -222,11 +225,11 @@ const AccountPage = () => {
                   ? "http://localhost:8080/api/v1/fileUpload/files/" + account.urlAvatar
                   : require(`../Assets/img/account-default-img.png`)
               }
-              sx={{ width: 200, height: 200 }}
+              sx={{ width: 200, height: 200, marginTop: '20px' }}
             />
             <div className="mt-2">
-              <Button color="primary" onClick={() => avatarInputFile.current.click()}>
-                <FileUploadIcon /> Upload
+              <Button color="primary" onClick={() => avatarInputFile.current.click()} style = {{marginBottom: "20px"}}>
+                <FileUploadIcon /> Chọn ảnh
               </Button>
               <input type="file" id="avatarInput" ref={avatarInputFile} onChange={onChangeAvatarInput} style={{ display: "none" }} />
             </div>

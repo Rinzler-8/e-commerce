@@ -20,9 +20,6 @@ function ProductItem() {
     alert("Them san pham vao gio thanh cong");
     window.location.reload();
   };
-  useEffect(() => {
-    dispatchRedux(actionFetchProductAPI());
-  }, []);
   return (
     <>
       {listProduct.map((product, index) => (
@@ -43,8 +40,8 @@ function ProductItem() {
               <p className="mb-2 text-muted" tag="h6" style={{ height: "50px" }}>
                 {product.info}
               </p>
-              <p style={{ color: "black", fontFamily: "Lucida Sans, sans-serif" }}>{product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</p>
-              <p style={{ color: "black", fontFamily: "Lucida Sans, sans-serif" }}>(Giá tham khảo)</p>
+              <p style={{ color: "black", fontFamily: "Univers LT Std, sans-serif" }}>{product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</p>
+              <p style={{ color: "black", fontFamily: "Univers LT Std, sans-serif" }}>(Giá tham khảo)</p>
             </div>
             <button className="add-to-cart-btn" onClick={() => handleAddToCart(id, product)}>
               Thêm vào giỏ hàng

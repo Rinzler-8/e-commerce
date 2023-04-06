@@ -27,9 +27,15 @@ const getProductAPIList = (filter) => {
   // Sử dụng thư viện queryString để chuyển đổi đối tượng thành các param
   // https://www.npmjs.com/package/query-string
   let url = "v1/products?" + queryString.stringify(parameters);
-  // console.log("para: ", parameters);
   // products?page=1&size=10
 
+  return api("GET", url, null, null);
+};
+
+// get product by category
+const getProductByCatAPI = (category) => {
+  let url = "v1/products?search=" + category;
+  // console.log("url: ", url);
   return api("GET", url, null, null);
 };
 
@@ -55,4 +61,4 @@ const updateProductAPI = (id, productUpdate) => {
   return api("PUT", url, productUpdate);
 };
 
-export { getProductAPIList, getSingleProductAPI, addProductNewAPI, deleteProductAPI, updateProductAPI };
+export { getProductAPIList, getSingleProductAPI, addProductNewAPI, deleteProductAPI, updateProductAPI, getProductByCatAPI };

@@ -246,7 +246,7 @@ function Header() {
                   style={{ zIndex: 9999 }}
                 >
                   <div className="user-popover-wrapper">
-                    <NavLink className="popover-item" href={`/accounts/${id}`}>
+                    <NavLink className="popover-user" href={`/accounts/${id}`}>
                       <PersonIcon />
                       <span>Tài khoản</span>
                     </NavLink>

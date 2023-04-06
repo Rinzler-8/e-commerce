@@ -4,8 +4,9 @@
   /* Display & Box model */
 
   /* Font */
-  font-family: 'Gill Sans MT', Calibri, sans-serif;
-  letter-spacing: 0.04cm;
+  font-family: 'Univers LT Std', sans-serif;
+  font-variant: small-caps;
+  font-stretch: ultra-condensed;
   /* font-size: 150%; */
 
   /* Color */
@@ -55,7 +56,7 @@
   /* Display & Box model */
   margin: 20px 20px;
   /* Font */
-  font-family: gill sans, sans-serif;
+  font-family: 'Univers LT Std', sans-serif;
   /* Color */
 
   /* Transition */
@@ -94,11 +95,11 @@
   margin-left: 20px;
   /* Display & Box model */
 
-  font-family: 'Gill Sans MT', Calibri, sans-serif;
+  font-family: 'Univers LT Std', sans-serif;
   /* Font */
-  letter-spacing: 0.2cqmin;
+  font-stretch: ultra-condensed;
   font-variant: small-caps;
-  font-size: 30px;
+  font-size: 40px;
   /* Color */
 
   /* Transition */

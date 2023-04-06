@@ -39,9 +39,9 @@ function ProductDetail(props) {
         <CardBody>
           <CardTitle tag="h5">{product.name}</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
-            {product.detail}
+            {product.info}
           </CardSubtitle>
-          <CardText>{product.info}</CardText>
+          <CardText>{product.detail}</CardText>
           <CardText>{product.price}</CardText>
         </CardBody>
         <span>

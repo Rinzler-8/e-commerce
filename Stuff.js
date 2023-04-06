@@ -74,6 +74,8 @@ Final project:
    => Change  <div key={items[2].key} style={{ width: "100%", height: "700px", outline: "none" }}>
    to <div key={items[0].key} className="carousel"> (.carousel {outline: none})
    - FE: position absolute bị ẩn dưới position relative => z-index: 1
+   - FE: view cateogies bị lỗi giữa lấy full và lấy theo category (đang bị lấy state của cả 2)
+   => bỏ actionFetchProductAPI dưới <ProductItem/>
 
 2. FEATURE
  * checkout: 

@@ -42,9 +42,9 @@ function CarouselHome(props) {
   const settings = {
     dots: true,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 4500,
     infinite: true,
-    speed: 1000,
+    speed: 1500,
     slidesToShow: 1,
     slidesToScroll: 1,
     prevArrow: <Arrow direction="left" />,
@@ -55,18 +55,18 @@ function CarouselHome(props) {
       <Slider {...settings}>
         <div key={items[0].key} className="carousel">
           <img src={items[0].src} alt={items[0].altText} style={{ width: "100%", height: "700px" }} />
-          <h1 className = "carousel-text1">{items[0].caption}</h1>
-          <p className = "carousel-altCap1">{items[0].altCap}</p>
+          <h1 className="carousel-text1">{items[0].caption}</h1>
+          <p className="carousel-altCap1">{items[0].altCap}</p>
         </div>
         <div key={items[1].key} className="carousel">
           <img src={items[1].src} alt={items[1].altText} style={{ width: "100%", height: "700px" }} />
-          <h1 className = "carousel-text2">{items[1].caption}</h1>
-          <p className = "carousel-altCap2">{items[1].altCap}</p>
+          <h1 className="carousel-text2">{items[1].caption}</h1>
+          <p className="carousel-altCap2">{items[1].altCap}</p>
         </div>
         <div key={items[2].key} className="carousel">
           <img src={items[2].src} alt={items[2].altText} style={{ width: "100%", height: "700px" }} />
-          <h1 className = "carousel-text3">{items[2].caption}</h1>
-          <p className = "carousel-altCap3">{items[2].altCap}</p>
+          <h1 className="carousel-text3">{items[2].caption}</h1>
+          <p className="carousel-altCap3">{items[2].altCap}</p>
         </div>
       </Slider>
     </div>

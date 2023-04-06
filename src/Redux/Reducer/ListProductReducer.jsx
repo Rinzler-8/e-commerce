@@ -6,7 +6,12 @@ const ListProduct = (state = initialState, action) => {
   switch (action.type) {
     case Types.FETCH_PRODUCT_LIST:
       state = action.payload;
-      // console.log("payload: ", state);
+      // console.log("payload: ", action.payload);
+      return [...state];
+    case Types.FETCH_PRODUCT_CAT:
+      state = action.payload;
+      // console.log("payload: ", action.payload);
+      console.log("action.payload: ", action.payload);
       return [...state];
     case Types.DELETE_PRODUCT:
       let idDel = action.payload;

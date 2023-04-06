@@ -125,6 +125,17 @@
   transition: 0.3s ease;
 }
 
+.popover-user {
+  color: #777;
+  text-align: left;
+  
+  width: 100%;
+}
+
+.popover-user:hover {
+  color: #333;
+}
+
 .popover-viewAll {
   color: #777;
   text-align: center;

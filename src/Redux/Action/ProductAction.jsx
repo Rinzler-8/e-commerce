@@ -1,4 +1,4 @@
-import { addProductNewAPI, deleteProductAPI, getProductAPIList, updateProductAPI, getSingleProductAPI } from "../../API/ProductAPI";
+import { addProductNewAPI, deleteProductAPI, getProductAPIList, updateProductAPI, getSingleProductAPI, getProductByCatAPI } from "../../API/ProductAPI";
 import * as Types from "../Contant/ProductActionType";
 import * as Types_Page from "../Contant/PageActionType";
 import { actionToggleUpdateFormRedux } from "./FormUpdateAction";
@@ -9,6 +9,16 @@ export const actionFetchProductAPI = (filter) => {
     return getProductAPIList(filter).then((response) => {
       // console.log("reponseAPI:", response);
       dispatch(actionFetchProductRedux(response.content));
+      dispatch(actionSetTotalPageProductRedux(response.totalPages));
+      dispatch(actionSetTotalElementsProductRedux(response.totalElements));
+    });
+  };
+};
+export const actionFetchProductByCatAPI = (category) => {
+  return (dispatch) => {
+    return getProductByCatAPI(category).then((response) => {
+      // console.log("reponseAPI:", response);
+      dispatch(actionFetchProductCatRedux(response.content));
       dispatch(actionSetTotalPageProductRedux(response.totalPages));
       dispatch(actionSetTotalElementsProductRedux(response.totalElements));
     });
@@ -30,6 +40,15 @@ export const actionFetchProductRedux = (products) => {
     payload: products,
   };
 };
+
+// Dispath action này tới redux để lưu list Product vào redux
+export const actionFetchProductCatRedux = (productCat) => {
+  return {
+    type: Types.FETCH_PRODUCT_CAT,
+    payload: productCat,
+  };
+};
+
 // Dispath action này tới redux để lưu 1 Product vào redux
 export const actionFetchSingleProductRedux = (product) => {
   return {
@@ -37,7 +56,6 @@ export const actionFetchSingleProductRedux = (product) => {
     payload: product,
   };
 };
-
 
 // Dispath action này tới redux để lấy tổng số trang Product
 export const actionSetTotalPageProductRedux = (totalPage) => {

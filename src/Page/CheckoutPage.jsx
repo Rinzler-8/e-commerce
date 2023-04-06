@@ -120,7 +120,7 @@ const CheckOutList = () => {
                       <Form>
                         <span>
                           <Avatar style={{ backgroundColor: "blue" }}>1</Avatar>
-                          <h3 className="shipping">SHIPPING</h3>
+                          <h3 className="shipping">THÔNG TIN GIAO HÀNG</h3>
                         </span>
 
                         <Field fullWidth name="first_name" type="text" label="Tên" component={CustomInput} />
@@ -176,7 +176,7 @@ const CheckOutList = () => {
         <Grid item md={5}>
           <Paper style={{ marginRight: "200px", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
             <Container className="summary_container">
-              <div className="order_summary">order summary</div>
+              <div className="order_summary">thông tin đơn hàng</div>
               {cart.cartItems.map(
                 (product, index) => (
                   (total += product.total_price),
