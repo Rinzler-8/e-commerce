@@ -52,7 +52,6 @@ function Header() {
       dispatchRedux(actionFetchSingleAccountAPI(id));
     }
     dispatchRedux(actionFetchCategoryAPI());
-
   }, [id]);
 
   const changeNavBack = () => {
@@ -118,8 +117,7 @@ function Header() {
         <NavLink href="/" className="header-center-content">
           TRANG CHỦ
         </NavLink>
-        <div className="header-center-content"
-          onClick={handleOpenCategories}>
+        <div className="header-center-content" onClick={handleOpenCategories}>
           SẢN PHẨM
         </div>
         <Popover
@@ -135,14 +133,15 @@ function Header() {
         >
           <div className="cat-popover-wrapper">
             {listCategories.map((cat, index) => (
-              <div key = {index}>
-                <NavLink href= {`/categories/${cat.name}`} className="popover-item">
+              <div key={index}>
+                <NavLink href={`/categories/${cat.name}`} className="popover-item">
                   <span>{cat.name}</span>
                 </NavLink>
               </div>
             ))}
-            <NavLink href="/products" className="popover-viewAll">Xem tất cả</NavLink>
-
+            <NavLink href="/products" className="popover-viewAll">
+              Xem tất cả
+            </NavLink>
           </div>
         </Popover>
         <NavLink className="header-center-content">GIỚI THIỆU</NavLink>
@@ -155,6 +154,8 @@ function Header() {
             <StyledBadge badgeContent={cart.cartItems.length} max={99} showZero>
               <ShoppingBagIcon color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" />
             </StyledBadge>
+            
+            {/* DRAWER */}
             <Drawer variant="persistent" anchor="right" open={open}>
               <DrawerHeader style={{ alignSelf: "start" }}>
                 <IconButton onClick={handleDrawerClose}>

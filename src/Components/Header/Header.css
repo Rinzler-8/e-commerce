@@ -127,7 +127,7 @@
 
 .popover-user {
   color: #777;
-  text-align: left;
+  text-align: center;
   
   width: 100%;
 }
@@ -163,4 +163,153 @@
 
 .user-popover-footer:hover {
   color: #333;
+}
+
+.drawer {
+  /* Positioning */
+  /* bottom: 90; */
+  /* Display & Box model */
+
+  max-width: 600px;
+  /* Font */
+
+  /* Color */
+  /* background-color: darkgray; */
+  /* Transition */
+}
+
+.drawer img {
+  /* Positioning */
+
+  /* Display & Box model */
+  width: 150px;
+  height: 150px;
+  /* Color */
+
+  /* Transition */
+}
+
+.drawer_footer {
+  /* Positioning */
+  /* position: fixed; */
+  bottom: 0;
+  /* Display & Box model */
+  /* height: 90px; */
+  width: 100%;
+  /* Font */
+
+  /* Color */
+  border-top: 1px thin;
+  background-color: white;
+  /* Transition */
+}
+
+.minicart_action {
+  /* Positioning */
+  display: flex;
+  gap: 8px;
+
+  /* Display & Box model */
+
+  /* Font */
+
+  /* Color */
+  /* background-color: red; */
+  /* Transition */
+}
+
+.view_cart {
+  /* Positioning */
+
+  /* Display & Box model */
+  border-radius: 0;
+  padding: 10px 24px;
+  /* Color */
+  border-color: rgb(3, 3, 172);
+  background-color: white;
+  color: rgb(3, 3, 172);
+  /* Transition */
+}
+.view_cart:hover {
+  /* Positioning */
+
+  /* Display & Box model */
+  border-radius: 0;
+  padding: 10px 24px;
+  /* Color */
+  border-color: rgb(3, 3, 172);
+  background-color: rgb(3, 3, 172);
+  color: white;
+  /* Transition */
+  transition: 0.4s;
+}
+.checkout {
+  /* Positioning */
+
+  /* Display & Box  model */
+  border-radius: 0;
+  padding: 10px 24px;
+  /* Color */
+  border-color: rgb(3, 3, 172);
+  background-color: rgb(3, 3, 172);
+  /* Transition */
+}
+.checkout:hover {
+  /* Positioning */
+
+  /* Display & Box model */
+  border-radius: 0;
+  padding: 10px 24px;
+  /* Color */
+  border-color: rgb(214, 214, 214);
+  background-color: rgb(214, 214, 214);
+  color: rgb(3, 3, 172);
+  /* Transition */
+  transition: 0.4s;
+}
+.qty_btn:hover {
+  /* Color */
+  background-color: white;
+  color: rgb(3, 3, 172);
+  /* Transition */
+}
+.qty_btn:active {
+  /* Color */
+  outline: none;
+  /* Transition */
+}
+.qty_btn:focus {
+  /* Color */
+  color: black;
+  background-color: white;
+  box-shadow: none;
+  /* Transition */
+}
+
+.qty_btn:disabled {
+  /* Color */
+  background-color: white;
+  color: black;
+  border-style: none;
+  /* Transition */
+}
+.input_qty {
+  /* Positioning */
+
+  /* Display & Box model */
+  text-align: center;
+  border-width: 0.1em;
+  border-style: none none solid;
+  /* Color */
+  /* Transition */
+}
+.input_qty:focus {
+  /* Positioning */
+
+  /* Display & Box model */
+  border-width: 0.1em;
+  outline: none;
+  /* Color */
+
+  /* Transition */
 }
