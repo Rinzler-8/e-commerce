@@ -19,10 +19,8 @@ const AccountPage = () => {
   const dispatchRedux = useDispatch();
   const account = stateRedux.singleAccountReducer;
   const id = localStorage.getItem("id");
-  const persistRoot = JSON.parse(localStorage.getItem("persist:root") || "{}");
-  const singleAccObj = JSON.parse(persistRoot.singleAccountReducer || "{}");
   const localAcc = JSON.parse(localStorage.getItem("initAcc") || "{}");
-  console.log("subg", localAcc);
+  // console.log("subg", localAcc);
   const [previewAvatarUrl, setPreviewAvatarUrl] = useState();
   const [previewAvatarFile, setPreviewAvatarFile] = useState();
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
@@ -62,13 +60,8 @@ const AccountPage = () => {
       setPreviewAvatarFile(file);
     };
   };
-  let valueAcc = {
-    firstName: singleAccObj.firstName,
-    lastName: singleAccObj.lastName,
-    mobile: singleAccObj.mobile,
-    email: singleAccObj.email,
-    address: singleAccObj.address,
-  };
+
+  let nameImage;
 
   return (
     <Row className="container">
@@ -92,7 +85,8 @@ const AccountPage = () => {
             })}
             onSubmit={async (values) => {
               try {
-                let nameImage = await uploadImgAPI(previewAvatarFile);
+                nameImage = await uploadImgAPI(previewAvatarFile);
+                console.log("response: ", previewAvatarUrl);
                 const update = {
                   firstName: values.firstName ? values.firstName : account.firstName,
                   lastName: values.lastName ? values.lastName : account.lastName,
@@ -142,7 +136,7 @@ const AccountPage = () => {
             validateOnChange={true}
             validateOnBlur={true}
           >
-            {({ values, dirty, isValid, initialValues, isSubmitting }) => (
+            {({ values, dirty, isValid, initialValues, isSubmitting, nameImage }) => (
               <Container>
                 <Row>
                   <Col style={{ marginTop: 20 }}>
@@ -198,11 +192,19 @@ const AccountPage = () => {
                         <Button
                           className="submit-btn-profile"
                           type="submit"
-                          disabled={!dirty || !isValid || JSON.stringify(values) === JSON.stringify(initialValues)}
+                          disabled={
+                            !dirty ||
+                            !isValid ||
+                            JSON.stringify(values) === JSON.stringify(initialValues) ||
+                            nameImage !== localAcc.urlAvatar ||
+                            nameImage !== null ||
+                            nameImage !== undefined
+                          }
                         >
                           Lưu thay đổi
                         </Button>
                       </Row>
+                      {nameImage}
                     </Form>
                   </Col>
                 </Row>

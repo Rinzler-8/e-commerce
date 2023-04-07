@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,14 +10,6 @@ import "./slickProduct.css";
 import "../Carousel/slick-theme.css";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
-const Arrow = ({ onClick, direction }) => {
-  return (
-    <div className={`controlProd-${direction}`} onClick={onClick}>
-      {direction === "left" ? <ArrowBackIosNewIcon /> : <ArrowForwardIosIcon />}
-    </div>
-  );
-};
 
 let slidesToShow = 3;
 

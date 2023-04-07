@@ -15,10 +15,7 @@ function LoginComponent(props) {
   };
   let { handleLogin } = props;
   return (
-    <div className="row ">
-      {/* <div className="left">
-          <img alt="Sample" src={require("../../Assets/Banner/background.jpg")} />
-        </div> */}
+    <div className="row">
       <Formik
         initialValues={{
           email: "",
@@ -41,17 +38,11 @@ function LoginComponent(props) {
         {({ validateField, validateForm }) => (
           <Container>
             <Row>
-              <Col
-                sm={{
-                  offset: 4,
-                  size: 7,
-                }}
-                style={{ marginTop: 60 }}
-              >
+              <Col className="loginForm" style={{ width: "400px", marginBottom: 100, padding: 50, boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>
                 <Form>
                   {/* Login */}
                   <div className="title-header">
-                    <h5>ĐĂNG NHẬP</h5>
+                    <h4>ĐĂNG NHẬP</h4>
                     <hr></hr>
                   </div>
 
@@ -73,11 +64,11 @@ function LoginComponent(props) {
                   </label>
 
                   {/* Submit */}
-                  <Row className="button">
+                  <Row className="logButton">
                     <Button type="submit" className="login">
                       Đăng nhập
                     </Button>
-                    <Link to={"/forgot"} className="link">
+                    <Link to={"/forgotPass"} className="link">
                       Quên mật khẩu
                     </Link>
                   </Row>

@@ -263,7 +263,7 @@ function Header() {
                 <NavLink href="/login" style={{ color: "#0a0f9e" }}>
                   ĐĂNG NHẬP
                 </NavLink>
-                <NavLink href="/login" style={{ color: "#0a0f9e" }}>
+                <NavLink href="/register" style={{ color: "#0a0f9e" }}>
                   ĐĂNG KÝ
                 </NavLink>
               </div>

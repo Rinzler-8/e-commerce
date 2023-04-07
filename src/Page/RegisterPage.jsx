@@ -4,7 +4,7 @@ import Register from "../Components/Register/RegisterComponent";
 
 function RegisterPage(props) {
   return (
-    <div>
+    <div className="registerContainer">
       <Register />
     </div>
   );

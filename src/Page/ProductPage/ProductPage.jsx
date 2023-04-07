@@ -8,14 +8,22 @@ import SearchComponent from "../../Components/SearchComponent/SearchComponent";
 import ProductItem from "../../Components/Product/ProductItem";
 import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../../Redux/Action/PageAction";
 import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
-import { actionAddProductAPI, actionDeleteProductAPI, actionFetchProductAPI, actionUpdateProductAPI, actionFetchSingleProductAPI } from "../../Redux/Action/ProductAction";
+import {
+  actionAddProductAPI,
+  actionDeleteProductAPI,
+  actionFetchProductAPI,
+  actionUpdateProductAPI,
+  actionFetchSingleProductAPI,
+} from "../../Redux/Action/ProductAction";
 import LoadMoreButton from "../../Components/Paging/LoadMoreButton";
 import "./ProductPage.css";
 import { Progress } from "reactstrap";
 
 function ProductPage(props) {
+  let [loadProd, setLoadProd] = useState();
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
+  let size = stateRedux.pageFilterReducer.size;
   let listProduct = stateRedux.listProductReducer;
   let totalProd = stateRedux.pageFilterReducer.totalElements;
   // Lấy dữ liệu page, size được quản lý từ Redux
@@ -26,6 +34,12 @@ function ProductPage(props) {
     search: stateRedux.pageFilterReducer.search,
   };
 
+  window.onscroll = function () {
+    if (window.innerHeight + Math.ceil(window.pageYOffset) >= document.body.offsetHeight - 300) {
+      let s = size + 6;
+      onHandleChangeSize(s);
+    }
+  };
   //gọi useEffect để load dữ liệu, chỉ gọi khi các state page hoặc size, ... từ redux thay đổi
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI(filter));
@@ -68,9 +82,11 @@ function ProductPage(props) {
         </div>
       </div>
       <div className="product-page-progress-bar-container">
-        <p className="progress-bar-description">Bạn đang xem {listProduct.length} trên tổng số {totalProd} sản phẩm</p>
+        <p className="progress-bar-description">
+          Bạn đang xem {listProduct.length} trên tổng số {totalProd} sản phẩm
+        </p>
         <Progress color="primary" value={listProduct.length} max={totalProd} className="progress-bar-custom-style" />
-        {listProduct.length < totalProd ? <LoadMoreButton onHandleChangeSize={onHandleChangeSize} /> : <></>}
+        {/* {listProduct.length < totalProd ? <LoadMoreButton onHandleChangeSize={onHandleChangeSize} /> : <></>} */}
       </div>
     </>
   );

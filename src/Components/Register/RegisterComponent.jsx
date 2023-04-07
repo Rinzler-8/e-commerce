@@ -15,6 +15,7 @@ function RegisterComponent(props) {
   const [isShown, setIsShown] = useState(false);
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
+  const passRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
   let navigate = useNavigate();
   // Quản lý trạng thái ẩn hiện Password
   const togglePassword = () => {
@@ -51,7 +52,7 @@ function RegisterComponent(props) {
               return !isExists;
             }),
 
-          password: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Trường này là bắt buộc!"),
+          password: Yup.string().matches(passRegExp, "Mật khẩu yếu, vui lòng thử lại!").required("Trường này là bắt buộc!"),
           confirmPassword: Yup.string()
             .required("Trường này là bắt buộc!")
             .when("password", {
@@ -95,18 +96,12 @@ function RegisterComponent(props) {
         validateOnBlur={true}
       >
         {({ validateField, validateForm }) => (
-          <Container>
+          <Container className = "registerContainer">
             <Row>
-              <Col
-                sm={{
-                  offset: 1,
-                  size: 7,
-                }}
-                style={{ marginTop: 60 }}
-              >
-                <Form>
+              <Col className="registerForm">
+                <Form style = {{width: "450px"}}>
                   <div className="title-header">
-                    <h5>TẠO TÀI KHOẢN MỚI</h5>
+                    <h4>TẠO TÀI KHOẢN MỚI</h4>
                     <hr></hr>
                   </div>
                   {/* username */}
@@ -141,9 +136,15 @@ function RegisterComponent(props) {
                     <Field type="checkbox" name="toggle" checked={isShown} onChange={togglePassword} />
                     {`Hiện Mật Khẩu`}
                   </label>
+                  <ul className="passNote"> Mật khẩu phải chứa ít nhất 8 ký tự, trong đó:
+                    <li>1 chữ cái thường</li>
+                    <li>1 chữ cái in hoa</li>
+                    <li>1 chữ số</li>
+                    <li>1 ký tự đặc biệt</li>
+                  </ul>
 
                   {/* Submit */}
-                  <Row className="button">
+                  <Row className="regButton">
                     <Button type="submit" className="register">
                       Đăng ký
                     </Button>

@@ -74,18 +74,11 @@ function LoginPage(props) {
     }
   }, []);
   return (
-    <Grid container style={{ marginTop: "90px" }}>
-      {/* SHIPPING INFORMATION */}
-      <Grid item md={6}>
-        <LoginComponent handleLogin={handleLogin} />
-        <ToastContainer />
-      </Grid>
-      <div className="vl"></div>
-      {/* ORDER SUMMARY */}
-      <Grid item md={5.9}>
-        <Register />
-      </Grid>
-    </Grid>
+    <div className="loginContainer">
+      <LoginComponent handleLogin={handleLogin} />
+      <ToastContainer />
+      {/* <div className="vl"></div> */}
+    </div>
   );
 }
 
