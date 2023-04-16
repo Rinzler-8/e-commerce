@@ -21,32 +21,37 @@ import ChangePassPage from "../Page/ChangePassPage";
 
 export const routes = (
   <Routes>
-
     <Route element={<WithNav />}>
-      <Route element={<AdminAuth />}>
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/products-admin" element={<ProductPageAdmin />} />
-        <Route path="/orders-admin" element={<OrderPageAdmin />} />
+      <Route element={<WithAuth />}>
+        <Route path="/accounts/:id" element={<AccountPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
+        <Route path="/resetPass/:token" element={<ResetPassPage />} />
+        <Route path="/changePass" element={<ChangePassPage />} />
       </Route>
+
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route element={<WithAuth />}>
-        <Route path="/" element={<HomePage />} />
-      </Route>
-      <Route path="/accounts/:id" element={<AccountPage />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/products" element={<ProductPage />} />
       <Route path="/products/:id" element={<ProductDetail />} />
       <Route path="/categories/:id" element={<ProductCategoryPage />} />
       <Route path="/cart" element={<CartPage />} />
-      <Route path="/checkout" element={<CheckoutPage />} />
-      <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
-      {/* <Route path="/test" element={<TestPage />} /> */}
       <Route path="*" element={<NotFoundPage />} />
       <Route path="/forgotPass" element={<ForgotPasswordPage />} />
-      <Route path="/resetPass/:token" element={<ResetPassPage />} />
-      <Route path="/changePass" element={<ChangePassPage />} />
+
+      <Route element={<AdminAuth />}>
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/products-admin" element={<ProductPageAdmin />} />
+        <Route path="/orders-admin" element={<OrderPageAdmin />} />
+        <Route path="/accounts/:id" element={<AccountPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
+        <Route path="/resetPass/:token" element={<ResetPassPage />} />
+        <Route path="/changePass" element={<ChangePassPage />} />
+      </Route>
     </Route>
+
+    {/* <Route path="/test" element={<TestPage />} /> */}
   </Routes>
 );
-
-

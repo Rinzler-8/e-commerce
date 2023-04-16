@@ -117,20 +117,14 @@ function AdminPage(props) {
         </ToastHeader>
         <ToastBody style={{ color: "black", fontSize: 25 }}>Delete Account Success!!</ToastBody>
       </Toast>
-      <br />
-      <br />
-      <br />
-      <br />
       {/* Modal thêm mới Account */}
       <ModalCreateNewAccount onHandleCreateNewAccount={onHandleCreateNewAccount} />
       {/* Search dữ liệu */}
-      <br />
       <SearchComponent onHandleSearch={onHandleSearch} />
       {/* Form kết quả */}
       <AccountResultForm onHandleEditBtn={onHandleEditBtn} onHandleDelete={onHandleDelete}></AccountResultForm>
 
       {/* Phân trang */}
-      <br />
       <Row>
         <Col>
           <PaginationButton onHandleChangePage={onHandleChangePage} currentPage={currentPage} />

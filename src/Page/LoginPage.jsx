@@ -40,7 +40,7 @@ function LoginPage(props) {
             draggable: true,
             progress: undefined,
           });
-          setTimeout(() => navigate("/"), 1500);
+          setTimeout(() => navigate(0) && navigate("/"), 1500);
         } else {
           toast.error("Thông tin đăng nhập sai! Vui lòng thử lại.", {
             position: "top-right",
