@@ -3,11 +3,12 @@ import "./ProductItem.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchProductAPI } from "../../Redux/Action/ProductAction";
-import { actionAddToCartAPI } from "../../Redux/Action/CartAction";
+import { actionAddToCartAPI, actionOpenCart, actionGetCartByUserIdAPI, actionUpdateCartQty } from "../../Redux/Action/CartAction";
 
 function ProductItem() {
   let dispatchRedux = useDispatch();
   let stateRedux = useSelector((state) => state);
+  let cartStateRedux = useSelector((state) => state.cartReducer);
   let listProduct = stateRedux.listProductReducer;
   let id = localStorage.getItem("id");
   const handleAddToCart = (id, cartItem) => {
@@ -17,21 +18,28 @@ function ProductItem() {
       product_id: cartItem.product_id,
     };
     dispatchRedux(actionAddToCartAPI(id, obj));
-    alert("Them san pham vao gio thanh cong");
-    window.location.reload();
+    dispatchRedux(actionUpdateCartQty(1));
+    dispatchRedux(actionOpenCart());
   };
+
+  useEffect(() => {
+    dispatchRedux(actionGetCartByUserIdAPI(id));
+  }, [cartStateRedux.quantity]);
   return (
     <>
       {listProduct.map((product, index) => (
         <div className="productItem-wrapper" key={index}>
-          <NavLink to={`/products/${product.product_id}`} style={{
-            textDecoration: "none",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            margin: "0px 10px",
-            alignItems: "center",
-          }}>
+          <NavLink
+            to={`/products/${product.product_id}`}
+            style={{
+              textDecoration: "none",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              margin: "0px 10px",
+              alignItems: "center",
+            }}
+          >
             <div className="productItem-img">
               <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} />
             </div>
@@ -40,14 +48,15 @@ function ProductItem() {
               <p className="mb-2 text-muted" tag="h6" style={{ height: "50px" }}>
                 {product.info}
               </p>
-              <p style={{ color: "black", fontFamily: "Univers LT Std, sans-serif" }}>{product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</p>
+              <p style={{ color: "black", fontFamily: "Univers LT Std, sans-serif" }}>
+                {product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}
+              </p>
               <p style={{ color: "black", fontFamily: "Univers LT Std, sans-serif" }}>(Giá tham khảo)</p>
             </div>
-            <button className="add-to-cart-btn" onClick={() => handleAddToCart(id, product)}>
-              Thêm vào giỏ hàng
-            </button>
           </NavLink>
-
+          <button className="add-to-cart-btn" onClick={() => handleAddToCart(id, product)}>
+            Thêm vào giỏ hàng
+          </button>
           {/* </div> */}
         </div>
       ))}
