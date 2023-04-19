@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Toast, ToastHeader, ToastBody } from "reactstrap";
-import AccountResultForm from "../Components/Result/AccountResultForm";
+import ListAccounts from "../Components/Result/Account/ListAccounts";
 // import CreateButton from "./../Components/Admin/CreateButton";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  actionAddAccountAPI,
-  actionDeleteAccountAPI,
-  actionFetchAccountAPI,
-  actionUpdateAccountAPI,
-} from "../Redux/Action/AccountAction";
+import { actionAddAccountAPI, actionDeleteAccountAPI, actionFetchAccountAPI, actionUpdateAccountAPI } from "../Redux/Action/AccountAction";
 import PaginationButton from "../Components/Paging/PaginationButton";
 import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../Redux/Action/PageAction";
 import SizeButton from "../Components/Paging/SizeButton";
@@ -48,7 +43,6 @@ function AdminPage(props) {
     // Gọi useEffect để load dữ liệu list Department và Positon
   }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
 
-  console.log("stateRedux: ", stateRedux);
   // Xử lý xóa Account
   let onHandleDelete = (id) => {
     console.log("Id của Account cần xóa:", id);
@@ -122,7 +116,7 @@ function AdminPage(props) {
       {/* Search dữ liệu */}
       <SearchComponent onHandleSearch={onHandleSearch} />
       {/* Form kết quả */}
-      <AccountResultForm onHandleEditBtn={onHandleEditBtn} onHandleDelete={onHandleDelete}></AccountResultForm>
+      <ListAccounts onHandleEditBtn={onHandleEditBtn} onHandleDelete={onHandleDelete}></ListAccounts>
 
       {/* Phân trang */}
       <Row>

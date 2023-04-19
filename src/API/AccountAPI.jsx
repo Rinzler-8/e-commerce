@@ -22,12 +22,11 @@ const getAccountAPIList = (filter) => {
     parameters.search = filter.search;
   }
 
-  console.log("parameters: ", parameters);
+  // console.log("parameters: ", parameters);
   // Sử dụng thư viện queryString để chuyển đổi đối tượng thành các param
   // https://www.npmjs.com/package/query-string
   let url = "v1/accounts?" + queryString.stringify(parameters);
   // accounts?page=1&size=10
-  console.log("Link url: ", url);
 
   return api("GET", url, null, null);
 };

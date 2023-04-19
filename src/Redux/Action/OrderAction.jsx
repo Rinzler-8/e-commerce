@@ -7,7 +7,7 @@ import { actionChangePage, actionChangeSortDirection, actionChangeSortField } fr
 export const actionFetchOrderAPI = (filter) => {
   return (dispatch) => {
     return getOrderAPIList(filter).then((response) => {
-      console.log("reponseAPI:", response);
+      // console.log("reponseAPI:", response);
       dispatch(actionFetchOrderRedux(response.content));
       dispatch(actionSetTotalPageOrderRedux(response.totalPages));
       // console.log("Orders Redux: ", response);

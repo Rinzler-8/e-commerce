@@ -15,7 +15,7 @@ import CartPage from "../Page/CartPage";
 import TestPage from "../Page/TestPage";
 import ProductPageAdmin from "../Page/ProductPageAdmin";
 import OrderPageAdmin from "../Page/OrderPageAdmin";
-import AccountPage from "../Page/AccountPage";
+import ProfilePage from "../Page/ProfilePage";
 import ResetPassPage from "../Page/ResetPassPage";
 import ChangePassPage from "../Page/ChangePassPage";
 
@@ -23,7 +23,7 @@ export const routes = (
   <Routes>
     <Route element={<WithNav />}>
       <Route element={<WithAuth />}>
-        <Route path="/accounts/:id" element={<AccountPage />} />
+        <Route path="/accounts/:id" element={<ProfilePage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
         <Route path="/resetPass/:token" element={<ResetPassPage />} />
@@ -44,7 +44,7 @@ export const routes = (
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/products-admin" element={<ProductPageAdmin />} />
         <Route path="/orders-admin" element={<OrderPageAdmin />} />
-        <Route path="/accounts/:id" element={<AccountPage />} />
+        <Route path="/accounts/:id" element={<ProfilePage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
         <Route path="/resetPass/:token" element={<ResetPassPage />} />

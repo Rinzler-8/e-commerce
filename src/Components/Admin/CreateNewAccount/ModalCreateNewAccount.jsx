@@ -20,7 +20,7 @@ function ModalCreateNewAccount(props) {
       </Button>
       <Modal isOpen={showModal} toggle={toggle}>
         <ModalHeader>
-          <h3>Create New Account</h3>
+          <div>Create New Account</div>
         </ModalHeader>
         <ModalBody>
           <CreateInputFormComponent onHandleCreateNewAccount={onHandleCreateNewAccount} />

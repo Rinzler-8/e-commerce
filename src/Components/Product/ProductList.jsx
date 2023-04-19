@@ -14,7 +14,6 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 let slidesToShow = 3;
 
 const PreviousBtn = (props) => {
-  console.log(props);
   const { onClick, currentSlide } = props;
   return (
     <>
@@ -32,7 +31,6 @@ const PreviousBtn = (props) => {
 };
 const NextBtn = (props) => {
   const { onClick, slideCount, currentSlide } = props;
-  console.log(props);
   return (
     <>
       {(currentSlide !== slideCount - slidesToShow) == 0 ? (
@@ -49,10 +47,12 @@ const NextBtn = (props) => {
 };
 
 const ProductList = () => {
-  let dispatchRedux = useDispatch();
-  let stateRedux = useSelector((state) => state);
-  let listProduct = stateRedux.listProductReducer;
-  let id = localStorage.getItem("id");
+  const dispatchRedux = useDispatch();
+  const stateRedux = useSelector((state) => state);
+  const listProduct = stateRedux.listProductReducer;
+  const [cartLength, setCartLength] = React.useState(1);
+  const cart = stateRedux.cartReducer;
+  const id = localStorage.getItem("id");
   const handleAddToCart = (id, cartItem) => {
     let obj = {
       quantity: 1,
@@ -60,12 +60,16 @@ const ProductList = () => {
       product_id: cartItem.product_id,
     };
     dispatchRedux(actionAddToCartAPI(id, obj));
-    alert("Them san pham vao gio thanh cong");
-    window.location.reload();
+    setCartLength(cartLength + 1);
+    // alert("Them san pham vao gio thanh cong");
+    console.log("df", cart.cartItems);
+
+    // window.location.reload();
   };
+
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI());
-  }, []);
+  }, [cartLength]);
   const settings = {
     // centerMode: true;
     dots: false,

@@ -12,7 +12,7 @@ import { uploadImgAPI } from "../API/ImageAPI";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import "../../src/css/Profile.css";
 
-const AccountPage = () => {
+const ProfilePage = () => {
   const stateRedux = useSelector((state) => state);
   const navigate = useNavigate();
   let [acc, setAcc] = useState();
@@ -64,7 +64,7 @@ const AccountPage = () => {
   let nameImage;
 
   return (
-    <Row className="container">
+    <Row className="profile-container">
       <Col xs={12} xl={8}>
         <Paper style={{ marginTop: "0px", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
           <Formik
@@ -249,4 +249,4 @@ const AccountPage = () => {
   // }
 };
 
-export default AccountPage;
+export default ProfilePage;

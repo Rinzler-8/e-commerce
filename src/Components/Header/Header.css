@@ -106,7 +106,6 @@
   overflow: hidden;
 }
 
-
 .user-popover-body {
   padding: 10px 5px;
 }
@@ -114,7 +113,7 @@
 .popover-item {
   color: #777;
   text-align: left;
-  
+
   width: 100%;
 }
 
@@ -128,7 +127,7 @@
 .popover-user {
   color: #777;
   text-align: center;
-  
+
   width: 100%;
 }
 
@@ -170,6 +169,21 @@
   /* bottom: 90; */
   /* Display & Box model */
 
+  width: 600px;
+  max-width: 600px;
+  /* Font */
+
+  /* Color */
+  /* background-color: darkgray; */
+  /* Transition */
+}
+
+.drawer_header {
+  /* Positioning */
+  /* bottom: 90; */
+  /* Display & Box model */
+  display: flex;
+  width: 600px;
   max-width: 600px;
   /* Font */
 
@@ -191,26 +205,41 @@
 
 .drawer_footer {
   /* Positioning */
-  /* position: fixed; */
-  bottom: 0;
+  position: fixed;
+  bottom: 0px;
   /* Display & Box model */
-  /* height: 90px; */
+  display: flex;
+  justify-content: center;
+  height: 90px;
   width: 100%;
+  max-width: 600px;
+  margin-bottom: 40px;
+
   /* Font */
 
   /* Color */
-  border-top: 1px thin;
   background-color: white;
+  /* Transition */
+}
+
+.estimated_total {
+  /* Positioning */
+
+  /* Display & Box model */
+
+  /* Color */
+  
   /* Transition */
 }
 
 .minicart_action {
   /* Positioning */
+  position: absolute;
+  /* Display & Box model */
   display: flex;
   gap: 8px;
-
-  /* Display & Box model */
-
+  justify-content: center;
+  padding: 20px;
   /* Font */
 
   /* Color */
@@ -219,16 +248,22 @@
 }
 
 .view_cart {
-  /* Positioning */
-
-  /* Display & Box model */
+  font-size: 14px;
+  color: #0a0f9e;
+  font-weight: 400;
+  
+  cursor: pointer;
   border-radius: 0;
-  padding: 10px 24px;
-  /* Color */
-  border-color: rgb(3, 3, 172);
+  border: 1px solid #0a0f9e;
+
+  width: 250px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 40px;
+  padding-right:40px;
   background-color: white;
-  color: rgb(3, 3, 172);
-  /* Transition */
+  margin-top: 15px;
+  transition: 0.4s;
 }
 .view_cart:hover {
   /* Positioning */
@@ -244,15 +279,22 @@
   transition: 0.4s;
 }
 .checkout {
-  /* Positioning */
+  font-size: 14px;
+  color: #0a0f9e;
+  font-weight: 400;
 
-  /* Display & Box  model */
+  cursor: pointer;
   border-radius: 0;
-  padding: 10px 24px;
-  /* Color */
-  border-color: rgb(3, 3, 172);
-  background-color: rgb(3, 3, 172);
-  /* Transition */
+  border: 1px solid #0a0f9e;
+
+  width: 250px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 40px;
+  padding-right:40px;
+  background-color: white;
+  margin-top: 15px;
+  transition: 0.4s;
 }
 .checkout:hover {
   /* Positioning */
@@ -261,9 +303,9 @@
   border-radius: 0;
   padding: 10px 24px;
   /* Color */
-  border-color: rgb(214, 214, 214);
-  background-color: rgb(214, 214, 214);
-  color: rgb(3, 3, 172);
+  border-color: rgb(3, 3, 172);
+  background-color: rgb(3, 3, 172);
+  color: white;
   /* Transition */
   transition: 0.4s;
 }

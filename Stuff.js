@@ -71,17 +71,23 @@ Final project:
    => Change  <div key={items[2].key} style={{ width: "100%", height: "700px", outline: "none" }}>
    to <div key={items[0].key} className="carousel"> (.carousel {outline: none})
    - FE: position absolute bị ẩn dưới position relative => z-index: 1
-
+   - BE: không search được account
+   => Bị lỗi search ở dưới file UserService, bỏ roleSpecification
+   - FE
 
 2. FEATURE
  * checkout: 
- - fe:
+ - FE:
     + lấy firstname, lastname, mobile, address, payment
     + user chỉ có 1 cart => cartId = userId
     + 
- - be:
+ - BE:
     + checkout gồm 2 phần: order info và order items
     + mỗi order sẽ phân biệt theo session_id. Lấy orderInfo theo orderId, orderItems theo session_id (hoặc order_id)
+ 
+ * cart:
+ - FE: add to cart sẽ tự động mở drawer ? 
+   + truyền state của nơi bấm add to cart xuống header ?
 
 3. REMAININGS:
  * User:
@@ -116,12 +122,6 @@ Final project:
    •  Change order’s status
    •  Cancel Order
 
-
-      <Slider {...settings}>
-        {items.map((item) => (
-          <div key={item.key} style={{ width: "100%", height: "700px"}}>
-            <img src={item.src} alt={item.altText} style={{ width: "100%", height: "700px" }} />
-            <h1 style={{ position: "absolute", zIndex: 1, top: "35%", marginLeft: "200px" }}>{item.caption}</h1>
-          </div>
-        ))}
-      </Slider>
+   withNav
+      withAuth 
+        AdminAuth ? 

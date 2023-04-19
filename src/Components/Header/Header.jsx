@@ -17,10 +17,11 @@ import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { StyledBadge } from "../StyledMUI";
 
-function Header() {
+function AdminHeader() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [header, setHeader] = React.useState(false);
+  const [cartLength, setCartLength] = React.useState(1);
   const stateRedux = useSelector((cartItems) => cartItems);
   const dispatchRedux = useDispatch();
   const cart = stateRedux.cartReducer;
@@ -52,7 +53,7 @@ function Header() {
       dispatchRedux(actionFetchSingleAccountAPI(id));
     }
     dispatchRedux(actionFetchCategoryAPI());
-  }, [id]);
+  }, [id, cartLength]);
 
   const changeNavBack = () => {
     if (window.scrollY >= 90) {
@@ -82,7 +83,8 @@ function Header() {
 
   const removeItem = (cartId, userId) => {
     dispatchRedux(actionDeleteCartItemAPI(cartId, userId));
-    window.location.reload();
+    // window.location.reload();
+    setCartLength(cartLength - 1);
   };
 
   const logout = () => {
@@ -97,13 +99,14 @@ function Header() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const drawerWidth = 240;
+
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
+    width: "600px",
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
+    justifyContent: "flex-start",
   }));
   return (
     <div className={header ? "header active" : "header"}>
@@ -114,38 +117,57 @@ function Header() {
         </NavLink>
       </div>
       <div className="header-center">
-        <NavLink href="/" className="header-center-content">
-          TRANG CHỦ
-        </NavLink>
-        <div className="header-center-content" onClick={handleOpenCategories}>
-          SẢN PHẨM
-        </div>
-        <Popover
-          id="CategoryPopover"
-          open={openCategories}
-          onClose={handleCloseCategories}
-          anchorEl={anchorCat}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          style={{ zIndex: 9999 }}
-        >
-          <div className="cat-popover-wrapper">
-            {listCategories.map((cat, index) => (
-              <div key={index}>
-                <NavLink href={`/categories/${cat.name}`} className="popover-item">
-                  <span>{cat.name}</span>
+        {localStorage.getItem("role") == "ADMIN" ? (
+          <>
+            <NavLink href="/" className="header-center-content">
+              TRANG CHỦ
+            </NavLink>
+            <NavLink href="/products-admin" className="header-center-content" onClick={handleOpenCategories}>
+              DANH SÁCH SẢN PHẨM
+            </NavLink>
+            <NavLink href="/admin" className="header-center-content">
+              DANH SÁCH TÀI KHOẢN
+            </NavLink>
+            <NavLink href="/orders-admin" className="header-center-content">
+              DANH SÁCH ĐƠN HÀNG
+            </NavLink>
+          </>
+        ) : (
+          <div className="header-center">
+            <NavLink href="/" className="header-center-content">
+              TRANG CHỦ
+            </NavLink>
+            <div className="header-center-content" onClick={handleOpenCategories}>
+              SẢN PHẨM
+            </div>
+            <Popover
+              id="CategoryPopover"
+              open={openCategories}
+              onClose={handleCloseCategories}
+              anchorEl={anchorCat}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              style={{ zIndex: 9999 }}
+            >
+              <div className="cat-popover-wrapper">
+                {listCategories.map((cat, index) => (
+                  <div key={index}>
+                    <NavLink href={`/categories/${cat.name}`} className="popover-item">
+                      <span>{cat.name}</span>
+                    </NavLink>
+                  </div>
+                ))}
+                <NavLink href="/products" className="popover-viewAll">
+                  Xem tất cả
                 </NavLink>
               </div>
-            ))}
-            <NavLink href="/products" className="popover-viewAll">
-              Xem tất cả
-            </NavLink>
+            </Popover>
+            <NavLink className="header-center-content">GIỚI THIỆU</NavLink>
+            <NavLink className="header-center-content">LIÊN HỆ</NavLink>
           </div>
-        </Popover>
-        <NavLink className="header-center-content">GIỚI THIỆU</NavLink>
-        <NavLink className="header-center-content">LIÊN HỆ</NavLink>
+        )}
       </div>
       <div className="header-right">
         <div className="header-icon-area">
@@ -154,7 +176,7 @@ function Header() {
             <StyledBadge badgeContent={cart.cartItems.length} max={99} showZero>
               <ShoppingBagIcon color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" />
             </StyledBadge>
-            
+
             {/* DRAWER */}
             <Drawer variant="persistent" anchor="right" open={open}>
               <DrawerHeader style={{ alignSelf: "start" }}>
@@ -195,11 +217,11 @@ function Header() {
                             </span>
                             <ListItemText>Subtotal: {cartProduct.total_price}đ</ListItemText>
                           </span>
-                          <span style={{ alignSelf: "start" }}>
+                          <div style={{ alignSelf: "start", right: 0, position: "absolute" }}>
                             <IconButton onClick={() => removeItem(cartProduct.cart_id, cartProduct.user_id)}>
                               <DeleteForeverIcon />
                             </IconButton>
-                          </span>
+                          </div>
                         </ListItem>
                       </List>
                       <Divider />
@@ -208,15 +230,15 @@ function Header() {
                 )
               )}
               <div className="drawer_footer">
-                <div>Estimated total: {total}đ</div>
-                <span className="minicart_action">
+                <div className="estimated_total">Estimated total: {total}đ</div>
+                <div className="minicart_action">
                   <Button className="view_cart" href={"/cart"}>
                     VIEW CART
                   </Button>
                   <Button className="checkout" href={"/checkout"}>
                     CHECKOUT
                   </Button>
-                </span>
+                </div>
               </div>
             </Drawer>
           </span>
@@ -275,4 +297,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default AdminHeader;

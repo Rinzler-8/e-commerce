@@ -5,7 +5,7 @@ var initialState = [];
 const ListAccount = (state = initialState, action) => {
   switch (action.type) {
     case Types.FETCH_ACCOUNT_LIST:
-      console.log("payload: ", action.payload);
+      // console.log("payload: ", action.payload);
       // let listAccountAPI = action.payload;
       // return listAccountAPI;
       state = action.payload;

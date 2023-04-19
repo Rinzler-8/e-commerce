@@ -4,13 +4,25 @@ import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import InputComponent from "./InputComponent";
 import "./style.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { actionDeleteAccountAPI } from "../../../Redux/Action/AccountAction";
 
 function UpdateInputFormComponent(props) {
   let { onHandleUpdateAccount } = props;
-
+  let dispatchRedux = useDispatch();
   // Lấy thông tin AccountUpdateInfo từ Redux để fill dữ liệu
   let accountUpdateInfo = useSelector((state) => state.formUpdateReducer.accountUpdateInfo);
+
+  let onHandleDelete = (id) => {
+    console.log("Id của Account cần xóa:", id);
+    alert("Bạn đã chắc chắn muốn xóa?");
+    dispatchRedux(actionDeleteAccountAPI(id));
+    // setShowNotificationDelete(true);
+  };
+
+  const actionStyling = {
+    marginLeft: "10px",
+  };
 
   return (
     <div>
@@ -24,21 +36,10 @@ function UpdateInputFormComponent(props) {
           Email: accountUpdateInfo.email,
         }}
         validationSchema={Yup.object({
-          Username: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
-            .required("Không được để trống username"),
-          Avatar: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!"),
-          Mobile: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
-            .required("Không được để trống mobile"),
-          Email: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
-            .required("Không được để trống email"),
+          Username: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Không được để trống username"),
+          Avatar: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!"),
+          Mobile: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Không được để trống mobile"),
+          Email: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Không được để trống email"),
         })}
         onSubmit={(values) => {
           let accountUpdateNew = {
@@ -80,6 +81,11 @@ function UpdateInputFormComponent(props) {
                     <Col>
                       <Button color="success" type="submit">
                         Save
+                      </Button>
+                    </Col>
+                    <Col>
+                      <Button color="danger" onClick={() => onHandleDelete(accountUpdateInfo.id)}>
+                        Xóa
                       </Button>
                     </Col>
                     <Col>

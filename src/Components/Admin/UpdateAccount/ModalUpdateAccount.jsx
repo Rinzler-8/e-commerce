@@ -23,7 +23,7 @@ function ModalUpdateAccount(props) {
     <Container>
       <Modal isOpen={showModal} toggle={toggle}>
         <ModalHeader>
-          <h3>Update Account</h3>
+          <div>Cập nhật tài khoản</div>
         </ModalHeader>
         <ModalBody>
           <UpdateInputFormComponent onHandleUpdateAccount={onHandleUpdateAccount} />

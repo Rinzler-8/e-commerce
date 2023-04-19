@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Toast, ToastHeader, ToastBody } from "reactstrap";
-import OrderResultForm from "../Components/Result/OrderResultForm";
+import OrderResultForm from "../Components/Result/Order/OrderResultForm";
 // import CreateButton from "./../Components/Admin/CreateButton";
 import { useDispatch, useSelector } from "react-redux";
 import { actionAddOrderAPI, actionDeleteOrderAPI, actionFetchOrderAPI, actionUpdateOrderAPI, actionFetchSingleOrderAPI } from "../Redux/Action/OrderAction";

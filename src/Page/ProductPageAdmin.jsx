@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Toast, ToastHeader, ToastBody } from "reactstrap";
-import ProductResultForm from "../Components/Result/ProductResultForm";
+import ProductResultForm from "../Components/Result/Product/ProductResultForm";
 // import CreateButton from "./../Components/Admin/CreateButton";
 import { useDispatch, useSelector } from "react-redux";
 import { actionAddProductAPI, actionDeleteProductAPI, actionFetchProductAPI, actionUpdateProductAPI, actionFetchSingleProductAPI } from "../Redux/Action/ProductAction";
