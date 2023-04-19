@@ -25,7 +25,7 @@ export const actionAddItemQty = (product) => {
   return {
     type: Types.INC_ITEM_QTY,
     payload: product,
-  }
+  };
 };
 
 export const actionDecItemQty = (product) => ({
@@ -38,12 +38,23 @@ export const actionUpdateItemQty = (product) => ({
   payload: product,
 });
 
+export const actionUpdateCartQty = (qty) => ({
+  type: Types.UPDATE_CART_QTY,
+  payload: qty,
+});
+
+export const actionOpenCart = () => ({
+  type: Types.OPEN_CART,
+});
+
+export const actionCloseCart = () => ({
+  type: Types.CLOSE_CART,
+});
+
 // Acction thêm mới Cart
 export const actionAddToCartAPI = (id, item) => {
   return (dispatch) => {
-    return addToCartAPI(id, item).then((response) => {
-      console.log("reponseAPI After add to Cart:", response);
-    });
+    return addToCartAPI(id, item).then((response) => {});
   };
 };
 
@@ -52,7 +63,7 @@ export const actionUpdateCartAPI = (id, cartUpdate) => {
   return (dispatch) => {
     return updateCartAPI(id, cartUpdate).then((response) => {
       dispatch(actionUpdateItemQty(cartUpdate));
-      console.log("response sau khi Update Cart: ", response);
+      // console.log("response sau khi Update Cart: ", response);
     });
   };
 };
@@ -60,8 +71,8 @@ export const actionUpdateCartAPI = (id, cartUpdate) => {
 export const actionDeleteCartItemAPI = (cartId, userId) => {
   return (dispatch) => {
     return deleteCartItemAPI(cartId, userId).then((response) => {
-      console.log("response sau khi delete Cart item: ", response);
+      dispatch(actionGetCartByUserIdRedux(response));
+      // console.log("response sau khi delete Cart item: ", response);
     });
   };
 };
-

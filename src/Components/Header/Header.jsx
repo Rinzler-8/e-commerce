@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Navbar, NavItem, NavLink, Nav, NavbarBrand, Button } from "reactstrap";
-import { MenuList, ListItemIcon, ListItem, Popover, List, Drawer, Typography, Menu, MenuItem, ListItemText, Divider, IconButton, Box } from "@mui/material";
+import { NavLink, Button } from "reactstrap";
+import { ListItem, Popover, List, Drawer, Typography, ListItemText, Divider, IconButton, Box } from "@mui/material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { styled, useTheme } from "@mui/material/styles";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
@@ -10,29 +10,49 @@ import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
-import { actionGetCartByUserIdAPI, actionAddItemQty, actionDecItemQty, actionUpdateCartAPI, actionDeleteCartItemAPI } from "../../Redux/Action/CartAction";
+import {
+  actionGetCartByUserIdAPI,
+  actionAddItemQty,
+  actionDecItemQty,
+  actionUpdateCartAPI,
+  actionDeleteCartItemAPI,
+  actionCloseCart,
+  actionOpenCart,
+} from "../../Redux/Action/CartAction";
 import { actionFetchSingleAccountAPI } from "../../Redux/Action/AccountAction";
 import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { StyledBadge } from "../StyledMUI";
 
-function AdminHeader() {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [header, setHeader] = React.useState(false);
-  const [cartLength, setCartLength] = React.useState(1);
+function Header() {
+  let [header, setHeader] = React.useState(false);
   const stateRedux = useSelector((cartItems) => cartItems);
+  const cartStateRedux = useSelector((state) => state);
   const dispatchRedux = useDispatch();
   const cart = stateRedux.cartReducer;
   const account = stateRedux.singleAccountReducer;
   const listCategories = stateRedux.listCategoryReducer;
+  let drawerIsOpen = cartStateRedux.CartDrawerReducer.isOpen;
   const id = localStorage.getItem("id");
   const username = localStorage.getItem("username");
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [anchorCat, setAnchorCat] = React.useState(null);
+  let cartIsOpen = localStorage.getItem("cartIsOpen");
+  let [anchorEl, setAnchorEl] = React.useState(null);
+  let [anchorCat, setAnchorCat] = React.useState(null);
   const openPopover = Boolean(anchorEl);
   const openCategories = Boolean(anchorCat);
+  let total = 0;
+
+  useEffect(() => {
+    if (id && id !== "") {
+      dispatchRedux(actionGetCartByUserIdAPI(id));
+      dispatchRedux(actionFetchSingleAccountAPI(id));
+    }
+    dispatchRedux(actionFetchCategoryAPI());
+  }, []);
+
+  // console.log("cart state", drawerIsOpen);
+
   const handleOpenPopover = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -47,22 +67,14 @@ function AdminHeader() {
   const handleCloseCategories = () => {
     setAnchorCat(null);
   };
-  useEffect(() => {
-    if (id && id !== "") {
-      dispatchRedux(actionGetCartByUserIdAPI(id));
-      dispatchRedux(actionFetchSingleAccountAPI(id));
-    }
-    dispatchRedux(actionFetchCategoryAPI());
-  }, [id, cartLength]);
 
-  const changeNavBack = () => {
-    if (window.scrollY >= 90) {
-      setHeader(true);
-    } else {
-      setHeader(false);
-    }
+  const handleDrawerOpen = () => {
+    dispatchRedux(actionOpenCart());
   };
-  window.addEventListener("scroll", changeNavBack);
+
+  const handleDrawerClose = () => {
+    dispatchRedux(actionCloseCart());
+  };
 
   const addQty = (cartItem) => {
     dispatchRedux(actionAddItemQty(cartItem));
@@ -79,12 +91,8 @@ function AdminHeader() {
     dispatchRedux(actionUpdateCartAPI(id, obj));
   };
 
-  let total = 0;
-
   const removeItem = (cartId, userId) => {
     dispatchRedux(actionDeleteCartItemAPI(cartId, userId));
-    // window.location.reload();
-    setCartLength(cartLength - 1);
   };
 
   const logout = () => {
@@ -92,13 +100,14 @@ function AdminHeader() {
     window.location.reload();
   };
 
-  const handleDrawerOpen = () => {
-    setOpen(!open);
+  const changeNavBack = () => {
+    if (window.scrollY >= 90) {
+      setHeader(true);
+    } else {
+      setHeader(false);
+    }
   };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  window.addEventListener("scroll", changeNavBack);
 
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
@@ -178,7 +187,7 @@ function AdminHeader() {
             </StyledBadge>
 
             {/* DRAWER */}
-            <Drawer variant="persistent" anchor="right" open={open}>
+            <Drawer variant="persistent" anchor="right" open={drawerIsOpen}>
               <DrawerHeader style={{ alignSelf: "start" }}>
                 <IconButton onClick={handleDrawerClose}>
                   <ChevronRightIcon />
@@ -233,7 +242,7 @@ function AdminHeader() {
                 <div className="estimated_total">Estimated total: {total}đ</div>
                 <div className="minicart_action">
                   <Button className="view_cart" href={"/cart"}>
-                    VIEW CART
+                    XEM GIỎ HÀNG
                   </Button>
                   <Button className="checkout" href={"/checkout"}>
                     CHECKOUT
@@ -297,4 +306,4 @@ function AdminHeader() {
   );
 }
 
-export default AdminHeader;
+export default Header;

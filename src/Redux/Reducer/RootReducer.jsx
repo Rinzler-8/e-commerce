@@ -8,6 +8,7 @@ import ListOrder from "./ListOrderReducer";
 import SingleProduct from "./SingleProductReducer";
 import SingleAccount from "./SingleAccountReducer";
 import Cart from "./CartReducer";
+import CartDrawerReducer from "./CartDrawerReducer";
 import { OrderInfo, OrderItems } from "./CheckoutReducer";
 
 const RootReducers = combineReducers({
@@ -18,6 +19,7 @@ const RootReducers = combineReducers({
   singleProductReducer: SingleProduct,
   singleAccountReducer: SingleAccount,
   cartReducer: Cart,
+  CartDrawerReducer: CartDrawerReducer,
   checkoutReducer: OrderInfo,
   orderItemsReducer: OrderItems,
   pageFilterReducer: pageFilter,

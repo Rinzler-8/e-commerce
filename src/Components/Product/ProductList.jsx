@@ -3,7 +3,7 @@ import ProductItem from "./ProductItem";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchProductAPI } from "../../Redux/Action/ProductAction";
-import { actionAddToCartAPI } from "../../Redux/Action/CartAction";
+import { actionAddToCartAPI, actionUpdateCartQty, actionGetCartByUserIdAPI, actionOpenCart } from "../../Redux/Action/CartAction";
 import Slider from "react-slick";
 import "./ProductList.css";
 import "./slickProduct.css";
@@ -49,9 +49,8 @@ const NextBtn = (props) => {
 const ProductList = () => {
   const dispatchRedux = useDispatch();
   const stateRedux = useSelector((state) => state);
+  const cartStateRedux = useSelector((state) => state.cartReducer);
   const listProduct = stateRedux.listProductReducer;
-  const [cartLength, setCartLength] = React.useState(1);
-  const cart = stateRedux.cartReducer;
   const id = localStorage.getItem("id");
   const handleAddToCart = (id, cartItem) => {
     let obj = {
@@ -60,16 +59,16 @@ const ProductList = () => {
       product_id: cartItem.product_id,
     };
     dispatchRedux(actionAddToCartAPI(id, obj));
-    setCartLength(cartLength + 1);
+    dispatchRedux(actionUpdateCartQty(1));
+    dispatchRedux(actionOpenCart());
     // alert("Them san pham vao gio thanh cong");
-    console.log("df", cart.cartItems);
-
-    // window.location.reload();
   };
 
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI());
-  }, [cartLength]);
+    dispatchRedux(actionGetCartByUserIdAPI(id));
+  }, [cartStateRedux.quantity]);
+
   const settings = {
     // centerMode: true;
     dots: false,

@@ -36,44 +36,52 @@ UPDATE `shop`.`product` SET `product_image_name` = 'https://www.reliancedigital.
 
 --------------------------------------------------------------------------------------------------------------------------
 Zalo:
-1. UI:
-   - Đổi ngôn ngữ
-2. Function:
+
 
 
 ----------------------------------------------------------------------------------------------------
 Final project:
 1. BUG:
-   - Dùng redux-persist để lưu redux state => có thể refresh trang product details mà không bị mất dữ liệu reducer
-   - JPA query: @Query("Select item FROM OrderItems item WHERE item.order_id=:order_id") => OrderItems là entity được khai báo 
-   ở be chứ không phải từ database.
-   - BE: fasterxml.jackson.databind: thêm jsonignore dưới entity
-   - FE: Không lấy được dữ liệu sau khi checkout ?
-      => vì initial state rỗng nên không có khả năng lấy order_id, session_id. 
-      => SOLUTION: sau khi checkoutAPI, dispatch actionGetOrderInfoRedux với response của checkoutAPI để checkoutReducer có dữ liệu
+   * FE:
+      - Dùng redux-persist để lưu redux state => có thể refresh trang product details mà không bị mất dữ liệu reducer
+      - Không lấy được dữ liệu sau khi checkout ?
+       => vì initial state rỗng nên không có khả năng lấy order_id, session_id. 
+       => SOLUTION: sau khi checkoutAPI, dispatch actionGetOrderInfoRedux với response của checkoutAPI để checkoutReducer có dữ liệu
       (đã có redux-persist ở trên để lưu reducer state)
-   - FE: Muốn dùng action thì phải có useDispatch
-   - BE: this.passwordEncoder is null khi reset password ?
-      => SOLUTION: đổi từ private PasswordEncoder passwordEncoder -> BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
-   - FE: không lấy được ảnh trong product detail ?
-      + useEffect đang lấy điều kiện userId để render
-      + <img alt="Sample" src={require('../../Assets/Product/' + product.imageName)}/> không chạy được vì:
-      => Based on how the packager works, this isn't really possible with require. Packaging happens once before runtime so those variables don't have values yet.
-      +
-      => SOLUTION: lấy ảnh từ server (BE)
-   - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near
-   => Đổi tên table trong entity BE ("Order" => "`Order`") vì dưới db tên table là `Order`
-   - FE: productCategoryPage hiện sai mỗi lần refresh page =
-   => thêm param.id vào array second argument 
-   - FE: view cateogies bị lỗi giữa lấy full và lấy theo category khi refresh page (đang bị lấy state của cả 2)
-   => bỏ actionFetchProductAPI dưới <ProductItem/>
-   - FE: outline when select img
-   => Change  <div key={items[2].key} style={{ width: "100%", height: "700px", outline: "none" }}>
-   to <div key={items[0].key} className="carousel"> (.carousel {outline: none})
-   - FE: position absolute bị ẩn dưới position relative => z-index: 1
-   - BE: không search được account
-   => Bị lỗi search ở dưới file UserService, bỏ roleSpecification
-   - FE
+      - Muốn dùng action thì phải có useDispatch
+      - không lấy được ảnh trong product detail ?
+         + useEffect đang lấy điều kiện userId để render
+         + <img alt="Sample" src={require('../../Assets/Product/' + product.imageName)}/> không chạy được vì:
+         => Based on how the packager works, this isn't really possible with require. Packaging happens once before runtime so those variables don't have values yet.
+         => SOLUTION: lấy ảnh từ server (BE)
+      - productCategoryPage hiện sai mỗi lần refresh page
+         => thêm param.id vào condition array của useEffect 
+      - view cateogies bị lỗi giữa lấy full và lấy theo category khi refresh page (đang bị lấy state của cả 2)
+         => bỏ actionFetchProductAPI dưới <ProductItem/>
+      - outline when select img
+         => Change  <div key={items[2].key} style={{ width: "100%", height: "700px", outline: "none" }}>
+      to <div key={items[0].key} className="carousel"> (.carousel {outline: none})
+      - position absolute bị ẩn dưới position relative => z-index: 1
+      - lỗi thỉnh thoảng phải bấm xóa 2 lần mới xóa được 1 item khỏi cart
+         => dispatch(actionGetCartByUserIdRedux(response)) ở trong actionDeleteCartItemAPI
+      - bấm add to cart, drawer mở ra rồi đóng vào luôn ?
+         + ProductList: 
+            dispatchRedux(actionOpenCart()) là true => dispatchRedux(actionGetCartByUserIdAPI(id)) là false
+            (quay về initialState)
+            
+
+
+   * BE:
+      - JPA query: @Query("Select item FROM OrderItems item WHERE item.order_id=:order_id") => OrderItems là entity được khai báo 
+      ở be chứ không phải từ database.
+      - BE: fasterxml.jackson.databind: thêm jsonignore dưới entity
+      - BE: this.passwordEncoder is null khi reset password ?
+         => SOLUTION: đổi từ private PasswordEncoder passwordEncoder -> BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
+      - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near
+      => Đổi tên table trong entity BE ("Order" => "`Order`") vì dưới db tên table là `Order`
+      - BE: không search được account
+      => Bị lỗi search ở dưới file UserService, bỏ roleSpecification
+
 
 2. FEATURE
  * checkout: 
@@ -104,24 +112,22 @@ Final project:
    - product page theo category (DONE)
  * Admin:
    1. Manage account
-   •  Log In/Log Out
-   * View account list
-   * Create account
-   * Edit Account
-   * Delete account
+   •  Log In/Log Out (DONE)
+   * View account list (DONE)
+   * Create account (DONE)
+   * Edit Account (DONE)
+   * Delete account (DONE)
    •  Change Password
    2. Manage product
-   •  View product
-   •  Add a new product
-   •  Edit a product
-   •  Delete a product
-   •  Search for a product 
+   •  View product (DONE)
+   •  Add a new product (DONE)
+   •  Edit a product (DONE)
+   •  Delete a product (DONE)
+   •  Search for a product (DONE)
    3. Manage order
    •  View order
    •  Search order
    •  Change order’s status
    •  Cancel Order
 
-   withNav
-      withAuth 
-        AdminAuth ? 
+
