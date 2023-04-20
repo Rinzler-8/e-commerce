@@ -28,6 +28,7 @@ import * as Yup from "yup";
 import { checkoutAPI } from "../API/CheckoutAPI";
 import "../../src/css/CheckoutPage.css";
 import { actionCheckoutAPI } from "../Redux/Action/CheckoutAction";
+import { actionDeleteAllCartItemsAPI, actionCloseCart } from "../Redux/Action/CartAction";
 
 const CheckOutList = () => {
   const [isShown, setIsShown] = useState(false);
@@ -41,6 +42,10 @@ const CheckOutList = () => {
   const togglePassword = () => {
     setIsShown((isShown) => !isShown);
   };
+  useEffect(() => {
+    dispatchRedux(actionCloseCart());
+  }, []);
+
   function CustomInput(props) {
     let {
       field, // { name, value, onChange, onBlur }
@@ -87,6 +92,7 @@ const CheckOutList = () => {
                     paymentType: values.paymentType,
                   };
                   dispatchRedux(actionCheckoutAPI(id, checkout));
+                  dispatchRedux(actionDeleteAllCartItemsAPI(id));
                   toast.success("Tạo đơn thành công.", {
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -114,9 +120,7 @@ const CheckOutList = () => {
               {({ validateField, validateForm }) => (
                 <Container>
                   <Row>
-                    <Col
-                      style={{ marginTop: 60 }}
-                    >
+                    <Col style={{ marginTop: 60 }}>
                       <Form>
                         <span>
                           <Avatar style={{ backgroundColor: "blue" }}>1</Avatar>

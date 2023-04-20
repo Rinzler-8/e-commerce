@@ -98,6 +98,8 @@ Final project:
    + truyền state của nơi bấm add to cart xuống header ?
 
 3. REMAININGS:
+   - Checkbox cho nhiều item
+
  * User:
    - danh sách order (get all orders) (DONE) 
    - phân quyền 

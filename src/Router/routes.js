@@ -14,7 +14,7 @@ import ProductCategoryPage from "../Page/ProductPage/ProductCategoryPage";
 import CartPage from "../Page/CartPage";
 import TestPage from "../Page/TestPage";
 import ProductPageAdmin from "../Page/ProductPageAdmin";
-import OrderPageAdmin from "../Page/OrderPageAdmin";
+import OrderPageAdmin from "../Page/OrderPage/OrderPageAdmin";
 import ProfilePage from "../Page/ProfilePage";
 import ResetPassPage from "../Page/ResetPassPage";
 import ChangePassPage from "../Page/ChangePassPage";
@@ -25,6 +25,7 @@ export const routes = (
       <Route element={<WithAuth />}>
         <Route path="/accounts/:id" element={<ProfilePage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/orders-admin" element={<OrderPageAdmin />} />
         <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
         <Route path="/resetPass/:token" element={<ResetPassPage />} />
         <Route path="/changePass" element={<ChangePassPage />} />

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, Grid, Box, Typography, Rating, Table, Button } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Container } from "reactstrap";
-import { actionGetCartByUserIdAPI, actionAddItemQty, actionDecItemQty, actionUpdateCartAPI, actionDeleteCartItemAPI } from "../Redux/Action/CartAction";
+import { actionGetCartByUserIdAPI, actionAddItemQty, actionDecItemQty, actionUpdateCartAPI, actionDeleteCartItemAPI, actionCloseCart } from "../Redux/Action/CartAction";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
@@ -30,8 +30,8 @@ const CartPage = () => {
   };
 
   const updateQty = (id, cartObj, e) => {
-    let obj = { cart_id: cartObj.cart_id, quantity: e.target.value, price: cartObj.price * e.target.value};
-    console.log("cart quantity: ", obj)
+    let obj = { cart_id: cartObj.cart_id, quantity: e.target.value, price: cartObj.price * e.target.value };
+    console.log("cart quantity: ", obj);
     dispatchRedux(actionUpdateCartAPI(id, obj));
   };
 
@@ -42,6 +42,7 @@ const CartPage = () => {
 
   useEffect(() => {
     if (id && id !== "") dispatchRedux(actionGetCartByUserIdAPI(id));
+    dispatchRedux(actionCloseCart());
   }, [id]);
   // Khai báo item hiển thị dữ liệu
   // Kiểm tra nếu listProduct !="" sẽ hiển thị dữ liệu

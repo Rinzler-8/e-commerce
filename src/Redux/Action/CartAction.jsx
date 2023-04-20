@@ -1,7 +1,6 @@
-import { addToCartAPI, deleteCartAPI, getCartAPIList, updateCartAPI, getCartByUserIdAPI, deleteCartItemAPI } from "../../API/CartAPI";
+import { addToCartAPI, deleteAllCartItemsAPI, getCartAPIList, updateCartAPI, getCartByUserIdAPI, deleteCartItemAPI } from "../../API/CartAPI";
 import * as Types from "../Contant/CartActionType";
 import * as Types_Page from "../Contant/PageActionType";
-import { actionToggleUpdateFormRedux } from "./FormUpdateAction";
 import { actionChangePage, actionChangeSortDirection, actionChangeSortField } from "./PageAction";
 // Viết các Action liên quan đến Call API
 export const actionGetCartByUserIdAPI = (id) => {
@@ -71,6 +70,16 @@ export const actionUpdateCartAPI = (id, cartUpdate) => {
 export const actionDeleteCartItemAPI = (cartId, userId) => {
   return (dispatch) => {
     return deleteCartItemAPI(cartId, userId).then((response) => {
+      dispatch(actionGetCartByUserIdRedux(response));
+      // console.log("response sau khi delete Cart item: ", response);
+    });
+  };
+};
+
+// Acction delete Cart items
+export const actionDeleteAllCartItemsAPI = (userId) => {
+  return (dispatch) => {
+    return deleteAllCartItemsAPI(userId).then((response) => {
       dispatch(actionGetCartByUserIdRedux(response));
       // console.log("response sau khi delete Cart item: ", response);
     });

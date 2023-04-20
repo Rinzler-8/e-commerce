@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { NavLink, Button } from "reactstrap";
 import { ListItem, Popover, List, Drawer, Typography, ListItemText, Divider, IconButton, Box } from "@mui/material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
@@ -6,6 +6,7 @@ import { styled, useTheme } from "@mui/material/styles";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SearchIcon from "@mui/icons-material/Search";
@@ -24,6 +25,7 @@ import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { StyledBadge } from "../StyledMUI";
+import Backdrop from "@mui/material/Backdrop";
 
 function Header() {
   let [header, setHeader] = React.useState(false);
@@ -34,24 +36,21 @@ function Header() {
   const account = stateRedux.singleAccountReducer;
   const listCategories = stateRedux.listCategoryReducer;
   let drawerIsOpen = cartStateRedux.CartDrawerReducer.isOpen;
+  const shoppingCartIconRef = useRef(null);
   const id = localStorage.getItem("id");
   const username = localStorage.getItem("username");
-  let cartIsOpen = localStorage.getItem("cartIsOpen");
   let [anchorEl, setAnchorEl] = React.useState(null);
   let [anchorCat, setAnchorCat] = React.useState(null);
   const openPopover = Boolean(anchorEl);
   const openCategories = Boolean(anchorCat);
   let total = 0;
 
-  useEffect(() => {
-    if (id && id !== "") {
-      dispatchRedux(actionGetCartByUserIdAPI(id));
-      dispatchRedux(actionFetchSingleAccountAPI(id));
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 27) {
+      // Esc key code
+      handleDrawerClose();
     }
-    dispatchRedux(actionFetchCategoryAPI());
-  }, []);
-
-  // console.log("cart state", drawerIsOpen);
+  };
 
   const handleOpenPopover = (event) => {
     setAnchorEl(event.currentTarget);
@@ -95,6 +94,9 @@ function Header() {
     dispatchRedux(actionDeleteCartItemAPI(cartId, userId));
   };
 
+  const lastCartItem = cart.cartItems[cart.cartItems.length - 1];
+  console.log("cart state", lastCartItem);
+
   const logout = () => {
     localStorage.clear();
     window.location.reload();
@@ -108,6 +110,19 @@ function Header() {
     }
   };
   window.addEventListener("scroll", changeNavBack);
+
+  useEffect(() => {
+    if (id && id !== "") {
+      dispatchRedux(actionGetCartByUserIdAPI(id));
+      dispatchRedux(actionFetchSingleAccountAPI(id));
+    }
+    dispatchRedux(actionFetchCategoryAPI());
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
@@ -182,75 +197,96 @@ function Header() {
         <div className="header-icon-area">
           <button className="style-btn-icon">{/* <SearchIcon/>/ */}</button>
           <span style={{ marginRight: "30px", cursor: "pointer" }}>
-            <StyledBadge badgeContent={cart.cartItems.length} max={99} showZero>
-              <ShoppingBagIcon color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" />
+            <StyledBadge badgeContent={cart.cartItems.length} max={99} showZero onClick={handleDrawerOpen} ref={shoppingCartIconRef}>
+              <ShoppingBagIcon color="inherit" aria-label="open drawer" edge="start" />
             </StyledBadge>
 
             {/* DRAWER */}
-            <Drawer variant="persistent" anchor="right" open={drawerIsOpen}>
-              <DrawerHeader style={{ alignSelf: "start" }}>
-                <IconButton onClick={handleDrawerClose}>
-                  <ChevronRightIcon />
-                  Your Bag ({cart.cartItems.length})
-                </IconButton>
-              </DrawerHeader>
-              <Divider />
-              {cart.cartItems.map(
-                (cartProduct, index) => (
-                  (total += cartProduct.total_price),
-                  (
-                    <Box key={index} className="drawer">
-                      <List>
-                        <ListItem>
-                          <div>
-                            <NavLink href={`/products/${cartProduct.product_id}`}>
-                              <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + cartProduct.imageName} />
-                            </NavLink>
-                          </div>
-                          <span>
-                            <ListItemText>
-                              <NavLink href={`/products/${cartProduct.product_id}`} style={{ padding: 0 }}>
-                                <Typography style={{ fontSize: 20 }}>{cartProduct.productName}</Typography>
-                              </NavLink>
-                              <Typography>{cartProduct.price}đ</Typography>
-                              <Typography>{cartProduct.info}đ</Typography>
-                            </ListItemText>
-                            <span>
-                              <Button disabled={cartProduct.quantity <= 1} onClick={() => decQty(cartProduct)} className="qty_btn">
-                                -
-                              </Button>
-                              <input type="text" className="input_qty" value={cartProduct.quantity} onChange={(e) => updateQty(id, cartProduct, e)} size="3" />
-                              <Button className="qty_btn" onClick={() => addQty(cartProduct)}>
-                                +
-                              </Button>
-                            </span>
-                            <ListItemText>Subtotal: {cartProduct.total_price}đ</ListItemText>
-                          </span>
-                          <div style={{ alignSelf: "start", right: 0, position: "absolute" }}>
-                            <IconButton onClick={() => removeItem(cartProduct.cart_id, cartProduct.user_id)}>
-                              <DeleteForeverIcon />
-                            </IconButton>
-                          </div>
-                        </ListItem>
-                      </List>
-                      <Divider />
-                    </Box>
-                  )
-                )
-              )}
-              <div className="drawer_footer">
-                <div className="estimated_total">Estimated total: {total}đ</div>
-                <div className="minicart_action">
-                  <Button className="view_cart" href={"/cart"}>
-                    XEM GIỎ HÀNG
-                  </Button>
-                  <Button className="checkout" href={"/checkout"}>
-                    CHECKOUT
-                  </Button>
+            <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={drawerIsOpen} style = {{overflowY: 'hidden'}}>
+              <Drawer
+                variant="persistent"
+                anchor="right"
+                open={drawerIsOpen}
+                transitionDuration={{
+                  enter: "0.8s",
+                  exit: "0.8s",
+                }}
+              >
+                <DrawerHeader style={{ alignSelf: "start" }}>
+                  <IconButton onClick={handleDrawerClose}>
+                    <ChevronRightIcon />
+                    Your Bag ({cart.cartItems.length})
+                  </IconButton>
+                </DrawerHeader>
+                <Divider />
+                <div>
+                  {cart.cartItems.map(
+                    (cartProduct, index) => (
+                      (total += cartProduct.total_price),
+                      (
+                        <Box key={index} className="drawer" style={cartProduct === lastCartItem ? { marginBottom: '120px' } : null}>
+                          <List>
+                            <ListItem>
+                              <div>
+                                <NavLink href={`/products/${cartProduct.product_id}`}>
+                                  <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + cartProduct.imageName} />
+                                </NavLink>
+                              </div>
+                              <span>
+                                <ListItemText>
+                                  <NavLink href={`/products/${cartProduct.product_id}`} style={{ padding: 0 }}>
+                                    <Typography style={{ fontSize: 20 }}>{cartProduct.productName}</Typography>
+                                  </NavLink>
+                                  <Typography>{cartProduct.price}đ</Typography>
+                                  <Typography>{cartProduct.info}đ</Typography>
+                                </ListItemText>
+                                <span>
+                                  <Button disabled={cartProduct.quantity <= 1} onClick={() => decQty(cartProduct)} className="qty_btn">
+                                    -
+                                  </Button>
+                                  <input
+                                    type="text"
+                                    className="input_qty"
+                                    value={cartProduct.quantity}
+                                    onChange={(e) => updateQty(id, cartProduct, e)}
+                                    size="3"
+                                  />
+                                  <Button className="qty_btn" onClick={() => addQty(cartProduct)}>
+                                    +
+                                  </Button>
+                                </span>
+                                <ListItemText>Subtotal: {cartProduct.total_price}đ</ListItemText>
+                              </span>
+                              <div style={{ alignSelf: "start", right: 0, position: "absolute" }}>
+                                <IconButton onClick={() => removeItem(cartProduct.cart_id, cartProduct.user_id)}>
+                                  <DeleteForeverIcon />
+                                </IconButton>
+                              </div>
+                            </ListItem>
+                          </List>
+                          <Divider />
+                        </Box>
+                      )
+                    )
+                  )}
                 </div>
-              </div>
-            </Drawer>
+
+                <div className="drawer_footer">
+                  <div className="estimated_total">Estimated total: {total}đ</div>
+                  <div className="minicart_action">
+                    <Button className="view_cart" href={"/cart"}>
+                      XEM GIỎ HÀNG
+                    </Button>
+                    <Button className="checkout" href={"/checkout"}>
+                      CHECKOUT
+                    </Button>
+                  </div>
+                </div>
+              </Drawer>
+            </Backdrop>
           </span>
+
+          {/* ACCOUNT, ORDER, LOGOUT */}
           <div>
             {localStorage.getItem("token") ? (
               <>
@@ -279,11 +315,15 @@ function Header() {
                 >
                   <div className="user-popover-wrapper">
                     <NavLink className="popover-user" href={`/accounts/${id}`}>
-                      <PersonIcon />
+                      <PersonIcon style={{ marginRight: "5px", marginBottom: "5px" }} />
                       <span>Tài khoản</span>
                     </NavLink>
+                    <NavLink className="user-popover-footer" href={`/orders-admin`}>
+                      <LocalMallIcon style={{ marginRight: "5px", marginBottom: "5px" }} />
+                      <span>Đơn hàng</span>
+                    </NavLink>
                     <NavLink className="user-popover-footer" onClick={logout}>
-                      <LogoutIcon />
+                      <LogoutIcon style={{ marginRight: "5px", marginBottom: "5px" }} />
                       <span>Đăng xuất</span>
                     </NavLink>
                   </div>

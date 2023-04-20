@@ -22,7 +22,12 @@ const addToCartAPI = (id, item) => {
 
 // Xóa Cart theo userId, cartId
 const deleteCartItemAPI = (cartId, userId) => {
-  let url = "v1/cart/removeProductFromCart/" + cartId + "/" +userId;
+  let url = "v1/cart/removeProductFromCart/" + cartId + "/" + userId;
+  return api("DELETE", url, null, null);
+};
+// Xóa Cart theo userId
+const deleteAllCartItemsAPI = (userId) => {
+  let url = "v1/cart/removeAllProductsCart/" + userId;
   return api("DELETE", url, null, null);
 };
 // Update Cart
@@ -32,4 +37,4 @@ const updateCartAPI = (id, CartUpdate) => {
   return api("PUT", url, CartUpdate);
 };
 
-export { getCartAPIList, getCartByUserIdAPI, addToCartAPI, deleteCartItemAPI, updateCartAPI };
+export { getCartAPIList, getCartByUserIdAPI, addToCartAPI, deleteCartItemAPI, updateCartAPI, deleteAllCartItemsAPI };

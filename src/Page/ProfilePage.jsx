@@ -19,8 +19,9 @@ const ProfilePage = () => {
   const dispatchRedux = useDispatch();
   const account = stateRedux.singleAccountReducer;
   const id = localStorage.getItem("id");
+  window.localStorage.setItem("initAcc", JSON.parse(JSON.stringify(JSON.parse(localStorage.getItem("persist:root") || "{}").singleAccountReducer)));
   const localAcc = JSON.parse(localStorage.getItem("initAcc") || "{}");
-  // console.log("subg", localAcc);
+  console.log("subg", localAcc);
   const [previewAvatarUrl, setPreviewAvatarUrl] = useState();
   const [previewAvatarFile, setPreviewAvatarFile] = useState();
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
@@ -195,10 +196,11 @@ const ProfilePage = () => {
                           disabled={
                             !dirty ||
                             !isValid ||
-                            JSON.stringify(values) === JSON.stringify(initialValues) ||
-                            nameImage !== localAcc.urlAvatar ||
-                            nameImage !== null ||
-                            nameImage !== undefined
+                            JSON.stringify(values) === JSON.stringify(initialValues) 
+                            //  ||
+                            //  (nameImage == localAcc.urlAvatar ||
+                            //  nameImage !== null ||
+                            //  nameImage !== undefined)
                           }
                         >
                           Lưu thay đổi
