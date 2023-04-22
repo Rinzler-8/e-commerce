@@ -9,6 +9,10 @@
   transition: 0.4s;
 }
 
+.no-display {
+  display: none;
+}
+
 .header.active {
   transition: 0.4s;
   background-color: white;
@@ -205,6 +209,10 @@
 
 .last-item {
   margin-bottom: 20px;
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 .drawer_footer {

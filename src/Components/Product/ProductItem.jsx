@@ -3,22 +3,29 @@ import "./ProductItem.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchProductAPI } from "../../Redux/Action/ProductAction";
-import { actionAddToCartAPI, actionOpenCart, actionGetCartByUserIdAPI, actionUpdateCartQty } from "../../Redux/Action/CartAction";
+import { actionAddToCartAPI, actionOpenCart, actionGetCartByUserIdAPI, actionUpdateCartQty,actionUpdateCartAPI } from "../../Redux/Action/CartAction";
 
 function ProductItem() {
   let dispatchRedux = useDispatch();
   let stateRedux = useSelector((state) => state);
   let cartStateRedux = useSelector((state) => state.cartReducer);
+  const cart = stateRedux.cartReducer;
   let listProduct = stateRedux.listProductReducer;
   let id = localStorage.getItem("id");
   const handleAddToCart = (id, cartItem) => {
-    let obj = {
-      quantity: 1,
-      price: cartItem.price,
-      product_id: cartItem.product_id,
-    };
-    dispatchRedux(actionAddToCartAPI(id, obj));
-    dispatchRedux(actionUpdateCartQty(1));
+    const existingItem = cart.cartItems.find((item) => item.product_id === cartItem.product_id);
+    if (existingItem) {
+      existingItem.quantity += 1;
+      dispatchRedux(actionUpdateCartAPI(id, existingItem));
+    } else {
+      const newCartItem = {
+        quantity: 1,
+        price: cartItem.price,
+        product_id: cartItem.product_id,
+      };
+      dispatchRedux(actionAddToCartAPI(id, newCartItem));
+      dispatchRedux(actionUpdateCartQty(1));
+    }
     dispatchRedux(actionOpenCart());
   };
 

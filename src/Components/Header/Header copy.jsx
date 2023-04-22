@@ -93,12 +93,8 @@ function Header() {
     dispatchRedux(actionUpdateCartAPI(id, obj));
   };
 
-  const removeItem = (e, cartId, userId) => {
+  const removeItem = (e , cartId, userId) => {
     e.stopPropagation();
-    dispatchRedux(actionDeleteCartItemAPI(cartId, userId));
-  };
-
-  const removeItem2 = (cartId, userId) => {
     dispatchRedux(actionDeleteCartItemAPI(cartId, userId));
   };
 
@@ -224,10 +220,10 @@ function Header() {
                 variant="persistent"
                 anchor="right"
                 open={drawerIsOpen}
-                // transitionDuration={{
-                //   enter: "0.8s",
-                //   exit: "0.8s",
-                // }}
+                transitionDuration={{
+                  enter: "0.8s",
+                  exit: "0.8s",
+                }}
               >
                 <DrawerHeader style={{ alignSelf: "start" }}>
                   <IconButton onClick={handleDrawerClose}>
@@ -240,15 +236,15 @@ function Header() {
                   {cart.cartItems.map(
                     (cartProduct, index) => (
                       (total += cartProduct.total_price),
-                      cartProduct.quantity >= 1 ? (
-                        <Box key={index} className="drawer" style={cartProduct === lastCartItem ? { marginBottom: "120px" } : null}>
+                      (
+                        <Box key={index} className= {cartProduct.quantity >= 1 ? 'drawer' : 'no-display'} style={cartProduct === lastCartItem ? { marginBottom: "120px" } : null} >
                           <List>
                             <ListItem>
                               <div>
                                 {/* <NavLink href={`/products/${cartProduct.product_id}`}>
                                   <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + cartProduct.imageName} />
                                 </NavLink> */}
-                                <div onClick={() => navigate(`/products/${cartProduct.product_id}`)}>
+                                <div onClick = {()=> navigate(`/products/${cartProduct.product_id}`)}>
                                   <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + cartProduct.imageName} />
                                 </div>
                               </div>
@@ -286,8 +282,6 @@ function Header() {
                           </List>
                           <Divider />
                         </Box>
-                      ) : (
-                        removeItem2(cartProduct.cart_id, cartProduct.user_id)
                       )
                     )
                   )}

@@ -3,13 +3,16 @@ import ProductItem from "./ProductItem";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchProductAPI } from "../../Redux/Action/ProductAction";
-import { actionAddToCartAPI, actionUpdateCartQty, actionGetCartByUserIdAPI, actionOpenCart } from "../../Redux/Action/CartAction";
+import { actionAddToCartAPI, actionUpdateCartQty, actionGetCartByUserIdAPI, actionOpenCart, actionUpdateCartAPI } from "../../Redux/Action/CartAction";
 import Slider from "react-slick";
 import "./ProductList.css";
 import "./slickProduct.css";
 import "../Carousel/slick-theme.css";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import "../../../src/css/toastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 let slidesToShow = 3;
 
@@ -50,24 +53,45 @@ const ProductList = () => {
   const dispatchRedux = useDispatch();
   const stateRedux = useSelector((state) => state);
   const cartStateRedux = useSelector((state) => state.cartReducer);
+  const cart = stateRedux.cartReducer;
   const listProduct = stateRedux.listProductReducer;
   const id = localStorage.getItem("id");
+
   const handleAddToCart = (id, cartItem) => {
-    let obj = {
-      quantity: 1,
-      price: cartItem.price,
-      product_id: cartItem.product_id,
-    };
-    dispatchRedux(actionAddToCartAPI(id, obj));
-    dispatchRedux(actionUpdateCartQty(1));
-    dispatchRedux(actionOpenCart());
-    // alert("Them san pham vao gio thanh cong");
+    const prod = listProduct.find((item) => item.product_id === cartItem.product_id);
+
+    if (prod.stockQty <= 0) {
+      toast.error("Sản phẩm đã hết hàng !", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      const existingItem = cart.cartItems.find((item) => item.product_id === cartItem.product_id);
+      if (existingItem) {
+        existingItem.quantity += 1;
+        dispatchRedux(actionUpdateCartAPI(id, existingItem));
+      } else {
+        const newCartItem = {
+          quantity: 1,
+          price: cartItem.price,
+          product_id: cartItem.product_id,
+        };
+        dispatchRedux(actionAddToCartAPI(id, newCartItem));
+        dispatchRedux(actionUpdateCartQty(1));
+      }
+      dispatchRedux(actionOpenCart());
+    }
   };
 
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI());
     dispatchRedux(actionGetCartByUserIdAPI(id));
-  }, [cartStateRedux.quantity]);
+  }, [cartStateRedux.quantity, cart.cartItems.length]);
 
   const settings = {
     // centerMode: true;
@@ -120,6 +144,7 @@ const ProductList = () => {
           ))}
         </Slider>
       </div>
+      <ToastContainer />
     </>
   );
 };

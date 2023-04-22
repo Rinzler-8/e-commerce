@@ -114,22 +114,23 @@ Final project:
    - product page theo category (DONE)
  * Admin:
    1. Manage account
-   •  Log In/Log Out (DONE)
-   * View account list (DONE)
-   * Create account (DONE)
-   * Edit Account (DONE)
-   * Delete account (DONE)
-   •  Change Password
+      •  Log In/Log Out (DONE)
+      * View account list (DONE)
+      * Create account (DONE)
+      * Edit Account (DONE)
+      * Delete account (DONE)
+      •  Change Password
    2. Manage product
-   •  View product (DONE)
-   •  Add a new product (DONE)
-   •  Edit a product (DONE)
-   •  Delete a product (DONE)
-   •  Search for a product (DONE)
+      •  View product (DONE)
+      •  Add a new product (DONE)
+      •  Edit a product (DONE)
+      •  Delete a product (DONE)
+      •  Search for a product (DONE)
    3. Manage order
-   •  View order
-   •  Search order
-   •  Change order’s status
-   •  Cancel Order
-
-
+      •  View order
+      •  Search order
+      •  Change order’s status
+      •  Cancel Order
+   4. Cart
+      * nếu bấm trừ khi sản phẩm qty = 1, xóa sản phẩm (DONE)
+      * nếu sản phẩm đã có trong cart, khi add to cart kèm số lượng cụ thể thì sẽ update số lượng của sản phẩm trong cart

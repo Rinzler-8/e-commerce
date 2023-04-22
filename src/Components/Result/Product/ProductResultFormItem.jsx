@@ -26,7 +26,7 @@ function ProductResultFormItem(props) {
         <tr key={index}>
           <td>{product.product_id}</td>
           <td>{product.name}</td>
-          <td>{product.price}</td>
+          <td>{product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</td>
           <td>{product.info}</td>
           <td>{product.detail}</td>
           <td>{product.ratingStar}</td>
