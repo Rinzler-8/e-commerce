@@ -76,14 +76,12 @@ function Header() {
     dispatchRedux(actionCloseCart());
   };
 
-  const addQty = (e, cartItem) => {
-    e.stopPropagation();
+  const addQty = (cartItem) => {
     dispatchRedux(actionAddItemQty(cartItem));
     dispatchRedux(actionUpdateCartAPI(id, cartItem));
   };
 
-  const decQty = (e, cartItem) => {
-    e.stopPropagation();
+  const decQty = (cartItem) => {
     dispatchRedux(actionDecItemQty(cartItem));
     dispatchRedux(actionUpdateCartAPI(id, cartItem));
   };
@@ -93,12 +91,7 @@ function Header() {
     dispatchRedux(actionUpdateCartAPI(id, obj));
   };
 
-  const removeItem = (e, cartId, userId) => {
-    e.stopPropagation();
-    dispatchRedux(actionDeleteCartItemAPI(cartId, userId));
-  };
-
-  const removeItem2 = (cartId, userId) => {
+  const removeItem = (cartId, userId) => {
     dispatchRedux(actionDeleteCartItemAPI(cartId, userId));
   };
 
@@ -236,7 +229,7 @@ function Header() {
                   </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <div>
+                <div onClick={(e) => {e.stopPropagation()}}>
                   {cart.cartItems.map(
                     (cartProduct, index) => (
                       (total += cartProduct.total_price),
@@ -245,23 +238,20 @@ function Header() {
                           <List>
                             <ListItem>
                               <div>
-                                {/* <NavLink href={`/products/${cartProduct.product_id}`}>
-                                  <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + cartProduct.imageName} />
-                                </NavLink> */}
                                 <div onClick={() => navigate(`/products/${cartProduct.product_id}`)}>
                                   <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + cartProduct.imageName} />
                                 </div>
                               </div>
                               <span>
-                                <ListItemText>
-                                  <NavLink href={`/products/${cartProduct.product_id}`} style={{ padding: 0 }}>
-                                    <Typography style={{ fontSize: 20 }}>{cartProduct.productName}</Typography>
-                                  </NavLink>
-                                  <Typography>{cartProduct.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</Typography>
-                                  <Typography>{cartProduct.info}đ</Typography>
+                                <ListItemText onClick={() => navigate(`/products/${cartProduct.product_id}`)}>
+                                  <div  style={{ padding: 0 }}>
+                                    <div style={{ fontSize: 20 }}>{cartProduct.productName}</div>
+                                  </div>
+                                  <div>{cartProduct.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</div>
+                                  <div>{cartProduct.info}</div>
                                 </ListItemText>
                                 <span>
-                                  <Button onClick={(e) => decQty(e, cartProduct)} className="qty_btn">
+                                  <Button onClick={() => decQty(cartProduct)} className="qty_btn">
                                     -
                                   </Button>
                                   <input
@@ -271,14 +261,14 @@ function Header() {
                                     onChange={(e) => updateQty(id, cartProduct, e)}
                                     size="3"
                                   />
-                                  <Button className="qty_btn" onClick={(e) => addQty(e, cartProduct)}>
+                                  <Button className="qty_btn" onClick={() => addQty(cartProduct)}>
                                     +
                                   </Button>
                                 </span>
-                                <ListItemText>Subtotal: {cartProduct.total_price.toLocaleString("vi", { style: "currency", currency: "VND" })}</ListItemText>
+                                <ListItemText onClick={() => navigate(`/products/${cartProduct.product_id}`)}>Subtotal: {cartProduct.total_price.toLocaleString("vi", { style: "currency", currency: "VND" })}</ListItemText>
                               </span>
                               <div style={{ alignSelf: "start", right: 0, position: "absolute" }}>
-                                <IconButton onClick={(e) => removeItem(e, cartProduct.cart_id, cartProduct.user_id)}>
+                                <IconButton onClick={(e) => removeItem(cartProduct.cart_id, cartProduct.user_id)}>
                                   <DeleteForeverIcon />
                                 </IconButton>
                               </div>
@@ -287,13 +277,13 @@ function Header() {
                           <Divider />
                         </Box>
                       ) : (
-                        removeItem2(cartProduct.cart_id, cartProduct.user_id)
+                        removeItem(cartProduct.cart_id, cartProduct.user_id)
                       )
                     )
                   )}
                 </div>
 
-                <div className="drawer_footer">
+                <div className="drawer_footer" onClick={(e) => {e.stopPropagation()}}>
                   <div className="estimated_total">Estimated total: {total.toLocaleString("vi", { style: "currency", currency: "VND" })}</div>
                   <div className="minicart_action">
                     <Button className="view_cart" href={"/cart"}>

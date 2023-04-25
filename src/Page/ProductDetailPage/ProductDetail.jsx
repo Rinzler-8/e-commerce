@@ -41,9 +41,29 @@ function ProductDetail(props) {
     }
     dispatchRedux(actionOpenCart());
   };
+
+  const addQty = (cartItem) => {
+    dispatchRedux(actionAddItemQty(cartItem));
+    dispatchRedux(actionUpdateCartAPI(id, cartItem));
+  };
+
+  const decQty = (cartItem) => {
+    dispatchRedux(actionDecItemQty(cartItem));
+    dispatchRedux(actionUpdateCartAPI(id, cartItem));
+  };
+
+  const updateQty = (id, product, e) => {
+    let obj = { cart_id: product.cart_id, quantity: e.target.value, price: product.price * e.target.value };
+    dispatchRedux(actionUpdateCartAPI(id, obj));
+  };
+
   useEffect(() => {
     dispatchRedux(actionFetchSingleProductAPI(prodId.id));
   }, [prodId.id]);
+
+  useEffect(() => {
+    dispatchRedux(actionCloseCart());
+  }, []);
 
   // useEffect(() => {
   //   dispatchRedux(actionCloseCart());
@@ -63,11 +83,17 @@ function ProductDetail(props) {
           {/* <CardText>{product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</CardText> */}
         </CardBody>
         <span>
-          <Button disabled={qty <= 1} onClick={() => setQty(qty - 1)}>
+          <Button disabled={qty <= 1} onClick={() => decQty(product)}>
             -
           </Button>
-          <input type="text" className="input_qty" value={qty} />
-          <Button onClick={() => setQty(qty + 1)}>+</Button>
+          <input
+            type="text"
+            className="input_qty"
+            value={product.quantity}
+            onChange={(e) => updateQty(id, product, e)}
+            size="3"
+          />
+          <Button onClick={() => addQty(product)}>+</Button>
         </span>
       </Box>
       <Button color="primary" onClick={() => handleAddToCart(id, product)}>

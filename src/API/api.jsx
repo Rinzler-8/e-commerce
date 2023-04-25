@@ -9,6 +9,17 @@ const axiosClient = axios.create({
   },
 });
 
+axiosClient.interceptors.request.use((config) => {
+  // Lấy token từ localStorage
+  const token = localStorage.getItem('user');
+  // Nếu có token, thì thêm vào request header
+  const parseToken = JSON.parse(token);
+  if (token) {
+    config.headers.Authorization = `Bearer ${parseToken.bearer_token}`;
+  }
+  return config;
+}, (error) => Promise.reject(error));
+
 export const api = (method, endpoint, payload) => {
   return axiosClient(endpoint, { method: method, data: payload })
     .then((response) => {
