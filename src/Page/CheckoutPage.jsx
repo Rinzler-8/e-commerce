@@ -85,13 +85,14 @@ const CheckOutList = () => {
               onSubmit={(values) => {
                 try {
                   const checkout = {
+                    user_id: id,
                     first_name: values.first_name,
                     last_name: values.last_name,
                     mobile: values.mobile,
                     delivery_address: values.delivery_address,
                     paymentType: values.paymentType,
                   };
-                  dispatchRedux(actionCheckoutAPI(id, checkout));
+                  dispatchRedux(actionCheckoutAPI(checkout));
                   dispatchRedux(actionDeleteAllCartItemsAPI(id));
                   toast.success("Tạo đơn thành công.", {
                     autoClose: 3000,

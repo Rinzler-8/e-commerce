@@ -55,8 +55,11 @@ const ProductList = () => {
   const cartStateRedux = useSelector((state) => state.cartReducer);
   const cart = stateRedux.cartReducer;
   const listProduct = stateRedux.listProductReducer;
-  const id = localStorage.getItem("id");
-
+  let id = localStorage.getItem("id");
+  if (!id) {
+    localStorage.setItem("id", Math.floor(Math.random() * 3000) + 1);
+  }
+  
   const handleAddToCart = (id, cartItem) => {
     const prod = listProduct.find((item) => item.product_id === cartItem.product_id);
 
@@ -77,21 +80,23 @@ const ProductList = () => {
         dispatchRedux(actionUpdateCartAPI(id, existingItem));
       } else {
         const newCartItem = {
+          user_id: id,
           quantity: 1,
           price: cartItem.price,
           product_id: cartItem.product_id,
         };
-        dispatchRedux(actionAddToCartAPI(id, newCartItem));
+        dispatchRedux(actionAddToCartAPI(newCartItem));
         dispatchRedux(actionUpdateCartQty(1));
       }
       dispatchRedux(actionOpenCart());
     }
   };
+  console.log("userid", id);
 
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI());
     dispatchRedux(actionGetCartByUserIdAPI(id));
-  }, [cartStateRedux.quantity, cart.cartItems.length]);
+  }, [cartStateRedux.quantity, cart.cartItems.length, id]);
 
   const settings = {
     // centerMode: true;

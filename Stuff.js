@@ -68,7 +68,6 @@ Final project:
          + ProductList: 
             dispatchRedux(actionOpenCart()) là true => dispatchRedux(actionGetCartByUserIdAPI(id)) là false
             (quay về initialState)
-            
 
 
    * BE:
@@ -84,7 +83,7 @@ Final project:
 
 
 2. FEATURE
- * checkout: 
+ * Checkout: 
  - FE:
     + lấy firstname, lastname, mobile, address, payment
     + user chỉ có 1 cart => cartId = userId
@@ -93,9 +92,10 @@ Final project:
     + checkout gồm 2 phần: order info và order items
     + mỗi order sẽ phân biệt theo session_id. Lấy orderInfo theo orderId, orderItems theo session_id (hoặc order_id)
  
- * cart:
+ * Cart:
  - FE: add to cart sẽ tự động mở drawer ? 
    + truyền state của nơi bấm add to cart xuống header ?
+   + Thêm vào giỏ hàng khi không đăng nhập.
 
 3. REMAININGS:
    - Checkbox cho nhiều item

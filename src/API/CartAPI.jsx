@@ -16,8 +16,8 @@ const getCartByUserIdAPI = (id) => {
 };
 
 // Add Cart New
-const addToCartAPI = (id, item) => {
-  return api("POST", "v1/cart/addToCart/" + id, item);
+const addToCartAPI = (item) => {
+  return api("POST", "v1/cart/addToCart", item);
 };
 
 // Xóa Cart theo userId, cartId

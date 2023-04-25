@@ -51,9 +51,9 @@ export const actionCloseCart = () => ({
 });
 
 // Acction thêm mới Cart
-export const actionAddToCartAPI = (id, item) => {
+export const actionAddToCartAPI = (item) => {
   return (dispatch) => {
-    return addToCartAPI(id, item).then((response) => {});
+    return addToCartAPI(item).then((response) => {});
   };
 };
 

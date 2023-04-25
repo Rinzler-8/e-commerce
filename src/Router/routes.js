@@ -24,13 +24,13 @@ export const routes = (
     <Route element={<WithNav />}>
       <Route element={<WithAuth />}>
         <Route path="/accounts/:id" element={<ProfilePage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/orders-admin" element={<OrderPageAdmin />} />
-        <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
         <Route path="/resetPass/:token" element={<ResetPassPage />} />
         <Route path="/changePass" element={<ChangePassPage />} />
       </Route>
 
+      <Route path="/checkout" element={<CheckoutPage />} />
+      <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/" element={<HomePage />} />

@@ -12,6 +12,10 @@ function ProductItem() {
   const cart = stateRedux.cartReducer;
   let listProduct = stateRedux.listProductReducer;
   let id = localStorage.getItem("id");
+  if (!id) {
+    localStorage.setItem("id", Math.floor(Math.random() * 3000) + 1);
+  }
+  
   const handleAddToCart = (id, cartItem) => {
     const existingItem = cart.cartItems.find((item) => item.product_id === cartItem.product_id);
     if (existingItem) {

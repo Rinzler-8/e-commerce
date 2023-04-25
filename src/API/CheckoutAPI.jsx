@@ -12,8 +12,8 @@ const getOrderItemsAPI = (sessionId) => {
 };
 
 // Add Cart New
-const checkoutAPI = (id, item) => {
-  return api("POST", "v1/order/checkout/" + id, item);
+const checkoutAPI = (item) => {
+  return api("POST", "v1/order/checkout", item);
 };
 
 

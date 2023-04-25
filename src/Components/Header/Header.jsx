@@ -114,9 +114,9 @@ function Header() {
 
   useEffect(() => {
     if (id && id !== "") {
-      dispatchRedux(actionGetCartByUserIdAPI(id));
       dispatchRedux(actionFetchSingleAccountAPI(id));
     }
+    dispatchRedux(actionGetCartByUserIdAPI(id));
     dispatchRedux(actionFetchCategoryAPI());
 
     //close drawer when hitting "Esc" button on keyboard
