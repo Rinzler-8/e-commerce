@@ -5,44 +5,49 @@ import * as Yup from "yup";
 import InputComponent from "./InputComponent";
 import SelectComponent from "./SelectComponent";
 import "./style.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { actionFetchStatusAPI } from "../../../Redux/Action/OrderStatusAction";
+
 
 function UpdateInputProductForm(props) {
-  let { onHandleUpdateProduct } = props;
+  let { onHandleUpdateOrder } = props;
+  let dispatchRedux = useDispatch();
 
-  let listCategory = useSelector((state) => state.listCategoryReducer);
+  useEffect(() => {
+    dispatchRedux(actionFetchStatusAPI());
+  }, [])
+
+  let listOrderStatus = useSelector((state) => state.orderStatusReducer);
 
   // Lấy thông tin AccountUpdateInfo từ Redux để fill dữ liệu
-  let productUpdateInfo = useSelector((state) => state.formUpdateReducer.productUpdateInfo);
+  let orderUpdateInfo = useSelector((state) => state.formUpdateReducer.orderUpdateInfo);
 
   // Tìm depid và posid để fill vào thẻ select
-  let categoryIdUpdate = listCategory.find((cat) => cat.name === productUpdateInfo.categoryName).id;
+  let orderStatusUpdate = listOrderStatus.find((status) => status === orderUpdateInfo.orderStatus);
 
   return (
     <div>
       {/* Formik */}
       <Formik
         initialValues={{
-          Name: productUpdateInfo.name,
-          Category: categoryIdUpdate,
+          Status: orderUpdateInfo.orderStatus,
         }}
-        validationSchema={Yup.object({
-          Name: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Required"),
-          Category: Yup.number().required("Pls, Select a Category"),
-        })}
+        // validationSchema={Yup.object({
+        //   Status: Yup.number().required("Pls, Select a Status"),
+        // })}
         onSubmit={(values) => {
-          let productUpdateNew = {
+          let orderUpdateNew = {
             //FormForUpdating(backend): values.name
-            name: values.Name,
-            categoryId: values.Category,
+            orderStatus: values.Status,
           };
-          console.log("Thông tin Product Sau khi chỉnh sửa: ", productUpdateNew);
-          onHandleUpdateProduct(productUpdateNew);
+          console.log("Thông tin Order Sau khi chỉnh sửa: ", orderUpdateNew);
+          onHandleUpdateOrder(orderUpdateNew);
         }}
         validateOnChange={false}
         validateOnBlur={false}
       >
-        {({ validateField, validateForm }) => (
+        {({ validateField, validateForm, initialValues }) => (
           <Container>
             <Row>
               <Col
@@ -51,12 +56,10 @@ function UpdateInputProductForm(props) {
                   size: 8,
                 }}
               >
-                {/* Form thêm mới */}
                 <Form>
-                  {/* name */}
-                  <Field name="Name" type="text" placeholder="Enter name" label="name:" component={InputComponent} />
-                  {/* Category */}
-                  <Field name="Category" placeholder="Select a Category" label="Category:" listItem={listCategory} component={SelectComponent} />
+                  {/* Status */}
+                  <Field name="Status" placeholder="Select a Status" label="Trạng thái đơn hàng:" listItem={listOrderStatus} component={SelectComponent} />
+                  initial value: {orderStatusUpdate}
                   <br />
                   <br />
                   {/* submit */}

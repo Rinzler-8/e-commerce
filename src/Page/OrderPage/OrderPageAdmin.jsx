@@ -43,7 +43,7 @@ function OrderPage(props) {
   };
   // Xử lý khi nhấn nút Edit
   let onHandleEdit = (orderUpdate) => {
-    console.log("Thông tin của Order cần update:", orderUpdate);
+    // console.log("Thông tin của Order cần update:", orderUpdate);
     // Lưu thông tin Order Update lên Redux
     dispatchRedux(actionFetchOrderUpdateInfoRedux(orderUpdate));
     // Hiển thị formUpdate

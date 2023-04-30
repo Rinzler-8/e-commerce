@@ -22,7 +22,7 @@ function ModalUpdateOrder(props) {
     <Container>
       <Modal isOpen={showModal} toggle={toggle}>
         <ModalHeader>
-          <h3>Update Order</h3>
+          <div>Update Order</div>
         </ModalHeader>
         <ModalBody>
           <UpdateInputOrderForm onHandleUpdateOrder={onHandleUpdateOrder} />

@@ -17,7 +17,7 @@ function OrderResultFormItem(props) {
     // dispatchRedux(actionShowUpdateForm());
     onHandleEdit(order);
   };
-  console.log("order: ", listOrder);
+  // console.log("order: ", listOrder);
   let rowItem = "";
   if (listOrder) {
     rowItem = listOrder.map((order, index) => {
@@ -34,10 +34,10 @@ function OrderResultFormItem(props) {
           <td>{order.created_At}</td>
           <td>{order.note}</td>
           <td>
-            <Button color="warning" onClick={() => handleEditButton(order.id)}>
+            <Button color="warning" onClick={() => handleEditButton(order)}>
               Sửa
             </Button>
-            <Button color="danger" onClick={() => handleDelete(order.id)}>
+            <Button color="danger" onClick={() => handleDelete(order)}>
               Hủy
             </Button>
           </td>

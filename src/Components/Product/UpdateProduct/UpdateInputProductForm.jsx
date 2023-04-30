@@ -11,7 +11,6 @@ function UpdateInputProductForm(props) {
   let { onHandleUpdateProduct } = props;
 
   let listCategory = useSelector((state) => state.listCategoryReducer);
-
   // Lấy thông tin AccountUpdateInfo từ Redux để fill dữ liệu
   let productUpdateInfo = useSelector((state) => state.formUpdateReducer.productUpdateInfo);
 

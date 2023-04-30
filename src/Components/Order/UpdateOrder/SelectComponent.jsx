@@ -15,8 +15,8 @@ function SelectComponent(props) {
   // Hiển thị item
   let itemDropdown = listItem.map((item, index) => {
     return (
-      <option value={item.id} key={index}>
-        {item.name}
+      <option value={item} key={index}>
+        {item}
       </option>
     );
   });
@@ -26,7 +26,7 @@ function SelectComponent(props) {
       <br />
       <h5 htmlFor={field.name}>{propsOther.label}</h5>
       <Field as="select" name={field.name}>
-        <option value="">Select a {field.name}</option>
+        <option value="">Chuyển trạng thái</option>
         {itemDropdown}
       </Field>
       {touched[field.name] && errors[field.name] && <div style={{ color: "red" }}>{errors[field.name]}</div>}

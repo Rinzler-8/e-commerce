@@ -93,9 +93,9 @@ Final project:
     + mỗi order sẽ phân biệt theo session_id. Lấy orderInfo theo orderId, orderItems theo session_id (hoặc order_id)
  
  * Cart:
- - FE: add to cart sẽ tự động mở drawer ? 
-   + truyền state của nơi bấm add to cart xuống header ?
-   + Thêm vào giỏ hàng khi không đăng nhập.
+ - FE: add to cart sẽ tự động mở drawer (DONE) 
+   + truyền state của mọi nơi có bấm add to cart vào header để mở và update drawer (DONE)
+   + Thêm vào giỏ hàng khi không đăng nhập. (DONE)
 
 3. REMAININGS:
    - Checkbox cho nhiều item

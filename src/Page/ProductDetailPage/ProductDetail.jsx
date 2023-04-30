@@ -41,7 +41,7 @@ function ProductDetail(props) {
         price: cartItem.price,
         product_id: cartItem.product_id,
       };
-      dispatchRedux(actionAddToCartAPI(id, newCartItem));
+      dispatchRedux(actionAddToCartAPI(newCartItem));
       dispatchRedux(actionUpdateCartQty(1));
     }
     dispatchRedux(actionOpenCart());

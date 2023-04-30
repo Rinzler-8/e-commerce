@@ -47,8 +47,13 @@ const deleteOrderAPI = (id) => {
 };
 // Update Order
 const updateOrderAPI = (id, orderUpdate) => {
-  let url = "v1/orders/" + id;
-  return api("PUT", url, orderUpdate);
+  const parameters = {};
+  if (id && orderUpdate) {
+    parameters.order_id = id;
+    parameters.orderStatus = orderUpdate.orderStatus;
+  }
+  let url = "v1/orders?" + queryString.stringify(parameters);
+  return api("PUT", url);
 };
 
 export { getOrderAPIList, getSingleOrderAPI, addOrderNewAPI, deleteOrderAPI, updateOrderAPI };

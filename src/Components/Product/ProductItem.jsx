@@ -4,6 +4,9 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchProductAPI } from "../../Redux/Action/ProductAction";
 import { actionAddToCartAPI, actionOpenCart, actionGetCartByUserIdAPI, actionUpdateCartQty,actionUpdateCartAPI } from "../../Redux/Action/CartAction";
+import "../../../src/css/toastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ProductItem() {
   let dispatchRedux = useDispatch();
@@ -17,20 +20,35 @@ function ProductItem() {
   }
   
   const handleAddToCart = (id, cartItem) => {
-    const existingItem = cart.cartItems.find((item) => item.product_id === cartItem.product_id);
-    if (existingItem) {
-      existingItem.quantity += 1;
-      dispatchRedux(actionUpdateCartAPI(id, existingItem));
+    const prod = listProduct.find((item) => item.product_id === cartItem.product_id);
+
+    if (prod.stockQty <= 0) {
+      toast.error("Sản phẩm đã hết hàng !", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } else {
-      const newCartItem = {
-        quantity: 1,
-        price: cartItem.price,
-        product_id: cartItem.product_id,
-      };
-      dispatchRedux(actionAddToCartAPI(id, newCartItem));
-      dispatchRedux(actionUpdateCartQty(1));
+      const existingItem = cart.cartItems.find((item) => item.product_id === cartItem.product_id);
+      if (existingItem) {
+        existingItem.quantity += 1;
+        dispatchRedux(actionUpdateCartAPI(id, existingItem));
+      } else {
+        const newCartItem = {
+          user_id: id,
+          quantity: 1,
+          price: cartItem.price,
+          product_id: cartItem.product_id,
+        };
+        dispatchRedux(actionAddToCartAPI(newCartItem));
+        dispatchRedux(actionUpdateCartQty(1));
+      }
+      dispatchRedux(actionOpenCart());
     }
-    dispatchRedux(actionOpenCart());
   };
 
   useEffect(() => {
@@ -68,6 +86,7 @@ function ProductItem() {
           <button className="add-to-cart-btn" onClick={() => handleAddToCart(id, product)}>
             Thêm vào giỏ hàng
           </button>
+          <ToastContainer />
           {/* </div> */}
         </div>
       ))}
