@@ -107,11 +107,12 @@ Final project:
    - đặt điều kiện cho các function
    - delete account
    - user change password (HALF), check old password ?
-   - forgot/reset password (HALF)
-   - validation on status 
+   - forgot/reset password (DONE)
+   - validation on status (DONE)
    - edit account status (admin)
    - upload avatar (DONE)
    - product page theo category (DONE)
+   - View order (DONE)
  * Admin:
    1. Manage account
       •  Log In/Log Out (DONE)
@@ -127,10 +128,17 @@ Final project:
       •  Delete a product (DONE)
       •  Search for a product (DONE)
    3. Manage order
-      •  View order
+      •  View order (DONE)
       •  Search order
-      •  Change order’s status
-      •  Cancel Order
+      •  Change order’s status (DONE)
+      •  Cancel Order 
    4. Cart
       * nếu bấm trừ khi sản phẩm qty = 1, xóa sản phẩm (DONE)
       * nếu sản phẩm đã có trong cart, khi add to cart kèm số lượng cụ thể thì sẽ update số lượng của sản phẩm trong cart
+
+
+      Styling:
+         - accounts, products, order page (admin)
+         - product detail page
+         - checkout page
+         - checkout success page

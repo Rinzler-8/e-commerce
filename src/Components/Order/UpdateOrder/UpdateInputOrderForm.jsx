@@ -41,7 +41,7 @@ function UpdateInputProductForm(props) {
             //FormForUpdating(backend): values.name
             orderStatus: values.Status,
           };
-          console.log("Thông tin Order Sau khi chỉnh sửa: ", orderUpdateNew);
+          // console.log("Thông tin Order Sau khi chỉnh sửa: ", orderUpdateNew);
           onHandleUpdateOrder(orderUpdateNew);
         }}
         validateOnChange={false}
@@ -59,7 +59,6 @@ function UpdateInputProductForm(props) {
                 <Form>
                   {/* Status */}
                   <Field name="Status" placeholder="Select a Status" label="Trạng thái đơn hàng:" listItem={listOrderStatus} component={SelectComponent} />
-                  initial value: {orderStatusUpdate}
                   <br />
                   <br />
                   {/* submit */}

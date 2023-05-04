@@ -286,9 +286,6 @@ function Header() {
                 <div className="drawer_footer" onClick={(e) => {e.stopPropagation()}}>
                   <div className="estimated_total">Estimated total: {total.toLocaleString("vi", { style: "currency", currency: "VND" })}</div>
                   <div className="minicart_action">
-                    <Button className="view_cart" href={"/cart"}>
-                      XEM GIỎ HÀNG
-                    </Button>
                     <Button className="checkout" href={"/checkout"}>
                       CHECKOUT
                     </Button>

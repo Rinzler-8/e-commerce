@@ -30,13 +30,29 @@ function OrderResultFormItem(props) {
           <td>{order.mobile}</td>
           <td>{order.delivery_address}</td>
           <td>{order.paymentType}</td>
-          <td>{order.orderStatus}</td>
+          <td>
+            {order.orderStatus == "PENDING"
+              ? "Đang chờ"
+              : order.orderStatus == "CONFIRMED"
+              ? "Đã xác nhận"
+              : order.orderStatus == "SHIPPED"
+              ? "Đã giao cho vận chuyển"
+              : order.orderStatus == "DELIVERING"
+              ? "Đang giao hàng"
+              : order.orderStatus == "DELIVERED"
+              ? "Đã giao cho khách"
+              : order.orderStatus == "CANCELED"
+              ? "Đã hủy"
+              : "Chuyển trạng thái"}
+          </td>
           <td>{order.created_At}</td>
           <td>{order.note}</td>
           <td>
-            <Button color="warning" onClick={() => handleEditButton(order)}>
-              Sửa
-            </Button>
+            {role == "ADMIN" ? (
+              <Button color="warning" onClick={() => handleEditButton(order)}>
+                Sửa
+              </Button>
+            ) : null}
             <Button color="danger" onClick={() => handleDelete(order)}>
               Hủy
             </Button>

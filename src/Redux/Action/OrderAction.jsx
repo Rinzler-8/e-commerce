@@ -68,7 +68,7 @@ export const actionUpdateOrderAPI = (id, OrderUpdate) => {
   // console.log("id: ", id);
   return (dispatch) => {
     return updateOrderAPI(id, OrderUpdate).then((response) => {
-      console.log("response sau khi Update order: ", response);
+      // console.log("response sau khi Update order: ", response);
       dispatch(actionFetchOrderAPI()); // Load lại dữ liệu API
       dispatch(actionToggleUpdateFormRedux()); // Đóng FormUpdate
     });

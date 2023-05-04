@@ -21,7 +21,7 @@ const ProfilePage = () => {
   const id = localStorage.getItem("id");
   window.localStorage.setItem("initAcc", JSON.parse(JSON.stringify(JSON.parse(localStorage.getItem("persist:root") || "{}").singleAccountReducer)));
   const localAcc = JSON.parse(localStorage.getItem("initAcc") || "{}");
-  console.log("subg", localAcc);
+  // console.log("subg", localAcc);
   const [previewAvatarUrl, setPreviewAvatarUrl] = useState();
   const [previewAvatarFile, setPreviewAvatarFile] = useState();
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
@@ -87,7 +87,7 @@ const ProfilePage = () => {
             onSubmit={async (values) => {
               try {
                 nameImage = await uploadImgAPI(previewAvatarFile);
-                console.log("response: ", previewAvatarUrl);
+                
                 const update = {
                   firstName: values.firstName ? values.firstName : account.firstName,
                   lastName: values.lastName ? values.lastName : account.lastName,
@@ -109,7 +109,7 @@ const ProfilePage = () => {
                       draggable: true,
                       progress: undefined,
                     });
-                    setTimeout(() => window.location.reload(), 1000);
+                    // setTimeout(() => window.location.reload(), 1000);
                   } else {
                     toast.error("Đã có lỗi xảy ra! Vui lòng thử lại.", {
                       position: "top-right",
