@@ -25,7 +25,13 @@ export const routes = (
       <Route element={<WithAuth />}>
         <Route path="/accounts/:id" element={<ProfilePage />} />
         <Route path="/orders-admin" element={<OrderPageAdmin />} />
-        <Route path="/resetPass/:token" element={<ResetPassPage />} />
+        <Route path="/changePass" element={<ChangePassPage />} />
+      </Route>
+      <Route element={<AdminAuth />}>
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/products-admin" element={<ProductPageAdmin />} />
+        <Route path="/orders-admin" element={<OrderPageAdmin />} />
+        <Route path="/accounts/:id" element={<ProfilePage />} />
         <Route path="/changePass" element={<ChangePassPage />} />
       </Route>
 
@@ -40,17 +46,7 @@ export const routes = (
       <Route path="/cart" element={<CartPage />} />
       <Route path="*" element={<NotFoundPage />} />
       <Route path="/forgotPass" element={<ForgotPasswordPage />} />
-
-      <Route element={<AdminAuth />}>
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/products-admin" element={<ProductPageAdmin />} />
-        <Route path="/orders-admin" element={<OrderPageAdmin />} />
-        <Route path="/accounts/:id" element={<ProfilePage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
-        <Route path="/resetPass/:token" element={<ResetPassPage />} />
-        <Route path="/changePass" element={<ChangePassPage />} />
-      </Route>
+      <Route path="/resetPass/:token" element={<ResetPassPage />} />
     </Route>
 
     {/* <Route path="/test" element={<TestPage />} /> */}

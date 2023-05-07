@@ -5,6 +5,7 @@ import FormData from 'form-data';
 const uploadImgAPI = (image) => {
   const body = new FormData();
   body.append("image", image);
+  console.log("response: ", image);
   return api("POST", "v1/fileUpload", body);
 };
 

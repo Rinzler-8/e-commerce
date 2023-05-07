@@ -4,10 +4,11 @@ import OrderResultFormItem from "./OrderResultFormItem";
 
 function OrderResultForm(props) {
   let { onHandleDelete, onHandleEdit } = props;
+  let role = localStorage.getItem("role");
   return (
     <Container>
       <br />
-      <h3>Danh sách Order</h3>
+      <h3>{role == "ADMIN" ? "Danh sách đơn hàng" : role == "USER" ? "Đơn hàng của tôi" : null}</h3>
       <Table hover>
         <thead>
           <tr>
