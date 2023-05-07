@@ -15,6 +15,9 @@ import { actionFetchAccountUpdateInfoRedux, actionToggleUpdateFormRedux } from "
 import ModalUpdateAccount from "../Components/Admin/UpdateAccount/ModalUpdateAccount";
 import { useNavigate } from "react-router-dom";
 import storage from "../Storage/Storage";
+import MenuBar from "../Components/Admin/MenuBar/MenuBar";
+import ManageUser from "../Components/Admin/ManageUser/ManageUser";
+import "../css/AdminPage.css";
 
 function AdminPage(props) {
   let stateRedux = useSelector((state) => state);
@@ -96,11 +99,16 @@ function AdminPage(props) {
   // Thông tin trang hiện tại từ redux để truyền xuống PaginationButton hiển thị
   let currentPage = stateRedux.pageFilterReducer;
   return (
-    <Container>
+    <div className="admin-page-container">
+      <MenuBar></MenuBar>
+      <div className="content-area-admin">
+        <ManageUser></ManageUser>
+      </div>
+
       {/* Hiển thị modal form update */}
-      <ModalUpdateAccount onHandleUpdateAccount={onHandleUpdateAccount} />
+      {/* <ModalUpdateAccount onHandleUpdateAccount={onHandleUpdateAccount} /> */}
       {/* Thông báo thêm mới thành công */}
-      <Toast isOpen={showNotificationDelete}>
+      {/* <Toast isOpen={showNotificationDelete}>
         <ToastHeader
           style={{ backgroundColor: "red", color: "black", fontSize: 20 }}
           toggle={() => {
@@ -110,16 +118,14 @@ function AdminPage(props) {
           Notification
         </ToastHeader>
         <ToastBody style={{ color: "black", fontSize: 25 }}>Delete Account Success!!</ToastBody>
-      </Toast>
+      </Toast> */}
       {/* Modal thêm mới Account */}
-      <ModalCreateNewAccount onHandleCreateNewAccount={onHandleCreateNewAccount} />
+      {/* <ModalCreateNewAccount onHandleCreateNewAccount={onHandleCreateNewAccount} /> */}
       {/* Search dữ liệu */}
-      <SearchComponent onHandleSearch={onHandleSearch} />
-      {/* Form kết quả */}
-      <ListAccounts onHandleEditBtn={onHandleEditBtn} onHandleDelete={onHandleDelete}></ListAccounts>
+      {/* <SearchComponent onHandleSearch={onHandleSearch} /> */}
 
       {/* Phân trang */}
-      <Row>
+      {/* <Row>
         <Col>
           <PaginationButton onHandleChangePage={onHandleChangePage} currentPage={currentPage} />
         </Col>
@@ -137,8 +143,8 @@ function AdminPage(props) {
             </Col>
           </Row>
         </Col>
-      </Row>
-    </Container>
+      </Row> */}
+    </div>
   );
 }
 

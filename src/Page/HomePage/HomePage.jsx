@@ -9,9 +9,9 @@ function HomePage(props) {
 
   useEffect(() => {
     // navigate(0);
-  }, [])
+  }, []);
   return (
-    <>  
+    <>
       <div className="homepage-carousel-container">
         <CarouselHome></CarouselHome>
       </div>

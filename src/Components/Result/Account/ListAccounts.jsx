@@ -55,7 +55,7 @@ function ListAccounts(props) {
         </TableHead>
         <TableBody>
           {listAccount.map((account) => (
-            <TableRow key={account.id} sx={{...rowItemStyling}} onClick={() => handleUpdateAccountButton(account)}>
+            <TableRow key={account.id} sx={{ ...rowItemStyling }} onClick={() => handleUpdateAccountButton(account)}>
               <TableCell component="th" scope="account">
                 {account.id}
               </TableCell>

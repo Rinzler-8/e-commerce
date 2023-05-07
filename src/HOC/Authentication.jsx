@@ -19,9 +19,7 @@ function WithAuth() {
 function WithNav() {
   return (
     <>
-      <Header />
       <Outlet />
-      <Footer />
     </>
   );
 }
