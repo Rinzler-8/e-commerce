@@ -8,6 +8,7 @@ import { actionFetchAccountUpdateInfoRedux, actionToggleUpdateFormRedux } from "
 import { useNavigate } from "react-router-dom";
 import ListAccounts from "../../Result/Account/ListAccounts";
 import AccountList from "./../../Result/Account/AccountList/AccountList";
+import ModalUpdateAccount from "../../../Components/Admin/UpdateAccount/ModalUpdateAccount";
 
 function ManageUser(props) {
   let stateRedux = useSelector((state) => state);
@@ -76,18 +77,22 @@ function ManageUser(props) {
   let onHandleCreateNewAccount = (accountNew) => {
     dispatchRedux(actionAddAccountAPI(accountNew));
   };
-
   // Thông tin trang hiện tại từ redux để truyền xuống PaginationButton hiển thị
   let currentPage = stateRedux.pageFilterReducer;
   return (
     <div className="manage-user-container">
       <div className="header-area">
-        <HeaderBar title="Quản lí tài khoản người dùng" placeHolder="Nhập tên tài khoản..." />
+        <HeaderBar title="Quản lí tài khoản người dùng" placeHolder="Nhập tên tài khoản,email..." />
       </div>
       <div className="table-content-area">
-        <ListAccounts></ListAccounts>
-        <AccountList></AccountList>
+        <AccountList
+          onHandleEditBtn={onHandleEditBtn}
+          onHandleChangeSize={onHandleChangeSize}
+          onHandleChangePage={onHandleChangePage}
+          currentPage={currentPage}
+        />
       </div>
+      <ModalUpdateAccount onHandleUpdateAccount={onHandleUpdateAccount} />
     </div>
   );
 }

@@ -31,13 +31,13 @@ function UpdateInputFormComponent(props) {
         initialValues={{
           //accountUpdateInfo.Entity=>Account(backend)
           Username: accountUpdateInfo.username,
-          Avatar: accountUpdateInfo.avatarURL,
+          // Avatar: accountUpdateInfo.avatarURL,
           Mobile: accountUpdateInfo.mobile,
           Email: accountUpdateInfo.email,
         }}
         validationSchema={Yup.object({
           Username: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Không được để trống username"),
-          Avatar: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!"),
+          // Avatar: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!"),
           Mobile: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Không được để trống mobile"),
           Email: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Không được để trống email"),
         })}
@@ -45,7 +45,7 @@ function UpdateInputFormComponent(props) {
           let accountUpdateNew = {
             //FormForUpdating(backend): values...
             username: values.Username,
-            avatarURL: values.Avatar,
+            // avatarURL: values.Avatar,
             mobile: values.Mobile,
             email: values.Email,
           };
@@ -69,7 +69,7 @@ function UpdateInputFormComponent(props) {
                   {/* Username */}
                   <Field name="Username" type="text" placeholder="Enter Username" label="Username:" component={InputComponent} />
                   {/* Avatar */}
-                  <Field name="Avatar" type="text" placeholder="Enter Avatar" label="Avatar:" component={InputComponent} />
+                  {/* <Field name="Avatar" type="text" placeholder="Enter Avatar" label="Avatar:" component={InputComponent} /> */}
                   {/* Mobile */}
                   <Field name="Mobile" type="text" placeholder="Enter Mobile" label="Mobile:" component={InputComponent} />
                   {/* Email */}

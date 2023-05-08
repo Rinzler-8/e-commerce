@@ -69,6 +69,9 @@ function LoginPage(props) {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/");
+      if (localStorage.getItem("token") && localStorage.getItem("role") == "ADMIN") {
+        navigate("/admin");
+      }
     } else {
       navigate("/login");
     }

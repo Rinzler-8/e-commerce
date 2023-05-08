@@ -10,6 +10,7 @@ function ProductResultFormItem(props) {
   let handleDelete = (id) => {
     onHandleDelete(id);
   };
+  console.log("accounts", listProduct);
 
   // Hàm xử lý khi click vào nút Edit
   let handleEditButton = (product) => {

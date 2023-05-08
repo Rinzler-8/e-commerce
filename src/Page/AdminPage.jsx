@@ -12,7 +12,6 @@ import DirectionSortButton from "../Components/Paging/DirectionSortButton";
 import SearchComponent from "../Components/SearchComponent/SearchComponent";
 import ModalCreateNewAccount from "../Components/Admin/CreateNewAccount/ModalCreateNewAccount";
 import { actionFetchAccountUpdateInfoRedux, actionToggleUpdateFormRedux } from "../Redux/Action/FormUpdateAction";
-import ModalUpdateAccount from "../Components/Admin/UpdateAccount/ModalUpdateAccount";
 import { useNavigate } from "react-router-dom";
 import storage from "../Storage/Storage";
 import MenuBar from "../Components/Admin/MenuBar/MenuBar";

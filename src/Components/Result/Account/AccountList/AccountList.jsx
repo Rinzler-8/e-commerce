@@ -12,44 +12,12 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
-import { useSelector } from "react-redux";
-
-function createData(name, calories, fat, carbs, protein) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
-
-// function createData(accountId, username, email, phoneNumber, role, status) {
-//   return {
-//     accountId,
-//     username,
-//     email,
-//     phoneNumber,
-//     role,
-//     status,
-//   };
-// }
-
-const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Donut", 452, 25.0, 51, 4.9),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Honeycomb", 408, 3.2, 87, 6.5),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Jelly Bean", 375, 0.0, 94, 0.0),
-  createData("KitKat", 518, 26.0, 65, 7.0),
-  createData("Lollipop", 392, 0.2, 98, 0.0),
-  createData("Marshmallow", 318, 0, 81, 2.0),
-  createData("Nougat", 360, 19.0, 9, 37.0),
-  createData("Oreo", 437, 18.0, 63, 4.0),
-];
+import { useDispatch, useSelector } from "react-redux";
+import { actionFetchAccountAPI } from "../../../../Redux/Action/AccountAction";
+import { IconButton } from "@mui/material";
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import LastPageIcon from "@mui/icons-material/LastPage";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -79,34 +47,40 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "name",
-    numeric: false,
+    id: "id",
+    numeric: true,
     disablePadding: true,
-    label: "Dessert (100g serving)",
+    label: "ID",
   },
   {
-    id: "calories",
+    id: "username",
     numeric: true,
     disablePadding: false,
-    label: "Calories",
+    label: "Tên tài khoản",
   },
   {
-    id: "fat",
+    id: "email",
     numeric: true,
     disablePadding: false,
-    label: "Fat (g)",
+    label: "Email",
   },
   {
-    id: "carbs",
+    id: "mobile",
     numeric: true,
     disablePadding: false,
-    label: "Carbs (g)",
+    label: "Số điện thoại",
   },
   {
-    id: "protein",
+    id: "role",
     numeric: true,
     disablePadding: false,
-    label: "Protein (g)",
+    label: "Phân quyền",
+  },
+  {
+    id: "status",
+    numeric: true,
+    disablePadding: false,
+    label: "Trạng thái",
   },
 ];
 
@@ -114,6 +88,13 @@ function EnhancedTableHead(props) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
+  };
+
+  const cellStyling = {
+    minWidth: "60px",
+    fontSize: "15px",
+    fontWeight: "600",
+    borderStyle: "solid",
   };
 
   return (
@@ -133,9 +114,11 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
+            // align={headCell.numeric ? "right" : "left"}
+            align={headCell.label === "ID" ? "center" : ["Tên tài khoản", "Email", "Số điện thoại"].includes(headCell.label) ? "left" : "right"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
+            sx={{ ...cellStyling }}
           >
             <TableSortLabel active={orderBy === headCell.id} direction={orderBy === headCell.id ? order : "asc"} onClick={createSortHandler(headCell.id)}>
               {headCell.label}
@@ -161,12 +144,21 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function AccountList() {
+export default function AccountList(props) {
+  let { onHandleDeleteBtn, onHandleEditBtn, onHandleChangeSize, onHandleChangePage, currentPage } = props;
+
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const dispatchRedux = useDispatch();
+  const stateRedux = useSelector((state) => state);
+  const listAccount = stateRedux.listAccountReducer;
+  let handleUpdateAccountButton = (account) => {
+    // dispatchRedux(actionShowUpdateForm());
+    onHandleEditBtn(account);
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -176,19 +168,20 @@ export default function AccountList() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.name);
+      const newSelected = listAccount.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, id) => {
+    event.stopPropagation();
+    const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -200,24 +193,100 @@ export default function AccountList() {
     setSelected(newSelected);
   };
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
+    onHandleChangePage(newPage);
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    onHandleChangeSize(event.target.value);
+    setRowsPerPage(event.target.value);
     setPage(0);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const getDisplayedRowsText = ({ from, to, count }) => {
+    return `Trang ${from} trên tổng số ${count}`;
+  };
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const isSelected = (id) => selected.indexOf(id) !== -1;
 
-  const visibleRows = React.useMemo(
-    () => stableSort(rows, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage]
-  );
+  const CustomPaginationBtn = () => {
+    const handleChangePage = (page) => {
+      onHandleChangePage(page);
+    };
+
+    const page = [];
+    for (let index = 1; index <= currentPage.totalPages; index++) {
+      page.push(
+        <IconButton
+          key={index}
+          onClick={() => handleChangePage(index)}
+          sx={{ ...paginationBtnStyling }}
+          color={currentPage.page === index ? "primary" : "default"}
+        >
+          {index}
+        </IconButton>
+      );
+    }
+    return (
+      <div style={{ marginLeft: "20px", minWidth: "250px", fontSize: "20px" }}>
+        <IconButton disabled={currentPage.page === 1} onClick={() => handleChangePage(1)} aria-label="first page">
+          <FirstPageIcon sx={{ ...paginationBtnStyling }} />
+        </IconButton>
+        <IconButton disabled={currentPage.page === 1} onClick={() => handleChangePage(currentPage.page - 1)} aria-label="previous page">
+          <KeyboardArrowLeft sx={{ ...paginationBtnStyling }} />
+        </IconButton>
+        {page}
+        <IconButton disabled={currentPage.page === currentPage.totalPages} onClick={() => handleChangePage(currentPage.page + 1)} aria-label="next page">
+          <KeyboardArrowRight sx={{ ...paginationBtnStyling }} />
+        </IconButton>
+        <IconButton disabled={currentPage.page === currentPage.totalPages} onClick={() => handleChangePage(currentPage.totalPages)} aria-label="last page">
+          <LastPageIcon sx={{ ...paginationBtnStyling }} />
+        </IconButton>
+      </div>
+    );
+  };
+  console.log("current page", currentPage.page);
+  
+
+  // Avoid a layout jump when reaching the last page with empty listAccount.
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listAccount.length) : 0;
+  // const emptyRows = rowsPerPage - Math.min(rowsPerPage, listAccount.length - page * rowsPerPage);
+  console.log("emptyRows", emptyRows);
+  const visibleRows = React.useMemo(() => {
+    const sortedRows = stableSort(listAccount, getComparator(order, orderBy));
+    return sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  }, [listAccount, order, orderBy, page, rowsPerPage]);
+
+  const rowItemStyling = {
+    marginLeft: "10px",
+    transition: "background-color 0.2s ease-in-out", // optional: adds a smooth transition effect
+    ":hover": {
+      cursor: "pointer",
+      backgroundColor: "lightgray",
+    },
+  };
+
+  const paginationBtnStyling = {
+    fontSize: "medium",
+    transition: "background-color 0.2s ease-in-out", // optional: adds a smooth transition effect
+    ":hover": {
+      cursor: "pointer",
+      backgroundColor: "lightgray",
+    },
+  };
+
+  const tablePaginationStyle = {
+    "& .MuiTablePagination-selectLabel": {
+      marginTop: "0px",
+      marginBottom: "0px",
+    },
+    "& .MuiTablePagination-displayedRows": {
+      display: "none",
+      marginTop: "0px",
+      marginBottom: "0px",
+    },
+  };
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -230,40 +299,51 @@ export default function AccountList() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={listAccount.length}
             />
             <TableBody>
-              {visibleRows.map((row, index) => {
-                const isItemSelected = isSelected(row.name);
+              {visibleRows.map((account, index) => {
+                const isItemSelected = isSelected(account.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.name)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={row.name}
+                    key={account.id}
                     selected={isItemSelected}
-                    sx={{ cursor: "pointer" }}
+                    sx={{ ...rowItemStyling }}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
                         color="primary"
                         checked={isItemSelected}
+                        onClick={(event) => handleClick(event, account.id)}
                         inputProps={{
                           "aria-labelledby": labelId,
                         }}
                       />
                     </TableCell>
-                    <TableCell component="th" id={labelId} scope="row" padding="none">
-                      {row.name}
+                    <TableCell onClick={() => handleUpdateAccountButton(account)} component="th" scope="account">
+                      {account.id}
                     </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
+                    <TableCell onClick={() => handleUpdateAccountButton(account)}>{account.username}</TableCell>
+                    <TableCell onClick={() => handleUpdateAccountButton(account)}>{account.email}</TableCell>
+                    <TableCell onClick={() => handleUpdateAccountButton(account)}>{account.mobile}</TableCell>
+                    <TableCell align="right" onClick={() => handleUpdateAccountButton(account)}>
+                      {account.role.map((role, roleindex) => {
+                        return (
+                          <div key={roleindex}>
+                            <div>{role.name}</div>
+                          </div>
+                        );
+                      })}
+                    </TableCell>
+                    <TableCell onClick={() => handleUpdateAccountButton(account)} align="right">
+                      {account.status == "ACTIVE" ? "Hoạt động" : "Không hoạt động"}
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -282,11 +362,17 @@ export default function AccountList() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          sx={{ ...tablePaginationStyle }}
+          count={listAccount.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage="Hiển thị số dòng"
+          labelDisplayedRows={getDisplayedRowsText}
+          // showFirstButton="true"
+          // showLastButton="true"
+          ActionsComponent={CustomPaginationBtn}
         />
       </Paper>
     </Box>

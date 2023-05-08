@@ -27,14 +27,6 @@ export const routes = (
         <Route path="/orders-admin" element={<OrderPageAdmin />} />
         <Route path="/changePass" element={<ChangePassPage />} />
       </Route>
-      <Route element={<AdminAuth />}>
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/products-admin" element={<ProductPageAdmin />} />
-        <Route path="/orders-admin" element={<OrderPageAdmin />} />
-        <Route path="/accounts/:id" element={<ProfilePage />} />
-        <Route path="/changePass" element={<ChangePassPage />} />
-      </Route>
-
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/checkoutSuccess" element={<CheckOutSuccess />} />
       <Route path="/login" element={<LoginPage />} />
@@ -47,6 +39,13 @@ export const routes = (
       <Route path="*" element={<NotFoundPage />} />
       <Route path="/forgotPass" element={<ForgotPasswordPage />} />
       <Route path="/resetPass/:token" element={<ResetPassPage />} />
+    </Route>
+    <Route element={<AdminAuth />}>
+      <Route path="/admin" element={<AdminPage />} />
+      <Route path="/products-admin" element={<ProductPageAdmin />} />
+      <Route path="/orders-admin" element={<OrderPageAdmin />} />
+      <Route path="/accounts/:id" element={<ProfilePage />} />
+      <Route path="/changePass" element={<ChangePassPage />} />
     </Route>
 
     {/* <Route path="/test" element={<TestPage />} /> */}

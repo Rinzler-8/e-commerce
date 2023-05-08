@@ -54,8 +54,6 @@ Final project:
          + <img alt="Sample" src={require('../../Assets/Product/' + product.imageName)}/> không chạy được vì:
          => Based on how the packager works, this isn't really possible with require. Packaging happens once before runtime so those variables don't have values yet.
          => SOLUTION: lấy ảnh từ server (BE)
-      - productCategoryPage hiện sai mỗi lần refresh page
-         => thêm param.id vào condition array của useEffect 
       - view cateogies bị lỗi giữa lấy full và lấy theo category khi refresh page (đang bị lấy state của cả 2)
          => bỏ actionFetchProductAPI dưới <ProductItem/>
       - outline when select img
@@ -68,7 +66,12 @@ Final project:
          + ProductList: 
             dispatchRedux(actionOpenCart()) là true => dispatchRedux(actionGetCartByUserIdAPI(id)) là false
             (quay về initialState)
-
+      - fetch product info ngay khi redirect sang trang edit ? 
+      => 
+         * Nếu chia ra làm 2 file, 1 file products và 1 trang edit product:
+            fetch ngay dữ liệu của product ở trang products khi bấm vào nút edit, lưu vào localStorage
+      - Dùng pagination button của material ui thì không chuyển trang để view hết số accounts dưới db vì tổng số trang chỉ hiện listAccount.length là 6 (trong lần fetch đầu tiên)?
+      => Dùng pagination button cũ.
 
    * BE:
       - JPA query: @Query("Select item FROM OrderItems item WHERE item.order_id=:order_id") => OrderItems là entity được khai báo 
@@ -113,6 +116,7 @@ Final project:
    - upload avatar (DONE)
    - product page theo category (DONE)
    - View order (DONE)
+   - cancel order
  * Admin:
    1. Manage account
       •  Log In/Log Out (DONE)
@@ -142,3 +146,18 @@ Final project:
          - product detail page
          - checkout page
          - checkout success page
+
+
+
+category: delete, edit( 2 cái này t làm rồi mà cứ bị lỗi cors xong mà sửa cả back với front chưa nhận) (DONE)
+order, discount: còn tất
+product: edit product (DONE), view product, comment, revenue nữa
+
+be: 
+- chỉnh category trong update product
+- chỉnh delete, put thành post trong category controller
+- chỉnh status order history, order
+- sao lại cho comment vào thay đổi trạng thái ? 
+
+
+
