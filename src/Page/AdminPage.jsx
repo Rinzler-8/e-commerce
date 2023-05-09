@@ -120,29 +120,6 @@ function AdminPage(props) {
       </Toast> */}
       {/* Modal thêm mới Account */}
       {/* <ModalCreateNewAccount onHandleCreateNewAccount={onHandleCreateNewAccount} /> */}
-      {/* Search dữ liệu */}
-      {/* <SearchComponent onHandleSearch={onHandleSearch} /> */}
-
-      {/* Phân trang */}
-      {/* <Row>
-        <Col>
-          <PaginationButton onHandleChangePage={onHandleChangePage} currentPage={currentPage} />
-        </Col>
-        <Col>
-          <Row>
-            <Col></Col>
-            <Col>
-              <AccountFieldSortButton onHandleChangeFieldSort={onHandleChangeFieldSort} />
-            </Col>
-            <Col>
-              <DirectionSortButton onHandleChangeDirectionSort={onHandleChangeDirectionSort} />
-            </Col>
-            <Col>
-              <SizeButton onHandleChangeSize={onHandleChangeSize} />
-            </Col>
-          </Row>
-        </Col>
-      </Row> */}
     </div>
   );
 }

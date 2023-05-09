@@ -82,7 +82,7 @@ function ManageUser(props) {
   return (
     <div className="manage-user-container">
       <div className="header-area">
-        <HeaderBar title="Quản lí tài khoản người dùng" placeHolder="Nhập tên tài khoản,email..." />
+        <HeaderBar onHandleSearch={onHandleSearch} title="Quản lí tài khoản người dùng" placeHolder="Nhập tên tài khoản,email..." />
       </div>
       <div className="table-content-area">
         <AccountList

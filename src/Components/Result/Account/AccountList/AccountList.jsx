@@ -270,10 +270,8 @@ export default function AccountList(props) {
 
   const paginationBtnStyling = {
     fontSize: "medium",
-    transition: "background-color 0.2s ease-in-out", // optional: adds a smooth transition effect
     ":hover": {
       cursor: "pointer",
-      backgroundColor: "lightgray",
     },
   };
 

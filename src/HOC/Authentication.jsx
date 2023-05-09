@@ -17,12 +17,14 @@ function WithAuth() {
 // console.log("admin", role);
 
 function WithNav() {
-  return (
+  return role !== "ADMIN" ? (
     <>
       <Header />
       <Outlet />
       <Footer />
     </>
+  ) : (
+    <Navigate to="/admin" />
   );
 }
 
