@@ -67,12 +67,13 @@ Final project:
             dispatchRedux(actionOpenCart()) là true => dispatchRedux(actionGetCartByUserIdAPI(id)) là false
             (quay về initialState)
       - fetch product info ngay khi redirect sang trang edit ? 
-      => 
-         * Nếu chia ra làm 2 file, 1 file products và 1 trang edit product:
-            fetch ngay dữ liệu của product ở trang products khi bấm vào nút edit, lưu vào localStorage
+         => 
+            * Nếu chia ra làm 2 file, 1 file products và 1 trang edit product:
+               fetch ngay dữ liệu của product ở trang products khi bấm vào nút edit, lưu vào localStorage
       - Dùng pagination button của material ui thì không chuyển trang để view hết số accounts dưới db vì tổng số trang chỉ hiện listAccount.length là 6 (trong lần fetch đầu tiên)?
-      => Dùng pagination button cũ.
-
+         => Dùng pagination button cũ.
+      - bấm mũi tên sort 2 lần mới chạy ? 
+         => useState("null") => useState("id") của orderBy (sort theo field nào)
    * BE:
       - JPA query: @Query("Select item FROM OrderItems item WHERE item.order_id=:order_id") => OrderItems là entity được khai báo 
       ở be chứ không phải từ database.

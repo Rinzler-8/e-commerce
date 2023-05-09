@@ -145,10 +145,10 @@ EnhancedTableHead.propTypes = {
 };
 
 export default function AccountList(props) {
-  let { onHandleDeleteBtn, onHandleEditBtn, onHandleChangeSize, onHandleChangePage, currentPage } = props;
+  let { onHandleDeleteBtn, onHandleEditBtn, onHandleChangeSize, onHandleChangePage, currentPage, onHandleChangeFieldSort, onHandleChangeDirectionSort } = props;
 
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -162,8 +162,12 @@ export default function AccountList(props) {
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const newOrder = isAsc ? "desc" : "asc";
+    setOrder(newOrder);
     setOrderBy(property);
+    onHandleChangeDirectionSort(newOrder);
+    onHandleChangeFieldSort(property);
+    console.log("sort", newOrder);
   };
 
   const handleSelectAllClick = (event) => {
@@ -246,16 +250,13 @@ export default function AccountList(props) {
       </div>
     );
   };
-  console.log("current page", currentPage.page);
-  
 
   // Avoid a layout jump when reaching the last page with empty listAccount.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listAccount.length) : 0;
-  // const emptyRows = rowsPerPage - Math.min(rowsPerPage, listAccount.length - page * rowsPerPage);
-  console.log("emptyRows", emptyRows);
+  // const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listAccount.length) : 0;
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, listAccount.length - page * rowsPerPage);
   const visibleRows = React.useMemo(() => {
     const sortedRows = stableSort(listAccount, getComparator(order, orderBy));
-    return sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    return sortedRows.slice(page * rowsPerPage, page + 1 * rowsPerPage + rowsPerPage);
   }, [listAccount, order, orderBy, page, rowsPerPage]);
 
   const rowItemStyling = {

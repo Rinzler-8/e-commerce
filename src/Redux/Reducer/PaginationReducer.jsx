@@ -2,9 +2,9 @@ import { CHANGE_PAGE, SET_TOTAL_PAGE, CHANGE_SIZE, CHANGE_SORT_DIRECTION, CHANGE
 
 var initialState = {
   page: 1,
-  size: 6,
+  size: 5,
   totalPages: 0,
-  sort: { sortField: "id", sortDirection: "ASC" },
+  sort: { sortField: "id", sortDirection: "asc" },
   search: "",
   totalElements: null,
 };

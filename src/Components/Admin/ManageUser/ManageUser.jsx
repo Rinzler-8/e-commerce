@@ -90,6 +90,8 @@ function ManageUser(props) {
           onHandleChangeSize={onHandleChangeSize}
           onHandleChangePage={onHandleChangePage}
           currentPage={currentPage}
+          onHandleChangeFieldSort={onHandleChangeFieldSort}
+          onHandleChangeDirectionSort={onHandleChangeDirectionSort}
         />
       </div>
       <ModalUpdateAccount onHandleUpdateAccount={onHandleUpdateAccount} />
