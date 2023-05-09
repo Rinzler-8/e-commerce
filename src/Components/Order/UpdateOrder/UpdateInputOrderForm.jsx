@@ -9,14 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { actionFetchStatusAPI } from "../../../Redux/Action/OrderStatusAction";
 
-
 function UpdateInputProductForm(props) {
   let { onHandleUpdateOrder } = props;
   let dispatchRedux = useDispatch();
 
   useEffect(() => {
     dispatchRedux(actionFetchStatusAPI());
-  }, [])
+  }, []);
 
   let listOrderStatus = useSelector((state) => state.orderStatusReducer);
 
@@ -52,7 +51,7 @@ function UpdateInputProductForm(props) {
             <Row>
               <Col
                 sm={{
-                  offset: 2,
+                  offset: -3,
                   size: 8,
                 }}
               >

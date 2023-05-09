@@ -14,7 +14,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchAccountAPI } from "../../../../Redux/Action/AccountAction";
-import { IconButton } from "@mui/material";
+import { IconButton, MenuItem, Select } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import LastPageIcon from "@mui/icons-material/LastPage";
@@ -91,7 +91,7 @@ function EnhancedTableHead(props) {
   };
 
   const cellStyling = {
-    minWidth: "60px",
+    paddingLeft: "15px",
     fontSize: "15px",
     fontWeight: "600",
     borderStyle: "solid",
@@ -115,7 +115,7 @@ function EnhancedTableHead(props) {
           <TableCell
             key={headCell.id}
             // align={headCell.numeric ? "right" : "left"}
-            align={headCell.label === "ID" ? "center" : ["Tên tài khoản", "Email", "Số điện thoại"].includes(headCell.label) ? "left" : "right"}
+            align={headCell.label === "ID" ? "left" : ["Tên tài khoản", "Email", "Số điện thoại"].includes(headCell.label) ? "left" : "right"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
             sx={{ ...cellStyling }}
@@ -145,7 +145,7 @@ EnhancedTableHead.propTypes = {
 };
 
 export default function AccountList(props) {
-  let { onHandleDeleteBtn, onHandleEditBtn, onHandleChangeSize, onHandleChangePage, currentPage, onHandleChangeFieldSort, onHandleChangeDirectionSort } = props;
+  let { onHandleEditBtn, onHandleChangeSize, onHandleChangePage, currentPage, onHandleChangeFieldSort, onHandleChangeDirectionSort } = props;
 
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("id");
@@ -325,7 +325,7 @@ export default function AccountList(props) {
                         }}
                       />
                     </TableCell>
-                    <TableCell onClick={() => handleUpdateAccountButton(account)} component="th" scope="account">
+                    <TableCell onClick={() => handleUpdateAccountButton(account)} component="th" scope="account" align="left" sx={{ paddingLeft: "15px" }}>
                       {account.id}
                     </TableCell>
                     <TableCell onClick={() => handleUpdateAccountButton(account)}>{account.username}</TableCell>

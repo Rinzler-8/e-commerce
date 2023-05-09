@@ -6,6 +6,7 @@ import ListCategory from "./ListCategoryReducer";
 import ListProduct from "./ListProductReducer";
 import ListOrder from "./ListOrderReducer";
 import OrderStatus from "./OrderStatusReducer";
+import UserStatus from "./UserStatusReducer";
 import SingleProduct from "./SingleProductReducer";
 import SingleAccount from "./SingleAccountReducer";
 import Cart from "./CartReducer";
@@ -26,6 +27,7 @@ const RootReducers = combineReducers({
   pageFilterReducer: pageFilter,
   listCategoryReducer: ListCategory,
   orderStatusReducer: OrderStatus,
+  userStatusReducer: UserStatus,
   formUpdateReducer: formUpdateStatus,
 });
 

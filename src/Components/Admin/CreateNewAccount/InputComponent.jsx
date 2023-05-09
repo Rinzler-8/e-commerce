@@ -1,5 +1,6 @@
+import { TextField } from "@mui/material";
 import React from "react";
-import { Input } from "reactstrap";
+
 
 function InputComponent(props) {
   let {
@@ -7,14 +8,11 @@ function InputComponent(props) {
     form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
     ...propsOther
   } = props;
-  // console.log("props: ", props);
+  // InputProps= {{className: "input"}}
   return (
     <div>
-      <br />
-      <h5 htmlFor={field.name}>{propsOther.label}</h5>
-      <Input {...field} {...propsOther} />
-      {/* Error Message */}
-      {touched[field.name] && errors[field.name] && <div style={{ color: "red" }}>{errors[field.name]}</div>}
+      <TextField {...field} {...propsOther} variant="standard" style={{ marginBottom: "20px"}} />
+      {touched[field.name] && errors[field.name] && <div className="error">{errors[field.name]}</div>}
     </div>
   );
 }

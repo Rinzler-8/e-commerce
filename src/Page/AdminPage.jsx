@@ -17,6 +17,7 @@ import storage from "../Storage/Storage";
 import MenuBar from "../Components/Admin/MenuBar/MenuBar";
 import ManageUser from "../Components/Admin/ManageUser/ManageUser";
 import "../css/AdminPage.css";
+import ModalUpdateAccount from "../Components/Admin/UpdateAccount/ModalUpdateAccount";
 
 function AdminPage(props) {
   let stateRedux = useSelector((state) => state);
@@ -101,11 +102,10 @@ function AdminPage(props) {
     <div className="admin-page-container">
       <MenuBar></MenuBar>
       <div className="content-area-admin">
+        <ModalCreateNewAccount onHandleCreateNewAccount={onHandleCreateNewAccount} />
         <ManageUser></ManageUser>
       </div>
 
-      {/* Hiển thị modal form update */}
-      {/* <ModalUpdateAccount onHandleUpdateAccount={onHandleUpdateAccount} /> */}
       {/* Thông báo thêm mới thành công */}
       {/* <Toast isOpen={showNotificationDelete}>
         <ToastHeader
@@ -118,8 +118,6 @@ function AdminPage(props) {
         </ToastHeader>
         <ToastBody style={{ color: "black", fontSize: 25 }}>Delete Account Success!!</ToastBody>
       </Toast> */}
-      {/* Modal thêm mới Account */}
-      {/* <ModalCreateNewAccount onHandleCreateNewAccount={onHandleCreateNewAccount} /> */}
     </div>
   );
 }

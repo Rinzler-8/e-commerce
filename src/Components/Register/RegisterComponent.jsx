@@ -51,7 +51,6 @@ function RegisterComponent(props) {
               const isExists = await getEmailExists(email);
               return !isExists;
             }),
-
           password: Yup.string().matches(passRegExp, "Mật khẩu yếu, vui lòng thử lại!").required("Trường này là bắt buộc!"),
           confirmPassword: Yup.string()
             .required("Trường này là bắt buộc!")

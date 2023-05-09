@@ -14,8 +14,6 @@ import "../../src/css/Profile.css";
 
 const ProfilePage = () => {
   const stateRedux = useSelector((state) => state);
-  const navigate = useNavigate();
-  let [acc, setAcc] = useState();
   const dispatchRedux = useDispatch();
   const account = stateRedux.singleAccountReducer;
   const id = localStorage.getItem("id");
@@ -87,7 +85,6 @@ const ProfilePage = () => {
             onSubmit={async (values) => {
               try {
                 nameImage = await uploadImgAPI(previewAvatarFile);
-                
                 const update = {
                   firstName: values.firstName ? values.firstName : account.firstName,
                   lastName: values.lastName ? values.lastName : account.lastName,
@@ -96,6 +93,7 @@ const ProfilePage = () => {
                   address: values.address ? values.address : account.address,
                   urlAvatar: nameImage ? nameImage : account.urlAvatar,
                 };
+                console.log("urlAvatar",update.urlAvatar);
                 await updateAccountAPI(id, update).then((response) => {
                   if (response !== null && response !== undefined && (nameImage || require(`../Assets/img/account-default-img.png`))) {
                     // console.log("response: ", response);

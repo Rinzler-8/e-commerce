@@ -24,7 +24,7 @@ export const routes = (
     <Route element={<WithNav />}>
       <Route element={<WithAuth />}>
         <Route path="/accounts/:id" element={<ProfilePage />} />
-        <Route path="/orders-admin" element={<OrderPageAdmin />} />
+        <Route path="/orders" element={<OrderPageAdmin />} />
         <Route path="/changePass" element={<ChangePassPage />} />
       </Route>
       <Route path="/checkout" element={<CheckoutPage />} />
@@ -43,7 +43,7 @@ export const routes = (
       <Route path="/admin" element={<AdminPage />} />
       <Route path="/products-admin" element={<ProductPageAdmin />} />
       <Route path="/orders-admin" element={<OrderPageAdmin />} />
-      <Route path="/accounts/:id" element={<ProfilePage />} />
+      <Route path="/admin/:id" element={<ProfilePage />} />
       <Route path="/changePass" element={<ChangePassPage />} />
     </Route>
     <Route path="*" element={<NotFoundPage />} />

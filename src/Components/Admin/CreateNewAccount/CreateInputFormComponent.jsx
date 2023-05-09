@@ -1,16 +1,40 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Container, Row, Col, Toast, ToastHeader, ToastBody } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import InputComponent from "./InputComponent";
 import "./style.css";
 import { getEmailExists, getUsernameExists, getMobileExists } from "../../../API/AccountAPI";
+import { Avatar } from "@mui/material";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+import { uploadImgAPI } from "../../../API/ImageAPI";
 
 function CreateInputFormComponent(props) {
   let { onHandleCreateNewAccount } = props;
 
   // State quản lý đóng mở thông báo.
   let [showNotificationCreate, setShowNotificationCreate] = useState(false);
+
+  const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
+  const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
+  const passRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+
+  let nameImage;
+  const [previewAvatarUrl, setPreviewAvatarUrl] = useState();
+  const [previewAvatarFile, setPreviewAvatarFile] = useState();
+  const avatarInputFile = useRef(null);
+
+  const onChangeAvatarInput = (e) => {
+    // Assuming only image
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = (e) => {
+      setPreviewAvatarUrl(reader.result);
+      setPreviewAvatarFile(file);
+    };
+  };
 
   return (
     <div>
@@ -31,57 +55,46 @@ function CreateInputFormComponent(props) {
         initialValues={{
           Email: "",
           Username: "",
+          Password: "",
           Fullname: "",
-          Avatar: "",
           Mobile: "",
           Address: "",
         }}
         validationSchema={Yup.object({
-          Email: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
-            .email("Email trùng ")
-            .required("Không được để trống Email"),
-          // Check email exist
-          // .test("checkUniqueEmail", "This email is already registered.", async (email) => {
-          //   // call api
-          //   const isExists = await getEmailExists(email);
-          //   return !isExists;
-          // }),
           Username: Yup.string()
             .min(6, "Phải từ 6 đến 50 ký tự!")
             .max(50, "Phải từ 6 đến 50 ký tự!")
-            .required("Không được để trống Username"),
-          // Check email exist
-          // .test("checkUniqueUsername", "This username is already registered.", async (username) => {
-          //   // call api
-          //   const isExists = await getUsernameExists(username);
-          //   return !isExists;
-          // }),
-          Fullname: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
-            .required("Không được để trống Fullname"),
-          Avatar: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
-            .required("Không được để trống Avatar"),
-          Mobile: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
-            .required("Không được để trống Mobile"),
-          Address: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
-            .required("Không được để trống Address"),
+            .required("Trường này là bắt buộc!")
+            .test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
+              // call api
+              const isExists = await getUsernameExists(username);
+              return !isExists;
+            }),
+
+          Email: Yup.string()
+            .matches(emailRegExp, "Email không hợp lệ!")
+            .required("Trường này là bắt buộc!")
+            .test("checkUniqueEmail", "Email đã được đăng ký!", async (email) => {
+              // call api
+              const isExists = await getEmailExists(email);
+              return !isExists;
+            }),
+          Firstname: Yup.string(),
+          Lastname: Yup.string(),
+          Password: Yup.string().matches(passRegExp, "Mật khẩu yếu, vui lòng thử lại!").required("Trường này là bắt buộc!"),
+          Mobile: Yup.string().required("Trường này là bắt buộc!").matches(phoneRegExp, "Số điện thoại không hợp lệ!"),
+          Address: Yup.string(),
         })}
-        onSubmit={(values, actions) => {
-          // console.log("values: ", values);
+        onSubmit={async (values, actions) => {
+          nameImage = await uploadImgAPI(previewAvatarFile);
           let accountCreateNew = {
             email: values.Email,
             username: values.Username,
+            firstName: values.Firstname,
+            lastName: values.Lastname,
+            password: values.Password,
             fullname: values.Fullname,
-            avatarImageName: values.Avatar,
+            urlAvatar: nameImage ? nameImage : require(`../../../Assets/img/account-default-img.png`),
             mobile: values.Mobile,
             address: values.Address,
           };
@@ -92,39 +105,48 @@ function CreateInputFormComponent(props) {
           // Reset dữ liệu sau khi thêm, dùng hàm của formik để reset.
           actions.resetForm();
         }}
-        validateOnChange={false}
-        validateOnBlur={false}
+        validateOnChange={true}
+        validateOnBlur={true}
       >
         {({ validateField, validateForm }) => (
           <Container>
             <Row>
               <Col
                 sm={{
-                  offset: 2,
+                  offset: -3,
                   size: 8,
                 }}
               >
                 {/* Form thêm mới */}
                 <Form>
                   {/* Email */}
-                  <Field name="Email" type="text" placeholder="Enter Email" label="Email:" component={InputComponent} />
+                  <Field fullWidth name="Email" type="text" placeholder="Nhập Email:" label="Email:" component={InputComponent} />
 
                   {/* Username */}
-                  <Field name="Username" type="text" placeholder="Enter Username" label="Username:" component={InputComponent} />
+                  <Field fullWidth name="Username" type="text" placeholder="Nhập tên tài khoản:" label="Tên Tài Khoản:" component={InputComponent} />
 
+                  <Field fullWidth className="input" name="Password" type={"text"} placeholder="Nhập Mật khẩu" label="Mật khẩu:" component={InputComponent} />
                   {/* Fullname */}
-                  <Field name="Fullname" type="text" placeholder="Enter Fullname" label="Fullname:" component={InputComponent} />
-
-                  {/* AvaImage */}
-                  <Field name="Avatar" type="text" placeholder="Enter Avatar" label="Avatar:" component={InputComponent} />
-
+                  <Field fullWidth name="Firstname" type="text" placeholder="Nhập tên" label="Tên: " component={InputComponent} />
+                  <Field fullWidth name="Lastname" type="text" placeholder="Nhập họ" label="Họ:" component={InputComponent} />
                   {/* Mobile */}
-                  <Field name="Mobile" type="text" placeholder="Enter Mobile" label="Mobile:" component={InputComponent} />
+                  <Field fullWidth name="Mobile" type="text" placeholder="Nhập số điện thoại" label="Số điện thoại:" component={InputComponent} />
 
                   {/* Address */}
-                  <Field name="Address" type="text" placeholder="Enter Address" label="Address:" component={InputComponent} />
+                  <Field fullWidth name="Address" type="text" placeholder="Nhập địa chỉ" label="Địa chỉ:" component={InputComponent} />
 
                   <br />
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={previewAvatarUrl ? previewAvatarUrl : require(`../../../Assets/img/account-default-img.png`)}
+                    sx={{ width: 200, height: 200, marginTop: "20px" }}
+                  />
+                  <div className="mt-2">
+                    <Button color="primary" onClick={() => avatarInputFile.current.click()} style={{ marginBottom: "20px" }}>
+                      <FileUploadIcon /> Chọn ảnh
+                    </Button>
+                    <input type="file" id="avatarInput" ref={avatarInputFile} onChange={onChangeAvatarInput} style={{ display: "none" }} />
+                  </div>
                   <br />
                   {/* submit */}
                   <Row>

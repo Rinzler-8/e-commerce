@@ -94,7 +94,7 @@ function ManageUser(props) {
           onHandleChangeDirectionSort={onHandleChangeDirectionSort}
         />
       </div>
-      <ModalUpdateAccount onHandleUpdateAccount={onHandleUpdateAccount} />
+      <ModalUpdateAccount onHandleUpdateAccount={onHandleUpdateAccount} onHandleDelete={onHandleDelete}/>
     </div>
   );
 }

@@ -51,7 +51,7 @@ const getUsernameExists = (username) => {
 
 // Add Account New
 const addAccountNewAPI = (AccountNew) => {
-  return api("POST", "accounts/", AccountNew);
+  return api("POST", "v1/accounts/create", AccountNew);
 };
 
 // Xóa Account

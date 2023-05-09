@@ -225,7 +225,7 @@ function Header() {
                 <DrawerHeader style={{ alignSelf: "start" }}>
                   <IconButton onClick={handleDrawerClose}>
                     <ChevronRightIcon />
-                    Your Bag ({cart.cartItems.length})
+                    Giỏ hàng ({cart.cartItems.length})
                   </IconButton>
                 </DrawerHeader>
                 <Divider />
@@ -327,7 +327,7 @@ function Header() {
                       <PersonIcon style={{ marginRight: "5px", marginBottom: "5px" }} />
                       <span>Tài khoản</span>
                     </NavLink>
-                    <NavLink className="user-popover-footer" href={`/orders-admin`}>
+                    <NavLink className="user-popover-footer" href={`/orders`}>
                       <LocalMallIcon style={{ marginRight: "5px", marginBottom: "5px" }} />
                       <span>Đơn hàng</span>
                     </NavLink>
