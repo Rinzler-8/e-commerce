@@ -41,8 +41,8 @@ export const routes = (
     </Route>
     <Route element={<AdminAuth />}>
       <Route path="/admin" element={<AdminPage />} />
-      <Route path="/products-admin" element={<ProductPageAdmin />} />
-      <Route path="/orders-admin" element={<OrderPageAdmin />} />
+      <Route path="/product-admin" element={<ProductPageAdmin />} />
+      <Route path="/order-admin" element={<OrderPageAdmin />} />
       <Route path="/admin/:id" element={<ProfilePage />} />
       <Route path="/changePass" element={<ChangePassPage />} />
     </Route>

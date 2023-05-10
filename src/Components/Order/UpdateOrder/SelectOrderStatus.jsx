@@ -1,6 +1,6 @@
 import React from "react";
 import { Field } from "formik";
-import { FormControl, InputLabel, Select } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 function SelectOrderStatus(props) {
   let {
@@ -16,7 +16,7 @@ function SelectOrderStatus(props) {
   // Hiển thị item
   let itemDropdown = listItem.map((item, index) => {
     return (
-      <option value={item} key={index}>
+      <MenuItem value={item} key={index}>
         {item == "PENDING"
           ? "Đang chờ"
           : item == "CONFIRMED"
@@ -30,7 +30,7 @@ function SelectOrderStatus(props) {
           : item == "CANCELED"
           ? "Đã hủy"
           : null}
-      </option>
+      </MenuItem>
     );
   });
   //
