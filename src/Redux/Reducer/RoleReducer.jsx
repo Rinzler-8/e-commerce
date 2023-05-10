@@ -2,16 +2,17 @@ import * as Types from "../Contant/EnumActionType";
 
 var initialState = [];
 
-const UserStatus = (state = initialState, action) => {
+const Role = (state = initialState, action) => {
   switch (action.type) {
-    case Types.FETCH_USER_STATUS:
+    case Types.FETCH_ROLE:
       // let listCategoryAPI = action.payload;
       // return listCategoryAPI;
       state = action.payload;
+
       return [...state];
     default:
       return [...state];
   }
 };
 
-export default UserStatus;
+export default Role;

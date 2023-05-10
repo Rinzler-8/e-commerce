@@ -1,17 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Button, Container, Row, Col, Toast, ToastHeader, ToastBody } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import InputComponent from "./InputComponent";
+import SelectUserStatus from "./SelectUserStatus";
+import SelectCreateRole from "./SelectCreateRole";
 import "./style.css";
 import { getEmailExists, getUsernameExists, getMobileExists } from "../../../API/AccountAPI";
 import { Avatar } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { uploadImgAPI } from "../../../API/ImageAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { actionFetchUserRolePI, actionFetchUserStatusAPI } from "../../../Redux/Action/EnumAction";
 
 function CreateInputFormComponent(props) {
   let { onHandleCreateNewAccount } = props;
-
+  let dispatchRedux = useDispatch();
   // State quản lý đóng mở thông báo.
   let [showNotificationCreate, setShowNotificationCreate] = useState(false);
 
@@ -19,6 +23,8 @@ function CreateInputFormComponent(props) {
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
   const passRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
 
+  let listUserStatus = useSelector((state) => state.userStatusReducer);
+  let listRole = useSelector((state) => state.roleReducer);
   let nameImage;
   const [previewAvatarUrl, setPreviewAvatarUrl] = useState();
   const [previewAvatarFile, setPreviewAvatarFile] = useState();
@@ -35,6 +41,11 @@ function CreateInputFormComponent(props) {
       setPreviewAvatarFile(file);
     };
   };
+
+  useEffect(() => {
+    dispatchRedux(actionFetchUserStatusAPI());
+    dispatchRedux(actionFetchUserRolePI());
+  }, []);
 
   return (
     <div>
@@ -59,6 +70,8 @@ function CreateInputFormComponent(props) {
           Fullname: "",
           Mobile: "",
           Address: "",
+          Status: "INACTIVE",
+          Role: ["USER"],
         }}
         validationSchema={Yup.object({
           Username: Yup.string()
@@ -97,6 +110,8 @@ function CreateInputFormComponent(props) {
             urlAvatar: nameImage ? nameImage : require(`../../../Assets/img/account-default-img.png`),
             mobile: values.Mobile,
             address: values.Address,
+            status: values.Status,
+            role: values.Role.length > 0 ? values.Role : ["USER"],
           };
           console.log("Thông tin Account tạo mới: ", accountCreateNew);
           onHandleCreateNewAccount(accountCreateNew);
@@ -120,10 +135,10 @@ function CreateInputFormComponent(props) {
                 {/* Form thêm mới */}
                 <Form>
                   {/* Email */}
-                  <Field fullWidth name="Email" type="text" placeholder="Nhập Email:" label="Email:" component={InputComponent} />
+                  <Field fullWidth name="Email" type="text" placeholder="Nhập Email" label="Email:" component={InputComponent} />
 
                   {/* Username */}
-                  <Field fullWidth name="Username" type="text" placeholder="Nhập tên tài khoản:" label="Tên Tài Khoản:" component={InputComponent} />
+                  <Field fullWidth name="Username" type="text" placeholder="Nhập tên tài khoản" label="Tên Tài Khoản:" component={InputComponent} />
 
                   <Field fullWidth className="input" name="Password" type={"text"} placeholder="Nhập Mật khẩu" label="Mật khẩu:" component={InputComponent} />
                   {/* Fullname */}
@@ -134,6 +149,11 @@ function CreateInputFormComponent(props) {
 
                   {/* Address */}
                   <Field fullWidth name="Address" type="text" placeholder="Nhập địa chỉ" label="Địa chỉ:" component={InputComponent} />
+                  {/* Role */}
+                  <Field fullWidth name="Role" placeholder="Chọn phân quyền" label="Phân quyền:" listItem={listRole} component={SelectCreateRole} />
+
+                  {/* Status */}
+                  <Field fullWidth name="Status" placeholder="Chọn trạng thái" label="Trạng thái:" listItem={listUserStatus} component={SelectUserStatus} />
 
                   <br />
                   <Avatar
@@ -152,7 +172,7 @@ function CreateInputFormComponent(props) {
                   <Row>
                     <Col>
                       <Button color="success" type="submit">
-                        Save
+                        Lưu
                       </Button>
                     </Col>
                     <Col>

@@ -3,11 +3,11 @@ import { Button, Container, Row, Col } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import InputComponent from "./InputComponent";
-import SelectComponent from "./SelectComponent";
+import SelectOrderStatus from "./SelectOrderStatus";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { actionFetchStatusAPI } from "../../../Redux/Action/OrderStatusAction";
+import { actionFetchStatusAPI } from "../../../Redux/Action/EnumAction";
 
 function UpdateInputProductForm(props) {
   let { onHandleUpdateOrder } = props;
@@ -57,7 +57,7 @@ function UpdateInputProductForm(props) {
               >
                 <Form>
                   {/* Status */}
-                  <Field name="Status" placeholder="Select a Status" label="Trạng thái đơn hàng:" listItem={listOrderStatus} component={SelectComponent} />
+                  <Field name="Status" placeholder="Select a Status" label="Trạng thái đơn hàng:" listItem={listOrderStatus} component={SelectOrderStatus} />
                   <br />
                   <br />
                   {/* submit */}

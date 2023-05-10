@@ -7,8 +7,9 @@ import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
 import { actionDeleteAccountAPI } from "../../../Redux/Action/AccountAction";
 import { getEmailExists, getUsernameExists } from "../../../API/AccountAPI";
-import SelectComponent from "./SelectComponent";
-import { actionFetchUserStatusAPI } from "../../../Redux/Action/UserStatusAction";
+import SelectUserStatus from "./SelectUserStatus";
+import SelectUpdateRole from "./SelectUpdateRole";
+import { actionFetchUserStatusAPI, actionFetchUserRolePI } from "../../../Redux/Action/EnumAction";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography } from "@mui/material";
 import { IconButton, MenuItem, Select } from "@mui/material";
 import { actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
@@ -18,10 +19,13 @@ function UpdateInputFormComponent(props) {
   let dispatchRedux = useDispatch();
   // Lấy thông tin AccountUpdateInfo từ Redux để fill dữ liệu
   let listUserStatus = useSelector((state) => state.userStatusReducer);
-
+  let listRole = useSelector((state) => state.roleReducer);
   let accountUpdateInfo = useSelector((state) => state.formUpdateReducer.accountUpdateInfo);
+  let roles = [];
+  for (let r of accountUpdateInfo.role) {
+    roles.push(r.name);
+  }
 
-  console.log("listUserStatus:", accountUpdateInfo);
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -42,6 +46,7 @@ function UpdateInputFormComponent(props) {
 
   useEffect(() => {
     dispatchRedux(actionFetchUserStatusAPI());
+    dispatchRedux(actionFetchUserRolePI());
   }, []);
 
   return (
@@ -55,20 +60,16 @@ function UpdateInputFormComponent(props) {
           FirstName: accountUpdateInfo.firstName,
           LastName: accountUpdateInfo.lastName,
           Mobile: accountUpdateInfo.mobile,
+          Role: roles,
           Email: accountUpdateInfo.email,
         }}
         validationSchema={Yup.object({
-          Username: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
-            .required("Trường này là bắt buộc!")
-            // .test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
-            //   // call api
-            //   const isExists = await getUsernameExists(username);
-            //   return !isExists;
-            // })
-            ,
-
+          Username: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Trường này là bắt buộc!"),
+          // .test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
+          //   // call api
+          //   const isExists = await getUsernameExists(username);
+          //   return !isExists;
+          // })
           Email: Yup.string().matches(emailRegExp, "Email không hợp lệ!").required("Trường này là bắt buộc!"),
           // .test("checkUniqueEmail", "Email đã được đăng ký!", async (email) => {
           //   // call api
@@ -88,10 +89,15 @@ function UpdateInputFormComponent(props) {
           let accountUpdateNew = {
             //FormForUpdating(backend): values...
             username: values.Username,
-            // avatarURL: values.Avatar,
+            firstName: values.FirstName ? values.FirstName : accountUpdateInfo.firstName,
+            lastName: values.LastName ? values.LastName : accountUpdateInfo.lastName,
+            status: values.Status,
+            role: values.Role.length > 0 ? values.Role : ["USER"],
             mobile: values.Mobile,
             email: values.Email,
+            address: values.Address ? values.Address : accountUpdateInfo.address,
           };
+          console.log("role", accountUpdateNew.role);
           onHandleUpdateAccount(accountUpdateNew);
         }}
         validateOnChange={true}
@@ -109,23 +115,25 @@ function UpdateInputFormComponent(props) {
                 {/* Form thêm mới */}
                 <Form>
                   {/* Username */}
-                  <Field fullWidth name="Username" type="text" placeholder="Nhập tên tài khoản: " label="Username:" component={InputComponent} />
+                  <Field fullWidth name="Username" type="text" placeholder="Nhập tên tài khoản" label="Username:" component={InputComponent} />
+                  {/* Email */}
+                  <Field fullWidth name="Email" type="text" placeholder="Nhập email" label="Email:" component={InputComponent} />
                   {/* Fullname */}
                   <Field fullWidth name="FirstName" type="text" placeholder="Nhập tên" label="Tên: " component={InputComponent} />
                   <Field fullWidth name="LastName" type="text" placeholder="Nhập họ" label="Họ:" component={InputComponent} />
                   {/* Status */}
-                  <Field fullWidth name="Status" placeholder="Select a Status" label="Trạng thái:" listItem={listUserStatus} component={SelectComponent} />
+                  <Field fullWidth name="Status" placeholder="Chọn trạng thái" label="Trạng thái:" listItem={listUserStatus} component={SelectUserStatus} />
+                  {/* Role */}
+                  <Field fullWidth name="Role" placeholder="Chọn phân quyền" label="Phân quyền:" listItem={listRole} component={SelectUpdateRole} />
                   {/* Mobile */}
-                  <Field fullWidth name="Mobile" type="text" placeholder="Nhập số điện thoại:" label="Số điện thoại:" component={InputComponent} />
-                  {/* Email */}
-                  <Field fullWidth name="Email" type="text" placeholder="Nhập email:" label="Email:" component={InputComponent} />
+                  <Field fullWidth name="Mobile" type="text" placeholder="Nhập số điện thoại" label="Số điện thoại:" component={InputComponent} />
                   <br />
                   <br />
                   {/* submit */}
                   <Row>
                     <Col>
                       <Button color="success" type="submit">
-                        Save
+                        Lưu
                       </Button>
                     </Col>
                     <Col>

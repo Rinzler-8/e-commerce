@@ -1,1 +1,0 @@
-export const FETCH_ORDER_STATUS = "FETCH_ORDER_STATUS";

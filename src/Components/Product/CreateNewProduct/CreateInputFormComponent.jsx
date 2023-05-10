@@ -113,7 +113,7 @@ function CreateInputFormComponent(props) {
                   <Row>
                     <Col>
                       <Button color="success" type="submit">
-                        Save
+                        Lưu
                       </Button>
                     </Col>
                     <Col>

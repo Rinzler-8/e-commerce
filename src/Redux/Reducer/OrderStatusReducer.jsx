@@ -1,4 +1,4 @@
-import * as Types from "../Contant/OrderStatusActionType";
+import * as Types from "../Contant/EnumActionType";
 
 var initialState = [];
 

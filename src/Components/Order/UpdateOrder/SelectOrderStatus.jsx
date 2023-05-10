@@ -1,7 +1,8 @@
 import React from "react";
 import { Field } from "formik";
+import { FormControl, InputLabel, Select } from "@mui/material";
 
-function SelectComponent(props) {
+function SelectOrderStatus(props) {
   let {
     field, // { name, value, onChange, onBlur }
     form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
@@ -36,13 +37,21 @@ function SelectComponent(props) {
   return (
     <div>
       <br />
-      <h5 htmlFor={field.name}>{propsOther.label}</h5>
-      <Field as="select" name={field.name}>
-        {itemDropdown}
-      </Field>
+      <FormControl sx={{marginBottom: "25px"}} fullWidth>
+        <InputLabel id="demo-simple-select-label">Trạng thái</InputLabel>
+        <Select
+              fullWidth
+              {...field} {...propsOther}
+              variant="outlined"
+              label="Trạng thái"
+              // sx={{ marginTop: 16 }}
+            >
+              {itemDropdown}
+            </Select>
+      </FormControl>
       {touched[field.name] && errors[field.name] && <div style={{ color: "red" }}>{errors[field.name]}</div>}
     </div>
   );
 }
 
-export default SelectComponent;
+export default SelectOrderStatus;
