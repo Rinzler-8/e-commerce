@@ -37,7 +37,7 @@ function ManageUser(props) {
   };
   // Xử lý khi nhấn nút Edit
   let onHandleEditBtn = (AccountEdit) => {
-    console.log("Thông tin của Account cần update:", AccountEdit);
+    // console.log("Thông tin của Account cần update:", AccountEdit);
     // Lưu thông tin Account Update lên Redux
     dispatchRedux(actionFetchAccountUpdateInfoRedux(AccountEdit));
     // Hiển thị formUpdate

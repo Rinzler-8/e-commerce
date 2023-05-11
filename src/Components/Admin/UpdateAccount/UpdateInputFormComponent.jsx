@@ -19,16 +19,15 @@ function UpdateInputFormComponent(props) {
   let listRole = useSelector((state) => state.roleReducer);
 
   let accountUpdateInfo = useSelector((state) => state.formUpdateReducer.accountUpdateInfo);
-  let roles = [];
+  let roles;
   if (accountUpdateInfo.role && accountUpdateInfo.role.length > 0) {
     for (let r of accountUpdateInfo.role) {
-      roles.push(r.name);
-    }
+      // roles.push(r.name);
+      roles = r.name;
+    } 
   } else {
-    roles.push("USER");
+    roles = "USER";
   }
-  console.log("roles", accountUpdateInfo.role);
-
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
 
@@ -50,6 +49,7 @@ function UpdateInputFormComponent(props) {
           Mobile: accountUpdateInfo.mobile,
           Role: roles,
           Email: accountUpdateInfo.email,
+          Address: accountUpdateInfo.address,
         }}
         validationSchema={Yup.object({
           Username: Yup.string()
@@ -80,7 +80,7 @@ function UpdateInputFormComponent(props) {
           Firstname: Yup.string(),
           Lastname: Yup.string(),
           Mobile: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ!"),
-          Address: Yup.string(),
+          Address: Yup.string().nullable(),
         })}
         onSubmit={(values) => {
           let rolesSubmit = [];
@@ -96,6 +96,7 @@ function UpdateInputFormComponent(props) {
             email: values.Email ? values.Email : accountUpdateInfo.email,
             address: values.Address ? values.Address : accountUpdateInfo.address,
           };
+          console.log("accountUpdateNew.role", accountUpdateNew.username);
           onHandleUpdateAccount(accountUpdateNew);
         }}
         validateOnChange={true}
