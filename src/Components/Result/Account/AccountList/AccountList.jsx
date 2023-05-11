@@ -295,7 +295,6 @@ export default function AccountList(props) {
       cursor: "pointer",
     },
   };
-
   const tablePaginationStyle = {
     "& .MuiTablePagination-selectLabel": {
       marginTop: "0px",
@@ -353,13 +352,15 @@ export default function AccountList(props) {
                     <TableCell>{account.email}</TableCell>
                     <TableCell>{account.mobile}</TableCell>
                     <TableCell align="right">
-                      {account.role.map((role, roleindex) => {
-                        return (
-                          <div key={roleindex}>
-                            <div>{role.name}</div>
-                          </div>
-                        );
-                      })}
+                      {account.role.length > 0
+                        ? account.role.map((role, roleindex) => {
+                            return (
+                              <div key={roleindex}>
+                                <div>{role.name}</div>
+                              </div>
+                            );
+                          })
+                        : "USER"}
                     </TableCell>
                     <TableCell align="right">{account.status == "ACTIVE" ? "Hoạt động" : "Không hoạt động"}</TableCell>
                     <TableCell align="center" className="user-opertation-cell">

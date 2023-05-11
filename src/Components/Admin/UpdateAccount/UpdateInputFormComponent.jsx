@@ -17,13 +17,17 @@ function UpdateInputFormComponent(props) {
   // Lấy thông tin AccountUpdateInfo từ Redux để fill dữ liệu
   let listUserStatus = useSelector((state) => state.userStatusReducer);
   let listRole = useSelector((state) => state.roleReducer);
-  console.log("role", listRole);
 
   let accountUpdateInfo = useSelector((state) => state.formUpdateReducer.accountUpdateInfo);
   let roles = [];
-  for (let r of accountUpdateInfo.role) {
-    roles.push(r.name);
+  if (accountUpdateInfo.role && accountUpdateInfo.role.length > 0) {
+    for (let r of accountUpdateInfo.role) {
+      roles.push(r.name);
+    } 
+  } else {
+    roles.push("USER");
   }
+  console.log("roles", accountUpdateInfo.role);
 
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
@@ -79,15 +83,15 @@ function UpdateInputFormComponent(props) {
           Address: Yup.string(),
         })}
         onSubmit={(values) => {
-          let roles = [];
-          roles.push(values.Role);
+          let rolesSubmit = [];
+          rolesSubmit.push(values.Role);
           const accountUpdateNew = {
             //FormForUpdating(backend): values...
             username: values.Username ? values.Username : accountUpdateInfo.username,
             firstName: values.FirstName ? values.FirstName : accountUpdateInfo.firstName,
             lastName: values.LastName ? values.LastName : accountUpdateInfo.lastName,
             status: values.Status,
-            role: roles.length > 0 ? roles : ["USER"],
+            role: rolesSubmit.length > 0 ? rolesSubmit : "USER",
             mobile: values.Mobile ? values.Mobile : accountUpdateInfo.mobile,
             email: values.Email ? values.Email : accountUpdateInfo.email,
             address: values.Address ? values.Address : accountUpdateInfo.address,
