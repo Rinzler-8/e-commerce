@@ -74,6 +74,8 @@ Final project:
          => Dùng pagination button cũ.
       - bấm mũi tên sort 2 lần mới chạy ? 
          => useState("null") => useState("id") của orderBy (sort theo field nào)
+      - Bấm nút xóa account ở 2 màn đầu thì bị đen, đến màn sau bth ?
+      => bị lấy sai account.id
    * BE:
       - JPA query: @Query("Select item FROM OrderItems item WHERE item.order_id=:order_id") => OrderItems là entity được khai báo 
       ở be chứ không phải từ database.

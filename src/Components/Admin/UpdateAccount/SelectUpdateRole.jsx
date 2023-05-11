@@ -31,7 +31,7 @@ function SelectUpdateRole(props) {
               {...field} {...propsOther}
               variant="outlined"
               label="Phân quyền"
-              multiple
+              // multiple
               // sx={{ marginTop: 16 }}
             >
               {itemDropdown}

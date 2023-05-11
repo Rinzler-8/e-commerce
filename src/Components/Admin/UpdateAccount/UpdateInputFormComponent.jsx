@@ -5,14 +5,11 @@ import * as Yup from "yup";
 import InputComponent from "./InputComponent";
 import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
-import { actionDeleteAccountAPI } from "../../../Redux/Action/AccountAction";
 import { getEmailExists, getUsernameExists } from "../../../API/AccountAPI";
 import SelectUserStatus from "./SelectUserStatus";
 import SelectUpdateRole from "./SelectUpdateRole";
 import { actionFetchUserStatusAPI, actionFetchUserRolePI } from "../../../Redux/Action/EnumAction";
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography } from "@mui/material";
 import { IconButton, MenuItem, Select } from "@mui/material";
-import { actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
 
 function UpdateInputFormComponent(props) {
   let { onHandleUpdateAccount } = props;
@@ -30,21 +27,6 @@ function UpdateInputFormComponent(props) {
 
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-
-  let onHandleDelete = () => {
-    dispatchRedux(actionDeleteAccountAPI(accountUpdateInfo.id));
-    handleCloseDialog();
-    dispatchRedux(actionToggleUpdateFormRedux());
-  };
-
-  const handleOpenDialog = (id, status) => {
-    setIsDialogOpen(true);
-  };
-
-  const handleCloseDialog = () => {
-    setIsDialogOpen(false);
-  };
 
   useEffect(() => {
     dispatchRedux(actionFetchUserStatusAPI());
@@ -66,40 +48,50 @@ function UpdateInputFormComponent(props) {
           Email: accountUpdateInfo.email,
         }}
         validationSchema={Yup.object({
-          Username: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Trường này là bắt buộc!"),
-          // .test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
-          //   // call api
-          //   const isExists = await getUsernameExists(username);
-          //   return !isExists;
-          // })
-          Email: Yup.string().matches(emailRegExp, "Email không hợp lệ!").required("Trường này là bắt buộc!"),
-          // .test("checkUniqueEmail", "Email đã được đăng ký!", async (email) => {
-          //   // call api
-          //   const isExists = await getEmailExists(email);
-          //   return !isExists;
-          // }),
-          // .when("Email", {
-          //   is: (val) => (val && val.length > 0 ? true : false),
-          //   then: Yup.string().oneOf([Yup.ref("Email")], "Mật khẩu không khớp!"),
-          // })
+          Username: Yup.string()
+            .min(6, "Phải từ 6 đến 50 ký tự!")
+            .max(50, "Phải từ 6 đến 50 ký tự!")
+
+            .test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
+              // call api
+              const isExists = await getUsernameExists(username);
+              if (isExists && username == accountUpdateInfo.username) {
+                return isExists;
+              } else {
+                return !isExists;
+              }
+            }),
+          Email: Yup.string()
+            .matches(emailRegExp, "Email không hợp lệ!")
+
+            .test("checkUniqueEmail", "Email đã được đăng ký!", async (email) => {
+              // call api
+              const isExists = await getEmailExists(email);
+              if (isExists && email == accountUpdateInfo.email) {
+                return isExists;
+              } else {
+                return !isExists;
+              }
+            }),
           Firstname: Yup.string(),
           Lastname: Yup.string(),
-          Mobile: Yup.string().required("Trường này là bắt buộc!").matches(phoneRegExp, "Số điện thoại không hợp lệ!"),
+          Mobile: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ!"),
           Address: Yup.string(),
         })}
         onSubmit={(values) => {
-          let accountUpdateNew = {
+          let roles = [];
+          roles.push(values.Role);
+          const accountUpdateNew = {
             //FormForUpdating(backend): values...
-            username: values.Username,
+            username: values.Username ? values.Username : accountUpdateInfo.username,
             firstName: values.FirstName ? values.FirstName : accountUpdateInfo.firstName,
             lastName: values.LastName ? values.LastName : accountUpdateInfo.lastName,
             status: values.Status,
-            role: values.Role.length > 0 ? values.Role : ["USER"],
-            mobile: values.Mobile,
-            email: values.Email,
+            role: roles.length > 0 ? roles : ["USER"],
+            mobile: values.Mobile ? values.Mobile : accountUpdateInfo.mobile,
+            email: values.Email ? values.Email : accountUpdateInfo.email,
             address: values.Address ? values.Address : accountUpdateInfo.address,
           };
-          console.log("role", accountUpdateNew.role);
           onHandleUpdateAccount(accountUpdateNew);
         }}
         validateOnChange={true}
@@ -117,24 +109,23 @@ function UpdateInputFormComponent(props) {
                 {/* Form thêm mới */}
                 <Form>
                   {/* Username */}
-                  <Field fullWidth name="Username" type="text" placeholder="Nhập tên tài khoản" label="Username:" component={InputComponent} />
+                  <Field fullWidth name="Username" type="text" placeholder="Nhập tên tài khoản" label="Tên tài khoản:" component={InputComponent} />
                   {/* Email */}
                   <Field fullWidth name="Email" type="text" placeholder="Nhập email" label="Email:" component={InputComponent} />
                   {/* Fullname */}
                   <Field fullWidth name="FirstName" type="text" placeholder="Nhập tên" label="Tên: " component={InputComponent} />
                   <Field fullWidth name="LastName" type="text" placeholder="Nhập họ" label="Họ:" component={InputComponent} />
+                  {/* Mobile */}
+                  <Field fullWidth name="Mobile" type="text" placeholder="Nhập số điện thoại" label="Số điện thoại:" component={InputComponent} />
+                  {/* Address */}
+                  <Field fullWidth name="Address" type="text" placeholder="Nhập địa chỉ" label="Địa chỉ:" component={InputComponent} />
                   {/* Status */}
                   <Field fullWidth name="Status" placeholder="Chọn trạng thái" label="Trạng thái:" listItem={listUserStatus} component={SelectUserStatus} />
                   {/* Role */}
                   <Field fullWidth name="Role" placeholder="Chọn phân quyền" label="Phân quyền:" listItem={listRole} component={SelectUpdateRole} />
-                  {/* Mobile */}
-                  <Field fullWidth name="Mobile" type="text" placeholder="Nhập số điện thoại" label="Số điện thoại:" component={InputComponent} />
                   <br />
                   <br />
                   {/* submit */}
-                  <Button color="danger" onClick={handleOpenDialog}>
-                    Xóa
-                  </Button>
                   <div className="modal-footer-btn-area">
                     <Button type="reset" className="btn-common btn-reset">
                       Reset
@@ -146,35 +137,6 @@ function UpdateInputFormComponent(props) {
                 </Form>
               </Col>
             </Row>
-            <Dialog
-              open={isDialogOpen}
-              onClose={handleCloseDialog}
-              PaperProps={{
-                elevation: 8,
-                style: { backgroundColor: "white" },
-              }}
-            >
-              <DialogTitle disableTypography>
-                <Typography variant="h6" color="error">
-                  XÁC NHẬN XÓA
-                </Typography>
-              </DialogTitle>
-              <DialogContent dividers>
-                <Typography variant="body1">Bạn có chắc chắn muốn xóa tài khoản này không?</Typography>
-              </DialogContent>
-              <DialogActions>
-                <IconButton onClick={handleCloseDialog} color="primary">
-                  <Typography variant="button" style={{ color: "black" }}>
-                    HỦY
-                  </Typography>
-                </IconButton>
-                <IconButton onClick={onHandleDelete} color="primary" autoFocus>
-                  <Typography variant="button" color="error">
-                    XÓA
-                  </Typography>
-                </IconButton>
-              </DialogActions>
-            </Dialog>
           </Container>
         )}
       </Formik>

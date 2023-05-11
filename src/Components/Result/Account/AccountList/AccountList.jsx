@@ -21,6 +21,9 @@ import "./AccountList.css";
 import { Button } from "reactstrap";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { actionToggleUpdateFormRedux } from "../../../../Redux/Action/FormUpdateAction";
+import DeleteDialog from "./DeleteDialog";
+import { actionDeleteAccountAPI } from "../../../../Redux/Action/AccountAction";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -85,6 +88,9 @@ const headCells = [
     disablePadding: false,
     label: "Trạng thái",
   },
+  // {
+  //   label: "Hành động",
+  // },
 ];
 
 function EnhancedTableHead(props) {
@@ -158,6 +164,8 @@ export default function AccountList(props) {
   const dispatchRedux = useDispatch();
   const stateRedux = useSelector((state) => state);
   const listAccount = stateRedux.listAccountReducer;
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [selectedAccountId, setSelectedAccountId] = React.useState(null);
   let handleUpdateAccountButton = (event, account) => {
     // dispatchRedux(actionShowUpdateForm());
     event.stopPropagation();
@@ -171,7 +179,6 @@ export default function AccountList(props) {
     setOrderBy(property);
     onHandleChangeDirectionSort(newOrder);
     onHandleChangeFieldSort(property);
-    console.log("sort", newOrder);
   };
 
   const handleSelectAllClick = (event) => {
@@ -217,6 +224,16 @@ export default function AccountList(props) {
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
+
+  const openDeleteDialog = (id) => {
+    setSelectedAccountId(id);
+    setIsDialogOpen(!isDialogOpen);
+  };
+
+  let onHandleDelete = (id) => {
+    dispatchRedux(actionDeleteAccountAPI(id));
+    setIsDialogOpen(!isDialogOpen);
+  };
 
   const CustomPaginationBtn = () => {
     const handleChangePage = (page) => {
@@ -350,7 +367,7 @@ export default function AccountList(props) {
                         <Button color="warning" onClick={(event) => handleUpdateAccountButton(event, account)} className="btn-edit">
                           <EditIcon />
                         </Button>
-                        <Button color="danger">
+                        <Button color="danger" onClick={() => openDeleteDialog(account.id)}>
                           <DeleteIcon />
                         </Button>
                       </div>
@@ -367,6 +384,7 @@ export default function AccountList(props) {
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
+              <DeleteDialog toggle={openDeleteDialog} isDialogOpen={isDialogOpen} onHandleDelete={onHandleDelete} selectedAccountId={selectedAccountId} />
             </TableBody>
           </Table>
         </TableContainer>

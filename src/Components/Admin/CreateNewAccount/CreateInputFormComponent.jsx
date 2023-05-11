@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionFetchUserRolePI, actionFetchUserStatusAPI } from "../../../Redux/Action/EnumAction";
 
 function CreateInputFormComponent(props) {
-  let { onHandleCreateNewAccount } = props;
+  let { onHandleCreateNewAccount, toggle} = props;
   let dispatchRedux = useDispatch();
   // State quản lý đóng mở thông báo.
   let [showNotificationCreate, setShowNotificationCreate] = useState(false);
@@ -41,6 +41,10 @@ function CreateInputFormComponent(props) {
       setPreviewAvatarFile(file);
     };
   };
+
+  const closeModal = () => {
+    toggle();
+  }
 
   useEffect(() => {
     dispatchRedux(actionFetchUserStatusAPI());
@@ -71,7 +75,7 @@ function CreateInputFormComponent(props) {
           Mobile: "",
           Address: "",
           Status: "INACTIVE",
-          Role: ["USER"],
+          Role: "USER",
         }}
         validationSchema={Yup.object({
           Username: Yup.string()
@@ -100,7 +104,9 @@ function CreateInputFormComponent(props) {
         })}
         onSubmit={async (values, actions) => {
           nameImage = await uploadImgAPI(previewAvatarFile);
-          let accountCreateNew = {
+          let roles = [];
+          roles.push(values.Role);
+          const accountCreateNew = {
             email: values.Email,
             username: values.Username,
             firstName: values.Firstname,
@@ -111,13 +117,14 @@ function CreateInputFormComponent(props) {
             mobile: values.Mobile,
             address: values.Address,
             status: values.Status,
-            role: values.Role.length > 0 ? values.Role : ["USER"],
+            role: roles.length > 0 ? roles : ["USER"],
           };
-          console.log("Thông tin Account tạo mới: ", accountCreateNew);
+          console.log("Thông tin Account tạo mới: ", accountCreateNew.role);
           onHandleCreateNewAccount(accountCreateNew);
           // Hiển thị thông báo
           setShowNotificationCreate(true);
           // Reset dữ liệu sau khi thêm, dùng hàm của formik để reset.
+          closeModal();
           actions.resetForm();
         }}
         validateOnChange={true}
@@ -161,6 +168,7 @@ function CreateInputFormComponent(props) {
                       Lưu
                     </Button>
                   </div>
+                  <br />
                 </Form>
               </Col>
             </Row>

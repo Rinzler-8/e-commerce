@@ -15,7 +15,7 @@ function SelectCreateRole(props) {
   // Hiển thị item
   let itemDropdown = listCreateRole.map((item, index) => {
     return (
-      <MenuItem  value={item} key={index}>
+      <MenuItem value={item} key={index}>
         {item}
       </MenuItem>
     );
@@ -31,7 +31,7 @@ function SelectCreateRole(props) {
               {...field} {...propsOther}
               variant="outlined"
               label="Phân quyền"
-              multiple
+              // multiple
               // sx={{ marginTop: 16 }}
             >
               {itemDropdown}

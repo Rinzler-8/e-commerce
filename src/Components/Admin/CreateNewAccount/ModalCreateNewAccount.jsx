@@ -21,7 +21,7 @@ function ModalCreateNewAccount(props) {
           </button>
         </ModalHeader>
         <ModalBody>
-          <CreateInputFormComponent onHandleCreateNewAccount={onHandleCreateNewAccount} />
+          <CreateInputFormComponent onHandleCreateNewAccount={onHandleCreateNewAccount} showModal={showModal} toggle= {toggle}/>
         </ModalBody>
       </Modal>
     </div>

@@ -11,7 +11,6 @@ function SelectOrderStatus(props) {
 
   //   Lấy ra danh sách item từ tầng trên truyền xuống
   const listItem = propsOther.listItem;
-  const listStatus = ["Đang chờ", "Đã xác nhận", "Đã giao cho vận chuyển", "Đang giao hàng", "Đã giao cho khách", "Hủy"];
   // console.log("listItem: ", listItem);
   // Hiển thị item
   let itemDropdown = listItem.map((item, index) => {
