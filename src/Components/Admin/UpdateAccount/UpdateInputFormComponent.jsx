@@ -20,6 +20,8 @@ function UpdateInputFormComponent(props) {
   // Lấy thông tin AccountUpdateInfo từ Redux để fill dữ liệu
   let listUserStatus = useSelector((state) => state.userStatusReducer);
   let listRole = useSelector((state) => state.roleReducer);
+  console.log("role", listRole);
+
   let accountUpdateInfo = useSelector((state) => state.formUpdateReducer.accountUpdateInfo);
   let roles = [];
   for (let r of accountUpdateInfo.role) {
@@ -130,23 +132,17 @@ function UpdateInputFormComponent(props) {
                   <br />
                   <br />
                   {/* submit */}
-                  <Row>
-                    <Col>
-                      <Button color="success" type="submit">
-                        Lưu
-                      </Button>
-                    </Col>
-                    <Col>
-                      <Button color="danger" onClick={handleOpenDialog}>
-                        Xóa
-                      </Button>
-                    </Col>
-                    <Col>
-                      <Button color="primary" type="reset">
-                        Reset
-                      </Button>
-                    </Col>
-                  </Row>
+                  <Button color="danger" onClick={handleOpenDialog}>
+                    Xóa
+                  </Button>
+                  <div className="modal-footer-btn-area">
+                    <Button type="reset" className="btn-common btn-reset">
+                      Reset
+                    </Button>
+                    <Button type="submit" className="btn-common btn-save">
+                      Lưu
+                    </Button>
+                  </div>
                 </Form>
               </Col>
             </Row>

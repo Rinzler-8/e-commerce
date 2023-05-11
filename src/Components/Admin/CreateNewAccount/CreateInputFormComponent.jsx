@@ -124,7 +124,7 @@ function CreateInputFormComponent(props) {
         validateOnBlur={true}
       >
         {({ validateField, validateForm }) => (
-          <Container>
+          <div>
             <Row>
               <Col
                 sm={{
@@ -136,10 +136,8 @@ function CreateInputFormComponent(props) {
                 <Form>
                   {/* Email */}
                   <Field fullWidth name="Email" type="text" placeholder="Nhập Email" label="Email:" component={InputComponent} />
-
                   {/* Username */}
                   <Field fullWidth name="Username" type="text" placeholder="Nhập tên tài khoản" label="Tên Tài Khoản:" component={InputComponent} />
-
                   <Field fullWidth className="input" name="Password" type={"text"} placeholder="Nhập Mật khẩu" label="Mật khẩu:" component={InputComponent} />
                   {/* Fullname */}
                   <Field fullWidth name="Firstname" type="text" placeholder="Nhập tên" label="Tên: " component={InputComponent} />
@@ -154,37 +152,19 @@ function CreateInputFormComponent(props) {
 
                   {/* Status */}
                   <Field fullWidth name="Status" placeholder="Chọn trạng thái" label="Trạng thái:" listItem={listUserStatus} component={SelectUserStatus} />
-
-                  <br />
-                  <Avatar
-                    alt="Remy Sharp"
-                    src={previewAvatarUrl ? previewAvatarUrl : require(`../../../Assets/img/account-default-img.png`)}
-                    sx={{ width: 200, height: 200, marginTop: "20px" }}
-                  />
-                  <div className="mt-2">
-                    <Button color="primary" onClick={() => avatarInputFile.current.click()} style={{ marginBottom: "20px" }}>
-                      <FileUploadIcon /> Chọn ảnh
-                    </Button>
-                    <input type="file" id="avatarInput" ref={avatarInputFile} onChange={onChangeAvatarInput} style={{ display: "none" }} />
-                  </div>
-                  <br />
                   {/* submit */}
-                  <Row>
-                    <Col>
-                      <Button color="success" type="submit">
-                        Lưu
-                      </Button>
-                    </Col>
-                    <Col>
-                      <Button color="primary" type="reset">
-                        Reset
-                      </Button>
-                    </Col>
-                  </Row>
+                  <div className="modal-footer-btn-area">
+                    <Button type="reset" className="btn-common btn-reset">
+                      Reset
+                    </Button>
+                    <Button type="submit" className="btn-common btn-save">
+                      Lưu
+                    </Button>
+                  </div>
                 </Form>
               </Col>
             </Row>
-          </Container>
+          </div>
         )}
       </Formik>
     </div>

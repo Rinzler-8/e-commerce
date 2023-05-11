@@ -6,9 +6,10 @@ import { actionAddAccountAPI, actionDeleteAccountAPI, actionFetchAccountAPI, act
 import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../../../Redux/Action/PageAction";
 import { actionFetchAccountUpdateInfoRedux, actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
 import { useNavigate } from "react-router-dom";
-import ListAccounts from "../../Result/Account/ListAccounts";
 import AccountList from "./../../Result/Account/AccountList/AccountList";
 import ModalUpdateAccount from "../../../Components/Admin/UpdateAccount/ModalUpdateAccount";
+import ModalCreateNewAccount from "../../../Components/Admin/CreateNewAccount/ModalCreateNewAccount";
+import AddIcon from "@mui/icons-material/Add";
 
 function ManageUser(props) {
   let stateRedux = useSelector((state) => state);
@@ -79,10 +80,23 @@ function ManageUser(props) {
   };
   // Thông tin trang hiện tại từ redux để truyền xuống PaginationButton hiển thị
   let currentPage = stateRedux.pageFilterReducer;
+
+  let [showModal, SetShowModal] = useState(false);
+
+  // Xử lý ẩn hiện modal
+  const openCreateNewAccountModal = () => {
+    SetShowModal(!showModal);
+  };
+
   return (
     <div className="manage-user-container">
       <div className="header-area">
         <HeaderBar onHandleSearch={onHandleSearch} title="Quản lí tài khoản người dùng" placeHolder="Nhập tên tài khoản,email..." />
+      </div>
+      <div className="create-new-user">
+        <button onClick={openCreateNewAccountModal}>
+          <AddIcon /> Tạo tài khoản mới
+        </button>
       </div>
       <div className="table-content-area">
         <AccountList
@@ -94,7 +108,8 @@ function ManageUser(props) {
           onHandleChangeDirectionSort={onHandleChangeDirectionSort}
         />
       </div>
-      <ModalUpdateAccount onHandleUpdateAccount={onHandleUpdateAccount} onHandleDelete={onHandleDelete}/>
+      <ModalUpdateAccount onHandleUpdateAccount={onHandleUpdateAccount} onHandleDelete={onHandleDelete} />
+      <ModalCreateNewAccount onHandleCreateNewAccount={onHandleCreateNewAccount} toggle={openCreateNewAccountModal} showModal={showModal} />
     </div>
   );
 }

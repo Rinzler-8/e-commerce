@@ -12,7 +12,7 @@
 .table-content-area {
   width: calc(100% - 390px);
   position: fixed;
-  max-height: calc(100% - 200px);
+  max-height: calc(100% - 350px);
   overflow: auto;
   margin-bottom: 30px;
 }
@@ -23,4 +23,24 @@
 
 .table-body th {
   color: initial;
+}
+
+.create-new-user {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.create-new-user button {
+  background-color: white;
+  color: #0a0f9e;
+  border: 1px solid #0a0f9e;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.create-new-user button:hover {
+  background-color: #0a0f9e;
+  color: white;
 }

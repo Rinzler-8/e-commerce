@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Toast, ToastHeader, ToastBody } from "reactstrap";
-import ListAccounts from "../Components/Result/Account/ListAccounts";
-// import CreateButton from "./../Components/Admin/CreateButton";
 import { useDispatch, useSelector } from "react-redux";
 import { actionAddAccountAPI, actionDeleteAccountAPI, actionFetchAccountAPI, actionUpdateAccountAPI } from "../Redux/Action/AccountAction";
-import PaginationButton from "../Components/Paging/PaginationButton";
 import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../Redux/Action/PageAction";
-import SizeButton from "../Components/Paging/SizeButton";
-import AccountFieldSortButton from "../Components/Paging/AccountFieldSortButton";
-import DirectionSortButton from "../Components/Paging/DirectionSortButton";
-import SearchComponent from "../Components/SearchComponent/SearchComponent";
-import ModalCreateNewAccount from "../Components/Admin/CreateNewAccount/ModalCreateNewAccount";
 import { actionFetchAccountUpdateInfoRedux, actionToggleUpdateFormRedux } from "../Redux/Action/FormUpdateAction";
 import { useNavigate } from "react-router-dom";
-import storage from "../Storage/Storage";
 import MenuBar from "../Components/Admin/MenuBar/MenuBar";
 import ManageUser from "../Components/Admin/ManageUser/ManageUser";
 import "../css/AdminPage.css";
-import ModalUpdateAccount from "../Components/Admin/UpdateAccount/ModalUpdateAccount";
 
 function AdminPage(props) {
   let stateRedux = useSelector((state) => state);
@@ -102,7 +91,6 @@ function AdminPage(props) {
     <div className="admin-page-container">
       <MenuBar></MenuBar>
       <div className="content-area-admin">
-        <ModalCreateNewAccount onHandleCreateNewAccount={onHandleCreateNewAccount} />
         <ManageUser></ManageUser>
       </div>
 

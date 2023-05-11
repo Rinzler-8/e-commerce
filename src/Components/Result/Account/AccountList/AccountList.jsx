@@ -13,11 +13,14 @@ import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { actionFetchAccountAPI } from "../../../../Redux/Action/AccountAction";
-import { IconButton, MenuItem, Select } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import LastPageIcon from "@mui/icons-material/LastPage";
+import "./AccountList.css";
+import { Button } from "reactstrap";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -155,8 +158,9 @@ export default function AccountList(props) {
   const dispatchRedux = useDispatch();
   const stateRedux = useSelector((state) => state);
   const listAccount = stateRedux.listAccountReducer;
-  let handleUpdateAccountButton = (account) => {
+  let handleUpdateAccountButton = (event, account) => {
     // dispatchRedux(actionShowUpdateForm());
+    event.stopPropagation();
     onHandleEditBtn(account);
   };
 
@@ -325,13 +329,13 @@ export default function AccountList(props) {
                         }}
                       />
                     </TableCell>
-                    <TableCell onClick={() => handleUpdateAccountButton(account)} component="th" scope="account" align="left" sx={{ paddingLeft: "15px" }}>
+                    <TableCell component="th" scope="account" align="left" sx={{ paddingLeft: "15px" }}>
                       {account.id}
                     </TableCell>
-                    <TableCell onClick={() => handleUpdateAccountButton(account)}>{account.username}</TableCell>
-                    <TableCell onClick={() => handleUpdateAccountButton(account)}>{account.email}</TableCell>
-                    <TableCell onClick={() => handleUpdateAccountButton(account)}>{account.mobile}</TableCell>
-                    <TableCell align="right" onClick={() => handleUpdateAccountButton(account)}>
+                    <TableCell>{account.username}</TableCell>
+                    <TableCell>{account.email}</TableCell>
+                    <TableCell>{account.mobile}</TableCell>
+                    <TableCell align="right">
                       {account.role.map((role, roleindex) => {
                         return (
                           <div key={roleindex}>
@@ -340,8 +344,16 @@ export default function AccountList(props) {
                         );
                       })}
                     </TableCell>
-                    <TableCell onClick={() => handleUpdateAccountButton(account)} align="right">
-                      {account.status == "ACTIVE" ? "Hoạt động" : "Không hoạt động"}
+                    <TableCell align="right">{account.status == "ACTIVE" ? "Hoạt động" : "Không hoạt động"}</TableCell>
+                    <TableCell align="center" className="user-opertation-cell">
+                      <div className="user-operation">
+                        <Button color="warning" onClick={(event) => handleUpdateAccountButton(event, account)} className="btn-edit">
+                          <EditIcon />
+                        </Button>
+                        <Button color="danger">
+                          <DeleteIcon />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 );
