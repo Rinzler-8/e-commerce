@@ -23,7 +23,7 @@ function UpdateInputFormComponent(props) {
   if (accountUpdateInfo.role && accountUpdateInfo.role.length > 0) {
     for (let r of accountUpdateInfo.role) {
       roles.push(r.name);
-    } 
+    }
   } else {
     roles.push("USER");
   }
@@ -123,10 +123,10 @@ function UpdateInputFormComponent(props) {
                   <Field fullWidth name="Mobile" type="text" placeholder="Nhập số điện thoại" label="Số điện thoại:" component={InputComponent} />
                   {/* Address */}
                   <Field fullWidth name="Address" type="text" placeholder="Nhập địa chỉ" label="Địa chỉ:" component={InputComponent} />
-                  {/* Status */}
-                  <Field fullWidth name="Status" placeholder="Chọn trạng thái" label="Trạng thái:" listItem={listUserStatus} component={SelectUserStatus} />
                   {/* Role */}
                   <Field fullWidth name="Role" placeholder="Chọn phân quyền" label="Phân quyền:" listItem={listRole} component={SelectUpdateRole} />
+                  {/* Status */}
+                  <Field fullWidth name="Status" placeholder="Chọn trạng thái" label="Trạng thái:" listItem={listUserStatus} component={SelectUserStatus} />
                   <br />
                   <br />
                   {/* submit */}
