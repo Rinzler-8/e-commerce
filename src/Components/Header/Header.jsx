@@ -265,7 +265,7 @@ function Header() {
                                     +
                                   </Button>
                                 </span>
-                                <ListItemText onClick={() => navigate(`/products/${cartProduct.product_id}`)}>Subtotal: {cartProduct.total_price.toLocaleString("vi", { style: "currency", currency: "VND" })}</ListItemText>
+                                <ListItemText onClick={() => navigate(`/products/${cartProduct.product_id}`)}>Số tiền: {cartProduct.total_price.toLocaleString("vi", { style: "currency", currency: "VND" })}</ListItemText>
                               </span>
                               <div style={{ alignSelf: "start", right: 0, position: "absolute" }}>
                                 <IconButton onClick={(e) => removeItem(cartProduct.cart_id, cartProduct.user_id)}>
@@ -284,7 +284,7 @@ function Header() {
                 </div>
 
                 <div className="drawer_footer" onClick={(e) => {e.stopPropagation()}}>
-                  <div className="estimated_total">Estimated total: {total.toLocaleString("vi", { style: "currency", currency: "VND" })}</div>
+                  <div className="estimated_total">Tổng thanh toán: {total.toLocaleString("vi", { style: "currency", currency: "VND" })}</div>
                   <div className="minicart_action">
                     <Button className="checkout" href={"/checkout"}>
                       CHECKOUT

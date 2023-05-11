@@ -51,16 +51,16 @@ const CartPage = () => {
       <Container className="home">
         <NavLink href={`/products`} className="continue_shopping">
           <ChevronLeftIcon />
-          Continue Shopping
+          Tiếp tục mua sắm
         </NavLink>
-        <span className="your_bag">YOUR BAG ({cart.cartItems.length})</span>
+        <span className="your_bag">GIỎ HÀNG CỦA BẠN ({cart.cartItems.length})</span>
         <TableContainer className="table_container">
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>{cart.cartItems.length} items</TableCell>
-                <TableCell>Quantity</TableCell>
-                <TableCell>Subtotal</TableCell>
+                <TableCell>Số lượng</TableCell>
+                <TableCell>Số tiền</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

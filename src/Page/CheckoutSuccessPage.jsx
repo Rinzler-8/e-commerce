@@ -58,7 +58,7 @@ const CheckOutSuccess = () => {
                   <Typography>{item.price}đ</Typography>
                   <Typography>{item.info}đ</Typography>
                 </ListItemText>
-                <ListItemText>Subtotal: {item.total_price}đ</ListItemText>
+                <ListItemText>Số tiền: {item.total_price}đ</ListItemText>
               </span>
             </ListItem>
           </List>

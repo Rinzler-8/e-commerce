@@ -199,9 +199,9 @@ const CheckOutList = () => {
                               <Typography style={{ fontSize: 20 }}>{product.productName}</Typography>
                             </NavLink>
                             <Typography>{product.price}đ</Typography>
-                            <Typography>Quantity: {product.quantity}</Typography>
+                            <Typography>Số lượng: {product.quantity}</Typography>
                           </ListItemText>
-                          <ListItemText>Subtotal: {product.total_price}đ</ListItemText>
+                          <ListItemText>Số tiền: {product.total_price}đ</ListItemText>
                         </span>
                       </ListItem>
                     </List>
