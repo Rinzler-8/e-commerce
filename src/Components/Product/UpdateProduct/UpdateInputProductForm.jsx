@@ -62,12 +62,12 @@ function UpdateInputProductForm(props) {
                   <Row>
                     <Col>
                       <Button color="success" type="submit">
-                        Update
+                        Cập nhật
                       </Button>
                     </Col>
                     <Col>
                       <Button color="primary" type="reset">
-                        Reset
+                        Đặt lại
                       </Button>
                     </Col>
                   </Row>

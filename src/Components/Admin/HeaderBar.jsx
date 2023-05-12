@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import "./HeaderBar.css";
+import { debounce } from "lodash";
 
 function HeaderBar({ title, placeHolder, onHandleSearch }) {
-  let [valueSearch, setValueSearch] = useState("");
+  const [valueSearch, setValueSearch] = useState("");
 
-  let handleSearch = () => {
+  const handleSearch = debounce(() => {
     onHandleSearch(valueSearch);
-  };
+  }, 100); // Adjust the debounce delay (in milliseconds) as per your requirement
 
   const searchIconStyling = {
     marginLeft: "10px",
@@ -15,6 +16,11 @@ function HeaderBar({ title, placeHolder, onHandleSearch }) {
     ":hover": {
       cursor: "pointer",
     },
+  };
+
+  const handleChange = (event) => {
+    setValueSearch(event.target.value);
+    handleSearch();
   };
 
   return (
@@ -29,11 +35,10 @@ function HeaderBar({ title, placeHolder, onHandleSearch }) {
               type="text"
               placeholder={placeHolder}
               value={valueSearch}
-              onChange={(event) => {
-                setValueSearch(event.target.value);
-              }}
+              onChange={handleChange}
+              onKeyUp={handleChange}
             />
-            <SearchIcon onClick={handleSearch} sx = {{...searchIconStyling}}/>
+            <SearchIcon onClick={handleSearch} sx={searchIconStyling} />
           </div>
         </div>
       </div>

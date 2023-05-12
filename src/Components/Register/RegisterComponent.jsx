@@ -34,8 +34,6 @@ function RegisterComponent(props) {
         }}
         validationSchema={Yup.object({
           username: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
             .required("Trường này là bắt buộc!")
             .test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
               // call api

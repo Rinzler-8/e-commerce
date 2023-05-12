@@ -30,6 +30,7 @@ const pageFilter = (state = initialState, action) => {
       return {
         ...state,
         size: action.payload,
+        page: 1,
       };
     case CHANGE_SORT_FIELD:
       return {

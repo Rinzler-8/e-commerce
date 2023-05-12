@@ -88,9 +88,9 @@ const headCells = [
     disablePadding: false,
     label: "Trạng thái",
   },
-  // {
-  //   label: "Hành động",
-  // },
+  {
+    label: "Hành động",
+  },
 ];
 
 function EnhancedTableHead(props) {
@@ -106,8 +106,13 @@ function EnhancedTableHead(props) {
     borderStyle: "solid",
   };
 
+  const tableHeaderStyling = {
+    zIndex: 1,
+    overflowX: "auto",
+  };
+
   return (
-    <TableHead>
+    <TableHead sx={{ ...tableHeaderStyling }}>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -120,11 +125,11 @@ function EnhancedTableHead(props) {
             }}
           />
         </TableCell>
-        {headCells.map((headCell) => (
+        {headCells.map((headCell, index) => (
           <TableCell
-            key={headCell.id}
+            key={index}
             // align={headCell.numeric ? "right" : "left"}
-            align={headCell.label === "ID" ? "left" : ["Tên tài khoản", "Email", "Số điện thoại"].includes(headCell.label) ? "left" : "right"}
+            align={headCell.label === "Hành động" ? "center" : ["ID", "Tên tài khoản", "Email", "Số điện thoại"].includes(headCell.label) ? "left" : "right"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
             sx={{ ...cellStyling }}
@@ -155,7 +160,7 @@ EnhancedTableHead.propTypes = {
 
 export default function AccountList(props) {
   let { onHandleEditBtn, onHandleChangeSize, onHandleChangePage, currentPage, onHandleChangeFieldSort, onHandleChangeDirectionSort } = props;
-
+  const tableContainerRef = React.useRef(null);
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
@@ -240,9 +245,9 @@ export default function AccountList(props) {
       onHandleChangePage(page);
     };
 
-    const page = [];
+    const pages = [];
     for (let index = 1; index <= currentPage.totalPages; index++) {
-      page.push(
+      pages.push(
         <IconButton
           key={index}
           onClick={() => handleChangePage(index)}
@@ -261,7 +266,7 @@ export default function AccountList(props) {
         <IconButton disabled={currentPage.page === 1} onClick={() => handleChangePage(currentPage.page - 1)} aria-label="previous page">
           <KeyboardArrowLeft sx={{ ...paginationBtnStyling }} />
         </IconButton>
-        {page}
+        {pages}
         <IconButton disabled={currentPage.page === currentPage.totalPages} onClick={() => handleChangePage(currentPage.page + 1)} aria-label="next page">
           <KeyboardArrowRight sx={{ ...paginationBtnStyling }} />
         </IconButton>
@@ -273,8 +278,7 @@ export default function AccountList(props) {
   };
 
   // Avoid a layout jump when reaching the last page with empty listAccount.
-  // const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listAccount.length) : 0;
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, listAccount.length - page * rowsPerPage);
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listAccount.length) : 0;
   const visibleRows = React.useMemo(() => {
     const sortedRows = stableSort(listAccount, getComparator(order, orderBy));
     return sortedRows.slice(page * rowsPerPage, page + 1 * rowsPerPage + rowsPerPage);
@@ -354,12 +358,12 @@ export default function AccountList(props) {
                     <TableCell align="right">
                       {account.role.length > 0
                         ? account.role.map((role, roleindex) => {
-                            return (
-                              <div key={roleindex}>
-                                <div>{role.name}</div>
-                              </div>
-                            );
-                          })
+                          return (
+                            <div key={roleindex}>
+                              <div>{role.name}</div>
+                            </div>
+                          );
+                        })
                         : "USER"}
                     </TableCell>
                     <TableCell align="right">{account.status == "ACTIVE" ? "Hoạt động" : "Không hoạt động"}</TableCell>

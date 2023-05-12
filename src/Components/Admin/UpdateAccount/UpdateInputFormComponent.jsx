@@ -24,7 +24,7 @@ function UpdateInputFormComponent(props) {
     for (let r of accountUpdateInfo.role) {
       // roles.push(r.name);
       roles = r.name;
-    } 
+    }
   } else {
     roles = "USER";
   }
@@ -52,19 +52,15 @@ function UpdateInputFormComponent(props) {
           Address: accountUpdateInfo.address,
         }}
         validationSchema={Yup.object({
-          Username: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
-
-            .test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
-              // call api
-              const isExists = await getUsernameExists(username);
-              if (isExists && username == accountUpdateInfo.username) {
-                return isExists;
-              } else {
-                return !isExists;
-              }
-            }),
+          Username: Yup.string().test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
+            // call api
+            const isExists = await getUsernameExists(username);
+            if (isExists && username == accountUpdateInfo.username) {
+              return isExists;
+            } else {
+              return !isExists;
+            }
+          }),
           Email: Yup.string()
             .matches(emailRegExp, "Email không hợp lệ!")
 
@@ -133,7 +129,7 @@ function UpdateInputFormComponent(props) {
                   {/* submit */}
                   <div className="modal-footer-btn-area">
                     <Button type="reset" className="btn-common btn-reset">
-                      Reset
+                      Đặt lại
                     </Button>
                     <Button type="submit" className="btn-common btn-save">
                       Lưu

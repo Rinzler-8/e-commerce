@@ -25,6 +25,19 @@ function UpdateInputProductForm(props) {
   // Tìm depid và posid để fill vào thẻ select
   let orderStatusUpdate = listOrderStatus.find((status) => status === orderUpdateInfo.orderStatus);
 
+  if (orderUpdateInfo.orderStatus == "PENDING") {
+    // listOrderStatus = ["CONFIRMED", "SHIPPED", "DELIVERING", "DELIVERED", "CANCELED"];
+    listOrderStatus = ["PENDING", "CONFIRMED", "CANCELED"];
+  } else if (orderUpdateInfo.orderStatus == "CONFIRMED") {
+    listOrderStatus = ["CONFIRMED", "SHIPPED", "CANCELED"];
+  } else if (orderUpdateInfo.orderStatus == "SHIPPED") {
+    listOrderStatus = ["SHIPPED", "DELIVERING"];
+  } else if (orderUpdateInfo.orderStatus == "DELIVERING") {
+    listOrderStatus = ["DELIVERING", "DELIVERED"];
+  } else {
+    listOrderStatus = [];
+  }
+
   return (
     <div>
       {/* Formik */}
@@ -57,19 +70,19 @@ function UpdateInputProductForm(props) {
               >
                 <Form>
                   {/* Status */}
-                  <Field name="Status" placeholder="Select a Status" label="Trạng thái đơn hàng:" listItem={listOrderStatus} component={SelectOrderStatus} />
+                  <Field name="Status" placeholder="Select a Status" label="Trạng thái đơn hàng:" listItem={listOrderStatus} component={SelectOrderStatus}/>
                   <br />
                   <br />
                   {/* submit */}
                   <Row>
                     <Col>
                       <Button color="success" type="submit">
-                        Update
+                        Cập nhật
                       </Button>
                     </Col>
                     <Col>
                       <Button color="primary" type="reset">
-                        Reset
+                        Đặt lại
                       </Button>
                     </Col>
                   </Row>

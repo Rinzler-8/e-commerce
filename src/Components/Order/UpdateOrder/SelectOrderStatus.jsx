@@ -10,10 +10,10 @@ function SelectOrderStatus(props) {
   } = props;
 
   //   Lấy ra danh sách item từ tầng trên truyền xuống
-  const listItem = propsOther.listItem;
-  // console.log("listItem: ", listItem);
+  const listStatus = propsOther.listItem;
+  // console.log("listItem: ", listStatus);
   // Hiển thị item
-  let itemDropdown = listItem.map((item, index) => {
+  let itemDropdown = listStatus.map((item, index) => {
     return (
       <MenuItem value={item} key={index}>
         {item == "PENDING"

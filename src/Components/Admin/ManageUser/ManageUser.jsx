@@ -71,8 +71,8 @@ function ManageUser(props) {
   };
   // Hàm xử lý khi nhấn nút Search
   let onHandleSearch = (valueSearch) => {
-    console.log("valueSearch: ", valueSearch);
     dispatchRedux(actionSearch(valueSearch));
+    console.log("valueSearch: ", valueSearch);
   };
   // Xử lý thêm mới Account
   let onHandleCreateNewAccount = (accountNew) => {

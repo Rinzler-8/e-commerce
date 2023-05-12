@@ -118,7 +118,7 @@ function CreateInputFormComponent(props) {
                     </Col>
                     <Col>
                       <Button color="primary" type="reset">
-                        Reset
+                      Đặt lại
                       </Button>
                     </Col>
                   </Row>

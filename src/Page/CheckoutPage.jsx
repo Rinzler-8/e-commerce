@@ -75,12 +75,12 @@ const CheckOutList = () => {
                 paymentType: "COD",
               }}
               validationSchema={Yup.object({
-                first_name: Yup.string().required("Không được để trống first name"),
-                last_name: Yup.string().required("Không được để trống last name"),
+                first_name: Yup.string().required("Trường này là bắt buộc!"),
+                last_name: Yup.string().required("Trường này là bắt buộc!"),
 
-                delivery_address: Yup.string().required("Không được để trống address"),
+                delivery_address: Yup.string().required("Trường này là bắt buộc!"),
 
-                mobile: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ").required("Không được để trống số điện thoại"),
+                mobile: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ").required("Trường này là bắt buộc!"),
               })}
               onSubmit={(values) => {
                 try {
@@ -102,7 +102,11 @@ const CheckOutList = () => {
                     draggable: true,
                     progress: undefined,
                   });
-                  setTimeout(() => navigate("/checkoutSuccess"), 1000);
+                  if (localStorage.getItem("token") && localStorage.getItem("status") == "ACTIVE") {
+                    setTimeout(() => navigate("/checkoutSuccess"), 1000);
+                  } else {
+                    setTimeout(() => navigate("/login"), 1000);
+                  }
                 } catch (error) {
                   toast.error(error, {
                     position: "top-right",

@@ -48,7 +48,7 @@ function AccountResultFormItem(props) {
           </td>
           <td>
             <Button color="warning" onClick={() => handleUpdateAccountButton(account)}>
-              Update
+              Cập nhật
             </Button>
           </td>
         </tr>

@@ -71,7 +71,8 @@ function CreateInputFormComponent(props) {
           Email: "",
           Username: "",
           Password: "",
-          Fullname: "",
+          Firstname: "",
+          Lastname: "",
           Mobile: "",
           Address: "",
           Status: "INACTIVE",
@@ -79,8 +80,6 @@ function CreateInputFormComponent(props) {
         }}
         validationSchema={Yup.object({
           Username: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
             .required("Trường này là bắt buộc!")
             .test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
               // call api
@@ -112,7 +111,6 @@ function CreateInputFormComponent(props) {
             firstName: values.Firstname,
             lastName: values.Lastname,
             password: values.Password,
-            fullname: values.Fullname,
             urlAvatar: nameImage ? nameImage : require(`../../../Assets/img/account-default-img.png`),
             mobile: values.Mobile,
             address: values.Address,
@@ -162,7 +160,7 @@ function CreateInputFormComponent(props) {
                   {/* submit */}
                   <div className="modal-footer-btn-area">
                     <Button type="reset" className="btn-common btn-reset">
-                      Reset
+                      Đặt lại
                     </Button>
                     <Button type="submit" className="btn-common btn-save">
                       Lưu
