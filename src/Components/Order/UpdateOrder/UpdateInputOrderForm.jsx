@@ -10,8 +10,8 @@ import { useEffect } from "react";
 import { actionFetchStatusAPI } from "../../../Redux/Action/EnumAction";
 
 function UpdateInputProductForm(props) {
-  let { onHandleUpdateOrder } = props;
-  let dispatchRedux = useDispatch();
+  const { onHandleUpdateOrder } = props;
+  const dispatchRedux = useDispatch();
 
   useEffect(() => {
     dispatchRedux(actionFetchStatusAPI());
@@ -20,23 +20,19 @@ function UpdateInputProductForm(props) {
   let listOrderStatus = useSelector((state) => state.orderStatusReducer);
 
   // Lấy thông tin AccountUpdateInfo từ Redux để fill dữ liệu
-  let orderUpdateInfo = useSelector((state) => state.formUpdateReducer.orderUpdateInfo);
+  const orderUpdateInfo = useSelector((state) => state.formUpdateReducer.orderUpdateInfo);
 
   // Tìm depid và posid để fill vào thẻ select
   let orderStatusUpdate = listOrderStatus.find((status) => status === orderUpdateInfo.orderStatus);
 
-  if (orderUpdateInfo.orderStatus == "PENDING") {
-    // listOrderStatus = ["CONFIRMED", "SHIPPED", "DELIVERING", "DELIVERED", "CANCELED"];
-    listOrderStatus = ["PENDING", "CONFIRMED", "CANCELED"];
-  } else if (orderUpdateInfo.orderStatus == "CONFIRMED") {
-    listOrderStatus = ["CONFIRMED", "SHIPPED", "CANCELED"];
-  } else if (orderUpdateInfo.orderStatus == "SHIPPED") {
-    listOrderStatus = ["SHIPPED", "DELIVERING"];
-  } else if (orderUpdateInfo.orderStatus == "DELIVERING") {
-    listOrderStatus = ["DELIVERING", "DELIVERED"];
-  } else {
-    listOrderStatus = [];
-  }
+  const statusMapping = {
+    PENDING: ["PENDING", "CONFIRMED", "CANCELED"],
+    CONFIRMED: ["CONFIRMED", "SHIPPED", "CANCELED"],
+    SHIPPED: ["SHIPPED", "DELIVERING"],
+    DELIVERING: ["DELIVERING", "DELIVERED"],
+  };
+  
+  listOrderStatus = statusMapping[orderUpdateInfo.orderStatus] || [];
 
   return (
     <div>
