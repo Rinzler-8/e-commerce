@@ -2,28 +2,25 @@ import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container } from "reactstrap";
 import CreateInputFormComponent from "./CreateInputFormComponent";
 
-function ModalCreateNewOrder(props) {
-  let { onHandleCreateNewOrder } = props;
-  // Quản lý trạng thái ẩn hiện Moadal
-  let [showModal, SetShowModal] = useState(false);
+function ModalCreateNewProduct(props) {
+  let { onHandleCreateNewProduct, toggle, showModal } = props;
 
-  // Xử lý ẩn hiện modal
-  let toggle = () => {
-    SetShowModal(!showModal);
-  };
+  function toggleModal() {
+    toggle(); // Call the toggle function from props
+  }
 
   return (
     <Container>
       <br />
       <Button color="primary" onClick={toggle}>
-        Create New Order
+        Tạo sản phẩm mới
       </Button>
       <Modal isOpen={showModal} toggle={toggle}>
         <ModalHeader>
-          <h3>Create New Order</h3>
+          <div>Tạo sản phẩm mới</div>
         </ModalHeader>
         <ModalBody>
-          <CreateInputFormComponent onHandleCreateNewOrder={onHandleCreateNewOrder} />
+          <CreateInputFormComponent onHandleCreateNewProduct={onHandleCreateNewProduct} />
         </ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={toggle}>
@@ -35,4 +32,4 @@ function ModalCreateNewOrder(props) {
   );
 }
 
-export default ModalCreateNewOrder;
+export default ModalCreateNewProduct;

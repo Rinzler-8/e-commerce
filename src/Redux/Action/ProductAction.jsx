@@ -92,7 +92,6 @@ export const actionDeleteProductAPI = (id) => {
   return (dispatch) => {
     return deleteProductAPI(id).then((response) => {
       console.log("response sau khi xóa Product: ", response);
-      alert("Xoa san pham thanh cong");
       dispatch(actionFetchProductAPI());
       dispatch(actionChangePage(0)); // Chuyển về trang 1 sau khi thêm mới thành công
       dispatch(actionChangeSortField("id")); // Thay đổi trường sort về id

@@ -11,7 +11,6 @@ const ListProduct = (state = initialState, action) => {
     case Types.FETCH_PRODUCT_CAT:
       state = action.payload;
       // console.log("payload: ", action.payload);
-      console.log("action.payload: ", action.payload);
       return [...state];
     case Types.DELETE_PRODUCT:
       let idDel = action.payload;

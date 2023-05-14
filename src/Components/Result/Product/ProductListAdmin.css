@@ -1,0 +1,12 @@
+.user-opertation-cell {
+  border-top: 1px solid #e0e0e0 !important;
+  width: 200px;
+}
+
+.user-operation {
+  padding: 5px;
+}
+
+.user-operation .btn-edit {
+  margin-right: 10px;
+}

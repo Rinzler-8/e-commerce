@@ -34,14 +34,6 @@ function AdminPage(props) {
     // Gọi useEffect để load dữ liệu list Department và Positon
   }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
 
-  // Hàm xử lý khi nhấn nút Search
-  let onHandleSearch = (valueSearch) => {
-    console.log("valueSearch: ", valueSearch);
-    dispatchRedux(actionSearch(valueSearch));
-  };
-
-  // Thông tin trang hiện tại từ redux để truyền xuống PaginationButton hiển thị
-  let currentPage = stateRedux.pageFilterReducer;
   return (
     <div className="admin-page-container">
       <MenuBar></MenuBar>

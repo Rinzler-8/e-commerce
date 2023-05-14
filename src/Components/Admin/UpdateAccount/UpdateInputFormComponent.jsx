@@ -42,14 +42,8 @@ function UpdateInputFormComponent(props) {
       <Formik
         initialValues={{
           //accountUpdateInfo.Entity=>Account(backend)
-          Username: accountUpdateInfo.username,
           Status: accountUpdateInfo.status,
-          FirstName: accountUpdateInfo.firstName,
-          LastName: accountUpdateInfo.lastName,
-          Mobile: accountUpdateInfo.mobile,
           Role: roles,
-          Email: accountUpdateInfo.email,
-          Address: accountUpdateInfo.address,
         }}
         validationSchema={Yup.object({
           Username: Yup.string().test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
@@ -73,10 +67,6 @@ function UpdateInputFormComponent(props) {
                 return !isExists;
               }
             }),
-          Firstname: Yup.string(),
-          Lastname: Yup.string(),
-          Mobile: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ!"),
-          Address: Yup.string().nullable(),
         })}
         onSubmit={(values) => {
           let rolesSubmit = [];
@@ -92,7 +82,6 @@ function UpdateInputFormComponent(props) {
             email: values.Email ? values.Email : accountUpdateInfo.email,
             address: values.Address ? values.Address : accountUpdateInfo.address,
           };
-          console.log("accountUpdateNew.role", accountUpdateNew.username);
           onHandleUpdateAccount(accountUpdateNew);
         }}
         validateOnChange={true}
@@ -109,17 +98,6 @@ function UpdateInputFormComponent(props) {
               >
                 {/* Form thêm mới */}
                 <Form>
-                  {/* Username */}
-                  <Field fullWidth name="Username" type="text" placeholder="Nhập tên tài khoản" label="Tên tài khoản:" component={InputComponent} />
-                  {/* Email */}
-                  <Field fullWidth name="Email" type="text" placeholder="Nhập email" label="Email:" component={InputComponent} />
-                  {/* Fullname */}
-                  <Field fullWidth name="FirstName" type="text" placeholder="Nhập tên" label="Tên: " component={InputComponent} />
-                  <Field fullWidth name="LastName" type="text" placeholder="Nhập họ" label="Họ:" component={InputComponent} />
-                  {/* Mobile */}
-                  <Field fullWidth name="Mobile" type="text" placeholder="Nhập số điện thoại" label="Số điện thoại:" component={InputComponent} />
-                  {/* Address */}
-                  <Field fullWidth name="Address" type="text" placeholder="Nhập địa chỉ" label="Địa chỉ:" component={InputComponent} />
                   {/* Role */}
                   <Field fullWidth name="Role" placeholder="Chọn phân quyền" label="Phân quyền:" listItem={listRole} component={SelectUpdateRole} />
                   {/* Status */}

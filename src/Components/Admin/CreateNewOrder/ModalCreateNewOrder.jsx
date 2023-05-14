@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container } from "reactstrap";
 import CreateInputFormComponent from "./CreateInputFormComponent";
 
-function ModalCreateNewProduct(props) {
-  let { onHandleCreateNewProduct } = props;
+function ModalCreateNewOrder(props) {
+  let { onHandleCreateNewOrder } = props;
   // Quản lý trạng thái ẩn hiện Moadal
   let [showModal, SetShowModal] = useState(false);
 
@@ -16,14 +16,14 @@ function ModalCreateNewProduct(props) {
     <Container>
       <br />
       <Button color="primary" onClick={toggle}>
-        Create New Product
+        Create New Order
       </Button>
       <Modal isOpen={showModal} toggle={toggle}>
         <ModalHeader>
-          <h3>Create New Product</h3>
+          <div>Create New Order</div>
         </ModalHeader>
         <ModalBody>
-          <CreateInputFormComponent onHandleCreateNewProduct={onHandleCreateNewProduct} />
+          <CreateInputFormComponent onHandleCreateNewOrder={onHandleCreateNewOrder} />
         </ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={toggle}>
@@ -35,4 +35,4 @@ function ModalCreateNewProduct(props) {
   );
 }
 
-export default ModalCreateNewProduct;
+export default ModalCreateNewOrder;

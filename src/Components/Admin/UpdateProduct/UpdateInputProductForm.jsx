@@ -53,9 +53,9 @@ function UpdateInputProductForm(props) {
                 {/* Form thêm mới */}
                 <Form>
                   {/* name */}
-                  <Field name="Name" type="text" placeholder="Enter name" label="name:" component={InputComponent} />
+                  <Field name="Name" type="text" placeholder="Nhập tên" label="Tên sản phẩm" component={InputComponent} />
                   {/* Category */}
-                  <Field name="Category" placeholder="Select a Category" label="Category:" listItem={listCategory} component={SelectComponent} />
+                  <Field name="Category" placeholder="Chọn danh mục" label="Danh mục" listItem={listCategory} component={SelectComponent} />
                   <br />
                   <br />
                   {/* submit */}

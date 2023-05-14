@@ -26,7 +26,6 @@ function SelectComponent(props) {
       <br />
       <h5 htmlFor={field.name}>{propsOther.label}</h5>
       <Field as="select" name={field.name}>
-        <option value="">Select a {field.name}</option>
         {itemDropdown}
       </Field>
       {touched[field.name] && errors[field.name] && <div style={{ color: "red" }}>{errors[field.name]}</div>}

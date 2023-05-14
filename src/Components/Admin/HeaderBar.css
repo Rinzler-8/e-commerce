@@ -4,7 +4,8 @@
 }
 
 .left-section span {
-  font-size: 28px;
+  font-family: "Symbols","Title","Arial",sans-serif;
+  font-size: 40px;
   font-weight: bold;
   color: #0a0f9e;
 }

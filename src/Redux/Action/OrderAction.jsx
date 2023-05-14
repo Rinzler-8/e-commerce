@@ -53,7 +53,6 @@ export const actionDeleteOrderAPI = (id) => {
   return (dispatch) => {
     return deleteOrderAPI(id).then((response) => {
       console.log("response sau khi xóa order: ", response);
-      alert("Xoa san pham thanh cong");
       dispatch(actionFetchOrderAPI());
       dispatch(actionChangePage(0)); // Chuyển về trang 1 sau khi thêm mới thành công
       dispatch(actionChangeSortField("id")); // Thay đổi trường sort về id

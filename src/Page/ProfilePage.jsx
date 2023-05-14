@@ -236,7 +236,7 @@ const ProfilePage = () => {
               sx={{ width: 200, height: 200, marginTop: "20px" }}
             />
             <div className="mt-2">
-              <Button color="primary" onClick={() => avatarInputFile.current.click()} style={{ marginBottom: "20px" }}>
+              <Button color="primary" onClick={() => avatarInputFile.current.click()} style={{ marginBottom: "20px" }} className="submit-btn-profile">
                 <FileUploadIcon /> Chọn ảnh
               </Button>
               <input type="file" id="avatarInput" ref={avatarInputFile} onChange={onChangeAvatarInput} style={{ display: "none" }} />

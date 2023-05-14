@@ -1,17 +1,31 @@
 import React, { useEffect, useState } from "react";
-import "./ManageUser.css";
+import "./ManageProduct.css";
 import HeaderBar from "../HeaderBar";
 import { useDispatch, useSelector } from "react-redux";
-import { actionAddAccountAPI, actionDeleteAccountAPI, actionFetchAccountAPI, actionUpdateAccountAPI } from "../../../Redux/Action/AccountAction";
-import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../../../Redux/Action/PageAction";
-import { actionFetchAccountUpdateInfoRedux, actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
+import {
+  actionChangePage,
+  actionChangeSize,
+  actionChangeSortDirection,
+  actionChangeSortField,
+  actionSearch,
+} from "../../../Redux/Action/PageAction";
+import {
+  actionFetchProductUpdateInfoRedux,
+  actionToggleUpdateFormRedux,
+} from "../../../Redux/Action/FormUpdateAction";
 import { useNavigate } from "react-router-dom";
-import AccountList from "./../../Result/Account/AccountList";
-import ModalUpdateAccount from "../../../Components/Admin/UpdateAccount/ModalUpdateAccount";
-import ModalCreateNewAccount from "../../../Components/Admin/CreateNewAccount/ModalCreateNewAccount";
+import ProductListAdmin from "../../Result/Product/ProductListAdmin";
+import ModalUpdateProduct from "../UpdateProduct/ModalUpdateProduct";
+import ModalCreateNewProduct from "../CreateNewProduct/ModalCreateNewProduct";
 import AddIcon from "@mui/icons-material/Add";
+import {
+  actionAddProductAPI,
+  actionFetchProductAPI,
+  actionUpdateProductAPI,
+  actionDeleteProductAPI,
+} from "../../../Redux/Action/ProductAction";
 
-function ManageUser(props) {
+function ManageProduct(props) {
   let stateRedux = useSelector((state) => state);
   let navigate = useNavigate();
   let dispatchRedux = useDispatch();
@@ -25,34 +39,38 @@ function ManageUser(props) {
     search: stateRedux.pageFilterReducer.search,
   };
   useEffect(() => {
-    dispatchRedux(actionFetchAccountAPI(filter));
+    dispatchRedux(actionFetchProductAPI(filter));
     // Gọi useEffect để load dữ liệu list Department và Positon
-  }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
+  }, [
+    stateRedux.pageFilterReducer.page,
+    stateRedux.pageFilterReducer.size,
+    stateRedux.pageFilterReducer.sort,
+    stateRedux.pageFilterReducer.search,
+  ]);
 
-  // Xử lý xóa Account
+  // Xử lý xóa Product
   let onHandleDelete = (id) => {
-    console.log("Id của Account cần xóa:", id);
-    dispatchRedux(actionDeleteAccountAPI(id));
+    dispatchRedux(actionDeleteProductAPI(id));
     setShowNotificationDelete(true);
   };
   // Xử lý khi nhấn nút Edit
-  let onHandleEditBtn = (AccountEdit) => {
-    // console.log("Thông tin của Account cần update:", AccountEdit);
-    // Lưu thông tin Account Update lên Redux
-    dispatchRedux(actionFetchAccountUpdateInfoRedux(AccountEdit));
+  let onHandleEditBtn = (ProductEdit) => {
+    // Lưu thông tin Product Update lên Redux
+    dispatchRedux(actionFetchProductUpdateInfoRedux(ProductEdit));
     // Hiển thị formUpdate
     dispatchRedux(actionToggleUpdateFormRedux());
   };
 
-  // Xử lý Update Account
-  let onHandleUpdateAccount = (accountUpdate) => {
-    let id = stateRedux.formUpdateReducer.accountUpdateInfo.id;
-    dispatchRedux(actionUpdateAccountAPI(id, accountUpdate));
+  // Xử lý Update Product
+  let onHandleUpdateProduct = (productUpdate) => {
+    let id = stateRedux.formUpdateReducer.productUpdateInfo.product_id;
+    console.log("Thông tin của Product cần update:", id);
+
+    dispatchRedux(actionUpdateProductAPI(id, productUpdate));
   };
 
   // Xử lý khi click vào các icon phân trang
   let onHandleChangePage = (page) => {
-    // console.log("Trang hiện tại: ", page);
     // Thực hiện dispatch action để set lại giá trị page trên redux
     dispatchRedux(actionChangePage(page));
   };
@@ -72,34 +90,38 @@ function ManageUser(props) {
   // Hàm xử lý khi nhấn nút Search
   let onHandleSearch = (valueSearch) => {
     dispatchRedux(actionSearch(valueSearch));
-    console.log("valueSearch: ", valueSearch);
   };
-  // Xử lý thêm mới Account
-  let onHandleCreateNewAccount = (accountNew) => {
-    dispatchRedux(actionAddAccountAPI(accountNew));
+  // Xử lý thêm mới Product
+  let onHandleCreateNewProduct = (productNew) => {
+    dispatchRedux(actionAddProductAPI(productNew));
   };
   // Thông tin trang hiện tại từ redux để truyền xuống PaginationButton hiển thị
   let currentPage = stateRedux.pageFilterReducer;
+  // console.log("Trang hiện tại: ", currentPage);
 
   let [showModal, SetShowModal] = useState(false);
 
   // Xử lý ẩn hiện modal
-  const openCreateNewAccountModal = () => {
+  const openCreateNewProductModal = () => {
     SetShowModal(!showModal);
   };
 
   return (
     <div className="manage-user-container">
       <div className="header-area">
-        <HeaderBar onHandleSearch={onHandleSearch} title="Quản lí tài khoản người dùng" placeHolder="Nhập tên tài khoản,email..." />
+        <HeaderBar
+          onHandleSearch={onHandleSearch}
+          title="Quản lí sản phẩm"
+          placeHolder="Nhập tên sản phẩm..."
+        />
       </div>
       <div className="create-new-user">
-        <button onClick={openCreateNewAccountModal}>
-          <AddIcon /> Tạo tài khoản mới
+        <button onClick={openCreateNewProductModal}>
+          <AddIcon /> Tạo sản phẩm mới
         </button>
       </div>
       <div className="table-content-area">
-        <AccountList
+        <ProductListAdmin
           onHandleEditBtn={onHandleEditBtn}
           onHandleChangeSize={onHandleChangeSize}
           onHandleChangePage={onHandleChangePage}
@@ -108,10 +130,17 @@ function ManageUser(props) {
           onHandleChangeDirectionSort={onHandleChangeDirectionSort}
         />
       </div>
-      <ModalUpdateAccount onHandleUpdateAccount={onHandleUpdateAccount} onHandleDelete={onHandleDelete} />
-      <ModalCreateNewAccount onHandleCreateNewAccount={onHandleCreateNewAccount} toggle={openCreateNewAccountModal} showModal={showModal} />
+      <ModalUpdateProduct
+        onHandleUpdateProduct={onHandleUpdateProduct}
+        onHandleDelete={onHandleDelete}
+      />
+      <ModalCreateNewProduct
+        onHandleCreateNewProduct={onHandleCreateNewProduct}
+        toggle={openCreateNewProductModal}
+        showModal={showModal}
+      />
     </div>
   );
 }
 
-export default ManageUser;
+export default ManageProduct;

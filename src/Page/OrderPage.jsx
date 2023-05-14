@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
+import {actionFetchOrderAPI} from "../Redux/Action/OrderAction";
 // import CreateButton from "./../Components/Admin/CreateButton";
 import { useDispatch, useSelector } from "react-redux";
-import { actionAddProductAPI, actionDeleteProductAPI, actionFetchProductAPI, actionUpdateProductAPI, actionFetchSingleProductAPI } from "../Redux/Action/ProductAction";
-import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../Redux/Action/PageAction";
-import { actionFetchProductUpdateInfoRedux } from "../Redux/Action/FormUpdateAction";
-import ModalUpdateProduct from "../Components/Admin/UpdateProduct/ModalUpdateProduct";
-import { actionFetchCategoryAPI } from "../Redux/Action/CategoryAction";
-import { useParams } from "react-router-dom";
-import ModalCreateNewProduct from "../Components/Admin/CreateNewProduct/ModalCreateNewProduct";
 import MenuBar from "../Components/Admin/MenuBar/MenuBar";
-import ManageProduct from "../Components/Admin/ManageProduct/ManageProduct";
+import ManageOrder from "../Components/Admin/ManageOrder/ManageOrder";
 
-function ProductPageAdmin(props) {
+function OrderPage(props) {
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
   // State quản lý đóng mở thông báo.
@@ -26,21 +20,20 @@ function ProductPageAdmin(props) {
 
   //gọi useEffect để load dữ liệu, chỉ gọi khi các state page hoặc size, ... từ redux thay đổi
   useEffect(() => {
-    dispatchRedux(actionFetchProductAPI(filter));
-    dispatchRedux(actionFetchCategoryAPI());
-    // dispatchRedux(actionChangeSize(filter.size));
+    dispatchRedux(actionFetchOrderAPI(filter));
     // Gọi useEffect để load dữ liệu list Department và Positon
   }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
 
-
+  // Thông tin trang hiện tại từ redux để truyền xuống PaginationButton hiển thị
+  let currentPage = stateRedux.pageFilterReducer;
   return (
     <div className="admin-page-container">
-      <MenuBar/>
+      <MenuBar></MenuBar>
       <div className="content-area-admin">
-        <ManageProduct/>
+        <ManageOrder></ManageOrder>
       </div>
     </div>
   );
 }
 
-export default ProductPageAdmin;
+export default OrderPage;
