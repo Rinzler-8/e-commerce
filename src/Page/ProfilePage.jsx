@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Button, Container } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { Paper, TextField, Avatar } from "@mui/material";
-import { actionFetchSingleAccountAPI, actionFetchSingleAccountRedux } from "../Redux/Action/AccountAction";
+import {
+  actionFetchSingleAccountAPI,
+  actionFetchSingleAccountRedux,
+} from "../Redux/Action/AccountAction";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,9 +20,16 @@ const ProfilePage = () => {
   const dispatchRedux = useDispatch();
   const account = stateRedux.singleAccountReducer;
   const id = localStorage.getItem("id");
-  window.localStorage.setItem("initAcc", JSON.parse(JSON.stringify(JSON.parse(localStorage.getItem("persist:root") || "{}").singleAccountReducer)));
+  window.localStorage.setItem(
+    "initAcc",
+    JSON.parse(
+      JSON.stringify(
+        JSON.parse(localStorage.getItem("persist:root") || "{}")
+          .singleAccountReducer
+      )
+    )
+  );
   const localAcc = JSON.parse(localStorage.getItem("initAcc") || "{}");
-  // console.log("subg", localAcc);
   const [previewAvatarUrl, setPreviewAvatarUrl] = useState();
   const [previewAvatarFile, setPreviewAvatarFile] = useState();
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
@@ -40,8 +50,15 @@ const ProfilePage = () => {
     // InputProps= {{className: "input"}}
     return (
       <div>
-        <TextField {...field} {...propsOther} variant="standard" style={{ marginBottom: "20px" }} />
-        {touched[field.name] && errors[field.name] && <div className="error">{errors[field.name]}</div>}
+        <TextField
+          {...field}
+          {...propsOther}
+          variant="standard"
+          style={{ marginBottom: "20px" }}
+        />
+        {touched[field.name] && errors[field.name] && (
+          <div className="error">{errors[field.name]}</div>
+        )}
       </div>
     );
   }
@@ -61,11 +78,20 @@ const ProfilePage = () => {
   };
 
   let nameImage;
+  const previewAvaName = previewAvatarFile
+    ? previewAvatarFile.name
+    : localAcc.urlAvatar;
+  // console.log("previewAvaName", previewAvaName == localAcc.urlAvatar);
 
   return (
     <Row className="profile-container">
       <Col xs={12} xl={8}>
-        <Paper style={{ marginTop: "0px", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
+        <Paper
+          style={{
+            marginTop: "0px",
+            boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+          }}
+        >
           <Formik
             // initialValues={valueAcc}
             initialValues={{
@@ -80,24 +106,38 @@ const ProfilePage = () => {
               lastName: Yup.string(),
               email: Yup.string().matches(emailRegExp, "Email không hợp lệ!"),
               address: Yup.string(),
-              mobile: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ"),
+              mobile: Yup.string().matches(
+                phoneRegExp,
+                "Số điện thoại không hợp lệ"
+              ),
             })}
             onSubmit={async (values) => {
               try {
                 nameImage = await uploadImgAPI(previewAvatarFile);
                 const update = {
-                  firstName: values.firstName ? values.firstName : account.firstName,
-                  lastName: values.lastName ? values.lastName : account.lastName,
+                  firstName: values.firstName
+                    ? values.firstName
+                    : account.firstName,
+                  lastName: values.lastName
+                    ? values.lastName
+                    : account.lastName,
                   email: values.email ? values.email : account.email,
                   mobile: values.mobile ? values.mobile : account.mobile,
                   address: values.address ? values.address : account.address,
                   urlAvatar: nameImage ? nameImage : account.urlAvatar,
                 };
-                console.log("urlAvatar",update.urlAvatar);
                 await updateAccountAPI(id, update).then((response) => {
-                  if (response !== null && response !== undefined && (nameImage || require(`../Assets/img/account-default-img.png`))) {
+                  if (
+                    response !== null &&
+                    response !== undefined &&
+                    (nameImage ||
+                      require(`../Assets/img/account-default-img.png`))
+                  ) {
                     // console.log("response: ", response);
-                    window.localStorage.setItem("initAcc", JSON.stringify(update));
+                    window.localStorage.setItem(
+                      "initAcc",
+                      JSON.stringify(update)
+                    );
                     toast.success("Thành công.", {
                       position: "top-right",
                       autoClose: 1000,
@@ -135,7 +175,13 @@ const ProfilePage = () => {
             validateOnChange={true}
             validateOnBlur={true}
           >
-            {({ values, dirty, isValid, initialValues, isSubmitting, nameImage }) => (
+            {({
+              values,
+              dirty,
+              isValid,
+              initialValues,
+              isSubmitting,
+            }) => (
               <Container>
                 <Row>
                   <Col style={{ marginTop: 20 }}>
@@ -181,10 +227,26 @@ const ProfilePage = () => {
                           />
                         </Col>
                         <Col md={6} className="mb-3">
-                          <Field fullWidth className="input" name="email" type="email" defaultValue={account.email} label="Email:" component={CustomInput} />
+                          <Field
+                            fullWidth
+                            className="input"
+                            name="email"
+                            type="email"
+                            defaultValue={account.email}
+                            label="Email:"
+                            component={CustomInput}
+                          />
                         </Col>
                       </Row>
-                      <Field className="input" fullWidth name="address" type="text" defaultValue={account.address} label="Địa chỉ:" component={CustomInput} />
+                      <Field
+                        className="input"
+                        fullWidth
+                        name="address"
+                        type="text"
+                        defaultValue={account.address}
+                        label="Địa chỉ:"
+                        component={CustomInput}
+                      />
 
                       {/* Submit */}
                       <Row className="r">
@@ -192,19 +254,17 @@ const ProfilePage = () => {
                           className="submit-btn-profile"
                           type="submit"
                           disabled={
-                            !dirty ||
-                            !isValid ||
-                            JSON.stringify(values) === JSON.stringify(initialValues) 
-                            //  ||
-                            //  (nameImage == localAcc.urlAvatar ||
-                            //  nameImage !== null ||
-                            //  nameImage !== undefined)
+                            (previewAvaName == localAcc.urlAvatar &&
+                              !dirty &&
+                              JSON.stringify(values) ===
+                                JSON.stringify(initialValues)) ||
+                            !isValid
                           }
                         >
                           Lưu thay đổi
                         </Button>
                       </Row>
-                      {nameImage}
+                      {/* {previewAvatarFile} */}
                     </Form>
                   </Col>
                 </Row>
@@ -223,23 +283,39 @@ const ProfilePage = () => {
             <h2 style={{ display: "inline" }}>Ảnh đại diện</h2>
           </span> */}
 
-          <Container style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Container
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <Avatar
               alt="Remy Sharp"
               src={
                 previewAvatarUrl
                   ? previewAvatarUrl
                   : account.urlAvatar
-                  ? "http://localhost:8080/api/v1/fileUpload/files/" + account.urlAvatar
+                  ? "http://localhost:8080/api/v1/fileUpload/files/" +
+                    account.urlAvatar
                   : require(`../Assets/img/account-default-img.png`)
               }
               sx={{ width: 200, height: 200, marginTop: "20px" }}
             />
             <div className="mt-2">
-              <Button color="primary" onClick={() => avatarInputFile.current.click()} style={{ marginBottom: "20px" }} className="submit-btn-profile">
+              <Button
+                onClick={() => avatarInputFile.current.click()}
+                className="profile-picture"
+              >
                 <FileUploadIcon /> Chọn ảnh
               </Button>
-              <input type="file" id="avatarInput" ref={avatarInputFile} onChange={onChangeAvatarInput} style={{ display: "none" }} />
+              <input
+                type="file"
+                id="avatarInput"
+                ref={avatarInputFile}
+                onChange={onChangeAvatarInput}
+                style={{ display: "none" }}
+              />
             </div>
           </Container>
         </Paper>

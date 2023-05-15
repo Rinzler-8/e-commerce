@@ -53,3 +53,11 @@
   color: white;
   cursor: not-allowed;
 }
+
+.profile-picture {
+  margin-bottom: 20px;
+  width: 150px;
+  background-color: #0a0f9e;
+  color: white;
+  cursor: pointer;
+}
