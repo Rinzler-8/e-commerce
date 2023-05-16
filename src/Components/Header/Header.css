@@ -240,7 +240,7 @@
   /* Display & Box model */
 
   /* Color */
-  
+
   /* Transition */
 }
 
@@ -263,7 +263,7 @@
   font-size: 14px;
   color: #0a0f9e;
   font-weight: 400;
-  
+
   cursor: pointer;
   border-radius: 0;
   border: 1px solid #0a0f9e;
@@ -272,7 +272,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 40px;
-  padding-right:40px;
+  padding-right: 40px;
   background-color: white;
   margin-top: 15px;
   transition: 0.4s;
@@ -303,7 +303,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 40px;
-  padding-right:40px;
+  padding-right: 40px;
   background-color: white;
   margin-top: 15px;
   transition: 0.4s;

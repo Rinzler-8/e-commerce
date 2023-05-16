@@ -6,6 +6,7 @@ import InputComponent from "./InputComponent";
 import SelectComponent from "./SelectComponent";
 import "./style.css";
 import { useSelector } from "react-redux";
+import "../FormStyle.css";
 
 function CreateInputFormComponent(props) {
   let { onHandleCreateNewProduct } = props;
@@ -40,14 +41,8 @@ function CreateInputFormComponent(props) {
           Category: "",
         }}
         validationSchema={Yup.object({
-          Name: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
-            .required("Khong duoc de trong ten san pham"),
-          Price: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự!")
-            .max(50, "Phải từ 6 đến 50 ký tự!")
-            .required("Khong duoc de trong gia san pham"),
+          Name: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Khong duoc de trong ten san pham"),
+          Price: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Khong duoc de trong gia san pham"),
           Info: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Required"),
           Detail: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Required"),
           RatingStar: Yup.string().max(1, "Only 1 to 5 stars"),
@@ -77,16 +72,17 @@ function CreateInputFormComponent(props) {
         validateOnBlur={false}
       >
         {({ validateField, validateForm }) => (
-          <Container>
-            <Row>
+          <Container className="custom-container-form-style">
+            <Row className="form-wrapper-custom-style">
               <Col
                 sm={{
                   offset: 2,
                   size: 8,
                 }}
+                style={{ marginLeft: 0, width: "100%" }}
               >
                 {/* Form thêm mới */}
-                <Form>
+                <Form className="custom-style-input-width">
                   {/* name */}
                   <Field name="Name" type="text" placeholder="Enter name" label="Name:" component={InputComponent} />
 
@@ -107,21 +103,16 @@ function CreateInputFormComponent(props) {
 
                   {/* Category */}
                   <Field name="Category" placeholder="Select a Category" label="Category:" listItem={listCategory} component={SelectComponent} />
-                  <br />
-                  <br />
+
                   {/* submit */}
-                  <Row>
-                    <Col>
-                      <Button color="success" type="submit">
-                        Lưu
-                      </Button>
-                    </Col>
-                    <Col>
-                      <Button color="primary" type="reset">
-                        Đặt lại
-                      </Button>
-                    </Col>
-                  </Row>
+                  <div className="modal-footer-btn-area" style={{ marginTop: 40 }}>
+                    <Button type="reset" className="btn-common btn-reset">
+                      Đặt lại
+                    </Button>
+                    <Button type="submit" className="btn-common btn-save">
+                      Lưu
+                    </Button>
+                  </div>
                 </Form>
               </Col>
             </Row>

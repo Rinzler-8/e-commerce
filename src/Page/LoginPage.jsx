@@ -77,7 +77,7 @@ function LoginPage(props) {
     }
   }, []);
   return (
-    <div className="loginContainer">
+    <div className="loginContainer" style={{ height: "65vh", alignItems: "center" }}>
       <LoginComponent handleLogin={handleLogin} />
       <ToastContainer />
       {/* <div className="vl"></div> */}

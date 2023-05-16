@@ -4,7 +4,7 @@
 }
 
 .left-section span {
-  font-family: "Symbols","Title","Arial",sans-serif;
+  font-family: "Symbols", "Title", "Arial", sans-serif;
   font-size: 40px;
   font-weight: bold;
   color: #0a0f9e;
@@ -24,4 +24,8 @@
   border: none;
   margin-right: 10px;
   width: 320px;
+}
+
+.checkout-btn.disabled {
+  cursor: not-allowed;
 }

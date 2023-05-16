@@ -221,6 +221,7 @@ function Header() {
                 //   enter: "0.8s",
                 //   exit: "0.8s",
                 // }}
+                style={{ cursor: "default" }}
               >
                 <DrawerHeader style={{ alignSelf: "start" }}>
                   <IconButton onClick={handleDrawerClose}>
@@ -229,7 +230,11 @@ function Header() {
                   </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <div onClick={(e) => {e.stopPropagation()}}>
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
                   {cart.cartItems.map(
                     (cartProduct, index) => (
                       (total += cartProduct.total_price),
@@ -244,7 +249,7 @@ function Header() {
                               </div>
                               <span>
                                 <ListItemText onClick={() => navigate(`/products/${cartProduct.product_id}`)}>
-                                  <div  style={{ padding: 0 }}>
+                                  <div style={{ padding: 0 }}>
                                     <div style={{ fontSize: 20 }}>{cartProduct.productName}</div>
                                   </div>
                                   <div>{cartProduct.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</div>
@@ -265,7 +270,9 @@ function Header() {
                                     +
                                   </Button>
                                 </span>
-                                <ListItemText onClick={() => navigate(`/products/${cartProduct.product_id}`)}>Số tiền: {cartProduct.total_price.toLocaleString("vi", { style: "currency", currency: "VND" })}</ListItemText>
+                                <ListItemText onClick={() => navigate(`/products/${cartProduct.product_id}`)}>
+                                  Số tiền: {cartProduct.total_price.toLocaleString("vi", { style: "currency", currency: "VND" })}
+                                </ListItemText>
                               </span>
                               <div style={{ alignSelf: "start", right: 0, position: "absolute" }}>
                                 <IconButton onClick={(e) => removeItem(cartProduct.cart_id, cartProduct.user_id)}>
@@ -283,10 +290,15 @@ function Header() {
                   )}
                 </div>
 
-                <div className="drawer_footer" onClick={(e) => {e.stopPropagation()}}>
+                <div
+                  className="drawer_footer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
                   <div className="estimated_total">Tổng thanh toán: {total.toLocaleString("vi", { style: "currency", currency: "VND" })}</div>
                   <div className="minicart_action">
-                    <Button className="checkout" href={"/checkout"}>
+                    <Button className="checkout checkout-btn" href={"/checkout"} disabled={cart.cartItems.length <= 0}>
                       CHECKOUT
                     </Button>
                   </div>

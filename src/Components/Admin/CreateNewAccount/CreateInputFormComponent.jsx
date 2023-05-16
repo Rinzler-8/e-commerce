@@ -12,9 +12,10 @@ import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { uploadImgAPI } from "../../../API/ImageAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchUserRolePI, actionFetchUserStatusAPI } from "../../../Redux/Action/EnumAction";
+import "../FormStyle.css";
 
 function CreateInputFormComponent(props) {
-  let { onHandleCreateNewAccount, toggle} = props;
+  let { onHandleCreateNewAccount, toggle } = props;
   let dispatchRedux = useDispatch();
   // State quản lý đóng mở thông báo.
   let [showNotificationCreate, setShowNotificationCreate] = useState(false);
@@ -44,7 +45,7 @@ function CreateInputFormComponent(props) {
 
   const closeModal = () => {
     toggle();
-  }
+  };
 
   useEffect(() => {
     dispatchRedux(actionFetchUserStatusAPI());
@@ -129,13 +130,14 @@ function CreateInputFormComponent(props) {
         validateOnBlur={true}
       >
         {({ validateField, validateForm }) => (
-          <div>
-            <Row>
+          <div className="custom-container-form-style">
+            <Row className="form-wrapper-custom-style">
               <Col
                 sm={{
                   offset: -3,
                   size: 8,
                 }}
+                style={{ width: "100%" }}
               >
                 {/* Form thêm mới */}
                 <Form>

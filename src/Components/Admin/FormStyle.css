@@ -1,0 +1,20 @@
+.form-wrapper-custom-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+}
+
+.custom-style-input-width {
+  width: 100%;
+}
+
+.custom-style-input-width select {
+  width: 100%;
+}
+
+.custom-container-form-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

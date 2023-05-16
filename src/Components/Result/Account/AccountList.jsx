@@ -134,7 +134,13 @@ function EnhancedTableHead(props) {
           <TableCell
             key={index}
             // align={headCell.numeric ? "right" : "left"}
-            align={headCell.label === "Hành động" ? "center" : ["ID", "Tên tài khoản", "Email", "Số điện thoại", "Địa chỉ"].includes(headCell.label) ? "left" : "right"}
+            align={
+              headCell.label === "Hành động"
+                ? "center"
+                : ["ID", "Tên tài khoản", "Email", "Số điện thoại", "Địa chỉ"].includes(headCell.label)
+                ? "left"
+                : "right"
+            }
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
             sx={{ ...cellStyling }}
@@ -264,7 +270,7 @@ export default function AccountList(props) {
       );
     }
     return (
-      <div style={{ marginLeft: "20px", minWidth: "250px", fontSize: "20px" }}>
+      <div style={{ marginLeft: "20px", minWidth: "350px", fontSize: "20px" }}>
         <IconButton disabled={currentPage.page === 1} onClick={() => handleChangePage(1)} aria-label="first page">
           <FirstPageIcon sx={{ ...paginationBtnStyling }} />
         </IconButton>
@@ -364,12 +370,12 @@ export default function AccountList(props) {
                     <TableCell align="right">
                       {account.role.length > 0
                         ? account.role.map((role, roleindex) => {
-                          return (
-                            <div key={roleindex}>
-                              <div>{role.name}</div>
-                            </div>
-                          );
-                        })
+                            return (
+                              <div key={roleindex}>
+                                <div>{role.name}</div>
+                              </div>
+                            );
+                          })
                         : "USER"}
                     </TableCell>
                     <TableCell align="right">{account.status == "ACTIVE" ? "Hoạt động" : "Không hoạt động"}</TableCell>

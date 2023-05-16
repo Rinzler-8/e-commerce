@@ -10,6 +10,7 @@ import SelectUserStatus from "./SelectUserStatus";
 import SelectUpdateRole from "./SelectUpdateRole";
 import { actionFetchUserStatusAPI, actionFetchUserRolePI } from "../../../Redux/Action/EnumAction";
 import { IconButton, MenuItem, Select } from "@mui/material";
+import "../FormStyle.css";
 
 function UpdateInputFormComponent(props) {
   let { onHandleUpdateAccount } = props;
@@ -88,13 +89,14 @@ function UpdateInputFormComponent(props) {
         validateOnBlur={true}
       >
         {({ validateField, validateForm }) => (
-          <Container>
-            <Row>
+          <Container className="custom-container-form-style">
+            <Row className="form-wrapper-custom-style">
               <Col
                 sm={{
                   offset: -3,
                   size: 8,
                 }}
+                style={{ width: "100%" }}
               >
                 {/* Form thêm mới */}
                 <Form>

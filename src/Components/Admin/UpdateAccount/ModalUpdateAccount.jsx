@@ -4,7 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Input, R
 import { actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
 import UpdateInputFormComponent from "./UpdateInputFormComponent";
 import CloseIcon from "@mui/icons-material/Close";
-
+import "../ModalStyle.css";
 function ModalUpdateAccount(props) {
   let { onHandleUpdateAccount } = props;
 

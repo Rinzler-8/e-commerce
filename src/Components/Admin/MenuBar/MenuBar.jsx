@@ -31,7 +31,6 @@ const MenuBar = () => {
           <InventoryIcon />
           <span>Quản lí đơn hàng</span>
         </div>
-
         <div className="menu-item">
           <SettingsIcon />
           <span>Settings</span>

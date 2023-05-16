@@ -6,6 +6,7 @@ import InputComponent from "./InputComponent";
 import SelectComponent from "./SelectComponent";
 import "./style.css";
 import { useSelector } from "react-redux";
+import "../FormStyle.css";
 
 function UpdateInputProductForm(props) {
   let { onHandleUpdateProduct } = props;
@@ -42,35 +43,30 @@ function UpdateInputProductForm(props) {
         validateOnBlur={false}
       >
         {({ validateField, validateForm }) => (
-          <Container>
-            <Row>
+          <Container className="custom-container-form-style">
+            <Row className="form-wrapper-custom-style">
               <Col
                 sm={{
                   offset: 2,
                   size: 8,
                 }}
+                style={{ marginLeft: 0, width: "100%" }}
               >
                 {/* Form thêm mới */}
-                <Form>
+                <Form className="custom-style-input-width">
                   {/* name */}
                   <Field name="Name" type="text" placeholder="Nhập tên" label="Tên sản phẩm" component={InputComponent} />
                   {/* Category */}
                   <Field name="Category" placeholder="Chọn danh mục" label="Danh mục" listItem={listCategory} component={SelectComponent} />
-                  <br />
-                  <br />
                   {/* submit */}
-                  <Row>
-                    <Col>
-                      <Button color="success" type="submit">
-                        Cập nhật
-                      </Button>
-                    </Col>
-                    <Col>
-                      <Button color="primary" type="reset">
-                        Đặt lại
-                      </Button>
-                    </Col>
-                  </Row>
+                  <div className="modal-footer-btn-area" style={{ marginTop: 40 }}>
+                    <Button type="reset" className="btn-common btn-reset">
+                      Đặt lại
+                    </Button>
+                    <Button type="submit" className="btn-common btn-save">
+                      Lưu
+                    </Button>
+                  </div>
                 </Form>
               </Col>
             </Row>

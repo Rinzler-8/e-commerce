@@ -8,6 +8,7 @@ import "../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { forgotPassAPI } from "../API/ResetPassAPI";
+import "../../src/css/ForgetPassPage.css";
 
 const ForgotPassPage = () => {
   let navigate = useNavigate();
@@ -27,7 +28,6 @@ const ForgotPassPage = () => {
     );
   }
 
-  
   return (
     <Formik
       initialValues={{
@@ -36,10 +36,9 @@ const ForgotPassPage = () => {
       validationSchema={Yup.object({
         email: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Trường này là bắt buộc!"),
       })}
-      onSubmit={
-        async (values) => {
+      onSubmit={async (values) => {
         try {
-         await forgotPassAPI(values.email);
+          await forgotPassAPI(values.email);
           toast.info("Hãy kiểm tra email.", {
             autoClose: 3000,
             hideProgressBar: false,
@@ -64,14 +63,14 @@ const ForgotPassPage = () => {
       validateOnBlur={true}
     >
       {({ validateField, validateForm }) => (
-        <Container>
+        <Container style={{ height: "65vh", alignItems: "center" }}>
           <Row>
             <Col
               sm={{
                 offset: 4,
                 size: 4,
               }}
-              style={{ marginTop: 300 }}
+              style={{ marginTop: 150 }}
             >
               <Form>
                 {/* Login */}
@@ -83,7 +82,7 @@ const ForgotPassPage = () => {
                 <Field fullWidth className="input" name="email" type="email" placeholder="Nhập email" label="Email:" component={CustomInput} />
 
                 {/* Submit */}
-                <Row className="button">
+                <Row className="button reset-password-btn">
                   <Button type="submit" className="login">
                     Gửi mã
                   </Button>

@@ -68,7 +68,7 @@ function LoginComponent(props) {
                     <Button type="submit" className="login">
                       Đăng nhập
                     </Button>
-                    <Link to={"/forgotPass"} className="link">
+                    <Link to={"/forgotPass"} className="link" style={{ textAlign: "center" }}>
                       Quên mật khẩu
                     </Link>
                   </Row>

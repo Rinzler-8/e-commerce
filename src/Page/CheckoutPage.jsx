@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Row,
-  Col,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardText,
-  Button,
-  Container,
-  NavLink,
-} from "reactstrap";
+import { Row, Col, CardBody, CardTitle, CardSubtitle, CardText, Button, Container, NavLink } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
@@ -38,10 +28,7 @@ import * as Yup from "yup";
 import { checkoutAPI } from "../API/CheckoutAPI";
 import "../../src/css/CheckoutPage.css";
 import { actionCheckoutAPI } from "../Redux/Action/CheckoutAction";
-import {
-  actionDeleteAllCartItemsAPI,
-  actionCloseCart,
-} from "../Redux/Action/CartAction";
+import { actionDeleteAllCartItemsAPI, actionCloseCart } from "../Redux/Action/CartAction";
 
 const CheckOutList = () => {
   const [isShown, setIsShown] = useState(false);
@@ -68,15 +55,8 @@ const CheckOutList = () => {
     // InputProps= {{className: "input"}}
     return (
       <div>
-        <TextField
-          {...field}
-          {...propsOther}
-          variant="standard"
-          style={{ marginBottom: "20px" }}
-        />
-        {touched[field.name] && errors[field.name] && (
-          <div className="error">{errors[field.name]}</div>
-        )}
+        <TextField {...field} {...propsOther} variant="standard" style={{ marginBottom: "20px" }} />
+        {touched[field.name] && errors[field.name] && <div className="error">{errors[field.name]}</div>}
       </div>
     );
   }
@@ -105,13 +85,9 @@ const CheckOutList = () => {
                 first_name: Yup.string().required("Trường này là bắt buộc!"),
                 last_name: Yup.string().required("Trường này là bắt buộc!"),
 
-                delivery_address: Yup.string().required(
-                  "Trường này là bắt buộc!"
-                ),
+                delivery_address: Yup.string().required("Trường này là bắt buộc!"),
 
-                mobile: Yup.string()
-                  .matches(phoneRegExp, "Số điện thoại không hợp lệ")
-                  .required("Trường này là bắt buộc!"),
+                mobile: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ").required("Trường này là bắt buộc!"),
               })}
               onSubmit={(values) => {
                 try {
@@ -159,21 +135,8 @@ const CheckOutList = () => {
                           <h3 className="shipping">THÔNG TIN GIAO HÀNG</h3>
                         </span>
 
-                        <Field
-                          fullWidth
-                          name="first_name"
-                          type="text"
-                          label="Tên"
-                          component={CustomInput}
-                        />
-                        <Field
-                          fullWidth
-                          name="last_name"
-                          type="text"
-                          placeholder="Nhập Họ"
-                          label="Họ:"
-                          component={CustomInput}
-                        />
+                        <Field fullWidth name="first_name" type="text" label="Tên" component={CustomInput} />
+                        <Field fullWidth name="last_name" type="text" placeholder="Nhập Họ" label="Họ:" component={CustomInput} />
                         <Field
                           className="input"
                           fullWidth
@@ -196,28 +159,18 @@ const CheckOutList = () => {
 
                         <label className="payment">
                           COD
-                          <Field
-                            type="radio"
-                            name="paymentType"
-                            value="COD"
-                            className="payment_radio"
-                          />
+                          <Field type="radio" name="paymentType" value="COD" className="payment_radio" />
                           <span className="checkmark"></span>
                         </label>
                         <label className="payment">
                           BANKING
-                          <Field
-                            type="radio"
-                            name="paymentType"
-                            value="BANKING"
-                            className="payment_radio"
-                          />
+                          <Field type="radio" name="paymentType" value="BANKING" className="payment_radio" />
                           <span className="checkmark"></span>
                         </label>
                         {/* Submit */}
                         <Row className="button">
                           <Button type="submit">Mua hàng</Button>
-                          <Link to={"/login"} className="link">
+                          <Link to={"/login"} className="link" style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}>
                             Quay lại
                           </Link>
                         </Row>
@@ -249,34 +202,18 @@ const CheckOutList = () => {
                       <ListItem>
                         <div>
                           <NavLink href={`/products/${product.product_id}`}>
-                            <img
-                              alt="Sample"
-                              src={
-                                "http://localhost:8080/api/v1/fileUpload/files/" +
-                                product.imageName
-                              }
-                              style={{ width: 100, height: 100 }}
-                            />
+                            <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} style={{ width: 100, height: 100 }} />
                           </NavLink>
                         </div>
                         <span>
                           <ListItemText>
-                            <NavLink
-                              href={`/products/${product.product_id}`}
-                              style={{ padding: 0 }}
-                            >
-                              <Typography style={{ fontSize: 20 }}>
-                                {product.productName}
-                              </Typography>
+                            <NavLink href={`/products/${product.product_id}`} style={{ padding: 0 }}>
+                              <Typography style={{ fontSize: 20 }}>{product.productName}</Typography>
                             </NavLink>
                             <Typography>{product.price}đ</Typography>
-                            <Typography>
-                              Số lượng: {product.quantity}
-                            </Typography>
+                            <Typography>Số lượng: {product.quantity}</Typography>
                           </ListItemText>
-                          <ListItemText>
-                            Số tiền: {product.total_price}đ
-                          </ListItemText>
+                          <ListItemText>Số tiền: {product.total_price}đ</ListItemText>
                         </span>
                       </ListItem>
                     </List>

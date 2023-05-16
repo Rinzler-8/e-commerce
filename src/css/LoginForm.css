@@ -50,25 +50,15 @@
 }
 .logButton {
   /* Positioning */
-  
+
   /* Display & Box model */
   margin-top: 20px;
   width: 300px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
   /* Color */
 
   /* Transition */
   /* transition: 0.4s; */
-}
-.row {
-  /* Positioning */
-
-  /* Display & Box model */
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  /* Font */
-
-  /* Color */
-
-  /* Transition */
 }
