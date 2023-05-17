@@ -23,6 +23,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteDialog from "./DeleteDialog";
 import { actionDeleteAccountAPI } from "../../../Redux/Action/AccountAction";
+import { useEffect } from "react";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -35,7 +36,9 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === "desc" ? (a, b) => descendingComparator(a, b, orderBy) : (a, b) => -descendingComparator(a, b, orderBy);
+  return order === "desc"
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 function stableSort(array, comparator) {
@@ -99,7 +102,14 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const {
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -137,7 +147,13 @@ function EnhancedTableHead(props) {
             align={
               headCell.label === "Hành động"
                 ? "center"
-                : ["ID", "Tên tài khoản", "Email", "Số điện thoại", "Địa chỉ"].includes(headCell.label)
+                : [
+                    "ID",
+                    "Tên tài khoản",
+                    "Email",
+                    "Số điện thoại",
+                    "Địa chỉ",
+                  ].includes(headCell.label)
                 ? "left"
                 : "right"
             }
@@ -145,7 +161,11 @@ function EnhancedTableHead(props) {
             sortDirection={orderBy === headCell.id ? order : false}
             sx={{ ...cellStyling }}
           >
-            <TableSortLabel active={orderBy === headCell.id} direction={orderBy === headCell.id ? order : "asc"} onClick={createSortHandler(headCell.id)}>
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : "asc"}
+              onClick={createSortHandler(headCell.id)}
+            >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
@@ -170,9 +190,15 @@ EnhancedTableHead.propTypes = {
 };
 
 export default function AccountList(props) {
-  let { onHandleEditBtn, onHandleChangeSize, onHandleChangePage, currentPage, onHandleChangeFieldSort, onHandleChangeDirectionSort } = props;
-  const tableContainerRef = React.useRef(null);
-  const [order, setOrder] = React.useState("asc");
+  let {
+    onHandleEditBtn,
+    onHandleChangeSize,
+    onHandleChangePage,
+    currentPage,
+    onHandleChangeFieldSort,
+    onHandleChangeDirectionSort,
+  } = props;
+  let [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
@@ -218,7 +244,10 @@ export default function AccountList(props) {
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
     }
 
     setSelected(newSelected);
@@ -271,17 +300,33 @@ export default function AccountList(props) {
     }
     return (
       <div style={{ marginLeft: "20px", minWidth: "350px", fontSize: "20px" }}>
-        <IconButton disabled={currentPage.page === 1} onClick={() => handleChangePage(1)} aria-label="first page">
+        <IconButton
+          disabled={currentPage.page === 1}
+          onClick={() => handleChangePage(1)}
+          aria-label="first page"
+        >
           <FirstPageIcon sx={{ ...paginationBtnStyling }} />
         </IconButton>
-        <IconButton disabled={currentPage.page === 1} onClick={() => handleChangePage(currentPage.page - 1)} aria-label="previous page">
+        <IconButton
+          disabled={currentPage.page === 1}
+          onClick={() => handleChangePage(currentPage.page - 1)}
+          aria-label="previous page"
+        >
           <KeyboardArrowLeft sx={{ ...paginationBtnStyling }} />
         </IconButton>
         {pages}
-        <IconButton disabled={currentPage.page === currentPage.totalPages} onClick={() => handleChangePage(currentPage.page + 1)} aria-label="next page">
+        <IconButton
+          disabled={currentPage.page === currentPage.totalPages}
+          onClick={() => handleChangePage(currentPage.page + 1)}
+          aria-label="next page"
+        >
           <KeyboardArrowRight sx={{ ...paginationBtnStyling }} />
         </IconButton>
-        <IconButton disabled={currentPage.page === currentPage.totalPages} onClick={() => handleChangePage(currentPage.totalPages)} aria-label="last page">
+        <IconButton
+          disabled={currentPage.page === currentPage.totalPages}
+          onClick={() => handleChangePage(currentPage.totalPages)}
+          aria-label="last page"
+        >
           <LastPageIcon sx={{ ...paginationBtnStyling }} />
         </IconButton>
       </div>
@@ -289,10 +334,15 @@ export default function AccountList(props) {
   };
 
   // Avoid a layout jump when reaching the last page with empty listAccount.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listAccount.length) : 0;
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listAccount.length) : 0;
   const visibleRows = React.useMemo(() => {
+    order = currentPage.sort ? currentPage.sort.sortDirection : order;
     const sortedRows = stableSort(listAccount, getComparator(order, orderBy));
-    return sortedRows.slice(page * rowsPerPage, page + 1 * rowsPerPage + rowsPerPage);
+    return sortedRows.slice(
+      page * rowsPerPage,
+      page + 1 * rowsPerPage + rowsPerPage
+    );
   }, [listAccount, order, orderBy, page, rowsPerPage]);
 
   const rowItemStyling = {
@@ -326,7 +376,11 @@ export default function AccountList(props) {
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="large">
+          <Table
+            sx={{ minWidth: 750 }}
+            aria-labelledby="tableTitle"
+            size="large"
+          >
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -360,7 +414,12 @@ export default function AccountList(props) {
                         }}
                       />
                     </TableCell>
-                    <TableCell component="th" scope="account" align="left" sx={{ paddingLeft: "15px" }}>
+                    <TableCell
+                      component="th"
+                      scope="account"
+                      align="left"
+                      sx={{ paddingLeft: "15px" }}
+                    >
                       {account.id}
                     </TableCell>
                     <TableCell>{account.username}</TableCell>
@@ -378,13 +437,26 @@ export default function AccountList(props) {
                           })
                         : "USER"}
                     </TableCell>
-                    <TableCell align="right">{account.status == "ACTIVE" ? "Hoạt động" : "Không hoạt động"}</TableCell>
+                    <TableCell align="right">
+                      {account.status == "ACTIVE"
+                        ? "Hoạt động"
+                        : "Không hoạt động"}
+                    </TableCell>
                     <TableCell align="center" className="user-opertation-cell">
                       <div className="user-operation">
-                        <Button color="warning" onClick={(event) => handleUpdateAccountButton(event, account)} className="btn-edit">
+                        <Button
+                          color="warning"
+                          onClick={(event) =>
+                            handleUpdateAccountButton(event, account)
+                          }
+                          className="btn-edit"
+                        >
                           <EditIcon />
                         </Button>
-                        <Button color="danger" onClick={() => openDeleteDialog(account.id)}>
+                        <Button
+                          color="danger"
+                          onClick={() => openDeleteDialog(account.id)}
+                        >
                           <DeleteIcon />
                         </Button>
                       </div>
@@ -401,7 +473,12 @@ export default function AccountList(props) {
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
-              <DeleteDialog toggle={openDeleteDialog} isDialogOpen={isDialogOpen} onHandleDelete={onHandleDelete} selectedAccountId={selectedAccountId} />
+              <DeleteDialog
+                toggle={openDeleteDialog}
+                isDialogOpen={isDialogOpen}
+                onHandleDelete={onHandleDelete}
+                selectedAccountId={selectedAccountId}
+              />
             </TableBody>
           </Table>
         </TableContainer>

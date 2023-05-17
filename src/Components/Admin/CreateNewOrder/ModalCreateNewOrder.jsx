@@ -15,9 +15,6 @@ function ModalCreateNewOrder(props) {
   return (
     <Container>
       <br />
-      <Button color="primary" onClick={toggle}>
-        Create New Order
-      </Button>
       <Modal isOpen={showModal} toggle={toggle}>
         <ModalHeader>
           <div>Create New Order</div>

@@ -38,7 +38,7 @@ export default function DeleteDialog(props) {
       <DialogActions>
         <IconButton onClick={toggleModal} color="primary">
           <Typography variant="button" style={{ color: "black" }}>
-            HỦY
+            ĐÓNG
           </Typography>
         </IconButton>
         <IconButton onClick={handleDelete} color="primary" autoFocus>

@@ -49,7 +49,7 @@ const deleteOrderAPI = (id) => {
 const updateOrderAPI = (id, orderUpdate) => {
   const parameters = {};
   if (id && orderUpdate) {
-    parameters.order_id = id;
+    parameters.id = id;
     parameters.orderStatus = orderUpdate.orderStatus;
   }
   let url = "v1/orders?" + queryString.stringify(parameters);

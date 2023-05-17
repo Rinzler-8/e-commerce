@@ -17,6 +17,12 @@
   margin-bottom: 30px;
 }
 
+.table-content-area-user {
+  width: calc(100% - 150px);
+  overflow: auto;
+  margin: auto;
+}
+
 .table-content th {
   color: #0a0f9e;
 }

@@ -12,7 +12,7 @@ import ModalCreateNewOrder from "../CreateNewOrder/ModalCreateNewOrder";
 import AddIcon from "@mui/icons-material/Add";
 import { actionAddOrderAPI } from "../../../Redux/Action/OrderAction";
 
-function ManageUser(props) {
+function ManageOrder(props) {
   let stateRedux = useSelector((state) => state);
   let navigate = useNavigate();
   let dispatchRedux = useDispatch();
@@ -47,8 +47,9 @@ function ManageUser(props) {
 
   // Xử lý Update Account
   let onHandleUpdateOrder = (orderUpdate) => {
-    let id = stateRedux.formUpdateReducer.orderUpdateInfo.order_id;
+    let id = stateRedux.formUpdateReducer.orderUpdateInfo.id;
     dispatchRedux(actionUpdateOrderAPI(id, orderUpdate));
+    dispatchRedux(actionChangePage(currentPage.page));
   };
 
   // Xử lý khi click vào các icon phân trang
@@ -93,11 +94,6 @@ function ManageUser(props) {
       <div className="header-area">
         <HeaderBar onHandleSearch={onHandleSearch} title="Quản lí đơn hàng" placeHolder="Nhập phiên..." />
       </div>
-      <div className="create-new-user">
-        <button onClick={openCreateNewOrderModal}>
-          <AddIcon /> Tạo đơn mới
-        </button>
-      </div>
       <div className="table-content-area">
         <OrderList
           onHandleEditBtn={onHandleEditBtn}
@@ -114,4 +110,4 @@ function ManageUser(props) {
   );
 }
 
-export default ManageUser;
+export default ManageOrder;

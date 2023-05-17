@@ -62,7 +62,6 @@ const ProductList = () => {
   
   const handleAddToCart = (id, cartItem) => {
     const prod = listProduct.find((item) => item.product_id === cartItem.product_id);
-
     if (prod.stockQty <= 0) {
       toast.error("Sản phẩm đã hết hàng !", {
         position: "top-right",
@@ -91,7 +90,6 @@ const ProductList = () => {
       dispatchRedux(actionOpenCart());
     }
   };
-  console.log("userid", id);
 
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI());

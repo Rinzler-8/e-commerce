@@ -40,9 +40,9 @@ export const actionAddOrderAPI = (OrderNew) => {
       console.log("reponseAPI After add New order:", response);
       alert("Tao san pham thanh cong");
       dispatch(actionFetchOrderAPI());
-      dispatch(actionChangePage(0)); // Chuyển về trang 1 sau khi thêm mới thành công
+      dispatch(actionChangePage(1)); // Chuyển về trang 1 sau khi thêm mới thành công
       dispatch(actionChangeSortField("id")); // Thay đổi trường sort về id
-      dispatch(actionChangeSortDirection("DESC")); // Sort theo chiều giảm dần
+      dispatch(actionChangeSortDirection("desc")); // Sort theo chiều giảm dần
     });
   };
 };
@@ -63,12 +63,12 @@ export const actionDeleteOrderAPI = (id) => {
 
 // Acction Update order
 export const actionUpdateOrderAPI = (id, OrderUpdate) => {
-  // console.log("OrderUpdate: ", OrderUpdate);
   // console.log("id: ", id);
   return (dispatch) => {
     return updateOrderAPI(id, OrderUpdate).then((response) => {
       // console.log("response sau khi Update order: ", response);
       dispatch(actionFetchOrderAPI()); // Load lại dữ liệu API
+      dispatch(actionChangeSortField("id")); // Thay đổi trường sort về id
       dispatch(actionToggleUpdateFormRedux()); // Đóng FormUpdate
     });
   };

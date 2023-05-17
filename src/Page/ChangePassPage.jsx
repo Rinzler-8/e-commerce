@@ -20,11 +20,12 @@ const ChangePassPage = () => {
   const singleAccount = useSelector((state) => state.singleAccountReducer);
   const id = localStorage.getItem("id");
   const token = useParams();
-  const passRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+  const passRegExp = new RegExp(
+    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+  );
 
   const checkPassword = async (password, hash) => {
-    console.log("password", password);
-    const isMatch = await bcrypt.compare(String(password), hash);
+    const isMatch = await bcrypt.compareSync(String(password), hash);
     return isMatch;
   };
 
@@ -48,8 +49,15 @@ const ChangePassPage = () => {
     } = props;
     return (
       <div>
-        <TextField {...field} {...propsOther} variant="standard" style={{ marginBottom: "20px" }} />
-        {touched[field.name] && errors[field.name] && <div className="error">{errors[field.name]}</div>}
+        <TextField
+          {...field}
+          {...propsOther}
+          variant="standard"
+          style={{ marginBottom: "20px" }}
+        />
+        {touched[field.name] && errors[field.name] && (
+          <div className="error">{errors[field.name]}</div>
+        )}
       </div>
     );
   }
@@ -64,21 +72,38 @@ const ChangePassPage = () => {
         // password: Yup.string().matches(passRegExp, "Mật khẩu yếu, vui lòng thử lại!").required("Trường này là bắt buộc!"),
         oldPass: Yup.string()
           .required("Trường này là bắt buộc!")
-          .test("checkUniquePassword", "Mật khẩu không đúng!", async (oldPass) => {
-            const isExists = await checkPassword(oldPass, singleAccount.password);
-            return isExists;
-          }),
+          .test(
+            "checkUniquePassword",
+            "Mật khẩu không đúng!",
+            async (oldPass) => {
+              const isExists = await checkPassword(
+                oldPass,
+                singleAccount.password
+              );
+              return isExists;
+            }
+          ),
         newPass: Yup.string()
           .required("Trường này là bắt buộc!")
-          .test("checkUniquePassword", "Mật khẩu đã tồn tại!", async (oldPass) => {
-            const isExists = await checkPassword(oldPass, singleAccount.password);
-            return !isExists;
-          }),
+          .test(
+            "checkUniquePassword",
+            "Mật khẩu đã tồn tại!",
+            async (oldPass) => {
+              const isExists = await checkPassword(
+                oldPass,
+                singleAccount.password
+              );
+              return !isExists;
+            }
+          ),
         confirmPassword: Yup.string()
           .required("Trường này là bắt buộc!")
           .when("newPass", {
             is: (val) => (val && val.length > 0 ? true : false),
-            then: Yup.string().oneOf([Yup.ref("newPass")], "Mật khẩu không khớp!"),
+            then: Yup.string().oneOf(
+              [Yup.ref("newPass")],
+              "Mật khẩu không khớp!"
+            ),
           }),
       })}
       onSubmit={async (values) => {
@@ -86,16 +111,20 @@ const ChangePassPage = () => {
           let pass = {
             newPass: values.newPass,
           };
-          await resetPassAPI(token, pass);
-          toast.success("Thành công.", {
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          setTimeout(() => navigate("/"), 3000);
+          await resetPassAPI(token, pass).then(((response) => {
+            if (response !== null && response !== undefined) {
+              toast.success("Thành công.", {
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              setTimeout(() => navigate("/"), 3000);
+            }
+          }));
+
         } catch (error) {
           toast.error("Đã có lỗi! Vui lòng thử lại.", {
             position: "top-right",
@@ -115,11 +144,12 @@ const ChangePassPage = () => {
         <Container>
           <Row>
             <Col
-              sm={{
-                offset: 4,
-                size: 4,
+              style={{
+                maxWidth: "400px",
+                marginBottom: 100,
+                padding: 50,
+                boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               }}
-              style={{ marginTop: 300 }}
             >
               <Form>
                 {/* Login */}
@@ -155,7 +185,12 @@ const ChangePassPage = () => {
                   component={CustomInput}
                 />
                 <label className="checkbox">
-                  <Field type="checkbox" name="toggle" checked={isShown} onChange={togglePassword} />
+                  <Field
+                    type="checkbox"
+                    name="toggle"
+                    checked={isShown}
+                    onChange={togglePassword}
+                  />
                   {`Hiện Mật Khẩu`}
                 </label>
 
@@ -168,6 +203,7 @@ const ChangePassPage = () => {
               </Form>
             </Col>
           </Row>
+          <ToastContainer />
         </Container>
       )}
     </Formik>

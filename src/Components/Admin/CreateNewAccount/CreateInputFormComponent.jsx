@@ -118,7 +118,6 @@ function CreateInputFormComponent(props) {
             status: values.Status,
             role: roles.length > 0 ? roles : ["USER"],
           };
-          console.log("Thông tin Account tạo mới: ", accountCreateNew.role);
           onHandleCreateNewAccount(accountCreateNew);
           // Hiển thị thông báo
           setShowNotificationCreate(true);

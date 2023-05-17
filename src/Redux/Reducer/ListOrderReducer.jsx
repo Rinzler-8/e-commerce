@@ -12,7 +12,7 @@ const ListOrder = (state = initialState, action) => {
       let idDel = action.payload;
       let listOrderState = state;
 
-      let indexDel = listOrderState.findIndex((order) => order.order_id === idDel);
+      let indexDel = listOrderState.findIndex((order) => order.id === idDel);
       listOrderState.splice(indexDel, 1);
 
       return listOrderState;

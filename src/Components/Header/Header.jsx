@@ -10,6 +10,7 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SearchIcon from "@mui/icons-material/Search";
+import KeyIcon from '@mui/icons-material/Key';
 import { useDispatch, useSelector } from "react-redux";
 import {
   actionGetCartByUserIdAPI,
@@ -338,6 +339,10 @@ function Header() {
                     <NavLink className="popover-user" href={`/accounts/${id}`}>
                       <PersonIcon style={{ marginRight: "5px", marginBottom: "5px" }} />
                       <span>Tài khoản</span>
+                    </NavLink>
+                    <NavLink className="popover-user" href={`/changePass`}>
+                      <KeyIcon style={{ marginRight: "5px", marginBottom: "5px" }} />
+                      <span>Thay đổi mật khẩu</span>
                     </NavLink>
                     <NavLink className="user-popover-footer" href={`/orders`}>
                       <LocalMallIcon style={{ marginRight: "5px", marginBottom: "5px" }} />

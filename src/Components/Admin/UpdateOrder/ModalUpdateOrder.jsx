@@ -29,7 +29,7 @@ function ModalUpdateOrder(props) {
         </ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={toggle}>
-            Close
+            Đóng
           </Button>
         </ModalFooter>
       </Modal>

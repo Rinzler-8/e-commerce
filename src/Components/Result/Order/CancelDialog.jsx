@@ -6,16 +6,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography } from "@mui/material";
 import { IconButton, MenuItem, Select } from "@mui/material";
 
-export default function DeleteDialog(props) {
-  let { isDialogOpen, onHandleDelete, toggle, selectedOrderId } = props;
+export default function CancelDialog(props) {
+  let { isDialogOpen, onHandleCancel, toggle, selectedOrderId } = props;
 
 
   function toggleModal() {
     toggle(); // Call the toggle function from props
   }
 
-  function handleDelete() {
-    onHandleDelete(selectedOrderId);
+  function handleCancel() {
+    onHandleCancel(selectedOrderId);
   }
 
   return (
@@ -29,21 +29,21 @@ export default function DeleteDialog(props) {
     >
       <DialogTitle>
         <Typography color="error">
-          XÁC NHẬN XÓA
+          XÁC NHẬN HỦY ĐƠN
         </Typography>
       </DialogTitle>
       <DialogContent dividers>
-        <Typography>Bạn có chắc chắn muốn xóa đơn (ID:{selectedOrderId}) không?</Typography>
+        <Typography>Bạn có chắc chắn muốn hủy đơn (ID:{selectedOrderId}) không?</Typography>
       </DialogContent>
       <DialogActions>
         <IconButton onClick={toggleModal} color="primary">
           <Typography variant="button" style={{ color: "black" }}>
-            HỦY
+            Đóng
           </Typography>
         </IconButton>
-        <IconButton onClick={handleDelete} color="primary" autoFocus>
+        <IconButton onClick={handleCancel} color="primary" autoFocus>
           <Typography variant="button" color="error">
-            XÓA
+            Hủy
           </Typography>
         </IconButton>
       </DialogActions>

@@ -13,11 +13,7 @@ import {
   Paper,
   TextField,
   Avatar,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-  FormLabel,
-  FormControl,
+  TextareaAutosize,
   ListItemText,
   List,
   ListItem,
@@ -60,6 +56,29 @@ const CheckOutList = () => {
       </div>
     );
   }
+  function CustomTextArea(props) {
+    let {
+      field, // { name, value, onChange, onBlur }
+      form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+      ...propsOther
+    } = props;
+    // InputProps= {{className: "input"}}
+    return (
+      <div>
+        <TextareaAutosize
+          {...field}
+          {...propsOther}
+          minRows={4} // Set the desired number of rows
+          placeholder="Ghi chú"
+          variant="standard"
+          style={{ width: "100%" }}
+        />
+        {touched[field.name] && errors[field.name] && (
+          <div className="error">{errors[field.name]}</div>
+        )}
+      </div>
+    );
+  }
   if (cart) {
     return (
       <Grid container style={{ marginTop: "90px" }}>
@@ -79,6 +98,7 @@ const CheckOutList = () => {
                 last_name: "",
                 mobile: "",
                 delivery_address: "",
+                note: "",
                 paymentType: "COD",
               }}
               validationSchema={Yup.object({
@@ -97,6 +117,7 @@ const CheckOutList = () => {
                     last_name: values.last_name,
                     mobile: values.mobile,
                     delivery_address: values.delivery_address,
+                    note: values.note,
                     paymentType: values.paymentType,
                   };
                   dispatchRedux(actionCheckoutAPI(checkout));
@@ -154,6 +175,14 @@ const CheckOutList = () => {
                           placeholder="Nhập địa chỉ"
                           label="Địa chỉ:"
                           component={CustomInput}
+                        />
+                        <Field
+                          className="input"
+                          fullWidth
+                          name="note"
+                          type="text"
+                          label="Ghi chú:"
+                          component={CustomTextArea}
                         />
                         <div>Payment Type</div>
 

@@ -54,9 +54,9 @@ export const actionAddAccountAPI = (AccountNew) => {
     return addAccountNewAPI(AccountNew).then((response) => {
       // console.log("reponseAPI After add New Account:", response);
       dispatch(actionFetchAccountAPI());
-      dispatch(actionChangePage(0)); // Chuyển về trang 1 sau khi thêm mới thành công
+      dispatch(actionChangePage(1)); // Chuyển về trang 1 sau khi thêm mới thành công
       dispatch(actionChangeSortField("id")); // Thay đổi trường sort về id
-      dispatch(actionChangeSortDirection("DESC")); // Sort theo chiều giảm dần
+      dispatch(actionChangeSortDirection("desc")); // Sort theo chiều giảm dần
     });
   };
 };
@@ -68,9 +68,9 @@ export const actionDeleteAccountAPI = (id) => {
     return deleteAccountAPI(id).then((response) => {
       console.log("response sau khi xóa Account: ", response);
       dispatch(actionFetchAccountAPI());
-      dispatch(actionChangePage(0)); // Chuyển về trang 1 sau khi thêm mới thành công
+      // dispatch(actionChangePage(1)); // Chuyển về trang 1 sau khi thêm mới thành công
       dispatch(actionChangeSortField("id")); // Thay đổi trường sort về id
-      dispatch(actionChangeSortDirection("ASC")); // Sort theo chiều giảm dần
+      // dispatch(actionChangeSortDirection("asc")); // Sort theo chiều giảm dần
     });
   };
 };

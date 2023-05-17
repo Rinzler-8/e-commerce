@@ -22,11 +22,19 @@ const ForgotPassPage = () => {
     // InputProps= {{className: "input"}}
     return (
       <div>
-        <TextField {...field} {...propsOther} variant="standard" style={{ marginBottom: "20px" }} />
-        {touched[field.name] && errors[field.name] && <div className="error">{errors[field.name]}</div>}
+        <TextField
+          {...field}
+          {...propsOther}
+          variant="standard"
+          style={{ marginBottom: "20px" }}
+        />
+        {touched[field.name] && errors[field.name] && (
+          <div className="error">{errors[field.name]}</div>
+        )}
       </div>
     );
   }
+
 
   return (
     <Formik
@@ -34,10 +42,12 @@ const ForgotPassPage = () => {
         email: "",
       }}
       validationSchema={Yup.object({
-        email: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Trường này là bắt buộc!"),
+        email: Yup.string()
+          .required("Trường này là bắt buộc!"),
       })}
       onSubmit={async (values) => {
         try {
+          await forgotPassAPI(values.email);
           await forgotPassAPI(values.email);
           toast.info("Hãy kiểm tra email.", {
             autoClose: 3000,
@@ -66,11 +76,13 @@ const ForgotPassPage = () => {
         <Container style={{ height: "65vh", alignItems: "center" }}>
           <Row>
             <Col
-              sm={{
-                offset: 4,
-                size: 4,
+              style={{
+                maxWidth: "400px",
+                marginBottom: 100,
+                padding: 50,
+                marginTop: 150,
+                boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               }}
-              style={{ marginTop: 150 }}
             >
               <Form>
                 {/* Login */}
@@ -79,7 +91,15 @@ const ForgotPassPage = () => {
                   <hr></hr>
                 </div>
 
-                <Field fullWidth className="input" name="email" type="email" placeholder="Nhập email" label="Email:" component={CustomInput} />
+                <Field
+                  fullWidth
+                  className="input"
+                  name="email"
+                  type="email"
+                  placeholder="Nhập email"
+                  label="Email:"
+                  component={CustomInput}
+                />
 
                 {/* Submit */}
                 <Row className="button reset-password-btn">
@@ -90,6 +110,7 @@ const ForgotPassPage = () => {
               </Form>
             </Col>
           </Row>
+          <ToastContainer />
         </Container>
       )}
     </Formik>

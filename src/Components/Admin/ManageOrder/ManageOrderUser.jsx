@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import "./ManageUser.css";
+import "./ManageOrder.css";
 import HeaderBar from "../HeaderBar";
 import { useDispatch, useSelector } from "react-redux";
-import { actionAddAccountAPI, actionDeleteAccountAPI, actionFetchAccountAPI, actionUpdateAccountAPI } from "../../../Redux/Action/AccountAction";
+import { actionFetchOrderAPI, actionUpdateOrderAPI, actionDeleteOrderAPI } from "../../../Redux/Action/OrderAction";
 import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../../../Redux/Action/PageAction";
-import { actionFetchAccountUpdateInfoRedux, actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
+import { actionFetchAccountUpdateInfoRedux, actionFetchOrderUpdateInfoRedux, actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
 import { useNavigate } from "react-router-dom";
-import AccountList from "./../../Result/Account/AccountList";
-import ModalUpdateAccount from "../../../Components/Admin/UpdateAccount/ModalUpdateAccount";
-import ModalCreateNewAccount from "../../../Components/Admin/CreateNewAccount/ModalCreateNewAccount";
+import OrderList from "../../Result/Order/OrderList";
+import ModalCreateNewOrder from "../CreateNewOrder/ModalCreateNewOrder";
 import AddIcon from "@mui/icons-material/Add";
+import { actionAddOrderAPI } from "../../../Redux/Action/OrderAction";
 
-function ManageUser(props) {
+function ManageOrderUser(props) {
   let stateRedux = useSelector((state) => state);
   let navigate = useNavigate();
   let dispatchRedux = useDispatch();
@@ -25,29 +25,29 @@ function ManageUser(props) {
     search: stateRedux.pageFilterReducer.search,
   };
   useEffect(() => {
-    dispatchRedux(actionFetchAccountAPI(filter));
+    dispatchRedux(actionFetchOrderAPI(filter));
     // Gọi useEffect để load dữ liệu list Department và Positon
   }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
 
   // Xử lý xóa Account
   let onHandleDelete = (id) => {
     console.log("Id của Account cần xóa:", id);
-    dispatchRedux(actionDeleteAccountAPI(id));
+    dispatchRedux(actionDeleteOrderAPI(id));
     setShowNotificationDelete(true);
   };
   // Xử lý khi nhấn nút Edit
-  let onHandleEditBtn = (AccountEdit) => {
-    // console.log("Thông tin của Account cần update:", AccountEdit);
+  let onHandleEditBtn = (OrderEdit) => {
+    // console.log("Thông tin của Account cần update:", OrderEdit);
     // Lưu thông tin Account Update lên Redux
-    dispatchRedux(actionFetchAccountUpdateInfoRedux(AccountEdit));
+    dispatchRedux(actionFetchOrderUpdateInfoRedux(OrderEdit));
     // Hiển thị formUpdate
     dispatchRedux(actionToggleUpdateFormRedux());
   };
 
   // Xử lý Update Account
-  let onHandleUpdateAccount = (accountUpdate) => {
-    let id = stateRedux.formUpdateReducer.accountUpdateInfo.id;
-    dispatchRedux(actionUpdateAccountAPI(id, accountUpdate));
+  let onHandleUpdateOrder = (orderUpdate) => {
+    let id = stateRedux.formUpdateReducer.orderUpdateInfo.id;
+    dispatchRedux(actionUpdateOrderAPI(id, orderUpdate));
   };
 
   // Xử lý khi click vào các icon phân trang
@@ -72,33 +72,28 @@ function ManageUser(props) {
   // Hàm xử lý khi nhấn nút Search
   let onHandleSearch = (valueSearch) => {
     dispatchRedux(actionSearch(valueSearch));
-    console.log("valueSearch: ", valueSearch);
   };
   // Xử lý thêm mới Account
-  let onHandleCreateNewAccount = (accountNew) => {
-    dispatchRedux(actionAddAccountAPI(accountNew));
+  let onHandleCreateNewOrder = (orderNew) => {
+    dispatchRedux(actionAddOrderAPI(orderNew));
   };
   // Thông tin trang hiện tại từ redux để truyền xuống PaginationButton hiển thị
   let currentPage = stateRedux.pageFilterReducer;
+
   let [showModal, SetShowModal] = useState(false);
 
   // Xử lý ẩn hiện modal
-  const openCreateNewAccountModal = () => {
+  const openCreateNewOrderModal = () => {
     SetShowModal(!showModal);
   };
 
   return (
     <div className="manage-user-container">
       <div className="header-area">
-        <HeaderBar onHandleSearch={onHandleSearch} title="Quản lí tài khoản người dùng" placeHolder="Nhập tên tài khoản,email..." />
+        <HeaderBar onHandleSearch={onHandleSearch} title="Đơn hàng của bạn" placeHolder="Nhập phiên..." />
       </div>
-      <div className="create-new-user">
-        <button onClick={openCreateNewAccountModal}>
-          <AddIcon /> Tạo tài khoản mới
-        </button>
-      </div>
-      <div className="table-content-area">
-        <AccountList
+      <div className="table-content-area-user">
+        <OrderList
           onHandleEditBtn={onHandleEditBtn}
           onHandleChangeSize={onHandleChangeSize}
           onHandleChangePage={onHandleChangePage}
@@ -107,10 +102,9 @@ function ManageUser(props) {
           onHandleChangeDirectionSort={onHandleChangeDirectionSort}
         />
       </div>
-      <ModalUpdateAccount onHandleUpdateAccount={onHandleUpdateAccount} onHandleDelete={onHandleDelete} />
-      <ModalCreateNewAccount onHandleCreateNewAccount={onHandleCreateNewAccount} toggle={openCreateNewAccountModal} showModal={showModal} />
+      <ModalCreateNewOrder onHandleCreateNewOrder={onHandleCreateNewOrder} toggle={openCreateNewOrderModal} showModal={showModal} />
     </div>
   );
 }
 
-export default ManageUser;
+export default ManageOrderUser;

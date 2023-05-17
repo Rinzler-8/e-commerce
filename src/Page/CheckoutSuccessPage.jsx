@@ -14,7 +14,7 @@ const CheckOutSuccess = () => {
   let orderState = stateRedux.checkoutReducer;
   let orderItemsState = stateRedux.orderItemsReducer;
   let sessionId = orderState.session_id;
-  let orderId = orderState.order_id;
+  let orderId = orderState.id;
   useEffect(() => {
     if (orderId && orderId !== "") {
       dispatchRedux(actionGetOrderInfoAPI(orderId));
@@ -39,7 +39,7 @@ const CheckOutSuccess = () => {
         <h2>{orderState.session_id}</h2>
         <div>YOUR ORDER INFORMATION:</div>
         <hr />
-        <h5>Order ID: {orderState.order_id}</h5>
+        <h5>Order ID: {orderState.id}</h5>
         <h5>Order Date: {orderState.created_at}</h5>
         <h5>HERE'S WHAT YOU ORDERED:</h5>
         {orderItemsState.map((item, index) => (

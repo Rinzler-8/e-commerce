@@ -38,7 +38,7 @@ function LoginComponent(props) {
         {({ validateField, validateForm }) => (
           <Container>
             <Row>
-              <Col className="loginForm" style={{ width: "400px", marginBottom: 100, padding: 50, boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>
+              <Col style={{ width: "400px", marginBottom: 100, padding: 50, boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>
                 <Form>
                   {/* Login */}
                   <div className="title-header">

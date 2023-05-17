@@ -45,7 +45,7 @@ Final project:
    * FE:
       - Dùng redux-persist để lưu redux state => có thể refresh trang product details mà không bị mất dữ liệu reducer
       - Không lấy được dữ liệu sau khi checkout ?
-       => vì initial state rỗng nên không có khả năng lấy order_id, session_id. 
+       => vì initial state rỗng nên không có khả năng lấy id, session_id. 
        => SOLUTION: sau khi checkoutAPI, dispatch actionGetOrderInfoRedux với response của checkoutAPI để checkoutReducer có dữ liệu
       (đã có redux-persist ở trên để lưu reducer state)
       - Muốn dùng action thì phải có useDispatch
@@ -77,7 +77,7 @@ Final project:
       - Bấm nút xóa account ở 2 màn đầu thì bị đen, đến màn sau bth ?
       => bị lấy sai account.id
    * BE:
-      - JPA query: @Query("Select item FROM OrderItems item WHERE item.order_id=:order_id") => OrderItems là entity được khai báo 
+      - JPA query: @Query("Select item FROM OrderItems item WHERE item.id=:id") => OrderItems là entity được khai báo 
       ở be chứ không phải từ database.
       - BE: fasterxml.jackson.databind: thêm jsonignore dưới entity
       - BE: this.passwordEncoder is null khi reset password ?
@@ -96,7 +96,7 @@ Final project:
     + 
  - BE:
     + checkout gồm 2 phần: order info và order items
-    + mỗi order sẽ phân biệt theo session_id. Lấy orderInfo theo orderId, orderItems theo session_id (hoặc order_id)
+    + mỗi order sẽ phân biệt theo session_id. Lấy orderInfo theo orderId, orderItems theo session_id (hoặc id)
  
  * Cart:
  - FE: add to cart sẽ tự động mở drawer (DONE) 

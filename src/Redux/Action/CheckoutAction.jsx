@@ -31,7 +31,6 @@ export const actionGetOrderItemsAPI = (sessionId) => {
   return (dispatch) => {
     return getOrderItemsAPI(sessionId).then((response) => {
       dispatch(actionGetOrderItemsRedux(response));
-      // console.log("Order items Redux: ", response);
     });
   };
 };

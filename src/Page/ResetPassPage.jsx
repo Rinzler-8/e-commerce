@@ -25,8 +25,15 @@ const ResetPassPage = () => {
     // InputProps= {{className: "input"}}
     return (
       <div>
-        <TextField {...field} {...propsOther} variant="standard" style={{ marginBottom: "20px" }} />
-        {touched[field.name] && errors[field.name] && <div className="error">{errors[field.name]}</div>}
+        <TextField
+          {...field}
+          {...propsOther}
+          variant="standard"
+          style={{ marginBottom: "20px" }}
+        />
+        {touched[field.name] && errors[field.name] && (
+          <div className="error">{errors[field.name]}</div>
+        )}
       </div>
     );
   }
@@ -38,12 +45,16 @@ const ResetPassPage = () => {
         confirmPassword: "",
       }}
       validationSchema={Yup.object({
-        password: Yup.string().min(6, "Phải từ 6 đến 50 ký tự!").max(50, "Phải từ 6 đến 50 ký tự!").required("Trường này là bắt buộc!"),
+        password: Yup.string()
+          .required("Trường này là bắt buộc!"),
         confirmPassword: Yup.string()
           .required("Trường này là bắt buộc!")
           .when("password", {
             is: (val) => (val && val.length > 0 ? true : false),
-            then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp!"),
+            then: Yup.string().oneOf(
+              [Yup.ref("password")],
+              "Mật khẩu không khớp!"
+            ),
           }),
       })}
       onSubmit={async (values) => {
@@ -80,11 +91,12 @@ const ResetPassPage = () => {
         <Container>
           <Row>
             <Col
-              sm={{
-                offset: 4,
-                size: 4,
+              style={{
+                maxWidth: "400px",
+                marginBottom: 100,
+                padding: 50,
+                boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               }}
-              style={{ marginTop: 300 }}
             >
               <Form>
                 {/* Login */}
@@ -112,7 +124,12 @@ const ResetPassPage = () => {
                   component={CustomInput}
                 />
                 <label className="checkbox">
-                  <Field type="checkbox" name="toggle" checked={isShown} onChange={togglePassword} />
+                  <Field
+                    type="checkbox"
+                    name="toggle"
+                    checked={isShown}
+                    onChange={togglePassword}
+                  />
                   {`Hiện Mật Khẩu`}
                 </label>
 
@@ -125,6 +142,7 @@ const ResetPassPage = () => {
               </Form>
             </Col>
           </Row>
+          <ToastContainer />
         </Container>
       )}
     </Formik>

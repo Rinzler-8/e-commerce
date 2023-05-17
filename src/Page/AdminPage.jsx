@@ -29,10 +29,6 @@ function AdminPage(props) {
   // }, []);
 
   //gọi useEffect để load dữ liệu, chỉ gọi khi các state page hoặc size, ... từ redux thay đổi
-  useEffect(() => {
-    dispatchRedux(actionFetchAccountAPI(filter));
-    // Gọi useEffect để load dữ liệu list Department và Positon
-  }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
 
   return (
     <div className="admin-page-container">
