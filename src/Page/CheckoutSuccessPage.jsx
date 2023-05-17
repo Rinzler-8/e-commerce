@@ -47,7 +47,7 @@ const CheckOutSuccess = () => {
             <ListItem>
               <div>
                 <NavLink href={`/products/${item.product_id}`}>
-                  <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + item.imageName} />
+                  <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + item.imageName} />
                 </NavLink>
               </div>
               <span>
@@ -56,7 +56,7 @@ const CheckOutSuccess = () => {
                     <Typography style={{ fontSize: 20 }}>{item.productName}</Typography>
                   </NavLink>
                   <Typography>{item.price}đ</Typography>
-                  <Typography>{item.info}đ</Typography>
+                  <Typography>{item.info}</Typography>
                 </ListItemText>
                 <ListItemText>Số tiền: {item.total_price}đ</ListItemText>
               </span>

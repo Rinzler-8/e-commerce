@@ -65,3 +65,11 @@
   position: absolute;
   bottom: 0;
 }
+
+.user-popover-footer-admin {
+  color: #777;
+  cursor: pointer;
+  width: 200px;
+  padding: 15px 5px;
+  text-align: center;
+}

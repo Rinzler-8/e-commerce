@@ -28,10 +28,7 @@ const MenuBar = () => {
   return (
     <div className="menu-container">
       <div className="logo-area">
-        <img
-          src={require("../../../Assets/img/logowithbackground.png")}
-          alt="logo"
-        />
+        <img src={require("../../../Assets/img/logowithbackground.png")} alt="logo" />
         <span>Genuine & Dignity</span>
       </div>
       <div className="menu-area">
@@ -52,25 +49,29 @@ const MenuBar = () => {
           <span>Quản lí đơn hàng</span>
         </div>
         <div className="menu-item" onClick={handleOpenSettings}>
-          <SettingsIcon/>
+          <SettingsIcon />
           <span>Cài đặt</span>
         </div>
         <Popover
-            id="CategoryPopover"
-            open={openSettings}
-            onClose={handleCloseSettings}
-            anchorEl={anchorSettings}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-            style={{ zIndex: 9999 }}
-          >
-            <div className="user-popover-footer" onClick={logout}>
-              <LogoutIcon style={{ marginRight: "5px", marginBottom: "5px" }} />
-              <span>Đăng xuất</span>
-            </div>
-          </Popover>
+          id="CategoryPopover"
+          open={openSettings}
+          onClose={handleCloseSettings}
+          anchorEl={anchorSettings}
+          anchorOrigin={{
+            vertical: "center",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "center",
+            horizontal: "center",
+          }}
+          style={{ zIndex: 9999 }}
+        >
+          <div className="user-popover-footer-admin" onClick={logout}>
+            <LogoutIcon style={{ marginRight: "5px", marginBottom: "5px" }} />
+            <span>Đăng xuất</span>
+          </div>
+        </Popover>
       </div>
     </div>
   );
