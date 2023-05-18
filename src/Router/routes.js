@@ -36,8 +36,6 @@ export const routes = (
       <Route path="/products/:id" element={<ProductDetail />} />
       <Route path="/categories/:id" element={<ProductCategoryPage />} />
       <Route path="/cart" element={<CartPage />} />
-      <Route path="/forgotPass" element={<ForgotPasswordPage />} />
-      <Route path="/resetPass/:token" element={<ResetPassPage />} />
     </Route>
     <Route element={<AdminAuth />}>
       <Route path="/admin" element={<AdminPage />} />
@@ -48,5 +46,7 @@ export const routes = (
     </Route>
     <Route path="*" element={<NotFoundPage />} />
     {/* <Route path="/test" element={<TestPage />} /> */}
+    <Route path="/forgotPass" element={<ForgotPasswordPage />} />
+    <Route path="/resetPass/:token" element={<ResetPassPage />} />
   </Routes>
 );

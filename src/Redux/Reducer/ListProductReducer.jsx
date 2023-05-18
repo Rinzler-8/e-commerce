@@ -16,7 +16,7 @@ const ListProduct = (state = initialState, action) => {
       let idDel = action.payload;
       let listProductState = state;
 
-      let indexDel = listProductState.findIndex((product) => product.id === idDel);
+      let indexDel = listProductState.findIndex((product) => product.productId === idDel);
       listProductState.splice(indexDel, 1);
 
       return listProductState;

@@ -41,7 +41,7 @@ const CheckOutSuccess = () => {
   let dispatchRedux = useDispatch();
   let orderState = stateRedux.checkoutReducer;
   let orderItemsState = stateRedux.orderItemsReducer;
-  let sessionId = orderState.session_id;
+  let sessionId = orderState.sessionId;
   let orderId = orderState.id;
   useEffect(() => {
     if (orderId && orderId !== "") {
@@ -56,19 +56,17 @@ const CheckOutSuccess = () => {
   console.log("item", orderItemsState);
   // Khai báo item hiển thị dữ liệu
   // Kiểm tra nếu listProduct !="" sẽ hiển thị dữ liệu
-  if (orderState.id || orderState.session_id) {
+  if (orderState.id || orderState.sessionId) {
     return (
       <Container className="checkout_success_container">
         <h1 className="thank">Đặt hàng thành công!</h1>
         <div className="success_paper">
-          <h5>Xin chào {orderState.first_name}</h5>
-          <div>Cảm ơn bạn đã tin tưởng Genuine & Dignity.</div>
-          <h2>Mã đơn:</h2>
-          <h2>{orderState.session_id}</h2>
-          <div>Thông tin đơn hàng:</div>
-          <hr />
-          <h5>Mã đơn hàng: {orderState.id}</h5>
+          <h5 style={{padding: "10px"}}>Xin chào {orderState.firstName}</h5>
+          <div style={{padding: "10px"}}>Cảm ơn bạn đã tin tưởng Genuine & Dignity.</div>
+          <h2 style={{padding: "10px"}}>Mã đơn:</h2>
+          <h2 style={{padding: "10px"}}>{orderState.sessionId}</h2>
           <h5>Ngày đặt: {orderState.created_at}</h5>
+          <div>Thông tin đơn hàng:</div>
           {orderItemsState.map(
             (item, index) => (
               console.log("item", item.price),
@@ -76,7 +74,7 @@ const CheckOutSuccess = () => {
                 <List key={index}>
                   <ListItem>
                     <div>
-                      <NavLink href={`/products/${item.product_id}`}>
+                      <NavLink href={`/products/${item.id}`}>
                         <img
                           alt="Sample"
                           src={
@@ -89,7 +87,7 @@ const CheckOutSuccess = () => {
                     <span>
                       <ListItemText>
                         <NavLink
-                          href={`/products/${item.product_id}`}
+                          href={`/products/${item.id}`}
                           style={{ padding: 0 }}
                         >
                           <Typography style={{ fontSize: 20 }}>

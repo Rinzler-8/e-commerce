@@ -23,37 +23,38 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
 import DeleteDialog from "./DeleteDialog";
-import { actionDeleteProductAPI } from "../../../Redux/Action/ProductAction";
+import { actionDeleteProductAPI, actionFetchProductAPI } from "../../../Redux/Action/ProductAction";
+import { useEffect } from "react";
 
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
+// function descendingComparator(a, b, orderBy) {
+//   if (b[orderBy] < a[orderBy]) {
+//     return -1;
+//   }
+//   if (b[orderBy] > a[orderBy]) {
+//     return 1;
+//   }
+//   return 0;
+// }
 
-function getComparator(order, orderBy) {
-  return order === "desc" ? (a, b) => descendingComparator(a, b, orderBy) : (a, b) => -descendingComparator(a, b, orderBy);
-}
+// function getComparator(order, orderBy) {
+//   return order === "desc" ? (a, b) => descendingComparator(a, b, orderBy) : (a, b) => -descendingComparator(a, b, orderBy);
+// }
 
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
+// function stableSort(array, comparator) {
+//   const stabilizedThis = array.map((el, index) => [el, index]);
+//   stabilizedThis.sort((a, b) => {
+//     const order = comparator(a[0], b[0]);
+//     if (order !== 0) {
+//       return order;
+//     }
+//     return a[1] - b[1];
+//   });
+//   return stabilizedThis.map((el) => el[0]);
+// }
 
 const headCells = [
   {
-    id: "product_id",
+    id: "id",
     numeric: true,
     disablePadding: true,
     label: "ID",
@@ -163,7 +164,7 @@ EnhancedTableHead.propTypes = {
 export default function ProductListAdmin(props) {
   let { onHandleEditBtn, onHandleChangeSize, onHandleChangePage, currentPage, onHandleChangeFieldSort, onHandleChangeDirectionSort } = props;
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("product_id");
+  const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -189,7 +190,7 @@ export default function ProductListAdmin(props) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = listProduct.map((n) => n.product_id);
+      const newSelected = listProduct.map((n) => n.productId);
       setSelected(newSelected);
       return;
     }
@@ -280,10 +281,24 @@ export default function ProductListAdmin(props) {
 
   // Avoid a layout jump when reaching the last page with empty listProduct.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listProduct.length) : 0;
-  const visibleRows = React.useMemo(() => {
-    const sortedRows = stableSort(listProduct, getComparator(order, orderBy));
-    return sortedRows.slice(page * rowsPerPage, page + 1 * rowsPerPage + rowsPerPage);
-  }, [listProduct, order, orderBy, page, rowsPerPage]);
+  // const visibleRows = React.useMemo(() => {
+  //   const sortedRows = stableSort(listProduct, getComparator(order, orderBy));
+  //   return sortedRows.slice(page * rowsPerPage, page + 1 * rowsPerPage + rowsPerPage);
+  // }, [listProduct, order, orderBy, page, rowsPerPage]);
+  let filter = {
+    page: stateRedux.pageFilterReducer.page,
+    size: stateRedux.pageFilterReducer.size,
+    sort: stateRedux.pageFilterReducer.sort,
+    search: stateRedux.pageFilterReducer.search,
+  };
+  useEffect(() => {
+    dispatchRedux(actionFetchProductAPI(filter));
+  }, [
+    stateRedux.pageFilterReducer.page,
+    stateRedux.pageFilterReducer.size,
+    stateRedux.pageFilterReducer.sort,
+    stateRedux.pageFilterReducer.search,
+  ]);
 
   const rowItemStyling = {
     marginLeft: "10px",
@@ -326,8 +341,8 @@ export default function ProductListAdmin(props) {
               rowCount={listProduct.length}
             />
             <TableBody>
-              {visibleRows.map((product, index) => {
-                const isItemSelected = isSelected(product.product_id);
+              {listProduct.map((product, index) => {
+                const isItemSelected = isSelected(product.productId);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
@@ -336,7 +351,7 @@ export default function ProductListAdmin(props) {
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={product.product_id}
+                    key={product.productId}
                     selected={isItemSelected}
                     sx={{ ...rowItemStyling }}
                   >
@@ -344,14 +359,14 @@ export default function ProductListAdmin(props) {
                       <Checkbox
                         color="primary"
                         checked={isItemSelected}
-                        onClick={(event) => handleClick(event, product.product_id)}
+                        onClick={(event) => handleClick(event, product.productId)}
                         inputProps={{
                           "aria-labelledby": labelId,
                         }}
                       />
                     </TableCell>
                     <TableCell component="th" scope="product" align="left" sx={{ paddingLeft: "15px" }}>
-                      {product.product_id}
+                      {product.productId}
                     </TableCell>
                     <TableCell>{product.name}</TableCell>
                     <TableCell>
@@ -374,7 +389,7 @@ export default function ProductListAdmin(props) {
                         <Button color="warning" onClick={(event) => handleUpdateAccountButton(event, product)} className="btn-edit">
                           <EditIcon />
                         </Button>
-                        <Button color="danger" onClick={() => openDeleteDialog(product.product_id)}>
+                        <Button color="danger" onClick={() => openDeleteDialog(product.productId)}>
                           <DeleteIcon />
                         </Button>
                       </div>

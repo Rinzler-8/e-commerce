@@ -16,24 +16,10 @@ function ManageOrderUser(props) {
   let navigate = useNavigate();
   let dispatchRedux = useDispatch();
   // State quản lý đóng mở thông báo.
-  let [showNotificationDelete, setShowNotificationDelete] = useState(false);
-  // Lấy dữ liệu page, size được quản lý từ Redux
-  let filter = {
-    page: stateRedux.pageFilterReducer.page,
-    size: stateRedux.pageFilterReducer.size,
-    sort: stateRedux.pageFilterReducer.sort,
-    search: stateRedux.pageFilterReducer.search,
-  };
-  useEffect(() => {
-    dispatchRedux(actionFetchOrderAPI(filter));
-    // Gọi useEffect để load dữ liệu list Department và Positon
-  }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
 
   // Xử lý xóa Account
   let onHandleDelete = (id) => {
-    console.log("Id của Account cần xóa:", id);
     dispatchRedux(actionDeleteOrderAPI(id));
-    setShowNotificationDelete(true);
   };
   // Xử lý khi nhấn nút Edit
   let onHandleEditBtn = (OrderEdit) => {

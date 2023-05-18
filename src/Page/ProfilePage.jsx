@@ -139,7 +139,9 @@ const ProfilePage = () => {
                       require(`../Assets/img/account-default-img.png`)) &&
                     (previewAvatarUrl
                       ? /data:image\/(png|jpg|jpeg)/.test(previewAvatarUrl)
-                      : account.urlAvatar)
+                      : account.urlAvatar
+                      ? require(`../Assets/img/account-default-img.png`)
+                      : require(`../Assets/img/account-default-img.png`))
                     // require(`../Assets/img/account-default-img.png`))
                   ) {
                     window.localStorage.setItem(

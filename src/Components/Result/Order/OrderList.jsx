@@ -25,8 +25,10 @@ import { actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAct
 import CancelDialog from "./CancelDialog";
 import {
   actionDeleteOrderAPI,
+  actionFetchOrderAPI,
   actionUpdateOrderAPI,
 } from "../../../Redux/Action/OrderAction";
+import { useEffect } from "react";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -64,19 +66,19 @@ const headCells = [
     label: "ID",
   },
   {
-    id: "session_id",
+    id: "sessionId",
     numeric: true,
     disablePadding: false,
     label: "Phiên",
   },
   {
-    id: "first_name",
+    id: "firstName",
     numeric: true,
     disablePadding: false,
     label: "Tên",
   },
   {
-    id: "last_name",
+    id: "lastName",
     numeric: true,
     disablePadding: false,
     label: "Họ",
@@ -169,16 +171,16 @@ function EnhancedTableHead(props) {
               headCell.label === "Hành động"
                 ? "center"
                 : [
-                  "ID",
-                  "Phiên",
-                  "Họ",
-                  "Tên",
-                  "Số điện thoại",
-                  "Địa chỉ nhận hàng",
-                  "Phương thức thanh toán",
-                ].includes(headCell.label)
-                  ? "left"
-                  : "right"
+                    "ID",
+                    "Phiên",
+                    "Họ",
+                    "Tên",
+                    "Số điện thoại",
+                    "Địa chỉ nhận hàng",
+                    "Phương thức thanh toán",
+                  ].includes(headCell.label)
+                ? "left"
+                : "right"
             }
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
@@ -246,7 +248,6 @@ export default function OrderList(props) {
     setOrderBy(property);
     onHandleChangeDirectionSort(newOrder);
     onHandleChangeFieldSort(property);
-    console.log("property", property);
   };
 
   const handleSelectAllClick = (event) => {
@@ -290,10 +291,6 @@ export default function OrderList(props) {
     setPage(0);
   };
 
-  const getDisplayedRowsText = ({ from, to, count }) => {
-    return `Trang ${from} trên tổng số ${count}`;
-  };
-
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const openCancelDialog = (id) => {
@@ -310,7 +307,6 @@ export default function OrderList(props) {
   };
 
   const CustomPaginationBtn = () => {
-
     const pages = [];
     for (let index = 1; index <= currentPage.totalPages; index++) {
       pages.push(
@@ -362,14 +358,20 @@ export default function OrderList(props) {
   // Avoid a layout jump when reaching the last page with empty listOrder.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listOrder.length) : 0;
-  const visibleRows = React.useMemo(() => {
-    // order = currentPage.sort ? currentPage.sort.sortDirection : order;
-    const sortedRows = stableSort(listOrder, getComparator(order, orderBy));
-    return sortedRows.slice(
-      page * rowsPerPage,
-      page + 1 * rowsPerPage + rowsPerPage
-    );
-  }, [listOrder, order, orderBy, page, rowsPerPage]);
+  let filter = {
+    page: stateRedux.pageFilterReducer.page,
+    size: stateRedux.pageFilterReducer.size,
+    sort: stateRedux.pageFilterReducer.sort,
+    search: stateRedux.pageFilterReducer.search,
+  };
+  useEffect(() => {
+    dispatchRedux(actionFetchOrderAPI(filter));
+  }, [
+    stateRedux.pageFilterReducer.page,
+    stateRedux.pageFilterReducer.size,
+    stateRedux.pageFilterReducer.sort,
+    stateRedux.pageFilterReducer.search,
+  ]);
 
   const rowItemStyling = {
     marginLeft: "10px",
@@ -399,7 +401,7 @@ export default function OrderList(props) {
   };
 
   return (
-    <Box sx={{ width: "100%", height: "400px" }}>
+    <Box sx={{ width: "100%", maxHeight: "700px" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
           <Table
@@ -416,7 +418,7 @@ export default function OrderList(props) {
               rowCount={listOrder.length}
             />
             <TableBody>
-              {visibleRows.map((order, index) => {
+              {listOrder.map((order, index) => {
                 const isItemSelected = isSelected(order.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
                 return order.user_id == id || role == "ADMIN" ? (
@@ -447,9 +449,9 @@ export default function OrderList(props) {
                     >
                       {order.id}
                     </TableCell>
-                    <TableCell>{order.session_id}</TableCell>
-                    <TableCell>{order.first_name}</TableCell>
-                    <TableCell>{order.last_name}</TableCell>
+                    <TableCell>{order.sessionId}</TableCell>
+                    <TableCell>{order.firstName}</TableCell>
+                    <TableCell>{order.lastName}</TableCell>
                     <TableCell>{order.mobile}</TableCell>
                     <TableCell>{order.delivery_address}</TableCell>
                     <TableCell>{order.paymentType}</TableCell>
@@ -457,22 +459,22 @@ export default function OrderList(props) {
                       {order.orderStatus == "PENDING"
                         ? "Đang chờ"
                         : order.orderStatus == "CONFIRMED"
-                          ? "Đã xác nhận"
-                          : order.orderStatus == "SHIPPED"
-                            ? "Đã giao cho vận chuyển"
-                            : order.orderStatus == "DELIVERING"
-                              ? "Đang giao hàng"
-                              : order.orderStatus == "DELIVERED"
-                                ? "Đã giao cho khách"
-                                : order.orderStatus == "CANCELED"
-                                  ? "Đã hủy"
-                                  : "Chuyển trạng thái"}
+                        ? "Đã xác nhận"
+                        : order.orderStatus == "SHIPPED"
+                        ? "Đã giao cho vận chuyển"
+                        : order.orderStatus == "DELIVERING"
+                        ? "Đang giao hàng"
+                        : order.orderStatus == "DELIVERED"
+                        ? "Đã giao cho khách"
+                        : order.orderStatus == "CANCELED"
+                        ? "Đã hủy"
+                        : "Chuyển trạng thái"}
                     </TableCell>
                     <TableCell align="right">{order.created_At}</TableCell>
                     <TableCell align="right">{order.note}</TableCell>
                     <TableCell align="center" className="user-opertation-cell">
                       <div className="user-operation">
-                        {localStorage.getItem("role") == "ADMIN" ? (
+                        {localStorage.getItem("role") == "ADMIN" && !["DELIVERED", "CANCELED"].includes(order.orderStatus)? (
                           <Button
                             color="warning"
                             onClick={(event) =>
@@ -484,10 +486,7 @@ export default function OrderList(props) {
                           </Button>
                         ) : null}
                         {localStorage.getItem("role") == "USER" &&
-                          [
-                            "PENDING",
-                            "CONFIRMED"
-                          ].includes(order.orderStatus) ? (
+                        ["PENDING", "CONFIRMED"].includes(order.orderStatus) ? (
                           <Button
                             color="danger"
                             onClick={() => openCancelDialog(order.id)}
@@ -530,9 +529,6 @@ export default function OrderList(props) {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
           labelRowsPerPage="Hiển thị số dòng"
-          labelDisplayedRows={getDisplayedRowsText}
-          // showFirstButton="true"
-          // showLastButton="true"
           ActionsComponent={CustomPaginationBtn}
         />
       </Paper>

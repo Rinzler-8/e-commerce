@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, CardBody, CardTitle, CardSubtitle, CardText, Button, Container, NavLink } from "reactstrap";
+import {
+  Row,
+  Col,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  CardText,
+  Button,
+  Container,
+  NavLink,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
@@ -24,7 +34,10 @@ import * as Yup from "yup";
 import { checkoutAPI } from "../API/CheckoutAPI";
 import "../../src/css/CheckoutPage.css";
 import { actionCheckoutAPI } from "../Redux/Action/CheckoutAction";
-import { actionDeleteAllCartItemsAPI, actionCloseCart } from "../Redux/Action/CartAction";
+import {
+  actionDeleteAllCartItemsAPI,
+  actionCloseCart,
+} from "../Redux/Action/CartAction";
 
 const CheckOutList = () => {
   const [isShown, setIsShown] = useState(false);
@@ -51,8 +64,15 @@ const CheckOutList = () => {
     // InputProps= {{className: "input"}}
     return (
       <div>
-        <TextField {...field} {...propsOther} variant="standard" style={{ marginBottom: "20px" }} />
-        {touched[field.name] && errors[field.name] && <div className="error">{errors[field.name]}</div>}
+        <TextField
+          {...field}
+          {...propsOther}
+          variant="standard"
+          style={{ marginBottom: "20px" }}
+        />
+        {touched[field.name] && errors[field.name] && (
+          <div className="error">{errors[field.name]}</div>
+        )}
       </div>
     );
   }
@@ -94,27 +114,31 @@ const CheckOutList = () => {
           >
             <Formik
               initialValues={{
-                first_name: "",
-                last_name: "",
+                firstName: "",
+                lastName: "",
                 mobile: "",
                 delivery_address: "",
                 note: "",
                 paymentType: "COD",
               }}
               validationSchema={Yup.object({
-                first_name: Yup.string().required("Trường này là bắt buộc!"),
-                last_name: Yup.string().required("Trường này là bắt buộc!"),
+                firstName: Yup.string().required("Trường này là bắt buộc!"),
+                lastName: Yup.string().required("Trường này là bắt buộc!"),
 
-                delivery_address: Yup.string().required("Trường này là bắt buộc!"),
+                delivery_address: Yup.string().required(
+                  "Trường này là bắt buộc!"
+                ),
 
-                mobile: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ").required("Trường này là bắt buộc!"),
+                mobile: Yup.string()
+                  .matches(phoneRegExp, "Số điện thoại không hợp lệ")
+                  .required("Trường này là bắt buộc!"),
               })}
               onSubmit={(values) => {
                 try {
                   const checkout = {
                     user_id: id,
-                    first_name: values.first_name,
-                    last_name: values.last_name,
+                    firstName: values.firstName,
+                    lastName: values.lastName,
                     mobile: values.mobile,
                     delivery_address: values.delivery_address,
                     note: values.note,
@@ -146,7 +170,7 @@ const CheckOutList = () => {
               validateOnChange={true}
               validateOnBlur={true}
             >
-              {({ validateField, validateForm }) => (
+              {({ validateField, validateForm, isValid, dirty }) => (
                 <Container>
                   <Row>
                     <Col style={{ marginTop: 20 }}>
@@ -155,8 +179,21 @@ const CheckOutList = () => {
                           <h2 className="shipping">THÔNG TIN GIAO HÀNG</h2>
                         </span>
 
-                        <Field fullWidth name="first_name" type="text" label="Tên" component={CustomInput} />
-                        <Field fullWidth name="last_name" type="text" placeholder="Nhập Họ" label="Họ:" component={CustomInput} />
+                        <Field
+                          fullWidth
+                          name="firstName"
+                          type="text"
+                          label="Tên"
+                          component={CustomInput}
+                        />
+                        <Field
+                          fullWidth
+                          name="lastName"
+                          type="text"
+                          placeholder="Nhập Họ"
+                          label="Họ:"
+                          component={CustomInput}
+                        />
                         <Field
                           className="input"
                           fullWidth
@@ -187,18 +224,42 @@ const CheckOutList = () => {
 
                         <label className="payment">
                           COD
-                          <Field type="radio" name="paymentType" value="COD" className="payment_radio" />
+                          <Field
+                            type="radio"
+                            name="paymentType"
+                            value="COD"
+                            className="payment_radio"
+                          />
                           <span className="checkmark"></span>
                         </label>
                         <label className="payment">
                           BANKING
-                          <Field type="radio" name="paymentType" value="BANKING" className="payment_radio" />
+                          <Field
+                            type="radio"
+                            name="paymentType"
+                            value="BANKING"
+                            className="payment_radio"
+                          />
                           <span className="checkmark"></span>
                         </label>
                         {/* Submit */}
-                        <Row className="button">
-                          <Button type="submit">Mua hàng</Button>
-                          <Link to={"/login"} className="link" style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}>
+                        <Row className="r">
+                          <Button
+                            type="submit"
+                            className="submit-btn-profile"
+                            disabled={!isValid || !dirty}
+                          >
+                            Mua hàng
+                          </Button>
+                          <Link
+                            to={"/login"}
+                            className="link"
+                            style={{
+                              textAlign: "center",
+                              marginTop: 20,
+                              marginBottom: 20,
+                            }}
+                          >
                             Quay lại
                           </Link>
                         </Row>
@@ -229,19 +290,44 @@ const CheckOutList = () => {
                     <List key={index}>
                       <ListItem>
                         <div>
-                          <NavLink href={`/products/${product.product_id}`}>
-                            <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} style={{ width: 100, height: 100 }} />
+                          <NavLink href={`/products/${product.productId}`}>
+                            <img
+                              alt="Sample"
+                              src={
+                                "http://localhost:8080/api/v1/fileUpload/files/" +
+                                product.imageName
+                              }
+                              style={{ width: 100, height: 100 }}
+                            />
                           </NavLink>
                         </div>
                         <span>
                           <ListItemText>
-                            <NavLink href={`/products/${product.product_id}`} style={{ padding: 0 }}>
-                              <Typography style={{ fontSize: 20 }}>{product.productName}</Typography>
+                            <NavLink
+                              href={`/products/${product.productId}`}
+                              style={{ padding: 0 }}
+                            >
+                              <Typography style={{ fontSize: 20 }}>
+                                {product.productName}
+                              </Typography>
                             </NavLink>
-                            <Typography>{product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</Typography>
-                            <Typography>Số lượng: {product.quantity}</Typography>
+                            <Typography>
+                              {product.price.toLocaleString("vi", {
+                                style: "currency",
+                                currency: "VND",
+                              })}
+                            </Typography>
+                            <Typography>
+                              Số lượng: {product.quantity}
+                            </Typography>
                           </ListItemText>
-                          <ListItemText>Số tiền: {product.total_price.toLocaleString("vi", { style: "currency", currency: "VND" })}</ListItemText>
+                          <ListItemText>
+                            Số tiền:{" "}
+                            {product.total_price.toLocaleString("vi", {
+                              style: "currency",
+                              currency: "VND",
+                            })}
+                          </ListItemText>
                         </span>
                       </ListItem>
                     </List>
@@ -249,7 +335,13 @@ const CheckOutList = () => {
                 )
               )}
               <div className="">
-                <div>Tổng thanh toán: {total.toLocaleString("vi", { style: "currency", currency: "VND" })}</div>
+                <div>
+                  Tổng thanh toán:{" "}
+                  {total.toLocaleString("vi", {
+                    style: "currency",
+                    currency: "VND",
+                  })}
+                </div>
               </div>
             </Container>
           </Paper>

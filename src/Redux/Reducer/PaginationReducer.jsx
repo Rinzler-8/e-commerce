@@ -1,10 +1,21 @@
-import { CHANGE_PAGE, SET_TOTAL_PAGE, CHANGE_SIZE, CHANGE_SORT_DIRECTION, CHANGE_SORT_FIELD, SEARCH, SET_TOTAL_ELEMENTS } from "../Contant/PageActionType";
+import {
+  CHANGE_PAGE,
+  SET_TOTAL_PAGE,
+  CHANGE_SIZE,
+  CHANGE_SORT_DIRECTION,
+  CHANGE_SORT_FIELD,
+  SEARCH,
+  SET_TOTAL_ELEMENTS,
+} from "../Contant/PageActionType";
 
 var initialState = {
   page: 1,
   size: 5,
   totalPages: 0,
-  sort: { sortField: "id", sortDirection: "desc" },
+  sort: {
+    sortField: "id" || "productId",
+    sortDirection: "desc",
+  },
   search: "",
   totalElements: null,
 };
@@ -33,10 +44,14 @@ const pageFilter = (state = initialState, action) => {
         page: 1,
       };
     case CHANGE_SORT_FIELD:
-      return {
-        ...state,
-        sort: { ...state.sort, sortField: action.payload },
-      };
+        const validSortFields = ["id", "productId"];
+        console.log("action", action.payload);
+        if (validSortFields.includes(action.payload)) {
+          return {
+            ...state,
+            sort: { ...state.sort, sortField: action.payload },
+          };
+        }
     case CHANGE_SORT_DIRECTION:
       return {
         ...state,

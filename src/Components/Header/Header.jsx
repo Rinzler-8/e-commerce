@@ -245,12 +245,12 @@ function Header() {
                           <List>
                             <ListItem>
                               <div>
-                                <div onClick={() => navigate(`/products/${cartProduct.product_id}`)}>
+                                <div onClick={() => navigate(`/products/${cartProduct.productId}`)}>
                                   <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + cartProduct.imageName} />
                                 </div>
                               </div>
                               <span>
-                                <ListItemText onClick={() => navigate(`/products/${cartProduct.product_id}`)}>
+                                <ListItemText onClick={() => navigate(`/products/${cartProduct.productId}`)}>
                                   <div style={{ padding: 0 }}>
                                     <div style={{ fontSize: 20 }}>{cartProduct.productName}</div>
                                   </div>
@@ -272,7 +272,7 @@ function Header() {
                                     +
                                   </Button>
                                 </span>
-                                <ListItemText onClick={() => navigate(`/products/${cartProduct.product_id}`)}>
+                                <ListItemText onClick={() => navigate(`/products/${cartProduct.id}`)}>
                                   Số tiền: {cartProduct.total_price.toLocaleString("vi", { style: "currency", currency: "VND" })}
                                 </ListItemText>
                               </span>

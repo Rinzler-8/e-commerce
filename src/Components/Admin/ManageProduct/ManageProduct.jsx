@@ -63,7 +63,7 @@ function ManageProduct(props) {
 
   // Xử lý Update Product
   let onHandleUpdateProduct = (productUpdate) => {
-    let id = stateRedux.formUpdateReducer.productUpdateInfo.product_id;
+    let id = stateRedux.formUpdateReducer.productUpdateInfo.id;
     console.log("Thông tin của Product cần update:", id);
 
     dispatchRedux(actionUpdateProductAPI(id, productUpdate));

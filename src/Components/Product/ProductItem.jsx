@@ -20,7 +20,7 @@ function ProductItem() {
   }
   
   const handleAddToCart = (id, cartItem) => {
-    const prod = listProduct.find((item) => item.product_id === cartItem.product_id);
+    const prod = listProduct.find((item) => item.productId === cartItem.productId);
 
     if (prod.stockQty <= 0) {
       toast.error("Sản phẩm đã hết hàng !", {
@@ -33,7 +33,7 @@ function ProductItem() {
         progress: undefined,
       });
     } else {
-      const existingItem = cart.cartItems.find((item) => item.product_id === cartItem.product_id);
+      const existingItem = cart.cartItems.find((item) => item.productId === cartItem.productId);
       if (existingItem) {
         existingItem.quantity += 1;
         dispatchRedux(actionUpdateCartAPI(id, existingItem));
@@ -42,7 +42,7 @@ function ProductItem() {
           user_id: id,
           quantity: 1,
           price: cartItem.price,
-          product_id: cartItem.product_id,
+          productId: cartItem.productId,
         };
         dispatchRedux(actionAddToCartAPI(newCartItem));
         dispatchRedux(actionUpdateCartQty(1));
@@ -59,7 +59,7 @@ function ProductItem() {
       {listProduct.map((product, index) => (
         <div className="productItem-wrapper" key={index}>
           <NavLink
-            to={`/products/${product.product_id}`}
+            to={`/products/${product.productId}`}
             style={{
               textDecoration: "none",
               display: "flex",

@@ -3,7 +3,13 @@ import ProductItem from "./ProductItem";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchProductAPI } from "../../Redux/Action/ProductAction";
-import { actionAddToCartAPI, actionUpdateCartQty, actionGetCartByUserIdAPI, actionOpenCart, actionUpdateCartAPI } from "../../Redux/Action/CartAction";
+import {
+  actionAddToCartAPI,
+  actionUpdateCartQty,
+  actionGetCartByUserIdAPI,
+  actionOpenCart,
+  actionUpdateCartAPI,
+} from "../../Redux/Action/CartAction";
 import Slider from "react-slick";
 import "./ProductList.css";
 import "./slickProduct.css";
@@ -56,12 +62,13 @@ const ProductList = () => {
   const cart = stateRedux.cartReducer;
   const listProduct = stateRedux.listProductReducer;
   let id = localStorage.getItem("id");
-  if (!id) {
-    localStorage.setItem("id", Math.floor(Math.random() * 3000) + 1);
-  }
-  
+
+
   const handleAddToCart = (id, cartItem) => {
-    const prod = listProduct.find((item) => item.product_id === cartItem.product_id);
+    const prod = listProduct.find(
+      (item) => item.productId === cartItem.productId
+    );
+    console.log("prod", prod)
     if (prod.stockQty <= 0) {
       toast.error("Sản phẩm đã hết hàng !", {
         position: "top-right",
@@ -73,7 +80,9 @@ const ProductList = () => {
         progress: undefined,
       });
     } else {
-      const existingItem = cart.cartItems.find((item) => item.product_id === cartItem.product_id);
+      const existingItem = cart.cartItems.find(
+        (item) => item.productId === cartItem.productId
+      );
       if (existingItem) {
         existingItem.quantity += 1;
         dispatchRedux(actionUpdateCartAPI(id, existingItem));
@@ -82,7 +91,7 @@ const ProductList = () => {
           user_id: id,
           quantity: 1,
           price: cartItem.price,
-          product_id: cartItem.product_id,
+          productId: cartItem.productId,
         };
         dispatchRedux(actionAddToCartAPI(newCartItem));
         dispatchRedux(actionUpdateCartQty(1));
@@ -93,8 +102,11 @@ const ProductList = () => {
 
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI());
-    dispatchRedux(actionGetCartByUserIdAPI(id));
-  }, [cartStateRedux.quantity, cart.cartItems.length, id]);
+    if (id && id !== "") {
+      dispatchRedux(actionGetCartByUserIdAPI(id));
+    }
+  }, [id, cartStateRedux.quantity, cart.cartItems.length]);
+
 
   const settings = {
     // centerMode: true;
@@ -116,7 +128,7 @@ const ProductList = () => {
           {listProduct.map((product, index) => (
             <div className="productItem-container" key={index}>
               <NavLink
-                to={`/products/${product.product_id}`}
+                to={`/products/${product.id}`}
                 style={{
                   textDecoration: "none",
                   display: "flex",
@@ -127,20 +139,57 @@ const ProductList = () => {
                   width: "400px",
                 }}
               >
-                <img alt="Sample" className="productItem-img" src={"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} />
+                <img
+                  alt="Sample"
+                  className="productItem-img"
+                  src={
+                    "http://localhost:8080/api/v1/fileUpload/files/" +
+                    product.imageName
+                  }
+                />
 
                 <div className="productItem-information">
-                  <h5 style={{ color: "black", fontFamily: "Lucida Sans, sans-serif", height: "50px" }}>{product.name}</h5>
-                  <p className="mb-2 text-muted" tag="h6" style={{ height: "50px" }}>
+                  <h5
+                    style={{
+                      color: "black",
+                      fontFamily: "Lucida Sans, sans-serif",
+                      height: "50px",
+                    }}
+                  >
+                    {product.name}
+                  </h5>
+                  <p
+                    className="mb-2 text-muted"
+                    tag="h6"
+                    style={{ height: "50px" }}
+                  >
                     {product.info}
                   </p>
-                  <p style={{ color: "black", fontFamily: "Univers LT Std, sans-serif" }}>
-                    {product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}
+                  <p
+                    style={{
+                      color: "black",
+                      fontFamily: "Univers LT Std, sans-serif",
+                    }}
+                  >
+                    {product.price.toLocaleString("vi", {
+                      style: "currency",
+                      currency: "VND",
+                    })}
                   </p>
-                  <p style={{ color: "black", fontFamily: "Univers LT Std, sans-serif" }}>(Giá tham khảo)</p>
+                  <p
+                    style={{
+                      color: "black",
+                      fontFamily: "Univers LT Std, sans-serif",
+                    }}
+                  >
+                    (Giá tham khảo)
+                  </p>
                 </div>
               </NavLink>
-              <button className="add-to-cart-btn" onClick={() => handleAddToCart(id, product)}>
+              <button
+                className="add-to-cart-btn"
+                onClick={() => handleAddToCart(id, product)}
+              >
                 Thêm vào giỏ hàng
               </button>
             </div>

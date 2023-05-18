@@ -67,7 +67,7 @@ const CartPage = () => {
               {cart.cartItems.map((product, index) => (
                 <TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell>
-                    <NavLink href={`/products/${product.product_id}`}>
+                    <NavLink href={`/products/${product.productId}`}>
                       <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} style={{ width: 150, height: 200 }} />
                     </NavLink>
                     <div>{product.productName}</div>

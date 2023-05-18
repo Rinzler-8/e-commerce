@@ -48,7 +48,6 @@ const ForgotPassPage = () => {
       onSubmit={async (values) => {
         try {
           await forgotPassAPI(values.email);
-          await forgotPassAPI(values.email);
           toast.info("Hãy kiểm tra email.", {
             autoClose: 3000,
             hideProgressBar: false,
@@ -73,12 +72,13 @@ const ForgotPassPage = () => {
       validateOnBlur={true}
     >
       {({ validateField, validateForm }) => (
-        <Container style={{ height: "65vh", alignItems: "center" }}>
-          <Row>
+        <Container style={{ display: "flex", alignContent: "center" }}>
+          <Row style={{alignContent: "center"}}>
             <Col
               style={{
                 maxWidth: "400px",
                 marginBottom: 100,
+                alignContent: "center",
                 padding: 50,
                 marginTop: 150,
                 boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",

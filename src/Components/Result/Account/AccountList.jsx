@@ -22,36 +22,11 @@ import { Button } from "reactstrap";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteDialog from "./DeleteDialog";
-import { actionDeleteAccountAPI } from "../../../Redux/Action/AccountAction";
+import {
+  actionDeleteAccountAPI,
+  actionFetchAccountAPI,
+} from "../../../Redux/Action/AccountAction";
 import { useEffect } from "react";
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
 
 const headCells = [
   {
@@ -217,7 +192,7 @@ export default function AccountList(props) {
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     const newOrder = isAsc ? "desc" : "asc";
-    // setOrder(newOrder);
+    setOrder(newOrder);
     setOrderBy(property);
     onHandleChangeDirectionSort(newOrder);
     onHandleChangeFieldSort(property);
@@ -255,17 +230,12 @@ export default function AccountList(props) {
 
   const handleChangePage = (newPage) => {
     onHandleChangePage(newPage);
-    // setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
     onHandleChangeSize(event.target.value);
     setRowsPerPage(event.target.value);
     setPage(0);
-  };
-
-  const getDisplayedRowsText = ({ from, to, count }) => {
-    return `Trang ${from} trên tổng số ${count}`;
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -281,7 +251,6 @@ export default function AccountList(props) {
   };
 
   const CustomPaginationBtn = () => {
-
     const pages = [];
     for (let index = 1; index <= currentPage.totalPages; index++) {
       pages.push(
@@ -333,15 +302,20 @@ export default function AccountList(props) {
   // Avoid a layout jump when reaching the last page with empty listAccount.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listAccount.length) : 0;
-  const visibleRows = React.useMemo(() => {
-    order = currentPage.sort ? currentPage.sort.sortDirection : order;
-    const sortedRows = stableSort(listAccount, getComparator(order, orderBy));
-    return sortedRows.slice(
-      page * rowsPerPage,
-      (page + 1) * rowsPerPage + rowsPerPage
-      // page * rowsPerPage + rowsPerPage
-    );
-  }, [listAccount, order, orderBy, page, rowsPerPage]);
+  let filter = {
+    page: stateRedux.pageFilterReducer.page,
+    size: stateRedux.pageFilterReducer.size,
+    sort: stateRedux.pageFilterReducer.sort,
+    search: stateRedux.pageFilterReducer.search,
+  };
+  useEffect(() => {
+    dispatchRedux(actionFetchAccountAPI(filter));
+  }, [
+    stateRedux.pageFilterReducer.page,
+    stateRedux.pageFilterReducer.size,
+    stateRedux.pageFilterReducer.sort,
+    stateRedux.pageFilterReducer.search,
+  ]);
 
   const rowItemStyling = {
     marginLeft: "10px",
@@ -371,131 +345,136 @@ export default function AccountList(props) {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size="large"
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={listAccount.length}
-            />
-            <TableBody>
-              {visibleRows.map((account, index) => {
-                const isItemSelected = isSelected(account.id);
-                const labelId = `enhanced-table-checkbox-${index}`;
-
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={account.id}
-                    selected={isItemSelected}
-                    sx={{ ...rowItemStyling }}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        color="primary"
-                        checked={isItemSelected}
-                        onClick={(event) => handleClick(event, account.id)}
-                        inputProps={{
-                          "aria-labelledby": labelId,
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                      component="th"
-                      scope="account"
-                      align="left"
-                      sx={{ paddingLeft: "15px" }}
-                    >
-                      {account.id}
-                    </TableCell>
-                    <TableCell>{account.username}</TableCell>
-                    <TableCell>{account.email}</TableCell>
-                    <TableCell>{account.mobile}</TableCell>
-                    <TableCell>{account.address}</TableCell>
-                    <TableCell align="right">
-                      {account.role.length > 0
-                        ? account.role.map((role, roleindex) => {
-                            return (
-                              <div key={roleindex}>
-                                <div>{role.name}</div>
-                              </div>
-                            );
-                          })
-                        : "USER"}
-                    </TableCell>
-                    <TableCell align="right">
-                      {account.status == "ACTIVE"
-                        ? "Hoạt động"
-                        : "Không hoạt động"}
-                    </TableCell>
-                    <TableCell align="center" className="user-opertation-cell">
-                      <div className="user-operation">
-                        <Button
-                          color="warning"
-                          onClick={(event) =>
-                            handleUpdateAccountButton(event, account)
-                          }
-                          className="btn-edit"
-                        >
-                          <EditIcon />
-                        </Button>
-                        <Button
-                          color="danger"
-                          onClick={() => openDeleteDialog(account.id)}
-                        >
-                          <DeleteIcon />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: 53 * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-              <DeleteDialog
-                toggle={openDeleteDialog}
-                isDialogOpen={isDialogOpen}
-                onHandleDelete={onHandleDelete}
-                selectedAccountId={selectedAccountId}
+    // console.log("order", order),
+    (
+      <Box sx={{ width: "100%" }}>
+        <Paper sx={{ width: "100%", mb: 2 }}>
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size="large"
+            >
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={listAccount.length}
               />
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          sx={{ ...tablePaginationStyle }}
-          count={listAccount.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          labelRowsPerPage="Hiển thị số dòng"
-          labelDisplayedRows={getDisplayedRowsText}
-          // showFirstButton="true"
-          // showLastButton="true"
-          ActionsComponent={CustomPaginationBtn}
-        />
-      </Paper>
-    </Box>
+              <TableBody>
+                {listAccount.map((account, index) => {
+                  const isItemSelected = isSelected(account.id);
+                  const labelId = `enhanced-table-checkbox-${index}`;
+
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={account.id}
+                      selected={isItemSelected}
+                      sx={{ ...rowItemStyling }}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          color="primary"
+                          checked={isItemSelected}
+                          onClick={(event) => handleClick(event, account.id)}
+                          inputProps={{
+                            "aria-labelledby": labelId,
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        scope="account"
+                        align="left"
+                        sx={{ paddingLeft: "15px" }}
+                      >
+                        {account.id}
+                      </TableCell>
+                      <TableCell>{account.username}</TableCell>
+                      <TableCell>{account.email}</TableCell>
+                      <TableCell>{account.mobile}</TableCell>
+                      <TableCell>{account.address}</TableCell>
+                      <TableCell align="right">
+                        {account.role.length > 0
+                          ? account.role.map((role, roleindex) => {
+                              return (
+                                <div key={roleindex}>
+                                  <div>{role.name}</div>
+                                </div>
+                              );
+                            })
+                          : "USER"}
+                      </TableCell>
+                      <TableCell align="right">
+                        {account.status == "ACTIVE"
+                          ? "Hoạt động"
+                          : "Không hoạt động"}
+                      </TableCell>
+                      <TableCell
+                        align="center"
+                        className="user-opertation-cell"
+                      >
+                        <div className="user-operation">
+                          <Button
+                            color="warning"
+                            onClick={(event) =>
+                              handleUpdateAccountButton(event, account)
+                            }
+                            className="btn-edit"
+                          >
+                            <EditIcon />
+                          </Button>
+                          <Button
+                            color="danger"
+                            onClick={() => openDeleteDialog(account.id)}
+                          >
+                            <DeleteIcon />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: 53 * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+                <DeleteDialog
+                  toggle={openDeleteDialog}
+                  isDialogOpen={isDialogOpen}
+                  onHandleDelete={onHandleDelete}
+                  selectedAccountId={selectedAccountId}
+                />
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            sx={{ ...tablePaginationStyle }}
+            count={listAccount.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            labelRowsPerPage="Hiển thị số dòng"
+            // showFirstButton="true"
+            // showLastButton="true"
+            ActionsComponent={CustomPaginationBtn}
+          />
+        </Paper>
+      </Box>
+    )
   );
 }

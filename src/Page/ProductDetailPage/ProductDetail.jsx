@@ -31,7 +31,7 @@ function ProductDetail(props) {
   }
   
   const handleAddToCart = (id, cartItem) => {
-    const existingItem = cart.cartItems.find((item) => item.product_id === cartItem.product_id);
+    const existingItem = cart.cartItems.find((item) => item.productId === cartItem.productId);
     if (existingItem) {
       existingItem.quantity += 1;
       dispatchRedux(actionUpdateCartAPI(id, existingItem));
@@ -39,7 +39,7 @@ function ProductDetail(props) {
       const newCartItem = {
         quantity: 1,
         price: cartItem.price,
-        product_id: cartItem.product_id,
+        productId: cartItem.productId,
       };
       dispatchRedux(actionAddToCartAPI(newCartItem));
       dispatchRedux(actionUpdateCartQty(1));
