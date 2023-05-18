@@ -4,7 +4,7 @@ var initialState = {
   page: 1,
   size: 5,
   totalPages: 0,
-  sort: { sortField: "id", sortDirection: "asc" },
+  sort: { sortField: "id", sortDirection: "desc" },
   search: "",
   totalElements: null,
 };

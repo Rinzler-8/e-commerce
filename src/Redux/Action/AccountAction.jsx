@@ -66,11 +66,11 @@ export const actionDeleteAccountAPI = (id) => {
   // console.log("deleteProductById: ", id);
   return (dispatch) => {
     return deleteAccountAPI(id).then((response) => {
-      console.log("response sau khi xóa Account: ", response);
+      // console.log("response sau khi xóa Account: ", response);
       dispatch(actionFetchAccountAPI());
       // dispatch(actionChangePage(1)); // Chuyển về trang 1 sau khi thêm mới thành công
       dispatch(actionChangeSortField("id")); // Thay đổi trường sort về id
-      // dispatch(actionChangeSortDirection("asc")); // Sort theo chiều giảm dần
+      dispatch(actionChangeSortDirection("desc")); // Sort theo chiều giảm dần
     });
   };
 };
@@ -81,9 +81,11 @@ export const actionUpdateAccountAPI = (id, accountUpdate) => {
   // console.log("id: ", id);
   return (dispatch) => {
     return updateAccountAPI(id, accountUpdate).then((response) => {
-      console.log("response sau khi Update Account: ", response);
+      // console.log("response sau khi Update Account: ", response);
       dispatch(actionFetchAccountAPI()); // Load lại dữ liệu API
       dispatch(actionToggleUpdateFormRedux()); // Đóng FormUpdate
+      dispatch(actionChangeSortField("id")); // Thay đổi trường sort về id
+      dispatch(actionChangeSortDirection("desc")); // Sort theo chiều giảm dần
     });
   };
 };

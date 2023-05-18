@@ -20,15 +20,6 @@ const ProfilePage = () => {
   const dispatchRedux = useDispatch();
   const account = stateRedux.singleAccountReducer;
   const id = localStorage.getItem("id");
-  window.localStorage.setItem(
-    "initAcc",
-    JSON.parse(
-      JSON.stringify(
-        JSON.parse(localStorage.getItem("persist:root") || "{}")
-          .singleAccountReducer
-      )
-    )
-  );
   const localAcc = JSON.parse(localStorage.getItem("initAcc") || "{}");
   const [previewAvatarUrl, setPreviewAvatarUrl] = useState();
   const [previewAvatarFile, setPreviewAvatarFile] = useState();
@@ -40,6 +31,18 @@ const ProfilePage = () => {
       dispatchRedux(actionFetchSingleAccountAPI(id));
     }
   }, []);
+
+  if (!localStorage.getItem("initAcc")) {
+    window.localStorage.setItem(
+      "initAcc",
+      JSON.parse(
+        JSON.stringify(
+          JSON.parse(localStorage.getItem("persist:root") || "{}")
+            .singleAccountReducer
+        )
+      )
+    );
+  }
 
   function CustomInput(props) {
     let {
@@ -81,7 +84,6 @@ const ProfilePage = () => {
   const previewAvaName = previewAvatarFile
     ? previewAvatarFile.name
     : localAcc.urlAvatar;
-  // console.log("previewAvaName", previewAvaName == localAcc.urlAvatar);
 
   return (
     <Row className="profile-container">
@@ -113,7 +115,9 @@ const ProfilePage = () => {
             })}
             onSubmit={async (values) => {
               try {
-                nameImage = await uploadImgAPI(previewAvatarFile);
+                if (previewAvatarFile) {
+                  nameImage = await uploadImgAPI(previewAvatarFile);
+                }
                 const update = {
                   firstName: values.firstName
                     ? values.firstName
@@ -126,14 +130,18 @@ const ProfilePage = () => {
                   address: values.address ? values.address : account.address,
                   urlAvatar: nameImage ? nameImage : account.urlAvatar,
                 };
+                console.log("previewAvatarUrl", previewAvatarUrl);
                 await updateAccountAPI(id, update).then((response) => {
                   if (
                     response !== null &&
                     response !== undefined &&
                     (nameImage ||
-                      require(`../Assets/img/account-default-img.png`))
+                      require(`../Assets/img/account-default-img.png`)) &&
+                    (previewAvatarUrl
+                      ? /data:image\/(png|jpg|jpeg)/.test(previewAvatarUrl)
+                      : account.urlAvatar)
+                    // require(`../Assets/img/account-default-img.png`))
                   ) {
-                    // console.log("response: ", response);
                     window.localStorage.setItem(
                       "initAcc",
                       JSON.stringify(update)
@@ -147,7 +155,7 @@ const ProfilePage = () => {
                       draggable: true,
                       progress: undefined,
                     });
-                    // setTimeout(() => window.location.reload(), 1000);
+                    setTimeout(() => window.location.reload(), 1000);
                   } else {
                     toast.error("Đã có lỗi xảy ra! Vui lòng thử lại.", {
                       position: "top-right",
@@ -175,20 +183,13 @@ const ProfilePage = () => {
             validateOnChange={true}
             validateOnBlur={true}
           >
-            {({
-              values,
-              dirty,
-              isValid,
-              initialValues,
-              isSubmitting,
-            }) => (
+            {({ values, dirty, isValid, initialValues, isSubmitting }) => (
               <Container>
                 <Row>
                   <Col style={{ marginTop: 20 }}>
                     <Form>
                       <span>
-                        <Avatar style={{ backgroundColor: "blue" }}>1</Avatar>
-                        <h3 className="infoTitle">THÔNG TIN TÀI KHOẢN</h3>
+                        <h2 className="infoTitle">THÔNG TIN TÀI KHOẢN</h2>
                       </span>
                       <Row>
                         <Col md={6} className="mb-3">
@@ -196,7 +197,7 @@ const ProfilePage = () => {
                             fullWidth
                             name="firstName"
                             type="text"
-                            defaultValue={account.firstName}
+                            defaultValue={localAcc.firstName}
                             placeholder="Nhập tên"
                             label="Tên: "
                             component={CustomInput}
@@ -207,7 +208,7 @@ const ProfilePage = () => {
                             fullWidth
                             name="lastName"
                             type="text"
-                            defaultValue={account.lastName}
+                            defaultValue={localAcc.lastName}
                             placeholder="Nhập họ"
                             label="Họ:"
                             component={CustomInput}
@@ -221,7 +222,7 @@ const ProfilePage = () => {
                             fullWidth
                             name="mobile"
                             type="text"
-                            defaultValue={account.mobile}
+                            defaultValue={localAcc.mobile}
                             label="Số điện thoại:"
                             component={CustomInput}
                           />
@@ -232,7 +233,7 @@ const ProfilePage = () => {
                             className="input"
                             name="email"
                             type="email"
-                            defaultValue={account.email}
+                            defaultValue={localAcc.email}
                             label="Email:"
                             component={CustomInput}
                           />
@@ -243,7 +244,7 @@ const ProfilePage = () => {
                         fullWidth
                         name="address"
                         type="text"
-                        defaultValue={account.address}
+                        defaultValue={localAcc.address}
                         label="Địa chỉ:"
                         component={CustomInput}
                       />

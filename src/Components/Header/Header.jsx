@@ -101,7 +101,8 @@ function Header() {
 
   const logout = () => {
     localStorage.clear();
-    window.location.reload();
+    // window.location.reload();
+    navigate(`/`)
   };
 
   const changeNavBack = () => {

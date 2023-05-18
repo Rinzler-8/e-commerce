@@ -217,7 +217,7 @@ export default function AccountList(props) {
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     const newOrder = isAsc ? "desc" : "asc";
-    setOrder(newOrder);
+    // setOrder(newOrder);
     setOrderBy(property);
     onHandleChangeDirectionSort(newOrder);
     onHandleChangeFieldSort(property);
@@ -255,7 +255,7 @@ export default function AccountList(props) {
 
   const handleChangePage = (newPage) => {
     onHandleChangePage(newPage);
-    setPage(newPage);
+    // setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -281,9 +281,6 @@ export default function AccountList(props) {
   };
 
   const CustomPaginationBtn = () => {
-    const handleChangePage = (page) => {
-      onHandleChangePage(page);
-    };
 
     const pages = [];
     for (let index = 1; index <= currentPage.totalPages; index++) {
@@ -341,7 +338,8 @@ export default function AccountList(props) {
     const sortedRows = stableSort(listAccount, getComparator(order, orderBy));
     return sortedRows.slice(
       page * rowsPerPage,
-      page + 1 * rowsPerPage + rowsPerPage
+      (page + 1) * rowsPerPage + rowsPerPage
+      // page * rowsPerPage + rowsPerPage
     );
   }, [listAccount, order, orderBy, page, rowsPerPage]);
 

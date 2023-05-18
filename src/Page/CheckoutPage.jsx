@@ -149,11 +149,10 @@ const CheckOutList = () => {
               {({ validateField, validateForm }) => (
                 <Container>
                   <Row>
-                    <Col style={{ marginTop: 60 }}>
+                    <Col style={{ marginTop: 20 }}>
                       <Form>
                         <span>
-                          <Avatar style={{ backgroundColor: "blue" }}>1</Avatar>
-                          <h3 className="shipping">THÔNG TIN GIAO HÀNG</h3>
+                          <h2 className="shipping">THÔNG TIN GIAO HÀNG</h2>
                         </span>
 
                         <Field fullWidth name="first_name" type="text" label="Tên" component={CustomInput} />
@@ -239,10 +238,10 @@ const CheckOutList = () => {
                             <NavLink href={`/products/${product.product_id}`} style={{ padding: 0 }}>
                               <Typography style={{ fontSize: 20 }}>{product.productName}</Typography>
                             </NavLink>
-                            <Typography>{product.price}đ</Typography>
+                            <Typography>{product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</Typography>
                             <Typography>Số lượng: {product.quantity}</Typography>
                           </ListItemText>
-                          <ListItemText>Số tiền: {product.total_price}đ</ListItemText>
+                          <ListItemText>Số tiền: {product.total_price.toLocaleString("vi", { style: "currency", currency: "VND" })}</ListItemText>
                         </span>
                       </ListItem>
                     </List>
@@ -250,7 +249,7 @@ const CheckOutList = () => {
                 )
               )}
               <div className="">
-                <div>Estimated total: {total}đ</div>
+                <div>Tổng thanh toán: {total.toLocaleString("vi", { style: "currency", currency: "VND" })}</div>
               </div>
             </Container>
           </Paper>

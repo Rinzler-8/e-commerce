@@ -27,11 +27,6 @@ function ModalUpdateOrder(props) {
         <ModalBody>
           <UpdateInputOrderForm onHandleUpdateOrder={onHandleUpdateOrder} />
         </ModalBody>
-        <ModalFooter>
-          <Button color="danger" onClick={toggle}>
-            Đóng
-          </Button>
-        </ModalFooter>
       </Modal>
     </Container>
   );

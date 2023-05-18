@@ -20,10 +20,14 @@ function UpdateInputProductForm(props) {
   let listOrderStatus = useSelector((state) => state.orderStatusReducer);
 
   // Lấy thông tin AccountUpdateInfo từ Redux để fill dữ liệu
-  const orderUpdateInfo = useSelector((state) => state.formUpdateReducer.orderUpdateInfo);
+  const orderUpdateInfo = useSelector(
+    (state) => state.formUpdateReducer.orderUpdateInfo
+  );
 
   // Tìm depid và posid để fill vào thẻ select
-  let orderStatusUpdate = listOrderStatus.find((status) => status === orderUpdateInfo.orderStatus);
+  let orderStatusUpdate = listOrderStatus.find(
+    (status) => status === orderUpdateInfo.orderStatus
+  );
 
   const statusMapping = {
     PENDING: ["PENDING", "CONFIRMED", "CANCELED"],
@@ -31,7 +35,7 @@ function UpdateInputProductForm(props) {
     SHIPPED: ["SHIPPED", "DELIVERING"],
     DELIVERING: ["DELIVERING", "DELIVERED"],
   };
-  
+
   listOrderStatus = statusMapping[orderUpdateInfo.orderStatus] || [];
 
   return (
@@ -63,25 +67,28 @@ function UpdateInputProductForm(props) {
                   offset: -3,
                   size: 8,
                 }}
+                style={{ width: "100%" }}
               >
                 <Form>
                   {/* Status */}
-                  <Field name="Status" placeholder="Select a Status" label="Trạng thái đơn hàng:" listItem={listOrderStatus} component={SelectOrderStatus}/>
+                  <Field
+                    name="Status"
+                    placeholder="Select a Status"
+                    label="Trạng thái đơn hàng:"
+                    listItem={listOrderStatus}
+                    component={SelectOrderStatus}
+                  />
                   <br />
                   <br />
                   {/* submit */}
-                  <Row>
-                    <Col>
-                      <Button color="success" type="submit">
-                        Cập nhật
-                      </Button>
-                    </Col>
-                    <Col>
-                      <Button color="primary" type="reset">
-                        Đặt lại
-                      </Button>
-                    </Col>
-                  </Row>
+                  <div className="modal-footer-btn-area">
+                    <Button type="reset" className="btn-common btn-reset">
+                      Đặt lại
+                    </Button>
+                    <Button type="submit" className="btn-common btn-save">
+                      Lưu
+                    </Button>
+                  </div>
                 </Form>
               </Col>
             </Row>
