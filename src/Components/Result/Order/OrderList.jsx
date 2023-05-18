@@ -29,6 +29,7 @@ import {
   actionUpdateOrderAPI,
 } from "../../../Redux/Action/OrderAction";
 import { useEffect } from "react";
+import { actionGetOrderItemsAPI } from "../../../Redux/Action/CheckoutAction";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -235,6 +236,10 @@ export default function OrderList(props) {
   const listOrder = stateRedux.listOrderReducer;
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [selectedOrderId, setSelectedOrderId] = React.useState(null);
+  const orderState = stateRedux.checkoutReducer;
+  const orderItemsState = stateRedux.orderItemsReducer;
+  const sessionId = orderState.sessionId;
+
   let handleUpdateStatusButton = (event, order) => {
     // dispatchRedux(actionShowUpdateForm());
     event.stopPropagation();
@@ -365,6 +370,9 @@ export default function OrderList(props) {
     search: stateRedux.pageFilterReducer.search,
   };
   useEffect(() => {
+    if (sessionId && sessionId !== "") {
+      dispatchRedux(actionGetOrderItemsAPI(sessionId));
+    }
     dispatchRedux(actionFetchOrderAPI(filter));
   }, [
     stateRedux.pageFilterReducer.page,

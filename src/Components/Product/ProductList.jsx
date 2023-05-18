@@ -63,12 +63,10 @@ const ProductList = () => {
   const listProduct = stateRedux.listProductReducer;
   let id = localStorage.getItem("id");
 
-
   const handleAddToCart = (id, cartItem) => {
     const prod = listProduct.find(
       (item) => item.productId === cartItem.productId
     );
-    console.log("prod", prod)
     if (prod.stockQty <= 0) {
       toast.error("Sản phẩm đã hết hàng !", {
         position: "top-right",
@@ -83,6 +81,7 @@ const ProductList = () => {
       const existingItem = cart.cartItems.find(
         (item) => item.productId === cartItem.productId
       );
+      console.log("cart.cartItems", cart.cartItems);
       if (existingItem) {
         existingItem.quantity += 1;
         dispatchRedux(actionUpdateCartAPI(id, existingItem));
@@ -93,6 +92,8 @@ const ProductList = () => {
           price: cartItem.price,
           productId: cartItem.productId,
         };
+        console.log("newCartItem", newCartItem.productId);
+
         dispatchRedux(actionAddToCartAPI(newCartItem));
         dispatchRedux(actionUpdateCartQty(1));
       }
@@ -102,11 +103,8 @@ const ProductList = () => {
 
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI());
-    if (id && id !== "") {
-      dispatchRedux(actionGetCartByUserIdAPI(id));
-    }
+    dispatchRedux(actionGetCartByUserIdAPI(id));
   }, [id, cartStateRedux.quantity, cart.cartItems.length]);
-
 
   const settings = {
     // centerMode: true;

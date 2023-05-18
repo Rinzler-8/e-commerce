@@ -13,7 +13,7 @@ var initialState = {
   size: 5,
   totalPages: 0,
   sort: {
-    sortField: "id" || "productId",
+    sortField: "id",
     sortDirection: "desc",
   },
   search: "",
@@ -44,14 +44,10 @@ const pageFilter = (state = initialState, action) => {
         page: 1,
       };
     case CHANGE_SORT_FIELD:
-        const validSortFields = ["id", "productId"];
-        console.log("action", action.payload);
-        if (validSortFields.includes(action.payload)) {
-          return {
-            ...state,
-            sort: { ...state.sort, sortField: action.payload },
-          };
-        }
+        return {
+          ...state,
+          sort: { ...state.sort, sortField: action.payload },
+        };
     case CHANGE_SORT_DIRECTION:
       return {
         ...state,

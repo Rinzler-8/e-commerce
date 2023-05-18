@@ -49,6 +49,7 @@
   margin: 30px 0;
   font-size: 20px;
   cursor: pointer;
+  transition: 0.4s;
 }
 
 .menu-item span {

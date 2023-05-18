@@ -15,7 +15,7 @@ function RegisterComponent(props) {
   const [isShown, setIsShown] = useState(false);
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
-  const passRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+  const passRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,50})");
   let navigate = useNavigate();
   // Quản lý trạng thái ẩn hiện Password
   const togglePassword = () => {
@@ -92,7 +92,7 @@ function RegisterComponent(props) {
         validateOnChange={true}
         validateOnBlur={true}
       >
-        {({ validateField, validateForm }) => (
+        {({ validateField, validateForm, isValid }) => (
           <Container className = "registerContainer">
             <Row>
               <Col className="registerForm">
@@ -133,7 +133,7 @@ function RegisterComponent(props) {
                     <Field type="checkbox" name="toggle" checked={isShown} onChange={togglePassword} />
                     {`Hiện Mật Khẩu`}
                   </label>
-                  <ul className="passNote"> Mật khẩu phải chứa ít nhất 8 ký tự, trong đó:
+                  <ul className="passNote"> Mật khẩu phải chứa ít nhất 6-50 ký tự, trong đó:
                     <li>1 chữ cái thường</li>
                     <li>1 chữ cái in hoa</li>
                     <li>1 chữ số</li>
@@ -142,7 +142,7 @@ function RegisterComponent(props) {
 
                   {/* Submit */}
                   <Row className="regButton">
-                    <Button type="submit" className="register">
+                    <Button type="submit" className="register" disabled= {!isValid}>
                       Đăng ký
                     </Button>
                   </Row>

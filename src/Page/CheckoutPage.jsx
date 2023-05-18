@@ -220,7 +220,7 @@ const CheckOutList = () => {
                           label="Ghi chú:"
                           component={CustomTextArea}
                         />
-                        <div>Payment Type</div>
+                        <div>Phương thức thanh toán</div>
 
                         <label className="payment">
                           COD

@@ -11,6 +11,9 @@ import { resetPassAPI } from "../API/ResetPassAPI";
 
 const ResetPassPage = () => {
   const [isShown, setIsShown] = useState(false);
+  const passRegExp = new RegExp(
+    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,50})"
+  );
   let navigate = useNavigate();
   let token = useParams();
   const togglePassword = () => {
@@ -46,6 +49,7 @@ const ResetPassPage = () => {
       }}
       validationSchema={Yup.object({
         password: Yup.string()
+          .matches(passRegExp, "Mật khẩu yếu, vui lòng thử lại!")
           .required("Trường này là bắt buộc!"),
         confirmPassword: Yup.string()
           .required("Trường này là bắt buộc!")
