@@ -81,10 +81,11 @@ const ProductList = () => {
       const existingItem = cart.cartItems.find(
         (item) => item.productId === cartItem.productId
       );
-      console.log("cart.cartItems", cart.cartItems);
+      console.log("existingItem", existingItem);
       if (existingItem) {
         existingItem.quantity += 1;
         dispatchRedux(actionUpdateCartAPI(id, existingItem));
+        dispatchRedux(actionGetCartByUserIdAPI(id));
       } else {
         const newCartItem = {
           user_id: id,
@@ -92,7 +93,6 @@ const ProductList = () => {
           price: cartItem.price,
           productId: cartItem.productId,
         };
-        console.log("newCartItem", newCartItem.productId);
 
         dispatchRedux(actionAddToCartAPI(newCartItem));
         dispatchRedux(actionUpdateCartQty(1));

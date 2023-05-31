@@ -70,8 +70,8 @@ const ProfilePage = () => {
 
   const onChangeAvatarInput = (e) => {
     // Assuming only image
-    var file = e.target.files[0];
-    var reader = new FileReader();
+    const file = e.target.files[0];
+    const reader = new FileReader();
     reader.readAsDataURL(file);
 
     reader.onloadend = (e) => {
@@ -130,7 +130,6 @@ const ProfilePage = () => {
                   address: values.address ? values.address : account.address,
                   urlAvatar: nameImage ? nameImage : account.urlAvatar,
                 };
-                console.log("previewAvatarUrl", previewAvatarUrl);
                 await updateAccountAPI(id, update).then((response) => {
                   if (
                     response !== null &&

@@ -19,18 +19,19 @@ function LoginPage(props) {
     checkLoginAPI(accountLogin)
       .then((response) => {
         if (response !== null && response !== undefined) {
-          console.log("response: ", response);
           let accountLoginSaveToStorage = {
             id: response.id,
             username: response.username,
             email: response.email,
             role: response.roles,
             status: response.status,
+            token: response.token,
+            refreshToken: response.refreshToken,
           };
           // Lưu thông tin Account vào LocalStorage để sử dụng về sau
           storage.setUserInfo(accountLoginSaveToStorage);
-          storage.setToken(accountLoginSaveToStorage);
-          console.log("ROLE: ", localStorage.getItem("role"));
+          storage.setToken(response.token);
+          storage.setRefreshToken(response.refreshToken);
           toast.success("Đăng nhập thành công.", {
             position: "top-right",
             autoClose: 1500,

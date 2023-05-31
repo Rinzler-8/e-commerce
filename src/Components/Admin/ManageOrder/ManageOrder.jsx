@@ -92,7 +92,7 @@ function ManageOrder(props) {
   return (
     <div className="manage-user-container">
       <div className="header-area">
-        <HeaderBar onHandleSearch={onHandleSearch} title="Quản lí đơn hàng" placeHolder="Nhập phiên..." />
+        <HeaderBar onHandleSearch={onHandleSearch} title="Quản lí đơn hàng" placeHolder="Nhập phiên, ID đơn hàng..." />
       </div>
       <div className="table-content-area">
         <OrderList

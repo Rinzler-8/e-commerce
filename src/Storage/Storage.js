@@ -67,7 +67,11 @@ const removeUserInfo = () => {
 };
 
 const setToken = (token) => {
-  setItem("token", token.token);
+  setItem("token", token);
+  document.cookie = token;
+};
+const setRefreshToken = (token) => {
+  setItem("refreshToken", token);
 };
 
 const removeToken = () => {
@@ -83,5 +87,5 @@ const isAuth = () => {
 };
 
 // export
-const storage = { setUserInfo, getUserInfo, removeUserInfo, setToken, getToken, removeToken, isAuth };
+const storage = { setUserInfo, getUserInfo, removeUserInfo, setToken, getToken, removeToken, isAuth, setRefreshToken };
 export default storage;

@@ -1,28 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Row,
-  Col,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardText,
-  Button,
-  Container,
-  NavLink,
-} from "reactstrap";
+import { Row, Col, Button, Container, NavLink } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  Card,
-  CardContent,
   Grid,
-  Box,
   Typography,
   Rating,
   Item,
   Paper,
   TextField,
-  Avatar,
   TextareaAutosize,
   ListItemText,
   List,

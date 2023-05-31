@@ -108,40 +108,47 @@ Final project:
 
  * User:
    - danh sách order (get all orders) (DONE) 
-   - phân quyền 
+   - phân quyền (DONE)
    - user edit account (DONE)
-   - đặt điều kiện cho các function
-   - delete account
-   - user change password (HALF), check old password ?
+   - user change password (HALF), check old password (DONE but slow for using bcrypt)
    - forgot/reset password (DONE)
    - validation on status (DONE)
    - edit account status (admin)
    - upload avatar (DONE)
    - product page theo category (DONE)
    - View order (DONE)
-   - cancel order
+   - cancel order (DONE)
+   - delete account (DONE)
+   - payment method
+   - login by OAuth   
+   - when click on "Giới thiệu", navigate to a specific location on the same page
+   - add a spinning circle when waiting for sending email 
+   - remember me
  * Admin:
+   - Add anything new by import excel file
    1. Manage account
-      •  Log In/Log Out (DONE)
+      *  Log In/Log Out (DONE)
       * View account list (DONE)
       * Create account (DONE)
       * Edit Account (DONE)
       * Delete account (DONE)
-      •  Change Password
+      * Change Password (DONE)
    2. Manage product
-      •  View product (DONE)
-      •  Add a new product (DONE)
-      •  Edit a product (DONE)
-      •  Delete a product (DONE)
-      •  Search for a product (DONE)
+      *  View product (DONE)
+      *  Add a new product (DONE)
+      *  Edit a product (DONE)
+      *  Delete a product (DONE)
+      *  Search for a product (DONE)
+      *  Add multiple images
+      *  Manage revenue
    3. Manage order
-      •  View order (DONE)
-      •  Search order
-      •  Change order’s status (DONE)
-      •  Cancel Order 
+      *  View order (DONE)
+      *  Search order (DONE)
+      *  Change order’s status (DONE)
+      *  Cancel Order (DONE)
    4. Cart
       * nếu bấm trừ khi sản phẩm qty = 1, xóa sản phẩm (DONE)
-      * nếu sản phẩm đã có trong cart, khi add to cart kèm số lượng cụ thể thì sẽ update số lượng của sản phẩm trong cart
+      * nếu sản phẩm đã có trong cart, khi add to cart kèm số lượng cụ thể thì sẽ update số lượng của sản phẩm trong cart (DONE)
 
 
       Styling:
@@ -150,37 +157,3 @@ Final project:
          - checkout page
          - checkout success page
 
-
-
-category: delete, edit( 2 cái này t làm rồi mà cứ bị lỗi cors xong mà sửa cả back với front chưa nhận) (DONE)
-order, discount: còn tất
-product: edit product (DONE), view product, comment, revenue nữa
-
-be: 
-- chỉnh category trong update product
-- chỉnh delete, put thành post trong category controller
-- chỉnh status order history, order
-- sao lại cho comment vào thay đổi trạng thái ? 
-
-
-
-  const imageBtnStyling = {
-    marginBottom: "20px",
-    color: "white",
-    backgroundColor: "#0a0f9e",
-
-    border: "1px solid #0a0f9e",
-    borderRadius: "5px",
-    padding: "10px 15px",
-    transition: "background-color 0.2s ease-in-out", // optional: adds a smooth transition effect
-    ":hover": {
-      cursor: "pointer",
-      backgroundColor: "white",
-      color: "#0a0f9e",
-    },
-  };
-
-  style lại nút đăng xuất
-  order phải có thêm cả thông tin của sản phẩm
-  tìm theo phiên
-  style lại trang reset mật khẩu, kéo rộng form điền email ra

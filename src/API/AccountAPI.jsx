@@ -71,4 +71,8 @@ const deactivateAccountAPI = (id, accountDeactivate) => {
   return api("PUT", url, accountDeactivate);
 };
 
-export { getAccountAPIList, getEmailExists, getUsernameExists, addAccountNewAPI, deleteAccountAPI, updateAccountAPI, deactivateAccountAPI, getSingleAccountAPI };
+const testUserAPI = () => {
+  return api("GET", "test/user", null);
+}
+
+export { getAccountAPIList, getEmailExists, getUsernameExists, addAccountNewAPI, deleteAccountAPI, updateAccountAPI, deactivateAccountAPI, getSingleAccountAPI, testUserAPI };
