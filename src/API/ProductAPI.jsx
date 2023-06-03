@@ -61,4 +61,28 @@ const updateProductAPI = (id, productUpdate) => {
   return api("PUT", url, productUpdate);
 };
 
-export { getProductAPIList, getSingleProductAPI, addProductNewAPI, deleteProductAPI, updateProductAPI, getProductByCatAPI };
+const importXLSXProductAPI = (file) => {
+  const body = new FormData();
+  body.append("file", file);
+  return api("POST", "excel/upload", body);
+};
+
+const exportXLSXProductAPI = () => {
+  return api("GET", "excel/downloadXLSX", null);
+};
+
+const exportCSVProductAPI = () => {
+  return api("GET", "excel/downloadCSV", null);
+};
+
+export {
+  getProductAPIList,
+  getSingleProductAPI,
+  addProductNewAPI,
+  deleteProductAPI,
+  updateProductAPI,
+  getProductByCatAPI,
+  importXLSXProductAPI,
+  exportXLSXProductAPI,
+  exportCSVProductAPI,
+};

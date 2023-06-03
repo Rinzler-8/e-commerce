@@ -1,4 +1,4 @@
-import { addProductNewAPI, deleteProductAPI, getProductAPIList, updateProductAPI, getSingleProductAPI, getProductByCatAPI } from "../../API/ProductAPI";
+import { addProductNewAPI, deleteProductAPI, getProductAPIList, updateProductAPI, getSingleProductAPI, getProductByCatAPI, importXLSXProductAPI } from "../../API/ProductAPI";
 import * as Types from "../Contant/ProductActionType";
 import * as Types_Page from "../Contant/PageActionType";
 import { actionToggleUpdateFormRedux } from "./FormUpdateAction";
@@ -93,9 +93,9 @@ export const actionDeleteProductAPI = (id) => {
     return deleteProductAPI(id).then((response) => {
       console.log("response sau khi xóa Product: ", response);
       dispatch(actionFetchProductAPI());
-      dispatch(actionChangePage(0)); // Chuyển về trang 1 sau khi thêm mới thành công
-      dispatch(actionChangeSortField("id")); // Thay đổi trường sort về id
-      dispatch(actionChangeSortDirection("DESC")); // Sort theo chiều giảm dần
+      dispatch(actionChangePage(0)); 
+      dispatch(actionChangeSortField("id")); 
+      dispatch(actionChangeSortDirection("DESC")); 
     });
   };
 };
@@ -109,6 +109,17 @@ export const actionUpdateProductAPI = (id, productUpdate) => {
       console.log("response sau khi Update Product: ", response);
       dispatch(actionFetchProductAPI()); // Load lại dữ liệu API
       dispatch(actionToggleUpdateFormRedux()); // Đóng FormUpdate
+    });
+  };
+};
+
+export const actionImportProductAPI = (file) => {
+  // console.log("productUpdate: ", productUpdate);
+  return (dispatch) => {
+    return importXLSXProductAPI(file).then((response) => {
+      dispatch(actionFetchProductAPI());
+      dispatch(actionChangeSortField("id")); 
+      dispatch(actionChangeSortDirection("DESC")); 
     });
   };
 };

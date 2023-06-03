@@ -35,8 +35,10 @@ UPDATE `shop`.`product` SET `product_image_name` = 'https://www.reliancedigital.
 
 
 --------------------------------------------------------------------------------------------------------------------------
-Zalo:
-
+Setup: 
+- java.lang.NoClassDefFoundError: org/apache/poi/ss/usermodel/Workbook\r\n\tat: dù đã config ở file pom.xml
+ => lên maven tải file jar của những cái có trong file pom, build path => config build path => libraries => add external JARS
+- NoSuchFieldError: Factory\r\n\tat org.apache.poi.xssf.usermodel.XSSFWorkbook.onWorkbookCreate 
 
 
 ----------------------------------------------------------------------------------------------------
@@ -79,13 +81,22 @@ Final project:
    * BE:
       - JPA query: @Query("Select item FROM OrderItems item WHERE item.order_id=:order_id") => OrderItems là entity được khai báo 
       ở be chứ không phải từ database.
-      - BE: fasterxml.jackson.databind: thêm jsonignore dưới entity
-      - BE: this.passwordEncoder is null khi reset password ?
+      - fasterxml.jackson.databind: thêm jsonignore dưới entity
+      - this.passwordEncoder is null khi reset password ?
          => SOLUTION: đổi từ private PasswordEncoder passwordEncoder -> BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
       - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near
       => Đổi tên table trong entity BE ("Order" => "`Order`") vì dưới db tên table là `Order`
-      - BE: không search được account
+      - không search được account
       => Bị lỗi search ở dưới file UserService, bỏ roleSpecification
+      - Cannot make a static reference to the non-static method excelToProducts(InputStream) from the type ExcelHelper 
+      => Thay List<Product> products = excelHelper.excelToProducts(file.getInputStream()); thành 
+          ExcelHelper excelHelper = new ExcelHelper();
+          List<Product> products = excelHelper.excelToProducts(file.getInputStream());
+      - categoryService.getCategoryByID(categoryId) bị null trong function excelToProducts trong ExcelHelper
+      => không dùng @autowired mà truyền categoryService là 1 param: List<Product> excelToProducts(InputStream is, ICategoryService categoryService)
+      ở ExcelService: List<Product> products = excelHelper.excelToProducts(file.getInputStream(), categoryService);
+      
+
 
 
 2. FEATURE
@@ -121,9 +132,10 @@ Final project:
    - delete account (DONE)
    - payment method
    - login by OAuth   
-   - when click on "Giới thiệu", navigate to a specific location on the same page
+   - when click on "Giới thiệu", navigate to a specific location on the same page (DONE)
    - add a spinning circle when waiting for sending email 
    - remember me
+   - rating
  * Admin:
    - Add anything new by import excel file
    1. Manage account
@@ -157,3 +169,5 @@ Final project:
          - checkout page
          - checkout success page
 
+   String[] PRODUCT_HEADERs = { "product_id", "name", "price", "product_info", "product_detail", "rating_star",
+         "product_image_name", "category_id", "stock_qty" };

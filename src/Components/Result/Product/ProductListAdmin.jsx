@@ -21,7 +21,6 @@ import "./ProductListAdmin.css";
 import { Button } from "reactstrap";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
 import DeleteDialog from "./DeleteDialog";
 import { actionDeleteProductAPI, actionFetchProductAPI } from "../../../Redux/Action/ProductAction";
 import { useEffect } from "react";
@@ -281,10 +280,6 @@ export default function ProductListAdmin(props) {
 
   // Avoid a layout jump when reaching the last page with empty listProduct.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listProduct.length) : 0;
-  // const visibleRows = React.useMemo(() => {
-  //   const sortedRows = stableSort(listProduct, getComparator(order, orderBy));
-  //   return sortedRows.slice(page * rowsPerPage, page + 1 * rowsPerPage + rowsPerPage);
-  // }, [listProduct, order, orderBy, page, rowsPerPage]);
   let filter = {
     page: stateRedux.pageFilterReducer.page,
     size: stateRedux.pageFilterReducer.size,
@@ -421,8 +416,6 @@ export default function ProductListAdmin(props) {
           onRowsPerPageChange={handleChangeRowsPerPage}
           labelRowsPerPage="Hiển thị số dòng"
           labelDisplayedRows={getDisplayedRowsText}
-          // showFirstButton="true"
-          // showLastButton="true"
           ActionsComponent={CustomPaginationBtn}
         />
       </Paper>
