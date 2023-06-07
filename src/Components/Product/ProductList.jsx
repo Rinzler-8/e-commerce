@@ -103,7 +103,7 @@ const ProductList = () => {
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI());
     dispatchRedux(actionGetCartByUserIdAPI(id));
-  }, [id, cartStateRedux.quantity, cart.cartItems.length]);
+  }, [cartStateRedux.quantity, cart.cartItems.length]);
 
   const settings = {
     // centerMode: true;

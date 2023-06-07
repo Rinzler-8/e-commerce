@@ -37,8 +37,7 @@ const Cart = (state = initialState, action) => {
     case Types.UPDATE_CART_QTY:
       cartListState.quantity += action.payload;
       cartListState.open = true;
-      // console.log("update: ", cartListState)
-      break;
+      return cartListState;
     default:
       return { ...state };
   }
