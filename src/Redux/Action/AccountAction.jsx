@@ -8,7 +8,6 @@ import { actionChangePage, actionChangeSortDirection, actionChangeSortField } fr
 export const actionFetchAccountAPI = (filter) => {
   return (dispatch) => {
     return getAccountAPIList(filter).then((response) => {
-      // console.log("reponseAPI:", response);
       dispatch(actionFetchAccountRedux(response.content));
       dispatch(actionSetTotalPageAccountRedux(response.totalPages));
     });

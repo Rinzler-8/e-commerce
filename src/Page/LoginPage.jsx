@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import LoginComponent from "../Components/Login/LoginComponent";
 import { checkLoginAPI } from "../API/LoginAPI";
 import storage from "../Storage/Storage";
-import { Outlet, Navigate, useNavigate } from "react-router-dom";
-import { Grid, Box, Typography, Rating, Item, Paper, TextField } from "@mui/material";
-import Register from "../Components/Register/RegisterComponent";
+import { useNavigate } from "react-router-dom";
 import "./../../src/css/LoginPage.css";
 import "./../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -70,7 +68,7 @@ function LoginPage(props) {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/");
-      if (localStorage.getItem("token") && localStorage.getItem("role") == "ADMIN") {
+      if (localStorage.getItem("token") && localStorage.getItem("role") === "ADMIN") {
         navigate("/admin");
       }
     } else {

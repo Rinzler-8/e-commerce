@@ -1,15 +1,12 @@
-import React, { useRef, useState, useEffect } from "react";
-import { Button, Container, Row, Col, Toast, ToastHeader, ToastBody } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Row, Col, Toast, ToastHeader, ToastBody } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import InputComponent from "./InputComponent";
 import SelectUserStatus from "./SelectUserStatus";
 import SelectCreateRole from "./SelectCreateRole";
 import "./style.css";
-import { getEmailExists, getUsernameExists, getMobileExists } from "../../../API/AccountAPI";
-import { Avatar } from "@mui/material";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
-import { uploadImgAPI } from "../../../API/ImageAPI";
+import { getEmailExists, getUsernameExists } from "../../../API/AccountAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchUserRolePI, actionFetchUserStatusAPI } from "../../../Redux/Action/EnumAction";
 import "../FormStyle.css";
@@ -27,21 +24,6 @@ function CreateInputFormComponent(props) {
   let listUserStatus = useSelector((state) => state.userStatusReducer);
   let listRole = useSelector((state) => state.roleReducer);
   let nameImage;
-  const [previewAvatarUrl, setPreviewAvatarUrl] = useState();
-  const [previewAvatarFile, setPreviewAvatarFile] = useState();
-  const avatarInputFile = useRef(null);
-
-  const onChangeAvatarInput = (e) => {
-    // Assuming only image
-    var file = e.target.files[0];
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onloadend = (e) => {
-      setPreviewAvatarUrl(reader.result);
-      setPreviewAvatarFile(file);
-    };
-  };
 
   const closeModal = () => {
     toggle();
@@ -103,7 +85,6 @@ function CreateInputFormComponent(props) {
           Address: Yup.string(),
         })}
         onSubmit={async (values, actions) => {
-          nameImage = await uploadImgAPI(previewAvatarFile);
           let roles = [];
           roles.push(values.Role);
           const accountCreateNew = {

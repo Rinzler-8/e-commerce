@@ -412,7 +412,7 @@ export default function AccountList(props) {
                           : "USER"}
                       </TableCell>
                       <TableCell align="right">
-                        {account.status == "ACTIVE"
+                        {account.status === "ACTIVE"
                           ? "Hoạt động"
                           : "Không hoạt động"}
                       </TableCell>

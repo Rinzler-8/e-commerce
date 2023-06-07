@@ -3,7 +3,7 @@ import { Button, Container, Row, Col } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import CustomInput from "./CustomInput";
 import * as Yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getUsernameExists, getEmailExists } from "../../API/AccountAPI";
 import { addAccountNewAPI } from "../../API/RegisterAPI";
 import "./../../../src/css/Register.css";
@@ -16,7 +16,6 @@ function RegisterComponent(props) {
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
   const passRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,50})");
-  let navigate = useNavigate();
   // Quản lý trạng thái ẩn hiện Password
   const togglePassword = () => {
     setIsShown((isShown) => !isShown);

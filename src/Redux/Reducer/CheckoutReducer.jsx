@@ -1,6 +1,4 @@
 import * as Types from "../Contant/CheckoutActionType";
-
-var orderInfo = {};
 var orderItems = [];
 
 const OrderInfo = (state, action) => {

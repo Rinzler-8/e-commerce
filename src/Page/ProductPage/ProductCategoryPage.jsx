@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PaginationButton from "../../Components/Paging/PaginationButton";
-import SizeButton from "../../Components/Paging/SizeButton";
-import ProductFieldSortButton from "../../Components/Paging/ProductFieldSortButton";
-import DirectionSortButton from "../../Components/Paging/DirectionSortButton";
-import SearchComponent from "../../Components/SearchComponent/SearchComponent";
 import ProductItem from "../../Components/Product/ProductItem";
-import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../../Redux/Action/PageAction";
-import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
-import { actionFetchProductAPI, actionFetchProductByCatAPI } from "../../Redux/Action/ProductAction";
-import ProductList from "../../Components/Product/ProductList";
+import { actionChangeSize } from "../../Redux/Action/PageAction";
+import {  } from "../../Redux/Action/CategoryAction";
+import { actionFetchProductByCatAPI } from "../../Redux/Action/ProductAction";
 import LoadMoreButton from "../../Components/Paging/LoadMoreButton";
 import "./ProductPage.css";
 import { Progress } from "reactstrap";
@@ -21,40 +15,14 @@ function ProductCategoryPage(props) {
   let param = useParams();
   let totalProd = stateRedux.pageFilterReducer.totalElements;
   let listProduct = stateRedux.listProductReducer;
-  let filter = {
-    page: stateRedux.pageFilterReducer.page,
-    size: stateRedux.pageFilterReducer.size,
-    sort: stateRedux.pageFilterReducer.sort,
-    search: stateRedux.pageFilterReducer.search,
-  };
   useEffect(() => {
     dispatchRedux(actionFetchProductByCatAPI(param.id));
     // Gọi useEffect để load dữ liệu list Department và Positon
   }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search, param.id]);
-  // Xử lý khi click vào các icon phân trang
-  let onHandleChangePage = (page) => {
-    // console.log("Trang hiện tại: ", page);
-    // Thực hiện dispatch action để set lại giá trị page trên redux
-    dispatchRedux(actionChangePage(page));
-  };
   // Hàm xử lý khi người dùng ChangeSize
   let onHandleChangeSize = (item) => {
     console.log("Size: ", item);
     dispatchRedux(actionChangeSize(item));
-  };
-  // Hàm xử lý khi người dùng thay đổi SortField
-  let onHandleChangeFieldSort = (item) => {
-    dispatchRedux(actionChangeSortField(item));
-  };
-
-  // Hàm xử lý khi người dùng thay đổi SortDirection
-  let onHandleChangeDirectionSort = (item) => {
-    dispatchRedux(actionChangeSortDirection(item));
-  };
-  // Hàm xử lý khi nhấn nút Search
-  let onHandleSearch = (valueSearch) => {
-    console.log("valueSearch: ", valueSearch);
-    dispatchRedux(actionSearch(valueSearch));
   };
   return (
     <>

@@ -46,3 +46,24 @@
   background-color: #0a0f9e;
   color: white;
 }
+
+.import button {
+  margin-right: 20px;
+  background-color: white;
+  color: #0a0f9e;
+  border: 1px solid #0a0f9e;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.import button:hover {
+  transition: 0.4s;
+  background-color: #0a0f9e;
+  color: white;
+}
+
+.dialog-content {
+  display: flex;
+  align-items: center;
+}

@@ -38,6 +38,7 @@ const Cart = (state = initialState, action) => {
       cartListState.quantity += action.payload;
       cartListState.open = true;
       // console.log("update: ", cartListState)
+      break;
     default:
       return { ...state };
   }

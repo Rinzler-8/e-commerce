@@ -1,16 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Button, Container } from "reactstrap";
-import { Link, useNavigate } from "react-router-dom";
 import { Paper, TextField, Avatar } from "@mui/material";
 import {
   actionFetchSingleAccountAPI,
-  actionFetchSingleAccountRedux,
 } from "../Redux/Action/AccountAction";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
-import { updateAccountAPI, getUsernameExists } from "../API/AccountAPI";
+import { updateAccountAPI } from "../API/AccountAPI";
 import { uploadImgAPI } from "../API/ImageAPI";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import "../../src/css/Profile.css";
@@ -256,7 +254,7 @@ const ProfilePage = () => {
                           className="submit-btn-profile"
                           type="submit"
                           disabled={
-                            (previewAvaName == localAcc.urlAvatar &&
+                            (previewAvaName === localAcc.urlAvatar &&
                               !dirty &&
                               JSON.stringify(values) ===
                                 JSON.stringify(initialValues)) ||

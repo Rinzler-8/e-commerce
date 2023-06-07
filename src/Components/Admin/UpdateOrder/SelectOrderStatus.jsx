@@ -1,5 +1,4 @@
 import React from "react";
-import { Field } from "formik";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 function SelectOrderStatus(props) {
@@ -16,17 +15,17 @@ function SelectOrderStatus(props) {
   let itemDropdown = listStatus.map((item, index) => {
     return (
       <MenuItem value={item} key={index}>
-        {item == "PENDING"
+        {item === "PENDING"
           ? "Đang chờ"
-          : item == "CONFIRMED"
+          : item === "CONFIRMED"
           ? "Đã xác nhận"
-          : item == "SHIPPED"
+          : item === "SHIPPED"
           ? "Đã giao cho vận chuyển"
-          : item == "DELIVERING"
+          : item === "DELIVERING"
           ? "Đang giao hàng"
-          : item == "DELIVERED"
+          : item === "DELIVERED"
           ? "Đã giao cho khách"
-          : item == "CANCELED"
+          : item === "CANCELED"
           ? "Đã hủy"
           : null}
       </MenuItem>

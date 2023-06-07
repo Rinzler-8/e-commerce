@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import "./ProductItem.css";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { actionFetchProductAPI } from "../../Redux/Action/ProductAction";
 import {
   actionAddToCartAPI,
   actionOpenCart,

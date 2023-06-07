@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { actionFetchOrderAPI } from "../Redux/Action/OrderAction";
 // import CreateButton from "./../Components/Admin/CreateButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,8 +9,6 @@ import ManageOrderUser from "../Components/Admin/ManageOrder/ManageOrderUser";
 function OrderPage(props) {
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
-  // State quản lý đóng mở thông báo.
-  let [showNotificationDelete, setShowNotificationDelete] = useState(false);
   // Lấy dữ liệu page, size được quản lý từ Redux
   let filter = {
     page: stateRedux.pageFilterReducer.page,
@@ -32,7 +30,7 @@ function OrderPage(props) {
 
   return (
     <>
-      {localStorage.getItem("role") == "ADMIN" ? (
+      {localStorage.getItem("role") === "ADMIN" ? (
         <div className="admin-page-container">
           <MenuBar />
           <div className="content-area-admin">

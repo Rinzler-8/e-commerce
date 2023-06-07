@@ -13,12 +13,10 @@ import {
   actionFetchProductUpdateInfoRedux,
   actionToggleUpdateFormRedux,
 } from "../../../Redux/Action/FormUpdateAction";
-import { useNavigate } from "react-router-dom";
 import ProductListAdmin from "../../Result/Product/ProductListAdmin";
 import ModalUpdateProduct from "../UpdateProduct/ModalUpdateProduct";
 import ModalCreateNewProduct from "../CreateNewProduct/ModalCreateNewProduct";
-import AddIcon from "@mui/icons-material/Add";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
+import AddIcon from "@mui/icons-material/Add"
 import DownloadIcon from "@mui/icons-material/Download";
 import {
   actionAddProductAPI,
@@ -27,14 +25,13 @@ import {
   actionDeleteProductAPI,
   actionImportProductAPI,
 } from "../../../Redux/Action/ProductAction";
-import { importXLSXProductAPI } from "../../../API/ProductAPI";
+import ImportDialog from "../../Result/Product/ImportDialog";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 function ManageProduct(props) {
   const stateRedux = useSelector((state) => state);
-  const navigate = useNavigate();
   const dispatchRedux = useDispatch();
-  // State quản lý đóng mở thông báo.
-  let [showNotificationDelete, setShowNotificationDelete] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   let [previewImportFile, setPreviewImportFile] = useState();
   const importFile = useRef(null);
 
@@ -53,13 +50,11 @@ function ManageProduct(props) {
     stateRedux.pageFilterReducer.size,
     stateRedux.pageFilterReducer.sort,
     stateRedux.pageFilterReducer.search,
-    previewImportFile
   ]);
 
   // Xử lý xóa Product
   const onHandleDelete = (id) => {
     dispatchRedux(actionDeleteProductAPI(id));
-    setShowNotificationDelete(true);
   };
   // Xử lý khi nhấn nút Edit
   const onHandleEditBtn = (ProductEdit) => {
@@ -72,8 +67,6 @@ function ManageProduct(props) {
   // Xử lý Update Product
   const onHandleUpdateProduct = (productUpdate) => {
     let id = stateRedux.formUpdateReducer.productUpdateInfo.id;
-    console.log("Thông tin của Product cần update:", id);
-
     dispatchRedux(actionUpdateProductAPI(id, productUpdate));
   };
 
@@ -104,10 +97,14 @@ function ManageProduct(props) {
     dispatchRedux(actionAddProductAPI(productNew));
   };
 
+  const openImportDialog = () => {
+    setIsDialogOpen(!isDialogOpen);
+  };
+
   const onHandleImportProduct = (file) => {
     dispatchRedux(actionImportProductAPI(file));
   };
-  
+
   const onChangeImportFile = (e) => {
     const file = e.target.files[0];
     setPreviewImportFile(file);
@@ -116,6 +113,7 @@ function ManageProduct(props) {
   const importPreviewFile = () => {
     if (previewImportFile) {
       onHandleImportProduct(previewImportFile);
+      setIsDialogOpen(!isDialogOpen);
     }
   };
 
@@ -140,20 +138,8 @@ function ManageProduct(props) {
         />
       </div>
       <div className="create-new-user">
-        <div>
-          <button onClick={() => importFile.current.click()}>
-            <UploadFileIcon /> Import Preview
-          </button>
-          <input
-            type="file"
-            id="importFile"
-            ref={importFile}
-            onChange={onChangeImportFile}
-            style={{ display: "none" }}
-          />
-        </div>
-        <button onClick={importPreviewFile}>
-          <DownloadIcon /> Import
+        <button onClick={() => openImportDialog()}>
+          <UploadFileIcon /> Import
         </button>
         <button onClick={openCreateNewProductModal}>
           <DownloadIcon /> Export
@@ -180,6 +166,15 @@ function ManageProduct(props) {
         onHandleCreateNewProduct={onHandleCreateNewProduct}
         toggle={openCreateNewProductModal}
         showModal={showModal}
+      />
+      <ImportDialog
+        toggle={openImportDialog}
+        isDialogOpen={isDialogOpen}
+        onHandleDelete={onHandleDelete}
+        importFile={importFile}
+        onChangeImportFile={onChangeImportFile}
+        importPreviewFile={importPreviewFile}
+        previewImportFile={previewImportFile}
       />
     </div>
   );

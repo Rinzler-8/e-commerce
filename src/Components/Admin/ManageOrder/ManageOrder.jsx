@@ -4,20 +4,15 @@ import HeaderBar from "../HeaderBar";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchOrderAPI, actionUpdateOrderAPI, actionDeleteOrderAPI } from "../../../Redux/Action/OrderAction";
 import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../../../Redux/Action/PageAction";
-import { actionFetchAccountUpdateInfoRedux, actionFetchOrderUpdateInfoRedux, actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
-import { useNavigate } from "react-router-dom";
+import { actionFetchOrderUpdateInfoRedux, actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
 import OrderList from "../../Result/Order/OrderList";
 import ModalUpdateOrder from "../UpdateOrder/ModalUpdateOrder";
 import ModalCreateNewOrder from "../CreateNewOrder/ModalCreateNewOrder";
-import AddIcon from "@mui/icons-material/Add";
 import { actionAddOrderAPI } from "../../../Redux/Action/OrderAction";
 
 function ManageOrder(props) {
   let stateRedux = useSelector((state) => state);
-  let navigate = useNavigate();
   let dispatchRedux = useDispatch();
-  // State quản lý đóng mở thông báo.
-  let [showNotificationDelete, setShowNotificationDelete] = useState(false);
   // Lấy dữ liệu page, size được quản lý từ Redux
   let filter = {
     page: stateRedux.pageFilterReducer.page,
@@ -30,12 +25,6 @@ function ManageOrder(props) {
     // Gọi useEffect để load dữ liệu list Department và Positon
   }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
 
-  // Xử lý xóa Account
-  let onHandleDelete = (id) => {
-    console.log("Id của Account cần xóa:", id);
-    dispatchRedux(actionDeleteOrderAPI(id));
-    setShowNotificationDelete(true);
-  };
   // Xử lý khi nhấn nút Edit
   let onHandleEditBtn = (OrderEdit) => {
     // console.log("Thông tin của Account cần update:", OrderEdit);

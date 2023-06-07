@@ -1,8 +1,6 @@
 import React from "react";
 import { Button, Container, Row, Col } from "reactstrap";
 import { Formik, Field, Form } from "formik";
-import * as Yup from "yup";
-import InputComponent from "./InputComponent";
 import SelectOrderStatus from "./SelectOrderStatus";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,11 +20,6 @@ function UpdateInputProductForm(props) {
   // Lấy thông tin AccountUpdateInfo từ Redux để fill dữ liệu
   const orderUpdateInfo = useSelector(
     (state) => state.formUpdateReducer.orderUpdateInfo
-  );
-
-  // Tìm depid và posid để fill vào thẻ select
-  let orderStatusUpdate = listOrderStatus.find(
-    (status) => status === orderUpdateInfo.orderStatus
   );
 
   const statusMapping = {

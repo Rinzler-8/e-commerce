@@ -8,8 +8,8 @@ const refreshTokenAPI = (refresh) => {
   return api("POST", "auth/refreshtoken", refresh);
 }
 
-const checkLogoutAPI = (accountLogout) => {
-  return api("POST", "auth/signout", accountLogout);
-};
+// const checkLogoutAPI = (accountLogout) => {
+//   return api("POST", "auth/signout", accountLogout);
+// };
 
 export { checkLoginAPI, refreshTokenAPI };

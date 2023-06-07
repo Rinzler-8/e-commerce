@@ -1,25 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { actionAddAccountAPI, actionDeleteAccountAPI, actionFetchAccountAPI, actionUpdateAccountAPI } from "../Redux/Action/AccountAction";
-import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../Redux/Action/PageAction";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import MenuBar from "../Components/Admin/MenuBar/MenuBar";
 import ManageUser from "../Components/Admin/ManageUser/ManageUser";
 import "../css/AdminPage.css";
 
 function AdminPage(props) {
-  let stateRedux = useSelector((state) => state);
-  let navigate = useNavigate();
-  let dispatchRedux = useDispatch();
-  // State quản lý đóng mở thông báo.
-  let [showNotificationDelete, setShowNotificationDelete] = useState(false);
   // Lấy dữ liệu page, size được quản lý từ Redux
-  let filter = {
-    page: stateRedux.pageFilterReducer.page,
-    size: stateRedux.pageFilterReducer.size,
-    sort: stateRedux.pageFilterReducer.sort,
-    search: stateRedux.pageFilterReducer.search,
-  };
   // useEffect(() => {
   //   let accountLoginSaveToStorage = storage.getUserInfo();
   //   if (!accountLoginSaveToStorage) {

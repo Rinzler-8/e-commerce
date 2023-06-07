@@ -73,15 +73,13 @@ axiosClient.interceptors.response.use(
   }
 );
 
-export const api = (method, endpoint, payload) => {
+export const api = async (method, endpoint, payload) => {
   // console.log('payload', payload);
 
-  return axiosClient(endpoint, { method: method, data: payload })
-    .then((response) => {
-      //   console.log("api");
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const response = await axiosClient(endpoint, { method: method, data: payload });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };

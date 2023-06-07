@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PaginationButton from "../../Components/Paging/PaginationButton";
-import SizeButton from "../../Components/Paging/SizeButton";
-import ProductFieldSortButton from "../../Components/Paging/ProductFieldSortButton";
-import DirectionSortButton from "../../Components/Paging/DirectionSortButton";
-import SearchComponent from "../../Components/SearchComponent/SearchComponent";
 import ProductItem from "../../Components/Product/ProductItem";
-import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../../Redux/Action/PageAction";
+import { actionChangeSize} from "../../Redux/Action/PageAction";
 import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
 import {
-  actionAddProductAPI,
-  actionDeleteProductAPI,
   actionFetchProductAPI,
-  actionUpdateProductAPI,
-  actionFetchSingleProductAPI,
 } from "../../Redux/Action/ProductAction";
-import LoadMoreButton from "../../Components/Paging/LoadMoreButton";
 import "./ProductPage.css";
 import { Progress } from "reactstrap";
 
 function ProductPage(props) {
-  let [loadProd, setLoadProd] = useState();
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
   let size = stateRedux.pageFilterReducer.size;
@@ -51,26 +40,7 @@ function ProductPage(props) {
   let onHandleChangeSize = (item) => {
     dispatchRedux(actionChangeSize(item));
   };
-  // Hàm xử lý khi người dùng thay đổi SortField
-  let onHandleChangeFieldSort = (item) => {
-    dispatchRedux(actionChangeSortField(item));
-  };
 
-  // Hàm xử lý khi người dùng thay đổi SortDirection
-  let onHandleChangeDirectionSort = (item) => {
-    dispatchRedux(actionChangeSortDirection(item));
-  };
-  // Hàm xử lý khi nhấn nút Search
-  let onHandleSearch = (valueSearch) => {
-    console.log("valueSearch: ", valueSearch);
-    dispatchRedux(actionSearch(valueSearch));
-  };
-  // Xử lý khi click vào các icon phân trang
-  let onHandleChangePage = (page) => {
-    // console.log("Trang hiện tại: ", page);
-    // Thực hiện dispatch action để set lại giá trị page trên redux
-    dispatchRedux(actionChangePage(page));
-  };
   return (
     <>
       <div className="product-page-banner">

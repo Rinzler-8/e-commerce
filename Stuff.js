@@ -136,6 +136,7 @@ Final project:
    - add a spinning circle when waiting for sending email 
    - remember me
    - rating
+   - change language
  * Admin:
    - Add anything new by import excel file
    1. Manage account
@@ -161,7 +162,7 @@ Final project:
    4. Cart
       * nếu bấm trừ khi sản phẩm qty = 1, xóa sản phẩm (DONE)
       * nếu sản phẩm đã có trong cart, khi add to cart kèm số lượng cụ thể thì sẽ update số lượng của sản phẩm trong cart (DONE)
-
+   5. Discount
 
       Styling:
          - accounts, products, order page (admin)

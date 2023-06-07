@@ -22,34 +22,11 @@ import { Button } from "reactstrap";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteDialog from "./DeleteDialog";
-import { actionDeleteProductAPI, actionFetchProductAPI } from "../../../Redux/Action/ProductAction";
+import {
+  actionDeleteProductAPI,
+  actionFetchProductAPI,
+} from "../../../Redux/Action/ProductAction";
 import { useEffect } from "react";
-
-// function descendingComparator(a, b, orderBy) {
-//   if (b[orderBy] < a[orderBy]) {
-//     return -1;
-//   }
-//   if (b[orderBy] > a[orderBy]) {
-//     return 1;
-//   }
-//   return 0;
-// }
-
-// function getComparator(order, orderBy) {
-//   return order === "desc" ? (a, b) => descendingComparator(a, b, orderBy) : (a, b) => -descendingComparator(a, b, orderBy);
-// }
-
-// function stableSort(array, comparator) {
-//   const stabilizedThis = array.map((el, index) => [el, index]);
-//   stabilizedThis.sort((a, b) => {
-//     const order = comparator(a[0], b[0]);
-//     if (order !== 0) {
-//       return order;
-//     }
-//     return a[1] - b[1];
-//   });
-//   return stabilizedThis.map((el) => el[0]);
-// }
 
 const headCells = [
   {
@@ -94,7 +71,14 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const {
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -130,13 +114,23 @@ function EnhancedTableHead(props) {
             key={index}
             // align={headCell.numeric ? "right" : "left"}
             align={
-              ["Ảnh", "Hành động"].includes(headCell.label) ? "center" : ["ID", "Tên sản phẩm", "Giá", "Thông tin"].includes(headCell.label) ? "left" : "right"
+              ["Ảnh", "Hành động"].includes(headCell.label)
+                ? "center"
+                : ["ID", "Tên sản phẩm", "Giá", "Thông tin"].includes(
+                    headCell.label
+                  )
+                ? "left"
+                : "right"
             }
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
             sx={{ ...cellStyling }}
           >
-            <TableSortLabel active={orderBy === headCell.id} direction={orderBy === headCell.id ? order : "asc"} onClick={createSortHandler(headCell.id)}>
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : "asc"}
+              onClick={createSortHandler(headCell.id)}
+            >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
@@ -161,7 +155,14 @@ EnhancedTableHead.propTypes = {
 };
 
 export default function ProductListAdmin(props) {
-  let { onHandleEditBtn, onHandleChangeSize, onHandleChangePage, currentPage, onHandleChangeFieldSort, onHandleChangeDirectionSort } = props;
+  let {
+    onHandleEditBtn,
+    onHandleChangeSize,
+    onHandleChangePage,
+    currentPage,
+    onHandleChangeFieldSort,
+    onHandleChangeDirectionSort,
+  } = props;
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
@@ -208,7 +209,10 @@ export default function ProductListAdmin(props) {
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
     }
 
     setSelected(newSelected);
@@ -261,17 +265,33 @@ export default function ProductListAdmin(props) {
     }
     return (
       <div style={{ marginLeft: "20px", minWidth: "350px", fontSize: "20px" }}>
-        <IconButton disabled={currentPage.page === 1} onClick={() => handleChangePage(1)} aria-label="first page">
+        <IconButton
+          disabled={currentPage.page === 1}
+          onClick={() => handleChangePage(1)}
+          aria-label="first page"
+        >
           <FirstPageIcon sx={{ ...paginationBtnStyling }} />
         </IconButton>
-        <IconButton disabled={currentPage.page === 1} onClick={() => handleChangePage(currentPage.page - 1)} aria-label="previous page">
+        <IconButton
+          disabled={currentPage.page === 1}
+          onClick={() => handleChangePage(currentPage.page - 1)}
+          aria-label="previous page"
+        >
           <KeyboardArrowLeft sx={{ ...paginationBtnStyling }} />
         </IconButton>
         {pages}
-        <IconButton disabled={currentPage.page === currentPage.totalPages} onClick={() => handleChangePage(currentPage.page + 1)} aria-label="next page">
+        <IconButton
+          disabled={currentPage.page === currentPage.totalPages}
+          onClick={() => handleChangePage(currentPage.page + 1)}
+          aria-label="next page"
+        >
           <KeyboardArrowRight sx={{ ...paginationBtnStyling }} />
         </IconButton>
-        <IconButton disabled={currentPage.page === currentPage.totalPages} onClick={() => handleChangePage(currentPage.totalPages)} aria-label="last page">
+        <IconButton
+          disabled={currentPage.page === currentPage.totalPages}
+          onClick={() => handleChangePage(currentPage.totalPages)}
+          aria-label="last page"
+        >
           <LastPageIcon sx={{ ...paginationBtnStyling }} />
         </IconButton>
       </div>
@@ -279,7 +299,8 @@ export default function ProductListAdmin(props) {
   };
 
   // Avoid a layout jump when reaching the last page with empty listProduct.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listProduct.length) : 0;
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listProduct.length) : 0;
   let filter = {
     page: stateRedux.pageFilterReducer.page,
     size: stateRedux.pageFilterReducer.size,
@@ -326,7 +347,11 @@ export default function ProductListAdmin(props) {
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="large">
+          <Table
+            sx={{ minWidth: 750 }}
+            aria-labelledby="tableTitle"
+            size="large"
+          >
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -354,13 +379,20 @@ export default function ProductListAdmin(props) {
                       <Checkbox
                         color="primary"
                         checked={isItemSelected}
-                        onClick={(event) => handleClick(event, product.productId)}
+                        onClick={(event) =>
+                          handleClick(event, product.productId)
+                        }
                         inputProps={{
                           "aria-labelledby": labelId,
                         }}
                       />
                     </TableCell>
-                    <TableCell component="th" scope="product" align="left" sx={{ paddingLeft: "15px" }}>
+                    <TableCell
+                      component="th"
+                      scope="product"
+                      align="left"
+                      sx={{ paddingLeft: "15px" }}
+                    >
                       {product.productId}
                     </TableCell>
                     <TableCell>{product.name}</TableCell>
@@ -370,21 +402,35 @@ export default function ProductListAdmin(props) {
                         currency: "VND",
                       })}
                     </TableCell>
-                    <TableCell sx={{ width: "500px" }}>{product.detail}</TableCell>
+                    <TableCell sx={{ width: "500px" }}>
+                      {product.detail}
+                    </TableCell>
                     <TableCell>
                       <img
                         alt="Sample"
-                        src={"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName}
+                        src={
+                          "http://localhost:8080/api/v1/fileUpload/files/" +
+                          product.imageName
+                        }
                         style={{ width: "100px", height: "100px" }}
                       />
                     </TableCell>
                     <TableCell align="right">{product.categoryName}</TableCell>
                     <TableCell align="center" className="user-opertation-cell">
                       <div className="user-operation">
-                        <Button color="warning" onClick={(event) => handleUpdateAccountButton(event, product)} className="btn-edit">
+                        <Button
+                          color="warning"
+                          onClick={(event) =>
+                            handleUpdateAccountButton(event, product)
+                          }
+                          className="btn-edit"
+                        >
                           <EditIcon />
                         </Button>
-                        <Button color="danger" onClick={() => openDeleteDialog(product.productId)}>
+                        <Button
+                          color="danger"
+                          onClick={() => openDeleteDialog(product.productId)}
+                        >
                           <DeleteIcon />
                         </Button>
                       </div>
@@ -401,7 +447,13 @@ export default function ProductListAdmin(props) {
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
-              <DeleteDialog toggle={openDeleteDialog} isDialogOpen={isDialogOpen} onHandleDelete={onHandleDelete} selectedProductId={selectedProductId} />
+
+              <DeleteDialog
+                toggle={openDeleteDialog}
+                isDialogOpen={isDialogOpen}
+                onHandleDelete={onHandleDelete}
+                selectedProductId={selectedProductId}
+              />
             </TableBody>
           </Table>
         </TableContainer>

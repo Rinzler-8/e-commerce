@@ -1,5 +1,4 @@
 import React from "react";
-import { Field } from "formik";
 import Select from "@mui/material/Select";
 import { FormControl, InputLabel, MenuItem } from "@mui/material";
 
@@ -17,7 +16,7 @@ function SelectUserStatus(props) {
   let itemDropdown = listItem.map((item, index) => {
     return (
       <MenuItem  value={item} key={index}>
-        {item == "ACTIVE" ? "Hoạt động" : item == "INACTIVE" ? "Không hoạt động" : null}
+        {item === "ACTIVE" ? "Hoạt động" : item === "INACTIVE" ? "Không hoạt động" : null}
       </MenuItem>
     );
   });

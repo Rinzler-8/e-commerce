@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import React from "react";
+import { useSelector } from "react-redux";
 
 function LoadMoreButton(props) {
   let { onHandleChangeSize } = props;

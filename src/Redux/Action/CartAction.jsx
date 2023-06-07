@@ -1,7 +1,5 @@
-import { addToCartAPI, deleteAllCartItemsAPI, getCartAPIList, updateCartAPI, getCartByUserIdAPI, deleteCartItemAPI } from "../../API/CartAPI";
+import { addToCartAPI, deleteAllCartItemsAPI, updateCartAPI, getCartByUserIdAPI, deleteCartItemAPI } from "../../API/CartAPI";
 import * as Types from "../Contant/CartActionType";
-import * as Types_Page from "../Contant/PageActionType";
-import { actionChangePage, actionChangeSortDirection, actionChangeSortField } from "./PageAction";
 // Viết các Action liên quan đến Call API
 export const actionGetCartByUserIdAPI = (id) => {
   return (dispatch) => {

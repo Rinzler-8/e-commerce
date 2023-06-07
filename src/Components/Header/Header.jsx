@@ -1,26 +1,23 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { NavLink, Button } from "reactstrap";
 import {
   ListItem,
   Popover,
   List,
   Drawer,
-  Typography,
   ListItemText,
   Divider,
   IconButton,
   Box,
 } from "@mui/material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SearchIcon from "@mui/icons-material/Search";
-import KeyIcon from "@mui/icons-material/Key";
 import { useDispatch, useSelector } from "react-redux";
 import {
   actionGetCartByUserIdAPI,
@@ -37,9 +34,8 @@ import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { StyledBadge } from "../StyledMUI";
 import Backdrop from "@mui/material/Backdrop";
-import { testUserAPI } from "../../API/AccountAPI";
-import HomePage from "../../Page/HomePage/HomePage";
 import AppContext from './../../AppContext';
+import KeyIcon from "@mui/icons-material/Key";
 
 function Header() {
   let [header, setHeader] = React.useState(false);

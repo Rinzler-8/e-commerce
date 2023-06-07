@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./ManageOrder.css";
 import HeaderBar from "../HeaderBar";
 import { useDispatch, useSelector } from "react-redux";
-import { actionFetchOrderAPI, actionUpdateOrderAPI, actionDeleteOrderAPI } from "../../../Redux/Action/OrderAction";
 import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../../../Redux/Action/PageAction";
-import { actionFetchAccountUpdateInfoRedux, actionFetchOrderUpdateInfoRedux, actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
-import { useNavigate } from "react-router-dom";
+import { actionFetchOrderUpdateInfoRedux, actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
 import OrderList from "../../Result/Order/OrderList";
 import ModalCreateNewOrder from "../CreateNewOrder/ModalCreateNewOrder";
-import AddIcon from "@mui/icons-material/Add";
 import { actionAddOrderAPI } from "../../../Redux/Action/OrderAction";
 
 function ManageOrderUser(props) {
   let stateRedux = useSelector((state) => state);
-  let navigate = useNavigate();
   let dispatchRedux = useDispatch();
   // State quản lý đóng mở thông báo.
 
-  // Xử lý xóa Account
-  let onHandleDelete = (id) => {
-    dispatchRedux(actionDeleteOrderAPI(id));
-  };
   // Xử lý khi nhấn nút Edit
   let onHandleEditBtn = (OrderEdit) => {
     // console.log("Thông tin của Account cần update:", OrderEdit);
@@ -28,12 +20,6 @@ function ManageOrderUser(props) {
     dispatchRedux(actionFetchOrderUpdateInfoRedux(OrderEdit));
     // Hiển thị formUpdate
     dispatchRedux(actionToggleUpdateFormRedux());
-  };
-
-  // Xử lý Update Account
-  let onHandleUpdateOrder = (orderUpdate) => {
-    let id = stateRedux.formUpdateReducer.orderUpdateInfo.id;
-    dispatchRedux(actionUpdateOrderAPI(id, orderUpdate));
   };
 
   // Xử lý khi click vào các icon phân trang

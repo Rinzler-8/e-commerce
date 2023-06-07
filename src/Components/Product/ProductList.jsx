@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import ProductItem from "./ProductItem";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchProductAPI } from "../../Redux/Action/ProductAction";
@@ -26,7 +25,7 @@ const PreviousBtn = (props) => {
   const { onClick, currentSlide } = props;
   return (
     <>
-      {currentSlide == 0 ? (
+      {currentSlide === 0 ? (
         <div className={`controlProd-left`}>
           <ArrowBackIosNewIcon style={{ color: "grey", fontSize: "30px" }} />
         </div>
@@ -42,7 +41,7 @@ const NextBtn = (props) => {
   const { onClick, slideCount, currentSlide } = props;
   return (
     <>
-      {(currentSlide !== slideCount - slidesToShow) == 0 ? (
+      {(currentSlide !== slideCount - slidesToShow) === 0 ? (
         <div className={`controlProd-right`}>
           <ArrowForwardIosIcon style={{ color: "grey", fontSize: "30px" }} />
         </div>

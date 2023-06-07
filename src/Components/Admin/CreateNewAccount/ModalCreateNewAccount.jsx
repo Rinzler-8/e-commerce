@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Input, Row, Col } from "reactstrap";
+import React from "react";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import CreateInputFormComponent from "./CreateInputFormComponent";
 import "../ModalStyle.css";
 import CloseIcon from "@mui/icons-material/Close";

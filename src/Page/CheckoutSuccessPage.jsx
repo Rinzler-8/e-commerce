@@ -1,28 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Row,
-  Col,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardText,
-  Button,
   Container,
   NavLink,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import {
-  Card,
-  CardContent,
-  Grid,
-  Box,
   Typography,
-  Rating,
-  Item,
-  Paper,
-  TextField,
-  Avatar,
   ListItemText,
   ListItem,
   List,
@@ -37,7 +21,6 @@ import "../../src/css/CheckoutSuccess.css";
 const CheckOutSuccess = () => {
   let stateRedux = useSelector((state) => state);
   let navigate = useNavigate();
-  let actionRedux = useSelector((action) => action);
   let dispatchRedux = useDispatch();
   let orderState = stateRedux.checkoutReducer;
   let orderItemsState = stateRedux.orderItemsReducer;

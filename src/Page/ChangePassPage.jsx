@@ -1,33 +1,33 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { Button, Container, Row, Col } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
 import "../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { resetPassAPI } from "../API/ResetPassAPI";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { actionFetchSingleAccountAPI } from "../Redux/Action/AccountAction";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 
 const ChangePassPage = () => {
   const [isShown, setIsShown] = useState(false);
   const navigate = useNavigate();
   const dispatchRedux = useDispatch();
-  const singleAccount = useSelector((state) => state.singleAccountReducer);
+  // const singleAccount = useSelector((state) => state.singleAccountReducer);
   const id = localStorage.getItem("id");
   const token = useParams();
-  const passRegExp = new RegExp(
-    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
-  );
+  // const passRegExp = new RegExp(
+  //   "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+  // );
 
-  const checkPassword = async (password, hash) => {
-    const isMatch = await bcrypt.compareSync(String(password), hash);
-    return isMatch;
-  };
+  // const checkPassword = (password, hash) => {
+  //   const isMatch = bcrypt.compareSync(String(password), hash);
+  //   return isMatch;
+  // };
 
   const togglePassword = () => {
     // console.log("password: ", localStorage.getItem(""))
@@ -37,7 +37,7 @@ const ChangePassPage = () => {
   useEffect(() => {
     dispatchRedux(actionFetchSingleAccountAPI(id));
     // Gọi useEffect để load dữ liệu list Department và Positon
-  }, []);
+  });
 
   // console.log("single pass", singleAccount.password);
 
@@ -75,26 +75,26 @@ const ChangePassPage = () => {
           .test(
             "checkUniquePassword",
             "Mật khẩu không đúng!",
-            async (oldPass) => {
-              const isExists = await checkPassword(
-                oldPass,
-                singleAccount.password
-              );
-              return isExists;
-            }
+            // async (oldPass) => {
+            //   const isExists = await checkPassword(
+            //     oldPass,
+            //     singleAccount.password
+            //   );
+            //   return isExists;
+            // }
           ),
         newPass: Yup.string()
           .required("Trường này là bắt buộc!")
           .test(
             "checkUniquePassword",
             "Mật khẩu đã tồn tại!",
-            async (oldPass) => {
-              const isExists = await checkPassword(
-                oldPass,
-                singleAccount.password
-              );
-              return !isExists;
-            }
+            // async (oldPass) => {
+            //   const isExists = await checkPassword(
+            //     oldPass,
+            //     singleAccount.password
+            //   );
+            //   return !isExists;
+            // }
           ),
         confirmPassword: Yup.string()
           .required("Trường này là bắt buộc!")
@@ -140,7 +140,7 @@ const ChangePassPage = () => {
       validateOnChange={true}
       validateOnBlur={true}
     >
-      {({}) => (
+      {() => (
         <Container>
           <Row>
             <Col

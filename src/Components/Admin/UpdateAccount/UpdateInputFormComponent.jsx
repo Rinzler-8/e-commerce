@@ -2,14 +2,12 @@ import React, { useEffect } from "react";
 import { Button, Container, Row, Col } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
-import InputComponent from "./InputComponent";
 import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
 import { getEmailExists, getUsernameExists } from "../../../API/AccountAPI";
 import SelectUserStatus from "./SelectUserStatus";
 import SelectUpdateRole from "./SelectUpdateRole";
 import { actionFetchUserStatusAPI, actionFetchUserRolePI } from "../../../Redux/Action/EnumAction";
-import { IconButton, MenuItem, Select } from "@mui/material";
 import "../FormStyle.css";
 
 function UpdateInputFormComponent(props) {
@@ -29,7 +27,7 @@ function UpdateInputFormComponent(props) {
   } else {
     roles = "USER";
   }
-  const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
+  // const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
 
   useEffect(() => {
@@ -50,7 +48,7 @@ function UpdateInputFormComponent(props) {
           Username: Yup.string().test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
             // call api
             const isExists = await getUsernameExists(username);
-            if (isExists && username == accountUpdateInfo.username) {
+            if (isExists && username === accountUpdateInfo.username) {
               return isExists;
             } else {
               return !isExists;
@@ -62,7 +60,7 @@ function UpdateInputFormComponent(props) {
             .test("checkUniqueEmail", "Email đã được đăng ký!", async (email) => {
               // call api
               const isExists = await getEmailExists(email);
-              if (isExists && email == accountUpdateInfo.email) {
+              if (isExists && email === accountUpdateInfo.email) {
                 return isExists;
               } else {
                 return !isExists;

@@ -26,7 +26,6 @@ const RootReducers = combineReducers({
   checkoutReducer: OrderInfo,
   orderItemsReducer: OrderItems,
   pageFilterReducer: pageFilter,
-  listCategoryReducer: ListCategory,
   orderStatusReducer: OrderStatus,
   userStatusReducer: UserStatus,
   roleReducer: Role,

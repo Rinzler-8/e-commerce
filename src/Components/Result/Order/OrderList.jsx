@@ -21,43 +21,14 @@ import "./OrderList.css";
 import { Button } from "reactstrap";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
 import CancelDialog from "./CancelDialog";
 import {
-  actionDeleteOrderAPI,
   actionFetchOrderAPI,
   actionUpdateOrderAPI,
 } from "../../../Redux/Action/OrderAction";
 import { useEffect } from "react";
 import { actionGetOrderItemsAPI } from "../../../Redux/Action/CheckoutAction";
 
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
 
 const headCells = [
   {
@@ -237,7 +208,6 @@ export default function OrderList(props) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [selectedOrderId, setSelectedOrderId] = React.useState(null);
   const orderState = stateRedux.checkoutReducer;
-  const orderItemsState = stateRedux.orderItemsReducer;
   const sessionId = orderState.sessionId;
 
   let handleUpdateStatusButton = (event, order) => {
@@ -429,7 +399,7 @@ export default function OrderList(props) {
               {listOrder.map((order, index) => {
                 const isItemSelected = isSelected(order.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
-                return order.user_id == id || role == "ADMIN" ? (
+                return order.user_id === id || role === "ADMIN" ? (
                   <TableRow
                     hover
                     role="checkbox"
@@ -464,17 +434,17 @@ export default function OrderList(props) {
                     <TableCell>{order.delivery_address}</TableCell>
                     <TableCell>{order.paymentType}</TableCell>
                     <TableCell align="right">
-                      {order.orderStatus == "PENDING"
+                      {order.orderStatus === "PENDING"
                         ? "Đang chờ"
-                        : order.orderStatus == "CONFIRMED"
+                        : order.orderStatus === "CONFIRMED"
                         ? "Đã xác nhận"
-                        : order.orderStatus == "SHIPPED"
+                        : order.orderStatus === "SHIPPED"
                         ? "Đã giao cho vận chuyển"
-                        : order.orderStatus == "DELIVERING"
+                        : order.orderStatus === "DELIVERING"
                         ? "Đang giao hàng"
-                        : order.orderStatus == "DELIVERED"
+                        : order.orderStatus === "DELIVERED"
                         ? "Đã giao cho khách"
-                        : order.orderStatus == "CANCELED"
+                        : order.orderStatus === "CANCELED"
                         ? "Đã hủy"
                         : "Chuyển trạng thái"}
                     </TableCell>
@@ -482,7 +452,7 @@ export default function OrderList(props) {
                     <TableCell align="right">{order.note}</TableCell>
                     <TableCell align="center" className="user-opertation-cell">
                       <div className="user-operation">
-                        {localStorage.getItem("role") == "ADMIN" && !["DELIVERED", "CANCELED"].includes(order.orderStatus)? (
+                        {localStorage.getItem("role") === "ADMIN" && !["DELIVERED", "CANCELED"].includes(order.orderStatus)? (
                           <Button
                             color="warning"
                             onClick={(event) =>
@@ -493,7 +463,7 @@ export default function OrderList(props) {
                             <EditIcon />
                           </Button>
                         ) : null}
-                        {localStorage.getItem("role") == "USER" &&
+                        {localStorage.getItem("role") === "USER" &&
                         ["PENDING", "CONFIRMED"].includes(order.orderStatus) ? (
                           <Button
                             color="danger"

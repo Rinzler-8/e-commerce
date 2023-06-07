@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./CarouselHome.css";
 import Slider from "react-slick";
 import "./slick.css";

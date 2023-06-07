@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Button, Container, NavLink } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Grid,
   Typography,
-  Rating,
-  Item,
   Paper,
   TextField,
   TextareaAutosize,
@@ -17,7 +15,6 @@ import {
 import { Formik, Field, Form } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import * as Yup from "yup";
-import { checkoutAPI } from "../API/CheckoutAPI";
 import "../../src/css/CheckoutPage.css";
 import { actionCheckoutAPI } from "../Redux/Action/CheckoutAction";
 import {
@@ -26,7 +23,6 @@ import {
 } from "../Redux/Action/CartAction";
 
 const CheckOutList = () => {
-  const [isShown, setIsShown] = useState(false);
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   let navigate = useNavigate();
   let stateRedux = useSelector((state) => state);
@@ -34,9 +30,6 @@ const CheckOutList = () => {
   let cart = stateRedux.cartReducer;
   let id = localStorage.getItem("id");
   let total = 0;
-  const togglePassword = () => {
-    setIsShown((isShown) => !isShown);
-  };
   useEffect(() => {
     dispatchRedux(actionCloseCart());
   }, []);

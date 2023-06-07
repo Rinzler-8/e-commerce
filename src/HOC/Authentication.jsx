@@ -33,14 +33,14 @@ if (decodedJwt && decodedJwt.exp * 1000 < Date.now()) {
 }
 
 function AdminAuth() {
-  return role === "ADMIN" && token && status == "ACTIVE" ? (
+  return role === "ADMIN" && token && status === "ACTIVE" ? (
     <Outlet />
   ) : (
     <Navigate to="/" />
   );
 }
 function WithAuth() {
-  return token && status == "ACTIVE" ? <Outlet /> : <Navigate to="/login" />;
+  return token && status === "ACTIVE" ? <Outlet /> : <Navigate to="/login" />;
 }
 
 // console.log("admin", role);

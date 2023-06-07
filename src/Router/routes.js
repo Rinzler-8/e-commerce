@@ -12,7 +12,6 @@ import { AdminAuth, WithAuth, WithNav } from "../HOC/Authentication";
 import ProductDetail from "../Page/ProductDetailPage/ProductDetail";
 import ProductCategoryPage from "../Page/ProductPage/ProductCategoryPage";
 import CartPage from "../Page/CartPage";
-import TestPage from "../Page/TestPage";
 import ProductPageAdmin from "../Page/ProductPageAdmin";
 import OrderPage from "../Page/OrderPage";
 import ProfilePage from "../Page/ProfilePage";

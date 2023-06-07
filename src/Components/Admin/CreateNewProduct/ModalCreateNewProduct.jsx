@@ -1,15 +1,11 @@
-import React, { useState } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container } from "reactstrap";
+import React from "react";
+import { Button, Modal, ModalHeader, ModalBody, Container } from "reactstrap";
 import CreateInputFormComponent from "./CreateInputFormComponent";
 import "../ModalStyle.css";
 import CloseIcon from "@mui/icons-material/Close";
 
 function ModalCreateNewProduct(props) {
   let { onHandleCreateNewProduct, toggle, showModal } = props;
-
-  function toggleModal() {
-    toggle(); // Call the toggle function from props
-  }
 
   return (
     <Container className="modal-container-custom">

@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
-import { Button, Container, Row, Col } from "reactstrap";
-import { Formik, Field, Form } from "formik";
-import * as Yup from "yup";
-import { useSelector, useDispatch } from "react-redux";
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography } from "@mui/material";
-import { IconButton, MenuItem, Select } from "@mui/material";
+import React from "react";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Typography } from "@mui/material";
+import { IconButton} from "@mui/material";
 
 export default function DeleteDialog(props) {
   let { isDialogOpen, onHandleDelete, toggle, selectedProductId } = props;

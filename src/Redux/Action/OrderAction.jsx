@@ -1,4 +1,4 @@
-import { addOrderNewAPI, deleteOrderAPI, getOrderAPIList, updateOrderAPI, getSingleOrderAPI } from "../../API/OrderAPI";
+import { addOrderNewAPI, deleteOrderAPI, getOrderAPIList, updateOrderAPI } from "../../API/OrderAPI";
 import * as Types from "../Contant/CheckoutActionType";
 import * as Types_Page from "../Contant/PageActionType";
 import { actionToggleUpdateFormRedux } from "./FormUpdateAction";
