@@ -13,35 +13,14 @@ import ProductDetail from "../Page/ProductDetailPage/ProductDetail";
 import ProductCategoryPage from "../Page/ProductPage/ProductCategoryPage";
 import CartPage from "../Page/CartPage";
 import ProductPageAdmin from "../Page/ProductPageAdmin";
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import OrderPageAdmin from "../Page/OrderPageAdmin";
-import AccountPage from "../Page/AccountPage";
-=======
 import OrderPage from "../Page/OrderPage";
 import ProfilePage from "../Page/ProfilePage";
->>>>>>> prod
 import ResetPassPage from "../Page/ResetPassPage";
 import ChangePassPage from "../Page/ChangePassPage";
->>>>>>> 1e2a83ac9c2a47d6346ddfe870f3ebdb2e5f6dea
 
 export const routes = (
   <Routes>
     <Route element={<WithNav />}>
-<<<<<<< HEAD
-      <Route element={<AdminAuth />}>
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/products-admin" element={<ProductPageAdmin />} />
-<<<<<<< HEAD
-=======
-        <Route path="/orders-admin" element={<OrderPageAdmin />} />
->>>>>>> 1e2a83ac9c2a47d6346ddfe870f3ebdb2e5f6dea
-      </Route>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-=======
->>>>>>> prod
       <Route element={<WithAuth />}>
         <Route path="/accounts/:id" element={<ProfilePage />} />
         <Route path="/orders" element={<OrderPage />} />
