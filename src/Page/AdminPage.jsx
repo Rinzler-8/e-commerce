@@ -17,9 +17,9 @@ function AdminPage(props) {
 
   return (
     <div className="admin-page-container">
-      <MenuBar></MenuBar>
+      <MenuBar/>
       <div className="content-area-admin">
-        <ManageUser></ManageUser>
+        <ManageUser/>
       </div>
 
       {/* Thông báo thêm mới thành công */}

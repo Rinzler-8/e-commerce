@@ -26,7 +26,7 @@ const parseJwt = (token) => {
 
 const decodedJwt = parseJwt(token);
 if (decodedJwt && decodedJwt.exp * 1000 < Date.now()) {
-  console.log("decodedJwt", decodedJwt);
+  // console.log("decodedJwt", decodedJwt);
   // localStorage.clear();
   // window.location.reload();
   <Navigate to="/" />;

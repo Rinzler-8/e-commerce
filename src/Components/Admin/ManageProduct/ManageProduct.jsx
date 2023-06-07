@@ -20,7 +20,6 @@ import AddIcon from "@mui/icons-material/Add"
 import DownloadIcon from "@mui/icons-material/Download";
 import {
   actionAddProductAPI,
-  actionFetchProductAPI,
   actionUpdateProductAPI,
   actionDeleteProductAPI,
   actionImportProductAPI,
@@ -34,23 +33,6 @@ function ManageProduct(props) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   let [previewImportFile, setPreviewImportFile] = useState();
   const importFile = useRef(null);
-
-  // Lấy dữ liệu page, size được quản lý từ Redux
-  let filter = {
-    page: stateRedux.pageFilterReducer.page,
-    size: stateRedux.pageFilterReducer.size,
-    sort: stateRedux.pageFilterReducer.sort,
-    search: stateRedux.pageFilterReducer.search,
-  };
-  useEffect(() => {
-    dispatchRedux(actionFetchProductAPI(filter));
-    // Gọi useEffect để load dữ liệu list Department và Positon
-  }, [
-    stateRedux.pageFilterReducer.page,
-    stateRedux.pageFilterReducer.size,
-    stateRedux.pageFilterReducer.sort,
-    stateRedux.pageFilterReducer.search,
-  ]);
 
   // Xử lý xóa Product
   const onHandleDelete = (id) => {
