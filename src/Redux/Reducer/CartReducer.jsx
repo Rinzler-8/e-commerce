@@ -1,6 +1,8 @@
 import * as Types from "../Contant/CartActionType";
 
 var initialState = {
+  open: false,
+  quantity: 0,
   cartItems: [],
 };
 
@@ -10,9 +12,8 @@ const Cart = (state = initialState, action) => {
   switch (action.type) {
     case Types.FETCH_CART_USER_ID:
       state = action.payload;
-      // console.log("state: ", state);
       return {
-        ...state,
+        quantity: 0,
         cartItems: [...state],
       };
     case Types.INC_ITEM_QTY:
@@ -21,13 +22,11 @@ const Cart = (state = initialState, action) => {
       cartListState.cartItems[indexUp].quantity += 1;
       cartListState.cartItems[indexUp].total_price = cartListState.cartItems[indexUp].price * cartListState.cartItems[indexUp].quantity;
       return cartListState;
-
     case Types.DEC_ITEM_QTY:
       let idDec = action.payload.cart_id;
       let indexDown = cartListState.cartItems.findIndex((prod) => prod.cart_id === idDec);
       cartListState.cartItems[indexDown].quantity -= 1;
       cartListState.cartItems[indexDown].total_price = cartListState.cartItems[indexDown].price * cartListState.cartItems[indexDown].quantity;
-      // console.log("update dec: ", action.payload)
       return cartListState;
     case Types.UPDATE_ITEM_QTY:
       let idUpdate = action.payload.cart_id;
@@ -35,7 +34,11 @@ const Cart = (state = initialState, action) => {
       cartListState.cartItems[indexUpdate].quantity = action.payload.quantity;
       cartListState.cartItems[indexUpdate].total_price = cartListState.cartItems[indexUpdate].price * cartListState.cartItems[indexUpdate].quantity;
       return cartListState;
-    // console.log("update: ", action.payload.quantity)
+    case Types.UPDATE_CART_QTY:
+      cartListState.quantity += action.payload;
+      cartListState.open = true;
+      // console.log("update: ", cartListState)
+      break;
     default:
       return { ...state };
   }

@@ -1,5 +1,4 @@
 import { api } from "./api";
-import queryString from "query-string";
 
 const resetPassAPI = (token, pass) => {
   const parameters = {};

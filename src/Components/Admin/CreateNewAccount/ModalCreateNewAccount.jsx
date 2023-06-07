@@ -1,37 +1,30 @@
-import React, { useState } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Input, Row, Col } from "reactstrap";
+import React from "react";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import CreateInputFormComponent from "./CreateInputFormComponent";
+import "../ModalStyle.css";
+import CloseIcon from "@mui/icons-material/Close";
 
 function ModalCreateNewAccount(props) {
-  let { onHandleCreateNewAccount } = props;
-  // Quản lý trạng thái ẩn hiện Moadal
-  let [showModal, SetShowModal] = useState(false);
+  let { onHandleCreateNewAccount, toggle, showModal } = props;
 
-  // Xử lý ẩn hiện modal
-  let toggle = () => {
-    SetShowModal(!showModal);
-  };
+  function toggleModal() {
+    toggle(); // Call the toggle function from props
+  }
 
   return (
-    <Container>
-      <br />
-      <Button color="primary" onClick={toggle}>
-        Create New Account
-      </Button>
-      <Modal isOpen={showModal} toggle={toggle}>
-        <ModalHeader>
-          <h3>Create New Account</h3>
+    <div className="modal-container-custom">
+      <Modal isOpen={showModal} toggle={toggleModal} className="modal-wrapper-custom">
+        <ModalHeader className="modal-header-custom">
+          <div>Tạo tài khoản mới</div>
+          <button onClick={toggleModal} className="close-btn">
+            <CloseIcon />
+          </button>
         </ModalHeader>
         <ModalBody>
-          <CreateInputFormComponent onHandleCreateNewAccount={onHandleCreateNewAccount} />
+          <CreateInputFormComponent onHandleCreateNewAccount={onHandleCreateNewAccount} showModal={showModal} toggle= {toggle}/>
         </ModalBody>
-        <ModalFooter>
-          <Button color="danger" onClick={toggle}>
-            Close
-          </Button>
-        </ModalFooter>
       </Modal>
-    </Container>
+    </div>
   );
 }
 

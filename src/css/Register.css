@@ -1,34 +1,10 @@
-.shipping {
+.registerContainer {
   /* Positioning */
 
   /* Display & Box model */
-
-  /* Font */
-  font-family: gill sans,sans-serif;
-  letter-spacing: 0.04cm;
-  /* font-size: 150%; */
-
-  /* Color */
-
-  /* Transition */
-}
-
-.input {
-    /* Positioning */
-
-  /* Display & Box model */
-
-  /* Font */
-
-  /* Color */
-  /* border-style: none none solid; */
-  /* Transition */
-}
-.input:hover {
-    /* Positioning */
-
-  /* Display & Box model */
-
+  display: flex;
+  justify-content: center;
+  align-content: center;
   /* Font */
 
   /* Color */
@@ -36,16 +12,35 @@
   /* Transition */
 }
 
-.payment {
+.registerForm {
   /* Positioning */
 
   /* Display & Box model */
-  margin: 20px 20px;
-  /* Font */
-
+  display: flex;
+  justify-content: center;
+  width: 600px;
+  margin-bottom: 100px;
+  padding: 50px;
   /* Color */
-  
+
   /* Transition */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* transition: 0.4s; */
+}
+
+.regButton {
+  /* Positioning */
+
+  /* Display & Box model */
+  margin-top: 20px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Color */
+
+  /* Transition */
+  /* transition: 0.4s; */
 }
 
 .register {
@@ -54,9 +49,13 @@
   /* Display & Box  model */
   border-radius: 0;
   padding: 10px 24px;
+  width: 300px;
+  margin-bottom: 20px;
+
   /* Color */
   border-color: rgb(3, 3, 172);
   background-color: rgb(3, 3, 172);
+
   /* Transition */
 }
 
@@ -72,4 +71,15 @@
   color: rgb(3, 3, 172);
   /* Transition */
   transition: 0.4s;
+}
+
+.passNote {
+  /* Positioning */
+
+  /* Display & Box model */
+  padding: 10px;
+  margin-top: 10px;
+  /* Color */
+
+  /* Transition */
 }

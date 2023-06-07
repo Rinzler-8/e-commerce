@@ -2,9 +2,9 @@ import { getOrderInfoAPI, getOrderItemsAPI, checkoutAPI } from "../../API/Checko
 import * as Types from "../Contant/CheckoutActionType";
 
 // Viết các Action liên quan đến Call API
-export const actionCheckoutAPI = (userId, item) => {
+export const actionCheckoutAPI = (item) => {
   return (dispatch) => {
-    return checkoutAPI(userId, item).then((response) => {
+    return checkoutAPI(item).then((response) => {
       dispatch(actionGetOrderInfoRedux(response));
     });
   };
@@ -31,7 +31,6 @@ export const actionGetOrderItemsAPI = (sessionId) => {
   return (dispatch) => {
     return getOrderItemsAPI(sessionId).then((response) => {
       dispatch(actionGetOrderItemsRedux(response));
-      // console.log("Order items Redux: ", response);
     });
   };
 };

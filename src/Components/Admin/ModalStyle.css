@@ -1,0 +1,52 @@
+.modal-wrapper-custom .modal-content {
+  width: 800px !important;
+}
+
+.modal-header-custom .modal-title {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.close-btn {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: inherit;
+}
+
+.modal-footer-btn-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0 5px 0;
+}
+
+.btn-common {
+  padding: 5px 10px;
+  width: 80px;
+}
+
+.btn-save {
+  margin-left: 20px;
+  background-color: white;
+  color: #0a0f9e;
+  border: 1px solid #0a0f9e;
+}
+
+.btn-save:hover {
+  background-color: #0a0f9e;
+  color: white;
+}
+
+.btn-reset {
+  background-color: white;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+}
+
+.btn-reset:hover {
+  background-color: #6c757d;
+  color: white;
+}

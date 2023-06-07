@@ -1,6 +1,4 @@
 import * as Types from "../Contant/CheckoutActionType";
-
-var orderInfo = {};
 var orderItems = [];
 
 const OrderInfo = (state, action) => {
@@ -8,7 +6,6 @@ const OrderInfo = (state, action) => {
     case Types.FETCH_CHECKOUT:
       state = action.payload;
       // state = orderInfo;
-      console.log("order info state: ", state);
       return {...state};
 
     default:
@@ -21,7 +18,6 @@ const OrderItems = (state, action) => {
     case Types.FETCH_ORDER_ITEMS:
       orderItems = action.payload;
       // state = orderItems;
-      console.log("order items state: ", action.payload);
       // return [...state];
       return orderItems;
     default:

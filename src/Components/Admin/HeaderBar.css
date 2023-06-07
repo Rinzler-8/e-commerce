@@ -1,0 +1,31 @@
+.header-bar-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-section span {
+  font-family: "Symbols", "Title", "Arial", sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: #0a0f9e;
+}
+
+.search-input {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: white;
+}
+
+.search-input input {
+  outline: none;
+  background-color: inherit;
+  border: none;
+  margin-right: 10px;
+  width: 320px;
+}
+
+.checkout-btn.disabled {
+  cursor: not-allowed;
+}

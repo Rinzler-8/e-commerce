@@ -1,28 +1,13 @@
-.container {
+.profile-container {
   /* Positioning */
   margin: auto;
   /* Display & Box model */
   margin-top: 90px;
-
+  width: 1320px;
   /* Font */
 
   /* Color */
 
-  /* Transition */
-}
-
-.thank {
-  /* Positioning */
-
-  /* Display & Box model */
-  margin-top: 50px;
-  padding-top: 200px;
-
-  /* Font */
-
-  /* Color */
-
-  /* border-style: none none solid; */
   /* Transition */
 }
 .success_paper {
@@ -38,4 +23,41 @@
   /* background-color: lightgray; */
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   /* Transition */
+}
+
+.infoTitle {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: "Univers LT Std", sans-serif;
+  font-stretch: ultra-condensed;
+  font-variant: small-caps;
+  letter-spacing: 0.04cm;
+}
+
+.r {
+  display: flex;
+  justify-content: center;
+}
+
+.submit-btn-profile {
+  margin-bottom: 20px;
+  width: 300px;
+  background-color: #0a0f9e;
+  color: white;
+  cursor: pointer;
+}
+
+.submit-btn-profile:disabled {
+  /* background-color: #a0cfff; */
+  background-color: #4b545d;
+  color: white;
+  cursor: not-allowed;
+}
+
+.profile-picture {
+  margin-bottom: 20px;
+  width: 150px;
+  background-color: #0a0f9e;
+  color: white;
+  cursor: pointer;
 }

@@ -6,13 +6,13 @@ const ListOrder = (state = initialState, action) => {
   switch (action.type) {
     case Types.FETCH_ORDER_LIST:
       state = action.payload;
-      console.log("payload: ", state);
+      // console.log("payload: ", state);
       return [...state];
     case Types.DELETE_ORDER:
       let idDel = action.payload;
       let listOrderState = state;
 
-      let indexDel = listOrderState.findIndex((order) => order.order_id === idDel);
+      let indexDel = listOrderState.findIndex((order) => order.id === idDel);
       listOrderState.splice(indexDel, 1);
 
       return listOrderState;

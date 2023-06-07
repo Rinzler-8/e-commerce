@@ -1,4 +1,4 @@
-import { addProductNewAPI, deleteProductAPI, getProductAPIList, updateProductAPI, getSingleProductAPI } from "../../API/ProductAPI";
+import { addProductNewAPI, deleteProductAPI, getProductAPIList, updateProductAPI, getSingleProductAPI, getProductByCatAPI, importXLSXProductAPI } from "../../API/ProductAPI";
 import * as Types from "../Contant/ProductActionType";
 import * as Types_Page from "../Contant/PageActionType";
 import { actionToggleUpdateFormRedux } from "./FormUpdateAction";
@@ -10,7 +10,17 @@ export const actionFetchProductAPI = (filter) => {
       // console.log("reponseAPI:", response);
       dispatch(actionFetchProductRedux(response.content));
       dispatch(actionSetTotalPageProductRedux(response.totalPages));
-      // console.log("Products Redux: ", response);
+      dispatch(actionSetTotalElementsProductRedux(response.totalElements));
+    });
+  };
+};
+export const actionFetchProductByCatAPI = (category) => {
+  return (dispatch) => {
+    return getProductByCatAPI(category).then((response) => {
+      // console.log("reponseAPI:", response);
+      dispatch(actionFetchProductCatRedux(response.content));
+      dispatch(actionSetTotalPageProductRedux(response.totalPages));
+      dispatch(actionSetTotalElementsProductRedux(response.totalElements));
     });
   };
 };
@@ -30,6 +40,15 @@ export const actionFetchProductRedux = (products) => {
     payload: products,
   };
 };
+
+// Dispath action này tới redux để lưu list Product vào redux
+export const actionFetchProductCatRedux = (productCat) => {
+  return {
+    type: Types.FETCH_PRODUCT_CAT,
+    payload: productCat,
+  };
+};
+
 // Dispath action này tới redux để lưu 1 Product vào redux
 export const actionFetchSingleProductRedux = (product) => {
   return {
@@ -38,12 +57,18 @@ export const actionFetchSingleProductRedux = (product) => {
   };
 };
 
-
 // Dispath action này tới redux để lấy tổng số trang Product
 export const actionSetTotalPageProductRedux = (totalPage) => {
   return {
     type: Types_Page.SET_TOTAL_PAGE,
     payload: totalPage,
+  };
+};
+// Dispath action này tới redux để lấy tổng số trang Product
+export const actionSetTotalElementsProductRedux = (totalElements) => {
+  return {
+    type: Types_Page.SET_TOTAL_ELEMENTS,
+    payload: totalElements,
   };
 };
 
@@ -67,11 +92,10 @@ export const actionDeleteProductAPI = (id) => {
   return (dispatch) => {
     return deleteProductAPI(id).then((response) => {
       console.log("response sau khi xóa Product: ", response);
-      alert("Xoa san pham thanh cong");
       dispatch(actionFetchProductAPI());
-      dispatch(actionChangePage(0)); // Chuyển về trang 1 sau khi thêm mới thành công
-      dispatch(actionChangeSortField("id")); // Thay đổi trường sort về id
-      dispatch(actionChangeSortDirection("DESC")); // Sort theo chiều giảm dần
+      dispatch(actionChangePage(0)); 
+      dispatch(actionChangeSortField("id")); 
+      dispatch(actionChangeSortDirection("DESC")); 
     });
   };
 };
@@ -85,6 +109,17 @@ export const actionUpdateProductAPI = (id, productUpdate) => {
       console.log("response sau khi Update Product: ", response);
       dispatch(actionFetchProductAPI()); // Load lại dữ liệu API
       dispatch(actionToggleUpdateFormRedux()); // Đóng FormUpdate
+    });
+  };
+};
+
+export const actionImportProductAPI = (file) => {
+  // console.log("productUpdate: ", productUpdate);
+  return (dispatch) => {
+    return importXLSXProductAPI(file).then((response) => {
+      dispatch(actionFetchProductAPI());
+      dispatch(actionChangeSortField("id")); 
+      dispatch(actionChangeSortDirection("DESC")); 
     });
   };
 };

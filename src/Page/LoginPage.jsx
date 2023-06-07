@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import LoginComponent from "../Components/Login/LoginComponent";
 import { checkLoginAPI } from "../API/LoginAPI";
 import storage from "../Storage/Storage";
-import { Outlet, Navigate, useNavigate } from "react-router-dom";
-import { Grid, Box, Typography, Rating, Item, Paper, TextField } from "@mui/material";
-import Register from "../Components/Register/RegisterComponent";
+import { useNavigate } from "react-router-dom";
 import "./../../src/css/LoginPage.css";
 import "./../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -19,29 +17,29 @@ function LoginPage(props) {
     checkLoginAPI(accountLogin)
       .then((response) => {
         if (response !== null && response !== undefined) {
-          console.log("response: ", response);
           let accountLoginSaveToStorage = {
             id: response.id,
             username: response.username,
             email: response.email,
             role: response.roles,
             status: response.status,
+            token: response.token,
+            refreshToken: response.refreshToken,
           };
           // Lưu thông tin Account vào LocalStorage để sử dụng về sau
           storage.setUserInfo(accountLoginSaveToStorage);
-          storage.setToken(accountLoginSaveToStorage);
-          console.log("ROLE: ", localStorage.getItem("role"));
-          toast.success("Login thành công.", {
+          storage.setToken(response.token);
+          storage.setRefreshToken(response.refreshToken);
+          toast.success("Đăng nhập thành công.", {
             position: "top-right",
-            autoClose: 1000,
+            autoClose: 1500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
           });
-          window.location.reload();
-          setTimeout(() => navigate("/"), 1000);
+          setTimeout(() => navigate(0) && navigate("/"), 1500);
         } else {
           toast.error("Thông tin đăng nhập sai! Vui lòng thử lại.", {
             position: "top-right",
@@ -70,23 +68,19 @@ function LoginPage(props) {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/");
+      if (localStorage.getItem("token") && localStorage.getItem("role") === "ADMIN") {
+        navigate("/admin");
+      }
     } else {
       navigate("/login");
     }
   }, []);
   return (
-    <Grid container style={{ marginTop: "90px" }}>
-      {/* SHIPPING INFORMATION */}
-      <Grid item md={6}>
-        <LoginComponent handleLogin={handleLogin} />
-        <ToastContainer />;
-      </Grid>
-      <div className="vl"></div>
-      {/* ORDER SUMMARY */}
-      <Grid item md={5.9}>
-        <Register />
-      </Grid>
-    </Grid>
+    <div className="loginContainer" style={{ height: "65vh", alignItems: "center" }}>
+      <LoginComponent handleLogin={handleLogin} />
+      <ToastContainer />
+      {/* <div className="vl"></div> */}
+    </div>
   );
 }
 

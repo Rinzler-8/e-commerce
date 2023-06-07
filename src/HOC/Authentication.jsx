@@ -1,36 +1,69 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Outlet, Navigate } from "react-router-dom";
-import NavReactstrap from "../Nav/NavReactstrap";
-import Footer from "../Components/Home/Footer";
+import Header from "../Components/Header/Header";
+import Footer from "../Components/Footer/Footer";
+import AppContext from './../AppContext';
 
+const role = localStorage.getItem("role");
+const status = localStorage.getItem("status");
+const token = localStorage.getItem("token");
 
+const parseJwt = (token) => {
+  try {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const decodedPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+        .join("")
+    );
+    return JSON.parse(decodedPayload);
+  } catch (e) {
+    return null;
+  }
+};
+
+const decodedJwt = parseJwt(token);
+if (decodedJwt && decodedJwt.exp * 1000 < Date.now()) {
+  console.log("decodedJwt", decodedJwt);
+  // localStorage.clear();
+  // window.location.reload();
+  <Navigate to="/" />;
+}
 
 function AdminAuth() {
-  let role = localStorage.getItem("role");
-  return role === "ADMIN" && localStorage.getItem("token") ? <Outlet /> : <Navigate to="/" />;
+  return role === "ADMIN" && token && status === "ACTIVE" ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/" />
+  );
 }
 function WithAuth() {
-  let tokend = localStorage.getItem("token");
-  // return tokend ? <Outlet /> : <Navigate to="/login" />;
-  return <Outlet />;
+  return token && status === "ACTIVE" ? <Outlet /> : <Navigate to="/login" />;
 }
+
+// console.log("admin", role);
 
 function WithNav() {
-  return (
-    <>
-      <NavReactstrap />
+  const introRef = useRef(null);
+  const scrollToComponent = () => {
+    if (introRef.current) {
+      introRef.current.scrollIntoView({
+        behavior: "smooth", // Optionally, add smooth scrolling effect
+        block: "start", // Scroll to the top of the component
+      });
+    }
+  };
+  return role !== "ADMIN" ? (
+    <AppContext.Provider value={{ introRef, scrollToComponent }}>
+      <Header />
       <Outlet />
       <Footer />
-    </>
+    </AppContext.Provider>
+  ) : (
+    <Navigate to="/admin" />
   );
 }
 
-function WithoutNav() {
-  return (
-    <>
-      <Outlet />
-      <Footer />
-    </>
-  );
-}
-export { AdminAuth, WithAuth, WithNav, WithoutNav };
+export { AdminAuth, WithAuth, WithNav };

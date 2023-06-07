@@ -1,0 +1,3 @@
+export const FETCH_ORDER_STATUS = "FETCH_ORDER_STATUS";
+export const FETCH_USER_STATUS = "FETCH_USER_STATUS";
+export const FETCH_ROLE = "FETCH_ROLE";

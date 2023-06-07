@@ -4,6 +4,7 @@ var initialState = {
   isShowFormUpdate: false,
   accountUpdateInfo: {},
   productUpdateInfo: {},
+  orderUpdateInfo: {},
 };
 
 const formUpdateStatus = (state = initialState, action) => {
@@ -26,11 +27,11 @@ const formUpdateStatus = (state = initialState, action) => {
         productUpdateInfo: action.payload,
       };
     case Types.FETCH_ORDER_UPDATE_INFO:
-      console.log("product update payload: ", action.payload);
+      // console.log("order update payload: ", action.payload);
 
       return {
         ...state,
-        productUpdateInfo: action.payload,
+        orderUpdateInfo: action.payload,
       };
     default:
       return { ...state };

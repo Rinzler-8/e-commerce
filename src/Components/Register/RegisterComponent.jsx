@@ -3,7 +3,7 @@ import { Button, Container, Row, Col } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import CustomInput from "./CustomInput";
 import * as Yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getUsernameExists, getEmailExists } from "../../API/AccountAPI";
 import { addAccountNewAPI } from "../../API/RegisterAPI";
 import "./../../../src/css/Register.css";
@@ -13,10 +13,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 function RegisterComponent(props) {
   const [isShown, setIsShown] = useState(false);
+  const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
+  const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
+  const passRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,50})");
   // Quản lý trạng thái ẩn hiện Password
-
-  let navigate = useNavigate();
-
   const togglePassword = () => {
     setIsShown((isShown) => !isShown);
   };
@@ -33,33 +33,29 @@ function RegisterComponent(props) {
         }}
         validationSchema={Yup.object({
           username: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự.")
-            .required("Trường này là bắt buộc.")
-            .test("checkUniqueUsername", "Tên người dùng đã được đăng ký.", async (username) => {
+            .required("Trường này là bắt buộc!")
+            .test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
               // call api
               const isExists = await getUsernameExists(username);
               return !isExists;
             }),
 
           email: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự.")
-            .required("Trường này là bắt buộc.")
-            .test("checkUniqueEmail", "Email đã được đăng ký.", async (email) => {
+            .matches(emailRegExp, "Email không hợp lệ!")
+            .required("Trường này là bắt buộc!")
+            .test("checkUniqueEmail", "Email đã được đăng ký!", async (email) => {
               // call api
               const isExists = await getEmailExists(email);
               return !isExists;
             }),
-
-          password: Yup.string().min(6, "Phải từ 6 đến 50 ký tự.").max(50, "Phải từ 6 đến 50 ký tự.").required("Trường này là bắt buộc."),
+          password: Yup.string().matches(passRegExp, "Mật khẩu yếu, vui lòng thử lại!").required("Trường này là bắt buộc!"),
           confirmPassword: Yup.string()
-            .required("Trường này là bắt buộc.")
+            .required("Trường này là bắt buộc!")
             .when("password", {
               is: (val) => (val && val.length > 0 ? true : false),
-              then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp."),
+              then: Yup.string().oneOf([Yup.ref("password")], "Mật khẩu không khớp!"),
             }),
-          mobile: Yup.string().min(10, "Must be 10 numbers").max(10, "Must be 10 numbers").required("Trường này là bắt buộc."),
+          mobile: Yup.string().required("Trường này là bắt buộc!").matches(phoneRegExp, "Số điện thoại không hợp lệ!"),
         })}
         onSubmit={(values) => {
           try {
@@ -95,19 +91,13 @@ function RegisterComponent(props) {
         validateOnChange={true}
         validateOnBlur={true}
       >
-        {({ validateField, validateForm }) => (
-          <Container>
+        {({ validateField, validateForm, isValid }) => (
+          <Container className = "registerContainer">
             <Row>
-              <Col
-                sm={{
-                  offset: 1,
-                  size: 7,
-                }}
-                style={{ marginTop: 60 }}
-              >
-                <Form>
+              <Col className="registerForm">
+                <Form style = {{width: "450px"}}>
                   <div className="title-header">
-                    <h5>CREATE AN ACCOUNT</h5>
+                    <h4>TẠO TÀI KHOẢN MỚI</h4>
                     <hr></hr>
                   </div>
                   {/* username */}
@@ -115,15 +105,7 @@ function RegisterComponent(props) {
                   {/* email */}
                   <Field fullWidth className="input" name="email" type="email" placeholder="Nhập email" label="Email:" component={CustomInput} />
                   {/* mobile */}
-                  <Field
-                    fullWidth
-                    className="input"
-                    name="mobile"
-                    type="number"
-                    placeholder="Nhập số điện thoại"
-                    label="Số điện thoại:"
-                    component={CustomInput}
-                  />
+                  <Field fullWidth className="input" name="mobile" placeholder="Nhập số điện thoại" label="Số điện thoại:" component={CustomInput} />
                   {/* password */}
                   <Field
                     fullWidth
@@ -150,15 +132,18 @@ function RegisterComponent(props) {
                     <Field type="checkbox" name="toggle" checked={isShown} onChange={togglePassword} />
                     {`Hiện Mật Khẩu`}
                   </label>
+                  <ul className="passNote"> Mật khẩu phải chứa ít nhất 6-50 ký tự, trong đó:
+                    <li>1 chữ cái thường</li>
+                    <li>1 chữ cái in hoa</li>
+                    <li>1 chữ số</li>
+                    <li>1 ký tự đặc biệt</li>
+                  </ul>
 
                   {/* Submit */}
-                  <Row className="button">
-                    <Button type="submit" className="register">
+                  <Row className="regButton">
+                    <Button type="submit" className="register" disabled= {!isValid}>
                       Đăng ký
                     </Button>
-                    <Link to={"/login"} className="link">
-                      Quay lại
-                    </Link>
                   </Row>
                 </Form>
               </Col>
@@ -166,7 +151,7 @@ function RegisterComponent(props) {
           </Container>
         )}
       </Formik>
-      <ToastContainer />;
+      <ToastContainer />
     </div>
   );
 }

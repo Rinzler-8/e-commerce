@@ -8,6 +8,9 @@ const getProductAPIList = (filter) => {
   if (filter && filter.page) {
     parameters.page = filter.page;
   }
+  if (filter && filter.totalElements) {
+    parameters.totalElements = filter.totalElements;
+  }
   if (filter && filter.size) {
     parameters.size = filter.size;
   }
@@ -24,8 +27,15 @@ const getProductAPIList = (filter) => {
   // Sử dụng thư viện queryString để chuyển đổi đối tượng thành các param
   // https://www.npmjs.com/package/query-string
   let url = "v1/products?" + queryString.stringify(parameters);
+  // console.log("search url: ", url);
   // products?page=1&size=10
 
+  return api("GET", url, null, null);
+};
+
+// get product by category
+const getProductByCatAPI = (category) => {
+  let url = "v1/products?search=" + category;
   return api("GET", url, null, null);
 };
 
@@ -51,4 +61,28 @@ const updateProductAPI = (id, productUpdate) => {
   return api("PUT", url, productUpdate);
 };
 
-export { getProductAPIList, getSingleProductAPI, addProductNewAPI, deleteProductAPI, updateProductAPI };
+const importXLSXProductAPI = (file) => {
+  const body = new FormData();
+  body.append("file", file);
+  return api("POST", "excel/upload", body);
+};
+
+const exportXLSXProductAPI = () => {
+  return api("GET", "excel/downloadXLSX", null);
+};
+
+const exportCSVProductAPI = () => {
+  return api("GET", "excel/downloadCSV", null);
+};
+
+export {
+  getProductAPIList,
+  getSingleProductAPI,
+  addProductNewAPI,
+  deleteProductAPI,
+  updateProductAPI,
+  getProductByCatAPI,
+  importXLSXProductAPI,
+  exportXLSXProductAPI,
+  exportCSVProductAPI,
+};

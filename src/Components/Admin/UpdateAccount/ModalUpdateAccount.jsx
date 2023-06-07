@@ -1,9 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Input, Row, Col } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import { actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
 import UpdateInputFormComponent from "./UpdateInputFormComponent";
-
+import CloseIcon from "@mui/icons-material/Close";
+import "../ModalStyle.css";
 function ModalUpdateAccount(props) {
   let { onHandleUpdateAccount } = props;
 
@@ -20,21 +21,19 @@ function ModalUpdateAccount(props) {
   };
 
   return (
-    <Container>
-      <Modal isOpen={showModal} toggle={toggle}>
-        <ModalHeader>
-          <h3>Update Account</h3>
+    <div className="modal-container-custom">
+      <Modal isOpen={showModal} toggle={toggle} className="modal-wrapper-custom">
+        <ModalHeader className="modal-header-custom">
+          <div>Cập nhật tài khoản</div>
+          <button onClick={toggle} className="close-btn">
+            <CloseIcon />
+          </button>
         </ModalHeader>
         <ModalBody>
           <UpdateInputFormComponent onHandleUpdateAccount={onHandleUpdateAccount} />
         </ModalBody>
-        <ModalFooter>
-          <Button color="danger" onClick={toggle}>
-            Close
-          </Button>
-        </ModalFooter>
       </Modal>
-    </Container>
+    </div>
   );
 }
 
