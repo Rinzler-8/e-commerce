@@ -45,24 +45,6 @@ function UpdateInputFormComponent(props) {
           Role: roles,
         }}
         validationSchema={Yup.object({
-<<<<<<< HEAD
-          Username: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự.")
-            .required("Không được để trống username"),
-          Avatar: Yup.string()
-<<<<<<< HEAD:src/Components/Admin/UpdateAccount/UpdateInputFormComponent.js
-            .min(6, "Must be between 6 and 50 characters")
-            .max(50, "Must be between 6 and 50 characters"),
-=======
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự."),
->>>>>>> 1e2a83ac9c2a47d6346ddfe870f3ebdb2e5f6dea:src/Components/Admin/UpdateAccount/UpdateInputFormComponent.jsx
-          Mobile: Yup.string()
-            .min(6, "Phải từ 6 đến 50 ký tự.")
-            .max(50, "Phải từ 6 đến 50 ký tự.")
-            .required("Không được để trống mobile"),
-=======
           Username: Yup.string().test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
             // call api
             const isExists = await getUsernameExists(username);
@@ -72,7 +54,6 @@ function UpdateInputFormComponent(props) {
               return !isExists;
             }
           }),
->>>>>>> prod
           Email: Yup.string()
             .matches(emailRegExp, "Email không hợp lệ!")
 

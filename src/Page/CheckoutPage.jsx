@@ -269,14 +269,6 @@ const CheckOutList = () => {
                     <List key={index}>
                       <ListItem>
                         <div>
-<<<<<<< HEAD
-                          <NavLink href={`/products/${product.product_id}`}>
-<<<<<<< HEAD
-                            <img alt="Sample" src={product.imageName} style={{ width: 100, height: 100 }} />
-=======
-                            <img alt="Sample" src= {"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} style={{ width: 100, height: 100 }} />
->>>>>>> 1e2a83ac9c2a47d6346ddfe870f3ebdb2e5f6dea
-=======
                           <NavLink href={`/products/${product.productId}`}>
                             <img
                               alt="Sample"
@@ -286,7 +278,6 @@ const CheckOutList = () => {
                               }
                               style={{ width: 100, height: 100 }}
                             />
->>>>>>> prod
                           </NavLink>
                         </div>
                         <span>
