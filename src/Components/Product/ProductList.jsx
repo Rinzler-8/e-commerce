@@ -18,6 +18,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "../../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import storage from "../../Storage/Storage";
 
 let slidesToShow = 3;
 
@@ -60,7 +61,7 @@ const ProductList = () => {
   const cartStateRedux = useSelector((state) => state.cartReducer);
   const cart = stateRedux.cartReducer;
   const listProduct = stateRedux.listProductReducer;
-  let id = localStorage.getItem("id");
+  let id = storage.getItem("id");
 
   const handleAddToCart = (id, cartItem) => {
     const prod = listProduct.find(

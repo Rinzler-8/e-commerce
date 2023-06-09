@@ -3,41 +3,37 @@ const setRememberMe = (isRememberMe) => {
 };
 
 const isRememberMe = () => {
-  if (localStorage.getItem("isRememberMe") === null || localStorage.getItem("isRememberMe") === undefined) {
+  if (!localStorage.getItem("isRememberMe")) {
     return false; //false: TH này không để RememberMe
   }
 
   // convert string to boolean
-  return JSON.parse(localStorage.getItem("isRememberMe"));
+  return JSON.parse(localStorage.getItem("isRememberMe").toLowerCase());
 };
 
-// const setItem = (key, value) => {
-//   if (isRememberMe()) {
-//     localStorage.setItem(key, value);
-//   } else {
-//     sessionStorage.setItem(key, value);
-//   }
-// };
-
-// const getItem = (key) => {
-//   if (isRememberMe()) {
-//     return localStorage.getItem(key);
-//   } else {
-//     return sessionStorage.getItem(key);
-//   }
-// };
-
 const setItem = (key, value) => {
-  localStorage.setItem(key, value);
+  if (isRememberMe()) {
+    localStorage.setItem(key, value);
+  } else {
+    sessionStorage.setItem(key, value);
+  }
 };
 
 const getItem = (key) => {
-  localStorage.getItem(key);
+  if (isRememberMe()) {
+    return localStorage.getItem(key);
+  } else {
+    return sessionStorage.getItem(key);
+  }
 };
 
 const removeItem = (key) => {
-  localStorage.removeItem(key);
-};
+  if (isRememberMe()) {
+    return localStorage.removeItem(key);
+  } else {
+    return sessionStorage.removeItem(key);
+  }
+}
 
 const setUserInfo = (accountLogin) => {
   setItem("id", accountLogin.id);
@@ -76,6 +72,7 @@ const setRefreshToken = (token) => {
 
 const removeToken = () => {
   removeItem("token");
+  removeItem("refreshToken");
 };
 
 const getToken = () => {
@@ -87,5 +84,5 @@ const isAuth = () => {
 };
 
 // export
-const storage = { setUserInfo, getUserInfo, removeUserInfo, setToken, getToken, removeToken, isAuth, setRefreshToken };
+const storage = { setUserInfo, getUserInfo, removeUserInfo, setToken, getToken, removeToken, getItem, setItem, removeItem, setRefreshToken, setRememberMe, isRememberMe };
 export default storage;

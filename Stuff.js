@@ -71,7 +71,7 @@ Final project:
       - fetch product info ngay khi redirect sang trang edit ? 
          => 
             * Nếu chia ra làm 2 file, 1 file products và 1 trang edit product:
-               fetch ngay dữ liệu của product ở trang products khi bấm vào nút edit, lưu vào localStorage
+               fetch ngay dữ liệu của product ở trang products khi bấm vào nút edit, lưu vào storage
       - Dùng pagination button của material ui thì không chuyển trang để view hết số accounts dưới db vì tổng số trang chỉ hiện listAccount.length là 6 (trong lần fetch đầu tiên)?
          => Dùng pagination button cũ.
       - bấm mũi tên sort 2 lần mới chạy ? 
@@ -98,7 +98,6 @@ Final project:
       
 
 
->>>>>>> 1e2a83ac9c2a47d6346ddfe870f3ebdb2e5f6dea
 
 2. FEATURE
  * Checkout: 
@@ -165,11 +164,6 @@ Final project:
       * nếu sản phẩm đã có trong cart, khi add to cart kèm số lượng cụ thể thì sẽ update số lượng của sản phẩm trong cart (DONE)
    5. Discount
 
-      Styling:
-         - accounts, products, order page (admin)
-         - product detail page
-         - checkout page
-         - checkout success page
 
    String[] PRODUCT_HEADERs = { "product_id", "name", "price", "product_info", "product_detail", "rating_star",
          "product_image_name", "category_id", "stock_qty" };

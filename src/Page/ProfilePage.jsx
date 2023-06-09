@@ -12,13 +12,14 @@ import { updateAccountAPI } from "../API/AccountAPI";
 import { uploadImgAPI } from "../API/ImageAPI";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import "../../src/css/Profile.css";
+import storage from "../Storage/Storage";
 
 const ProfilePage = () => {
   const stateRedux = useSelector((state) => state);
   const dispatchRedux = useDispatch();
   const account = stateRedux.singleAccountReducer;
-  const id = localStorage.getItem("id");
-  const localAcc = JSON.parse(localStorage.getItem("initAcc") || "{}");
+  const id = storage.getItem("id");
+  const localAcc = JSON.parse(storage.getItem("initAcc") || "{}");
   const [previewAvatarUrl, setPreviewAvatarUrl] = useState();
   const [previewAvatarFile, setPreviewAvatarFile] = useState();
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
@@ -30,12 +31,12 @@ const ProfilePage = () => {
     }
   }, []);
 
-  if (!localStorage.getItem("initAcc")) {
-    window.localStorage.setItem(
+  if (!storage.getItem("initAcc")) {
+    window.storage.setItem(
       "initAcc",
       JSON.parse(
         JSON.stringify(
-          JSON.parse(localStorage.getItem("persist:root") || "{}")
+          JSON.parse(storage.getItem("persist:root") || "{}")
             .singleAccountReducer
         )
       )
@@ -141,7 +142,7 @@ const ProfilePage = () => {
                       : require(`../Assets/img/account-default-img.png`))
                     // require(`../Assets/img/account-default-img.png`))
                   ) {
-                    window.localStorage.setItem(
+                    window.storage.setItem(
                       "initAcc",
                       JSON.stringify(update)
                     );

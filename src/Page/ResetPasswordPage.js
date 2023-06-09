@@ -29,7 +29,7 @@ function LoginPage(props) {
           // Lưu thông tin Account vào LocalStorage để sử dụng về sau
           storage.setUserInfo(accountLoginSaveToStorage);
           storage.setToken(accountLoginSaveToStorage);
-          console.log('ROLE: ', localStorage.getItem("role"));
+          console.log('ROLE: ', storage.getItem("role"));
           toast.success("Login thành công.", {
             position: "top-right",
             autoClose: 1000,
@@ -77,7 +77,7 @@ function LoginPage(props) {
   //   }
   // }, []);
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (storage.getItem("token")) {
        navigate("/");
     }
     else {

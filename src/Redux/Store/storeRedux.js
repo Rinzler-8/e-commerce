@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import RootReducers from "./../Reducer/RootReducer";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import storage from "redux-persist/lib/storage"; // defaults to storage for web
 // import { composeWithDevTools } from 'redux-devtools-extension';
 
 const persistConfig = {

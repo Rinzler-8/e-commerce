@@ -7,10 +7,14 @@ import { Link } from "react-router-dom";
 import "./../../../src/css/LoginForm.css";
 
 function LoginComponent(props) {
-  const [isShown, setIsShown] = useState(false);
+  const {showRemember, setShowRemember} = props;
+  const [showPass, setshowPass] = useState(false);
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
   const togglePassword = () => {
-    setIsShown((isShown) => !isShown);
+    setshowPass((showPass) => !showPass);
+  };
+  const toggleRememberMe = () => {
+    setShowRemember((showRemember) => !showRemember);
   };
   let { handleLogin } = props;
   return (
@@ -52,14 +56,19 @@ function LoginComponent(props) {
                     fullWidth
                     className="input"
                     name="password"
-                    type={isShown ? "text" : "password"}
+                    type={showPass ? "text" : "password"}
                     placeholder="Nhập Mật khẩu"
                     label="Mật khẩu:"
                     component={CustomInput}
                   />
-                  <label className="checkbox">
-                    <Field type="checkbox" name="toggle" checked={isShown} onChange={togglePassword} />
+                  <label className="showPass">
+                    <Field type="checkbox" name="showPass" checked={showPass} onChange={togglePassword} />
                     {`Hiện Mật Khẩu`}
+                  </label>
+
+                  <label className="rememberMe">
+                    <Field type="checkbox" name="rememberMe" checked={showRemember} onChange={toggleRememberMe} />
+                    {`Nhớ tài khoản`}
                   </label>
 
                   {/* Submit */}

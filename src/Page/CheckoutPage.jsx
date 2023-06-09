@@ -21,6 +21,7 @@ import {
   actionDeleteAllCartItemsAPI,
   actionCloseCart,
 } from "../Redux/Action/CartAction";
+import storage from "../Storage/Storage";
 
 const CheckOutList = () => {
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
@@ -28,7 +29,7 @@ const CheckOutList = () => {
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
   let cart = stateRedux.cartReducer;
-  let id = localStorage.getItem("id");
+  let id = storage.getItem("id");
   let total = 0;
   useEffect(() => {
     dispatchRedux(actionCloseCart());

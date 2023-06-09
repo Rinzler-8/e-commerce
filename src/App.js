@@ -1,8 +1,9 @@
 import "./App.css";
 import { routes } from "./Router/routes";
+import storage from "./Storage/Storage";
 function App() {
-  if (!localStorage.getItem("id")) {
-    localStorage.setItem("id", Math.floor(Math.random() * 3000) + 1);
+  if (!storage.getItem("id")) {
+    storage.setItem("id", Math.floor(Math.random() * 3000) + 1);
   }
   return (
     <div className="App">

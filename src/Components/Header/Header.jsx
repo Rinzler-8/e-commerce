@@ -36,6 +36,7 @@ import { StyledBadge } from "../StyledMUI";
 import Backdrop from "@mui/material/Backdrop";
 import AppContext from './../../AppContext';
 import KeyIcon from "@mui/icons-material/Key";
+import storage from "../../Storage/Storage";
 
 function Header() {
   let [header, setHeader] = React.useState(false);
@@ -48,8 +49,8 @@ function Header() {
   const listCategories = stateRedux.listCategoryReducer;
   let drawerIsOpen = cartStateRedux.CartDrawerReducer.isOpen;
   const shoppingCartIconRef = useRef(null);
-  const id = localStorage.getItem("id");
-  const username = localStorage.getItem("username");
+  const id = storage.getItem("id");
+  const username = storage.getItem("username");
   let [anchorEl, setAnchorEl] = React.useState(null);
   let [anchorCat, setAnchorCat] = React.useState(null);
   const openPopover = Boolean(anchorEl);
@@ -115,6 +116,7 @@ function Header() {
 
   const logout = () => {
     localStorage.clear();
+    sessionStorage.clear();
     // window.location.reload();
     navigate(`/`);
   };
@@ -171,7 +173,7 @@ function Header() {
           </NavLink>
         </div>
         <div className="header-center">
-          {localStorage.getItem("role") == "ADMIN" ? (
+          {storage.getItem("role") == "ADMIN" ? (
             <>
               <NavLink href="/" className="header-center-content">
                 TRANG CHỦ
@@ -433,7 +435,7 @@ function Header() {
 
             {/* ACCOUNT, ORDER, LOGOUT */}
             <div>
-              {localStorage.getItem("token") ? (
+              {storage.getItem("token") ? (
                 <>
                   <div
                     className="header-user-avatar"

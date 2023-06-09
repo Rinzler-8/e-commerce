@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LoginComponent from "../Components/Login/LoginComponent";
 import { checkLoginAPI } from "../API/LoginAPI";
 import storage from "../Storage/Storage";
@@ -10,7 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 function LoginPage(props) {
   let navigate = useNavigate();
-
+  const [showRemember, setShowRemember] = useState(false);
+  console.log("showRemember: ", showRemember);
   let handleLogin = (accountLogin) => {
     // console.log("Value: ", accountLogin);
     // Call API
@@ -27,6 +28,7 @@ function LoginPage(props) {
             refreshToken: response.refreshToken,
           };
           // Lưu thông tin Account vào LocalStorage để sử dụng về sau
+          storage.setRememberMe(showRemember);
           storage.setUserInfo(accountLoginSaveToStorage);
           storage.setToken(response.token);
           storage.setRefreshToken(response.refreshToken);
@@ -66,9 +68,12 @@ function LoginPage(props) {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (storage.getItem("token")) {
       navigate("/");
-      if (localStorage.getItem("token") && localStorage.getItem("role") === "ADMIN") {
+      if (
+        storage.getItem("token") &&
+        storage.getItem("role") === "ADMIN"
+      ) {
         navigate("/admin");
       }
     } else {
@@ -76,8 +81,15 @@ function LoginPage(props) {
     }
   }, []);
   return (
-    <div className="loginContainer" style={{ height: "65vh", alignItems: "center" }}>
-      <LoginComponent handleLogin={handleLogin} />
+    <div
+      className="loginContainer"
+      style={{ height: "65vh", alignItems: "center" }}
+    >
+      <LoginComponent
+        handleLogin={handleLogin}
+        showRemember={showRemember}
+        setShowRemember={setShowRemember}
+      />
       <ToastContainer />
       {/* <div className="vl"></div> */}
     </div>

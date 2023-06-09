@@ -17,12 +17,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import "../../src/css/CartPage.css";
+import storage from "../Storage/Storage";
 
 const CartPage = () => {
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
   let cart = stateRedux.cartReducer;
-  let id = localStorage.getItem("id");
+  let id = storage.getItem("id");
 
   const addQty = (cartItem) => {
     dispatchRedux(actionAddItemQty(cartItem));

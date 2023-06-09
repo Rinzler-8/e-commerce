@@ -20,12 +20,12 @@
 //   let dispatchRedux = useDispatch();
 //   const cart = stateRedux.cartReducer;
 //   let product = stateRedux.singleProductReducer;
-//   let id = localStorage.getItem("id");
+//   let id = storage.getItem("id");
 //   let prodId = useParams();
 //   const [qty, setQty] = useState(1);
 
 //   if (!id) {
-//     localStorage.setItem("id", Math.floor(Math.random() * 3000) + 1);
+//     storage.setItem("id", Math.floor(Math.random() * 3000) + 1);
 //   }
   
 //   const handleAddToCart = (id, cartItem) => {

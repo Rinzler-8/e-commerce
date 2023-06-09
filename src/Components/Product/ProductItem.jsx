@@ -12,6 +12,7 @@ import {
 import "../../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import storage from "../../Storage/Storage";
 
 function ProductItem() {
   let dispatchRedux = useDispatch();
@@ -19,9 +20,9 @@ function ProductItem() {
   let cartStateRedux = useSelector((state) => state.cartReducer);
   const cart = stateRedux.cartReducer;
   let listProduct = stateRedux.listProductReducer;
-  let id = localStorage.getItem("id");
+  let id = storage.getItem("id");
   if (!id) {
-    localStorage.setItem("id", Math.floor(Math.random() * 3000) + 1);
+    storage.setItem("id", Math.floor(Math.random() * 3000) + 1);
   }
 
   const handleAddToCart = (id, cartItem) => {

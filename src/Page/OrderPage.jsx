@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MenuBar from "../Components/Admin/MenuBar/MenuBar";
 import ManageOrder from "../Components/Admin/ManageOrder/ManageOrder";
 import ManageOrderUser from "../Components/Admin/ManageOrder/ManageOrderUser";
+import storage from "../Storage/Storage";
 
 function OrderPage(props) {
   let stateRedux = useSelector((state) => state);
@@ -30,7 +31,7 @@ function OrderPage(props) {
 
   return (
     <>
-      {localStorage.getItem("role") === "ADMIN" ? (
+      {storage.getItem("role") === "ADMIN" ? (
         <div className="admin-page-container">
           <MenuBar />
           <div className="content-area-admin">

@@ -7,6 +7,7 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import { Popover } from "@mui/material";
+import storage from "../../../Storage/Storage";
 
 const MenuBar = () => {
   const [anchorSettings, setAnchorSettings] = React.useState(null);
@@ -21,7 +22,8 @@ const MenuBar = () => {
   };
 
   const logout = () => {
-    localStorage.clear();
+    storage.removeUserInfo();
+    storage.removeToken();
     window.location.reload();
   };
 

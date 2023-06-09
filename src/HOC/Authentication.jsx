@@ -3,10 +3,11 @@ import { Outlet, Navigate } from "react-router-dom";
 import Header from "../Components/Header/Header";
 import Footer from "../Components/Footer/Footer";
 import AppContext from './../AppContext';
+import storage from "../Storage/Storage";
 
-const role = localStorage.getItem("role");
-const status = localStorage.getItem("status");
-const token = localStorage.getItem("token");
+const role = storage.getItem("role");
+const status = storage.getItem("status");
+const token = storage.getItem("token");
 
 const parseJwt = (token) => {
   try {
@@ -27,7 +28,7 @@ const parseJwt = (token) => {
 const decodedJwt = parseJwt(token);
 if (decodedJwt && decodedJwt.exp * 1000 < Date.now()) {
   // console.log("decodedJwt", decodedJwt);
-  // localStorage.clear();
+  // storage.clear();
   // window.location.reload();
   <Navigate to="/" />;
 }

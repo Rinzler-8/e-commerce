@@ -28,6 +28,7 @@ import {
 } from "../../../Redux/Action/OrderAction";
 import { useEffect } from "react";
 import { actionGetOrderItemsAPI } from "../../../Redux/Action/CheckoutAction";
+import storage from "../../../Storage/Storage";
 
 
 const headCells = [
@@ -195,8 +196,8 @@ export default function OrderList(props) {
     onHandleChangeFieldSort,
     onHandleChangeDirectionSort,
   } = props;
-  const id = localStorage.getItem("id");
-  const role = localStorage.getItem("role");
+  const id = storage.getItem("id");
+  const role = storage.getItem("role");
   let [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
@@ -452,7 +453,7 @@ export default function OrderList(props) {
                     <TableCell align="right">{order.note}</TableCell>
                     <TableCell align="center" className="user-opertation-cell">
                       <div className="user-operation">
-                        {localStorage.getItem("role") === "ADMIN" && !["DELIVERED", "CANCELED"].includes(order.orderStatus)? (
+                        {storage.getItem("role") === "ADMIN" && !["DELIVERED", "CANCELED"].includes(order.orderStatus)? (
                           <Button
                             color="warning"
                             onClick={(event) =>
@@ -463,7 +464,7 @@ export default function OrderList(props) {
                             <EditIcon />
                           </Button>
                         ) : null}
-                        {localStorage.getItem("role") === "USER" &&
+                        {storage.getItem("role") === "USER" &&
                         ["PENDING", "CONFIRMED"].includes(order.orderStatus) ? (
                           <Button
                             color="danger"

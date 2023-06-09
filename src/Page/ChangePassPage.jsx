@@ -11,6 +11,7 @@ import { resetPassAPI } from "../API/ResetPassAPI";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { actionFetchSingleAccountAPI } from "../Redux/Action/AccountAction";
+import storage from "../Storage/Storage";
 // import bcrypt from "bcryptjs";
 
 const ChangePassPage = () => {
@@ -18,7 +19,7 @@ const ChangePassPage = () => {
   const navigate = useNavigate();
   const dispatchRedux = useDispatch();
   // const singleAccount = useSelector((state) => state.singleAccountReducer);
-  const id = localStorage.getItem("id");
+  const id = storage.getItem("id");
   const token = useParams();
   // const passRegExp = new RegExp(
   //   "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
@@ -30,7 +31,7 @@ const ChangePassPage = () => {
   // };
 
   const togglePassword = () => {
-    // console.log("password: ", localStorage.getItem(""))
+    // console.log("password: ", storage.getItem(""))
     setIsShown((isShown) => !isShown);
   };
 

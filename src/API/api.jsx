@@ -1,5 +1,6 @@
 import axios from "axios";
 import { refreshTokenAPI } from "./LoginAPI";
+import storage from "../Storage/Storage";
 
 const axiosClient = axios.create({
   baseURL: "http://localhost:8080/api/",
@@ -12,8 +13,8 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
   (config) => {
-    // Lấy token từ localStorage
-    const token = localStorage.getItem("token");
+    // Lấy token từ storage
+    const token = storage.getItem("token");
 
     const parseJwt = (token) => {
       try {
@@ -54,13 +55,13 @@ axiosClient.interceptors.response.use(
 
         try {
           const rs = await axiosClient.post("auth/refreshtoken", {
-            refreshToken: localStorage.getItem("refreshToken"),
+            refreshToken: storage.getItem("refreshToken"),
           });
 
           const { accessToken } = rs.data;
 
           refreshTokenAPI(accessToken);
-          localStorage.setItem("token", accessToken);
+          storage.setItem("token", accessToken);
 
           return axiosClient(originalConfig);
         } catch (_error) {
