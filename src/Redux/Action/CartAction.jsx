@@ -1,11 +1,16 @@
-import { addToCartAPI, deleteAllCartItemsAPI, updateCartAPI, getCartByUserIdAPI, deleteCartItemAPI } from "../../API/CartAPI";
+import {
+  addToCartAPI,
+  deleteAllCartItemsAPI,
+  updateCartAPI,
+  getCartByUserIdAPI,
+  deleteCartItemAPI,
+} from "../../API/CartAPI";
 import * as Types from "../Contant/CartActionType";
 // Viết các Action liên quan đến Call API
 export const actionGetCartByUserIdAPI = (id) => {
   return (dispatch) => {
     return getCartByUserIdAPI(id).then((response) => {
       dispatch(actionGetCartByUserIdRedux(response));
-      // console.log("Cart Redux: ", response);
     });
   };
 };
@@ -51,7 +56,9 @@ export const actionCloseCart = () => ({
 // Acction thêm mới Cart
 export const actionAddToCartAPI = (item) => {
   return (dispatch) => {
-    return addToCartAPI(item).then((response) => {});
+    return addToCartAPI(item).then((response) => {
+      console.log("Cart Redux: ", response);
+    });
   };
 };
 

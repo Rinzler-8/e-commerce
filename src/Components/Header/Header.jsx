@@ -34,7 +34,7 @@ import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { StyledBadge } from "../StyledMUI";
 import Backdrop from "@mui/material/Backdrop";
-import AppContext from './../../AppContext';
+import AppContext from "./../../AppContext";
 import KeyIcon from "@mui/icons-material/Key";
 import storage from "../../Storage/Storage";
 
@@ -42,12 +42,10 @@ function Header() {
   let [header, setHeader] = React.useState(false);
   let navigate = useNavigate();
   const stateRedux = useSelector((cartItems) => cartItems);
-  const cartStateRedux = useSelector((state) => state);
   const dispatchRedux = useDispatch();
   const cart = stateRedux.cartReducer;
   const account = stateRedux.singleAccountReducer;
   const listCategories = stateRedux.listCategoryReducer;
-  let drawerIsOpen = cartStateRedux.CartDrawerReducer.isOpen;
   const shoppingCartIconRef = useRef(null);
   const id = storage.getItem("id");
   const username = storage.getItem("username");
@@ -55,7 +53,7 @@ function Header() {
   let [anchorCat, setAnchorCat] = React.useState(null);
   const openPopover = Boolean(anchorEl);
   const openCategories = Boolean(anchorCat);
-  const {scrollToComponent} = useContext(AppContext);
+  const { scrollToComponent, drawerIsOpen } = useContext(AppContext);
   let total = 0;
 
   const handleKeyDown = (event) => {

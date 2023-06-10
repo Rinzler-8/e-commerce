@@ -36,7 +36,6 @@ const CheckOutSuccess = () => {
       dispatchRedux(actionGetOrderItemsAPI(sessionId));
     }
   }, [sessionId]);
-  console.log("item", orderItemsState);
   // Khai báo item hiển thị dữ liệu
   // Kiểm tra nếu listProduct !="" sẽ hiển thị dữ liệu
   if (orderState.id || orderState.sessionId) {
@@ -52,7 +51,7 @@ const CheckOutSuccess = () => {
           <div>Thông tin đơn hàng:</div>
           {orderItemsState.map(
             (item, index) => (
-              console.log("item", item.price),
+              // console.log("item", item.price),
               (
                 <List key={index}>
                   <ListItem>

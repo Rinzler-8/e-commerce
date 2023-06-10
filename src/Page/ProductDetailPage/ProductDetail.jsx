@@ -1,109 +1,131 @@
-// import React, { useState, useEffect} from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { Col, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap";
-// import { useParams } from "react-router-dom";
-// import { Button, Box } from "@mui/material";
-// import { actionFetchSingleProductAPI } from "../../Redux/Action/ProductAction";
-// import {
-//   actionAddToCartAPI,
-//   actionAddItemQty,
-//   actionDecItemQty,
-//   actionUpdateCartAPI,
-//   actionCloseCart,
-//   actionOpenCart,
-//   actionUpdateCartQty,
-// } from "../../Redux/Action/CartAction";
-// import "./ProductDetail.css";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Col, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap";
+import { useParams } from "react-router-dom";
+import { Button, Box } from "@mui/material";
+import { actionFetchSingleProductAPI } from "../../Redux/Action/ProductAction";
+import {
+  actionAddToCartAPI,
+  actionAddItemQty,
+  actionDecItemQty,
+  actionUpdateCartAPI,
+  actionCloseCart,
+  actionOpenCart,
+  actionUpdateCartQty,
+  actionGetCartByUserIdAPI,
+} from "../../Redux/Action/CartAction";
+import "./ProductDetail.css";
+import storage from "../../Storage/Storage";
+import { useContext } from "react";
+import AppContext from "../../AppContext";
 
-// function ProductDetail(props) {
-//   let stateRedux = useSelector((state) => state);
-//   let dispatchRedux = useDispatch();
-//   const cart = stateRedux.cartReducer;
-//   let product = stateRedux.singleProductReducer;
-//   let id = storage.getItem("id");
-//   let prodId = useParams();
-//   const [qty, setQty] = useState(1);
+function ProductDetail(props) {
+  const { drawerIsOpen } = useContext(AppContext);
+  let stateRedux = useSelector((state) => state);
+  let dispatchRedux = useDispatch();
+  const cart = stateRedux.cartReducer;
+  let product = stateRedux.singleProductReducer;
+  let id = storage.getItem("id");
+  let prodId = useParams();
+  const [qty, setQty] = useState(1);
+  if (!id) {
+    storage.setItem("id", Math.floor(Math.random() * 3000) + 1);
+  }
 
-//   if (!id) {
-//     storage.setItem("id", Math.floor(Math.random() * 3000) + 1);
-//   }
-  
-//   const handleAddToCart = (id, cartItem) => {
-//     const existingItem = cart.cartItems.find((item) => item.productId === cartItem.productId);
-//     if (existingItem) {
-//       existingItem.quantity += 1;
-//       dispatchRedux(actionUpdateCartAPI(id, existingItem));
-//     } else {
-//       const newCartItem = {
-//         quantity: 1,
-//         price: cartItem.price,
-//         productId: cartItem.productId,
-//       };
-//       dispatchRedux(actionAddToCartAPI(newCartItem));
-//       dispatchRedux(actionUpdateCartQty(1));
-//     }
-//     dispatchRedux(actionOpenCart());
-//   };
+  const handleAddToCart = (id, cartItem) => {
+    const existingItem = cart.cartItems.find(
+      (item) => item.productId === cartItem.productId
+    );
+    if (existingItem) {
+      existingItem.quantity += 1;
+      dispatchRedux(actionUpdateCartAPI(id, existingItem));
+    } else {
+      const newCartItem = {
+        user_id: id,
+        productId: cartItem.productId,
+        quantity: qty,
+        price: cartItem.price,
+      };
+      console.log("newCartItem ", newCartItem);
+      dispatchRedux(actionAddToCartAPI(newCartItem));
+      dispatchRedux(actionUpdateCartQty(1));
+    }
+    dispatchRedux(actionOpenCart());
+  };
 
-//   const addQty = (cartItem) => {
-//     dispatchRedux(actionAddItemQty(cartItem));
-//     dispatchRedux(actionUpdateCartAPI(id, cartItem));
-//   };
+  useEffect(() => {
+    dispatchRedux(actionFetchSingleProductAPI(prodId.id));
+    dispatchRedux(actionGetCartByUserIdAPI(id));
+  }, [drawerIsOpen]);
 
-//   const decQty = (cartItem) => {
-//     dispatchRedux(actionDecItemQty(cartItem));
-//     dispatchRedux(actionUpdateCartAPI(id, cartItem));
-//   };
+  useEffect(() => {
+    dispatchRedux(actionCloseCart());
+  }, []);
 
-//   const updateQty = (id, product, e) => {
-//     let obj = { cart_id: product.cart_id, quantity: e.target.value, price: product.price * e.target.value };
-//     dispatchRedux(actionUpdateCartAPI(id, obj));
-//   };
+  return (
+    <div className="product-detail-container">
+      <div className="product-detail-components">
+        <div className="product-image">
+          <img
+            alt="Sample"
+            src={
+              "http://localhost:8080/api/v1/fileUpload/files/" +
+              product.imageName
+            }
+            style={{ paddingTop: 30 }}
+          />
+        </div>
+        <div className="product-details">
+          <div>
+            <h1 id="product-name">{product.name}</h1>
+            <CardSubtitle className="mb-2 text-muted" tag="h5">
+              {product.info}
+            </CardSubtitle>
+            <div>{product.detail}</div>
+            <div id="product-price">
+              {product.price
+                ? product.price.toLocaleString("vi", {
+                    style: "currency",
+                    currency: "VND",
+                  })
+                : null}
+            </div>
 
-//   useEffect(() => {
-//     dispatchRedux(actionFetchSingleProductAPI(prodId.id));
-//   }, [prodId.id]);
+            <div>
+              <Button
+                onClick={() => setQty(qty - 1)}
+                className="qty_btn"
+                disabled={qty <= 1}
+              >
+                -
+              </Button>
+              <input
+                type="text"
+                className="input_qty"
+                value={qty}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value, 10); // Convert the value to an integer
+                  if (!isNaN(value) && value > 0) {
+                    setQty(value);
+                  }
+                }}
+                size="3"
+              />
+              <Button className="qty_btn" onClick={() => setQty(qty + 1)}>
+                +
+              </Button>
+            </div>
+            <Button
+              onClick={() => handleAddToCart(id, product)}
+              id="add-to-cart"
+            >
+              Add to cart
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-//   useEffect(() => {
-//     dispatchRedux(actionCloseCart());
-//   }, []);
-
-//   // useEffect(() => {
-//   //   dispatchRedux(actionCloseCart());
-//   // }, []);
-//   // dispatchRedux(actionFetchSingleProductAPI(prodId.id));
-//   return (
-//     <Col sm="4" style={{ padding: 30 }}>
-//       <Box>
-//         {/* <img alt="Sample" src= {require('../../Assets/Product/' + product.imageName)} style={{ paddingTop: 30 }} /> */}
-//         <img alt="Sample" src={"http://localhost:8080/api/v1/fileUpload/files/" + product.imageName} style={{ paddingTop: 30 }} />
-//         <CardBody>
-//           <CardTitle tag="h5">{product.name}</CardTitle>
-//           <CardSubtitle className="mb-2 text-muted" tag="h6">
-//             {product.info}
-//           </CardSubtitle>
-//           <CardText>{product.detail}</CardText>
-//           {/* <CardText>{product.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</CardText> */}
-//         </CardBody>
-//         <span>
-//           <Button disabled={qty <= 1} onClick={() => decQty(product)}>
-//             -
-//           </Button>
-//           <input
-//             type="text"
-//             className="input_qty"
-//             value={product.quantity}
-//             onChange={(e) => updateQty(id, product, e)}
-//             size="3"
-//           />
-//           <Button onClick={() => addQty(product)}>+</Button>
-//         </span>
-//       </Box>
-//       <Button color="primary" onClick={() => handleAddToCart(id, product)}>
-//         Add to cart
-//       </Button>
-//     </Col>
-//   );
-// }
-
-// export default ProductDetail;
+export default ProductDetail;

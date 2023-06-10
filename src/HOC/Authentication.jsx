@@ -4,10 +4,13 @@ import Header from "../Components/Header/Header";
 import Footer from "../Components/Footer/Footer";
 import AppContext from './../AppContext';
 import storage from "../Storage/Storage";
+import { useSelector } from "react-redux";
 
 const role = storage.getItem("role");
 const status = storage.getItem("status");
 const token = storage.getItem("token");
+
+
 
 const parseJwt = (token) => {
   try {
@@ -48,6 +51,8 @@ function WithAuth() {
 
 function WithNav() {
   const introRef = useRef(null);
+  const cartStateRedux = useSelector((state) => state);
+  const drawerIsOpen = cartStateRedux.CartDrawerReducer.isOpen;
   const scrollToComponent = () => {
     if (introRef.current) {
       introRef.current.scrollIntoView({
@@ -57,7 +62,7 @@ function WithNav() {
     }
   };
   return role !== "ADMIN" ? (
-    <AppContext.Provider value={{ introRef, scrollToComponent }}>
+    <AppContext.Provider value={{ introRef, scrollToComponent, drawerIsOpen }}>
       <Header />
       <Outlet />
       <Footer />

@@ -42,7 +42,7 @@ const NextBtn = (props) => {
   const { onClick, slideCount, currentSlide } = props;
   return (
     <>
-      {(currentSlide !== slideCount - slidesToShow) === 0 ? (
+      {(currentSlide !== slideCount - slidesToShow) == 0 ? (
         <div className={`controlProd-right`}>
           <ArrowForwardIosIcon style={{ color: "grey", fontSize: "30px" }} />
         </div>
@@ -81,7 +81,6 @@ const ProductList = () => {
       const existingItem = cart.cartItems.find(
         (item) => item.productId === cartItem.productId
       );
-      console.log("existingItem", existingItem);
       if (existingItem) {
         existingItem.quantity += 1;
         dispatchRedux(actionUpdateCartAPI(id, existingItem));
@@ -126,7 +125,7 @@ const ProductList = () => {
           {listProduct.map((product, index) => (
             <div className="productItem-container" key={index}>
               <NavLink
-                to={`/products/${product.id}`}
+                to={`/products/${product.productId}`}
                 style={{
                   textDecoration: "none",
                   display: "flex",
