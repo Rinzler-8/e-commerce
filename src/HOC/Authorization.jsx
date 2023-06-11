@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import Header from "../Components/Header/Header";
 import Footer from "../Components/Footer/Footer";
-import AppContext from './../AppContext';
+import AppContext from '../AppContext';
 import storage from "../Storage/Storage";
 import { useSelector } from "react-redux";
 
@@ -47,7 +47,6 @@ function WithAuth() {
   return token && status === "ACTIVE" ? <Outlet /> : <Navigate to="/login" />;
 }
 
-// console.log("admin", role);
 
 function WithNav() {
   const introRef = useRef(null);

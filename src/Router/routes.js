@@ -8,7 +8,7 @@ import ProductPage from "../Page/ProductPage/ProductPage";
 import CheckoutPage from "./../Page/CheckoutPage";
 import CheckOutSuccess from "../Page/CheckoutSuccessPage";
 import ForgotPasswordPage from "./../Page/ForgotPassPage";
-import { AdminAuth, WithAuth, WithNav } from "../HOC/Authentication";
+import { AdminAuth, WithAuth, WithNav } from "../HOC/Authorization";
 import ProductDetail from "../Page/ProductDetailPage/ProductDetail";
 import ProductCategoryPage from "../Page/ProductPage/ProductCategoryPage";
 import CartPage from "../Page/CartPage";

@@ -32,7 +32,7 @@ const ProfilePage = () => {
   }, []);
 
   if (!storage.getItem("initAcc")) {
-    window.storage.setItem(
+    storage.setItem(
       "initAcc",
       JSON.parse(
         JSON.stringify(
@@ -142,7 +142,7 @@ const ProfilePage = () => {
                       : require(`../Assets/img/account-default-img.png`))
                     // require(`../Assets/img/account-default-img.png`))
                   ) {
-                    window.storage.setItem(
+                    storage.setItem(
                       "initAcc",
                       JSON.stringify(update)
                     );

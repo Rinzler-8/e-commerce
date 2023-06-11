@@ -8,27 +8,6 @@ import ManageOrderUser from "../Components/Admin/ManageOrder/ManageOrderUser";
 import storage from "../Storage/Storage";
 
 function OrderPage(props) {
-  let stateRedux = useSelector((state) => state);
-  let dispatchRedux = useDispatch();
-  // Lấy dữ liệu page, size được quản lý từ Redux
-  let filter = {
-    page: stateRedux.pageFilterReducer.page,
-    size: stateRedux.pageFilterReducer.size,
-    sort: stateRedux.pageFilterReducer.sort,
-    search: stateRedux.pageFilterReducer.search,
-  };
-
-  //gọi useEffect để load dữ liệu, chỉ gọi khi các state page hoặc size, ... từ redux thay đổi
-  useEffect(() => {
-    dispatchRedux(actionFetchOrderAPI(filter));
-    // Gọi useEffect để load dữ liệu list Department và Positon
-  }, [
-    stateRedux.pageFilterReducer.page,
-    stateRedux.pageFilterReducer.size,
-    stateRedux.pageFilterReducer.sort,
-    stateRedux.pageFilterReducer.search,
-  ]);
-
   return (
     <>
       {storage.getItem("role") === "ADMIN" ? (

@@ -14,7 +14,7 @@ import {
   actionUpdateCartQty,
   actionGetCartByUserIdAPI,
 } from "../../Redux/Action/CartAction";
-import "./ProductDetail.css";
+import "./ProductDetail.scss";
 import storage from "../../Storage/Storage";
 import { useContext } from "react";
 import AppContext from "../../AppContext";
@@ -28,9 +28,6 @@ function ProductDetail(props) {
   let id = storage.getItem("id");
   let prodId = useParams();
   const [qty, setQty] = useState(1);
-  if (!id) {
-    storage.setItem("id", Math.floor(Math.random() * 3000) + 1);
-  }
 
   const handleAddToCart = (id, cartItem) => {
     const existingItem = cart.cartItems.find(

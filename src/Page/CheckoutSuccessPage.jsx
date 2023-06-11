@@ -26,6 +26,7 @@ const CheckOutSuccess = () => {
   let orderItemsState = stateRedux.orderItemsReducer;
   let sessionId = orderState.sessionId;
   let orderId = orderState.id;
+  
   useEffect(() => {
     if (orderId && orderId !== "") {
       dispatchRedux(actionGetOrderInfoAPI(orderId));

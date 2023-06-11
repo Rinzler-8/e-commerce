@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Typography } from "@
 import { IconButton } from "@mui/material";
 
 export default function CancelDialog(props) {
-  let { isDialogOpen, onHandleCancel, toggle, selectedOrderId } = props;
+  let { isCancelOpen, onHandleCancel, toggle, selectedOrder } = props;
 
 
   function toggleModal() {
@@ -11,12 +11,12 @@ export default function CancelDialog(props) {
   }
 
   function handleCancel() {
-    onHandleCancel(selectedOrderId);
+    onHandleCancel(selectedOrder.id);
   }
 
   return (
     <Dialog
-      open={isDialogOpen}
+      open={isCancelOpen}
       onClose={toggleModal}
       PaperProps={{
         elevation: 8,
@@ -29,7 +29,7 @@ export default function CancelDialog(props) {
         </Typography>
       </DialogTitle>
       <DialogContent dividers>
-        <Typography>Bạn có chắc chắn muốn hủy đơn (ID:{selectedOrderId}) không?</Typography>
+        <Typography>Bạn có chắc chắn muốn hủy đơn (ID:{selectedOrder ? selectedOrder.id : null}) không?</Typography>
       </DialogContent>
       <DialogActions>
         <IconButton onClick={toggleModal} color="primary">

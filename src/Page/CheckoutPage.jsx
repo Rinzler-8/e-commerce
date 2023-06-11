@@ -158,19 +158,18 @@ const CheckOutList = () => {
                         <span>
                           <h2 className="shipping">THÔNG TIN GIAO HÀNG</h2>
                         </span>
-
                         <Field
                           fullWidth
                           name="firstName"
                           type="text"
-                          label="Tên"
+                          placeholder="Nhập Tên"
+                          label="Tên:"
                           component={CustomInput}
                         />
                         <Field
                           fullWidth
                           name="lastName"
                           type="text"
-                          placeholder="Nhập Họ"
                           label="Họ:"
                           component={CustomInput}
                         />

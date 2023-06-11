@@ -22,6 +22,7 @@ import { Button } from "reactstrap";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CancelDialog from "./CancelDialog";
+import ReviewDialog from "./ReviewDialog";
 import {
   actionFetchOrderAPI,
   actionUpdateOrderAPI,
@@ -29,7 +30,6 @@ import {
 import { useEffect } from "react";
 import { actionGetOrderItemsAPI } from "../../../Redux/Action/CheckoutAction";
 import storage from "../../../Storage/Storage";
-
 
 const headCells = [
   {
@@ -198,7 +198,7 @@ export default function OrderList(props) {
   } = props;
   const id = storage.getItem("id");
   const role = storage.getItem("role");
-  let [order, setOrder] = React.useState("asc");
+  let [sortOrder, setSortOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
@@ -206,10 +206,9 @@ export default function OrderList(props) {
   const dispatchRedux = useDispatch();
   const stateRedux = useSelector((state) => state);
   const listOrder = stateRedux.listOrderReducer;
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const [selectedOrderId, setSelectedOrderId] = React.useState(null);
-  const orderState = stateRedux.checkoutReducer;
-  const sessionId = orderState.sessionId;
+  const [isCancelOpen, setIsCancelOpen] = React.useState(false);
+  const [isReviewOpen, setIsReviewOpen] = React.useState(false);
+  const [selectedOrder, setSelectedOrder] = React.useState();
 
   let handleUpdateStatusButton = (event, order) => {
     // dispatchRedux(actionShowUpdateForm());
@@ -218,9 +217,9 @@ export default function OrderList(props) {
   };
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
+    const isAsc = orderBy === property && sortOrder === "asc";
     const newOrder = isAsc ? "desc" : "asc";
-    setOrder(newOrder);
+    setSortOrder(newOrder);
     setOrderBy(property);
     onHandleChangeDirectionSort(newOrder);
     onHandleChangeFieldSort(property);
@@ -269,9 +268,13 @@ export default function OrderList(props) {
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
-  const openCancelDialog = (id) => {
-    setSelectedOrderId(id);
-    setIsDialogOpen(!isDialogOpen);
+  const toggleCancelDialog = (orderDetail) => {
+    setSelectedOrder(orderDetail);
+    setIsCancelOpen(!isCancelOpen);
+  };
+  const toggleReviewDialog = (orderDetail) => {
+    setSelectedOrder(orderDetail);
+    setIsReviewOpen(!isReviewOpen);
   };
 
   let onHandleCancel = (id) => {
@@ -279,7 +282,15 @@ export default function OrderList(props) {
       orderStatus: "CANCELED",
     };
     dispatchRedux(actionUpdateOrderAPI(id, jsonBody));
-    setIsDialogOpen(!isDialogOpen);
+    setIsCancelOpen(!isCancelOpen);
+  };
+
+  let onHandleReview = (id) => {
+    const jsonBody = {
+      orderStatus: "CANCELED",
+    };
+    dispatchRedux(actionUpdateOrderAPI(id, jsonBody));
+    setIsReviewOpen(!isReviewOpen);
   };
 
   const CustomPaginationBtn = () => {
@@ -331,27 +342,6 @@ export default function OrderList(props) {
     );
   };
 
-  // Avoid a layout jump when reaching the last page with empty listOrder.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listOrder.length) : 0;
-  let filter = {
-    page: stateRedux.pageFilterReducer.page,
-    size: stateRedux.pageFilterReducer.size,
-    sort: stateRedux.pageFilterReducer.sort,
-    search: stateRedux.pageFilterReducer.search,
-  };
-  useEffect(() => {
-    if (sessionId && sessionId !== "") {
-      dispatchRedux(actionGetOrderItemsAPI(sessionId));
-    }
-    dispatchRedux(actionFetchOrderAPI(filter));
-  }, [
-    stateRedux.pageFilterReducer.page,
-    stateRedux.pageFilterReducer.size,
-    stateRedux.pageFilterReducer.sort,
-    stateRedux.pageFilterReducer.search,
-  ]);
-
   const rowItemStyling = {
     marginLeft: "10px",
     transition: "background-color 0.2s ease-in-out", // optional: adds a smooth transition effect
@@ -379,6 +369,24 @@ export default function OrderList(props) {
     },
   };
 
+  // Avoid a layout jump when reaching the last page with empty listOrder.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listOrder.length) : 0;
+  let filter = {
+    page: stateRedux.pageFilterReducer.page,
+    size: stateRedux.pageFilterReducer.size,
+    sort: stateRedux.pageFilterReducer.sort,
+    search: stateRedux.pageFilterReducer.search,
+  };
+  useEffect(() => {
+    dispatchRedux(actionFetchOrderAPI(filter));
+  }, [
+    stateRedux.pageFilterReducer.page,
+    stateRedux.pageFilterReducer.size,
+    stateRedux.pageFilterReducer.sort,
+    stateRedux.pageFilterReducer.search,
+  ]);
+
   return (
     <Box sx={{ width: "100%", maxHeight: "700px" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -390,7 +398,7 @@ export default function OrderList(props) {
           >
             <EnhancedTableHead
               numSelected={selected.length}
-              order={order}
+              order={sortOrder}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
@@ -400,7 +408,7 @@ export default function OrderList(props) {
               {listOrder.map((order, index) => {
                 const isItemSelected = isSelected(order.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
-                return order.user_id === id || role === "ADMIN" ? (
+                return order.user_id == id || role === "ADMIN" ? (
                   <TableRow
                     hover
                     role="checkbox"
@@ -453,7 +461,10 @@ export default function OrderList(props) {
                     <TableCell align="right">{order.note}</TableCell>
                     <TableCell align="center" className="user-opertation-cell">
                       <div className="user-operation">
-                        {storage.getItem("role") === "ADMIN" && !["DELIVERED", "CANCELED"].includes(order.orderStatus)? (
+                        {storage.getItem("role") === "ADMIN" &&
+                        !["DELIVERED", "CANCELED"].includes(
+                          order.orderStatus
+                        ) ? (
                           <Button
                             color="warning"
                             onClick={(event) =>
@@ -468,9 +479,18 @@ export default function OrderList(props) {
                         ["PENDING", "CONFIRMED"].includes(order.orderStatus) ? (
                           <Button
                             color="danger"
-                            onClick={() => openCancelDialog(order.id)}
+                            onClick={() => toggleCancelDialog(order)}
                           >
                             <DeleteIcon />
+                          </Button>
+                        ) : null}
+                        {storage.getItem("role") === "USER" &&
+                        order.orderStatus === "DELIVERED" ? (
+                          <Button
+                            color="primary"
+                            onClick={() => toggleReviewDialog(order)}
+                          >
+                            <EditIcon />
                           </Button>
                         ) : null}
                       </div>
@@ -490,10 +510,16 @@ export default function OrderList(props) {
                 </TableRow>
               )}
               <CancelDialog
-                toggle={openCancelDialog}
-                isDialogOpen={isDialogOpen}
+                toggle={toggleCancelDialog}
+                isCancelOpen={isCancelOpen}
                 onHandleCancel={onHandleCancel}
-                selectedOrderId={selectedOrderId}
+                selectedOrder={selectedOrder}
+              />
+              <ReviewDialog
+                toggle={toggleReviewDialog}
+                isReviewOpen={isReviewOpen}
+                onHandleReview={onHandleReview}
+                selectedOrder={selectedOrder}
               />
             </TableBody>
           </Table>

@@ -1,0 +1,147 @@
+$boxShadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+$btnColor: #0a0f9e;
+
+.product-detail-container {
+  /* Positioning */
+  margin: 50px auto;
+  /* Display & Box model */
+  width: 1200px;
+
+  /* Font */
+
+  /* Color */
+
+  /* Transition */
+  box-shadow: $boxShadow;
+}
+
+.product-detail-components {
+  /* Positioning */
+
+  /* Display & Box model */
+  display: flex;
+  justify-content: space-around;
+  padding: 30px;
+
+  .product-image {
+    max-width: 500px;
+    min-width: 290px;
+
+    margin: 25px;
+
+    img {
+      height: 500px;
+      display: block;
+      object-fit: cover;
+    }
+  }
+
+  .product-details {
+    max-width: 550px;
+    min-width: 290px;
+
+    margin-top: 100px;
+    margin-left: 25px;
+  }
+
+  #product-name {
+    font-weight: 400;
+    font-family: "Symbols", "Title", "Arial", sans-serif;
+    font-variant: small-caps;
+    font-stretch: ultra-expanded;
+    font-size: 34px;
+    line-height: 32px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
+
+  #product-price {
+    margin-top: 30px;
+    font-size: 20px;
+    font-family: "Symbols", "Title", "Arial", sans-serif;
+
+    font-variant: small-caps;
+    font-stretch: ultra-expanded;
+    margin-bottom: 15px;
+  }
+
+  #add-to-cart {
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 0;
+    width: 150px;
+
+    background-color: $btnColor;
+    color: white;
+    cursor: pointer;
+  }
+
+  #add-to-cart:hover {
+    background-color: lightgray;
+    color: $btnColor;
+    transition: 0.4s;
+  }
+
+  .qty_btn {
+    /* Positioning */
+
+    /* Display & Box model */
+
+    /* Color */
+    background-color: white;
+    color: black;
+    border-style: none;
+    /* Transition */
+  }
+
+  .qty_btn:hover {
+    /* Color */
+    background-color: white;
+    color: rgb(2, 2, 241);
+    /* Transition */
+  }
+
+  .qty_btn:active {
+    /* Color */
+    outline: none;
+    /* Transition */
+  }
+
+  .qty_btn:focus {
+    /* Color */
+    color: black;
+    background-color: white;
+    box-shadow: none;
+    /* Transition */
+  }
+
+  .qty_btn:disabled {
+    /* Color */
+    background-color: white;
+    color: black;
+    border-style: none;
+    /* Transition */
+  }
+
+  .input_qty {
+    /* Positioning */
+
+    /* Display & Box model */
+    text-align: center;
+    border-width: 0.1em;
+    border-style: none none solid;
+    /* Color */
+    /* Transition */
+  }
+
+  .input_qty:focus {
+    /* Positioning */
+
+    /* Display & Box model */
+    border-width: 0.1em;
+    outline: none;
+    /* Color */
+
+    /* Transition */
+  }
+}
