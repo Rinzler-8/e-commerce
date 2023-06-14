@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   List,
   Dialog,
@@ -15,22 +15,86 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetOrderItemsAPI } from "../../../Redux/Action/CheckoutAction";
 import { NavLink } from "reactstrap";
+import Rating from "@mui/material/Rating";
+import "./ReviewDialog.scss";
 
 export default function ReviewDialog(props) {
   const { isReviewOpen, onHandleReview, toggle, selectedOrder } = props;
   const stateRedux = useSelector((state) => state);
   const dispatchRedux = useDispatch();
   const orderItemsState = stateRedux.orderItemsReducer;
+  const [productReviews, setProductReviews] = useState([]);
+
   function toggleModal() {
     toggle(); // Call the toggle function from props
   }
 
   function handleReview() {
-    onHandleReview(selectedOrder);
+    const reviews = productReviews.map((productReview) => ({
+      productId: productReview.productId,
+      sessionId: selectedOrder.sessionId,
+      rating: productReview.ratingStar,
+      review: productReview.review,
+    }));
+
+    onHandleReview(reviews);
   }
 
+  const handleRatingChange = (newValue, productId) => {
+    const existingReview = productReviews.find(
+      (productReview) => productReview.productId === productId
+    );
+
+    if (existingReview) {
+      // Update the rating value of the existing review
+      const updatedReviews = productReviews.map((productReview) =>
+        productReview.productId === productId
+          ? { ...productReview, ratingStar: newValue }
+          : productReview
+      );
+      setProductReviews(updatedReviews);
+    } else {
+      // Add a new review to the productReviews array
+      const newReview = {
+        productId: productId,
+        ratingStar: newValue,
+        review: "", // Add any default review value here
+      };
+      const updatedReviews = [...productReviews, newReview];
+      setProductReviews(updatedReviews);
+    }
+  };
+  console.log("updateReviews", productReviews);
+
+  const handleReviewChange = (newValue, productId) => {
+    const updatedReviews = productReviews.map((productReview) => {
+      if (productReview.productId === productId) {
+        return {
+          ...productReview,
+          review: newValue,
+        };
+      }
+      return productReview;
+    });
+
+    setProductReviews(updatedReviews);
+  };
+
+  const handleReviewInput = (input, productId) => {
+    const updatedReviews = productReviews.map((productReview) => {
+      if (productReview.productId === productId) {
+        return {
+          ...productReview,
+          review: input,
+        };
+      }
+      return productReview;
+    });
+
+    setProductReviews(updatedReviews);
+  };
+
   useEffect(() => {
-    console.log(selectedOrder)
     if (selectedOrder && selectedOrder.sessionId) {
       dispatchRedux(actionGetOrderItemsAPI(selectedOrder.sessionId));
     }
@@ -42,7 +106,7 @@ export default function ReviewDialog(props) {
       onClose={toggleModal}
       PaperProps={{
         elevation: 8,
-        style: { backgroundColor: "white" },
+        style: { maxWidth: "1200px" },
       }}
     >
       <DialogTitle>
@@ -50,56 +114,85 @@ export default function ReviewDialog(props) {
       </DialogTitle>
       <DialogContent dividers>
         <Typography>Thông tin đơn hàng:</Typography>
-        {orderItemsState.map((item, index) => (
-          // console.log("item", item.price),
-          <List key={index}>
-            <ListItem>
-              <div>
-                <NavLink href={`/products/${item.id}`}>
-                  <img
-                    alt="Sample"
-                    src={
-                      "http://localhost:8080/api/v1/fileUpload/files/" +
-                      item.imageName
-                    }
-                  />
-                </NavLink>
-              </div>
-              <span>
-                <ListItemText>
-                  <NavLink href={`/products/${item.id}`} style={{ padding: 0 }}>
-                    <Typography style={{ fontSize: 20 }}>
-                      {item.productName}
-                    </Typography>
+        {orderItemsState.map((item, index) => {
+          let ratingValue, review;
+          if (productReviews.length > 0) {
+            const productReview = productReviews.find(
+              (pr) => pr.productId === item.productId
+            );
+            ratingValue = productReview ? productReview.ratingStar : 0;
+            console.log("productReview", productReview);
+            review = productReview ? productReview.review : "";
+          }
+          return (
+            <List key={index}>
+              <ListItem>
+                <div id="img-prod-review">
+                  <NavLink href={`/products/${item.productId}`}>
+                    <img
+                      alt="Sample"
+                      src={
+                        "http://localhost:8080/api/v1/fileUpload/files/" +
+                        item.imageName
+                      }
+                    />
                   </NavLink>
+                </div>
+                <div className="review-product-details">
                   <ListItemText>
-                    Giá tiền:{" "}
-                    {(item.price * 1).toLocaleString("vi", {
+                    <NavLink
+                      href={`/products/${item.productId}`}
+                      style={{ padding: 0 }}
+                    >
+                      <Typography style={{ fontSize: 20 }}>
+                        {item.productName}
+                      </Typography>
+                    </NavLink>
+                    <ListItemText>
+                      Giá tiền:{" "}
+                      {(item.price * 1).toLocaleString("vi", {
+                        style: "currency",
+                        currency: "VND",
+                      })}
+                    </ListItemText>
+                    {/* <Typography>Giá tiền: {item.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</Typography> */}
+                    <Typography>Mô tả: {item.info}</Typography>
+                  </ListItemText>
+                  <ListItemText>Số lượng: {item.quantity}</ListItemText>
+                  <ListItemText>
+                    Tổng:
+                    {(item.quantity * item.price).toLocaleString("vi", {
                       style: "currency",
                       currency: "VND",
                     })}
                   </ListItemText>
-                  {/* <Typography>Giá tiền: {item.price.toLocaleString("vi", { style: "currency", currency: "VND" })}</Typography> */}
-                  <Typography>Mô tả: {item.info}</Typography>
-                </ListItemText>
-                <ListItemText>Số lượng: {item.quantity}</ListItemText>
-                <ListItemText>
-                  Tổng:
-                  {(item.quantity * item.price).toLocaleString("vi", {
-                    style: "currency",
-                    currency: "VND",
-                  })}
-                </ListItemText>
-              </span>
-            </ListItem>
-          </List>
-        ))}
-        <TextareaAutosize
-          minRows={4} // Set the desired number of rows
-          placeholder="Ghi chú"
-          variant="standard"
-          style={{ width: "100%" }}
-        />
+                </div>
+              </ListItem>
+              <div>
+                <Rating
+                  name={`rating-${item.productId}`}
+                  value={ratingValue ? ratingValue : 0}
+                  onChange={(event, newValue) =>
+                    handleRatingChange(newValue, item.productId)
+                  }
+                />
+                <TextareaAutosize
+                  minRows={4} // Set the desired number of rows
+                  placeholder="Ghi chú"
+                  variant="standard"
+                  value={review}
+                  onChange={(event) =>
+                    handleReviewInput(event.target.value, item.productId)
+                  }
+                  onBlur={(event) =>
+                    handleReviewChange(event.target.value, item.productId)
+                  }
+                  style={{ width: "100%" }}
+                />
+              </div>
+            </List>
+          );
+        })}
       </DialogContent>
       <DialogActions>
         <IconButton onClick={toggleModal} color="primary">

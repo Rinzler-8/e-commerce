@@ -62,7 +62,7 @@ function ManageOrderUser(props) {
   return (
     <div className="manage-user-container">
       <div className="header-area">
-        <HeaderBar onHandleSearch={onHandleSearch} title="Đơn hàng của bạn" placeHolder="Nhập phiên..." />
+        <HeaderBar onHandleSearch={onHandleSearch} title="Đơn hàng của tôi" placeHolder="Nhập phiên..." />
       </div>
       <div className="table-content-area-user">
         <OrderList

@@ -30,6 +30,8 @@ import {
 import { useEffect } from "react";
 import { actionGetOrderItemsAPI } from "../../../Redux/Action/CheckoutAction";
 import storage from "../../../Storage/Storage";
+import { actionUpdateProductAPI } from "../../../Redux/Action/ProductAction";
+import { actionReviewAPI } from "../../../Redux/Action/ReviewAction";
 
 const headCells = [
   {
@@ -277,19 +279,16 @@ export default function OrderList(props) {
     setIsReviewOpen(!isReviewOpen);
   };
 
-  let onHandleCancel = (id) => {
+  let onHandleCancel = (orderId) => {
     const jsonBody = {
       orderStatus: "CANCELED",
     };
-    dispatchRedux(actionUpdateOrderAPI(id, jsonBody));
+    dispatchRedux(actionUpdateOrderAPI(orderId, jsonBody));
     setIsCancelOpen(!isCancelOpen);
   };
 
-  let onHandleReview = (id) => {
-    const jsonBody = {
-      orderStatus: "CANCELED",
-    };
-    dispatchRedux(actionUpdateOrderAPI(id, jsonBody));
+  let onHandleReview = (review) => {
+    dispatchRedux(actionReviewAPI(review));
     setIsReviewOpen(!isReviewOpen);
   };
 

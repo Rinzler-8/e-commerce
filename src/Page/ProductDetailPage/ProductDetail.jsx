@@ -6,8 +6,6 @@ import { Button, Box } from "@mui/material";
 import { actionFetchSingleProductAPI } from "../../Redux/Action/ProductAction";
 import {
   actionAddToCartAPI,
-  actionAddItemQty,
-  actionDecItemQty,
   actionUpdateCartAPI,
   actionCloseCart,
   actionOpenCart,

@@ -29,9 +29,7 @@ export const actionGetOrderInfoRedux = (checkout) => {
 
 export const actionGetOrderItemsAPI = (sessionId) => {
   return (dispatch) => {
-    return getOrderItemsAPI(sessionId).then((response) => {
-      console.log("response",response)
-      
+    return getOrderItemsAPI(sessionId).then((response) => {     
       dispatch(actionGetOrderItemsRedux(response));
     });
   };

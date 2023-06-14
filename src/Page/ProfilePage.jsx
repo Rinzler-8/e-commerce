@@ -36,7 +36,7 @@ const ProfilePage = () => {
       "initAcc",
       JSON.parse(
         JSON.stringify(
-          JSON.parse(storage.getItem("persist:root") || "{}")
+          JSON.parse(localStorage.getItem("persist:root") || "{}")
             .singleAccountReducer
         )
       )

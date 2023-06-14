@@ -57,7 +57,6 @@ export const actionCloseCart = () => ({
 export const actionAddToCartAPI = (item) => {
   return (dispatch) => {
     return addToCartAPI(item).then((response) => {
-      console.log("Cart Redux: ", response);
     });
   };
 };
