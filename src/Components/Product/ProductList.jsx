@@ -10,8 +10,8 @@ import {
   actionUpdateCartAPI,
 } from "../../Redux/Action/CartAction";
 import Slider from "react-slick";
-import "./ProductList.css";
-import "./slickProduct.css";
+import "./ProductList.scss";
+import "./slickProduct.scss";
 import "../Carousel/slick-theme.css";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -116,6 +116,32 @@ const ProductList = () => {
     slidesToScroll: 1,
     prevArrow: <PreviousBtn />,
     nextArrow: <NextBtn />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 412,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
   return (
     <>

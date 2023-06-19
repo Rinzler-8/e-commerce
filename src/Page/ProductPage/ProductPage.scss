@@ -1,0 +1,75 @@
+$boxShadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+$mainColor: #0a0f9e;
+
+.product-page-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .product-page-item-cotainer {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.product-page-banner {
+  padding-bottom: 30px;
+  width: 100%;
+
+  img {
+    width: 100%;
+  }
+}
+
+.product-page-progress-bar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+
+  .progress-bar-description {
+    margin: 0;
+  }
+
+  .progress-bar-custom-style {
+    width: 300px;
+    height: 5px;
+    margin: 25px 0px;
+  }
+
+  .progress-bar-custom-style .progress-bar {
+    background-color: $mainColor !important;
+  }
+}
+
+
+.btn-show-more {
+  font-size: 14px;
+  background-color: white;
+  border: 1px solid $mainColor;
+  color: $mainColor;
+  padding: 5px 24px;
+  transition: 0.4s;
+}
+
+.btn-show-more:hover {
+  background-color: $mainColor;
+  border-color: $mainColor;
+  color: white;
+  transition: 0.4s;
+}
+
+//Tablet
+@media screen and (max-width: 820px) {
+  .product-page-banner {
+    img {
+      height: 200px;
+    }
+  }
+  .product-page-item-cotainer {
+    flex-direction: column;
+  }
+}

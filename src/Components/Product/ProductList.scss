@@ -16,6 +16,14 @@
   overflow-y: hidden;
 }
 
+.productItem-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0px 10px;
+  align-items: center;
+}
+
 .controlProd-left {
   position: absolute;
   left: -65px;
@@ -74,4 +82,29 @@
   border-color: #0a0f9e;
   color: #fff;
   transition: 0.4s;
+}
+
+//Tablet
+@media screen and (max-width: 820px) {
+  .header-logo-name {
+    display: none;
+  }
+}
+
+//Mobile
+@media screen and (max-width: 412px) {
+
+  .header {
+    .header-left {
+      img {}
+    }
+
+    .header-center {
+      display: none;
+    }
+
+    .header-login {
+      display: none;
+    }
+  }
 }

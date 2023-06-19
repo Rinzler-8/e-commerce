@@ -31,12 +31,14 @@ import {
 import { actionFetchSingleAccountAPI } from "../../Redux/Action/AccountAction";
 import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
 import { useNavigate } from "react-router-dom";
-import "./Header.css";
+import "./Header.scss";
 import { StyledBadge } from "../StyledMUI";
 import Backdrop from "@mui/material/Backdrop";
-import AppContext from "./../../AppContext";
+import AppContext from "../../AppContext";
 import KeyIcon from "@mui/icons-material/Key";
 import storage from "../../Storage/Storage";
+import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "./Menu";
 
 function Header() {
   let [header, setHeader] = React.useState(false);
@@ -53,7 +55,8 @@ function Header() {
   let [anchorCat, setAnchorCat] = React.useState(null);
   const openPopover = Boolean(anchorEl);
   const openCategories = Boolean(anchorCat);
-  const { scrollToComponent, drawerIsOpen, logoBackground, accountDefaultImg } = useContext(AppContext);
+  const { scrollToComponent, drawerIsOpen, logoBackground, accountDefaultImg } =
+    useContext(AppContext);
   let total = 0;
 
   const handleKeyDown = (event) => {
@@ -162,85 +165,17 @@ function Header() {
     <>
       <div className={header ? "header active" : "header"}>
         <div className="header-left">
-          <img
-            src={logoBackground}
-            alt="logo"
-          />
+          <MenuIcon id="menu"></MenuIcon>
+          <Popover></Popover>
+          <img src={logoBackground} alt="logo" />
           <NavLink href="/" className="header-logo-name">
-            GENUINE & DIGNITY 
+            GENUINE & DIGNITY
           </NavLink>
         </div>
-        <div className="header-center">
-          {storage.getItem("role") == "ADMIN" ? (
-            <>
-              <NavLink href="/" className="header-center-content">
-                TRANG CHỦ
-              </NavLink>
-              <NavLink
-                href="/products-admin"
-                className="header-center-content"
-                onClick={handleOpenCategories}
-              >
-                DANH SÁCH SẢN PHẨM
-              </NavLink>
-              <NavLink href="/admin" className="header-center-content">
-                DANH SÁCH TÀI KHOẢN
-              </NavLink>
-              <NavLink href="/orders-admin" className="header-center-content">
-                DANH SÁCH ĐƠN HÀNG
-              </NavLink>
-            </>
-          ) : (
-            <div className="header-center">
-              <NavLink href="/" className="header-center-content">
-                TRANG CHỦ
-              </NavLink>
-              <div
-                className="header-center-content"
-                onClick={handleOpenCategories}
-              >
-                SẢN PHẨM
-              </div>
-              <Popover
-                id="CategoryPopover"
-                open={openCategories}
-                onClose={handleCloseCategories}
-                anchorEl={anchorCat}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                style={{ zIndex: 9999 }}
-              >
-                <div className="cat-popover-wrapper">
-                  {listCategories.map((cat, index) => (
-                    <div key={index}>
-                      <NavLink
-                        href={`/categories/${cat.name}`}
-                        className="popover-item"
-                      >
-                        <span>{cat.name}</span>
-                      </NavLink>
-                    </div>
-                  ))}
-                  <NavLink href="/products" className="popover-viewAll">
-                    Xem tất cả
-                  </NavLink>
-                </div>
-              </Popover>
-              <NavLink
-                onClick={scrollToComponent}
-                className="header-center-content"
-              >
-                GIỚI THIỆU
-              </NavLink>
-              <NavLink className="header-center-content">LIÊN HỆ</NavLink>
-            </div>
-          )}
-        </div>
+        <Menu/>
         <div className="header-right">
           <div className="header-icon-area">
-            <button className="style-btn-icon">{/* <SearchIcon/>/ */}</button>
+            {/* <button className="style-btn-icon"><SearchIcon/>/</button> */}
             <span style={{ marginRight: "30px", cursor: "pointer" }}>
               <StyledBadge
                 badgeContent={cart.cartItems.length}

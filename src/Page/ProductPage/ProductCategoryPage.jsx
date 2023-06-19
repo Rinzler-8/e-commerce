@@ -5,10 +5,11 @@ import { actionChangeSize } from "../../Redux/Action/PageAction";
 import {  } from "../../Redux/Action/CategoryAction";
 import { actionFetchProductByCatAPI } from "../../Redux/Action/ProductAction";
 import LoadMoreButton from "../../Components/Paging/LoadMoreButton";
-import "./ProductPage.css";
+import "./ProductPage.scss";
 import { Progress } from "reactstrap";
 import { useParams } from "react-router-dom";
 import productPageBanner from "../../Assets/img/product-page-banner.png";
+
 function ProductCategoryPage(props) {
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
@@ -21,7 +22,6 @@ function ProductCategoryPage(props) {
   }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search, param.id]);
   // Hàm xử lý khi người dùng ChangeSize
   let onHandleChangeSize = (item) => {
-    console.log("Size: ", item);
     dispatchRedux(actionChangeSize(item));
   };
   return (

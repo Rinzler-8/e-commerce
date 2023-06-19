@@ -21,21 +21,22 @@
 .header-left {
   display: flex;
   align-items: center;
+
+  img {
+    width: 35px;
+    border-radius: 50%;
+  }
+
+  .header-logo-name {
+    font-family: "Gill Sans";
+    font-size: 30px;
+    text-align: center;
+    margin-left: 10px;
+    /* font-weight: bold; */
+    color: #0a0f9e;
+  }
 }
 
-.header-left img {
-  width: 35px;
-  border-radius: 50%;
-}
-
-.header-logo-name {
-  font-family: "Gill Sans";
-  font-size: 30px;
-  text-align: center;
-  margin-left: 10px;
-  /* font-weight: bold; */
-  color: #0a0f9e;
-}
 
 .header-center {
   flex: 2;
@@ -87,7 +88,6 @@
 }
 
 .header-login {
-  flex: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -277,6 +277,7 @@
   margin-top: 15px;
   transition: 0.4s;
 }
+
 .view_cart:hover {
   /* Positioning */
 
@@ -290,6 +291,7 @@
   /* Transition */
   transition: 0.4s;
 }
+
 .checkout {
   font-size: 14px;
   color: #0a0f9e;
@@ -308,6 +310,7 @@
   margin-top: 15px;
   transition: 0.4s;
 }
+
 .checkout:hover {
   /* Positioning */
 
@@ -321,17 +324,20 @@
   /* Transition */
   transition: 0.4s;
 }
+
 .qty_btn:hover {
   /* Color */
   background-color: white;
   color: rgb(3, 3, 172);
   /* Transition */
 }
+
 .qty_btn:active {
   /* Color */
   outline: none;
   /* Transition */
 }
+
 .qty_btn:focus {
   /* Color */
   color: black;
@@ -347,6 +353,7 @@
   border-style: none;
   /* Transition */
 }
+
 .input_qty {
   /* Positioning */
 
@@ -357,6 +364,7 @@
   /* Color */
   /* Transition */
 }
+
 .input_qty:focus {
   /* Positioning */
 
@@ -366,4 +374,35 @@
   /* Color */
 
   /* Transition */
+}
+
+#menu {
+  display: none
+}
+
+//Tablet
+@media screen and (max-width: 820px) {
+  .header-logo-name {
+    display: none;
+  }
+}
+
+//Mobile
+@media screen and (max-width: 412px) {
+
+  .header {
+    justify-content: space-between;
+
+    .header-left {
+      img {}
+    }
+
+    .header-center {
+      display: none;
+    }
+
+    .header-login {
+      display: none;
+    }
+  }
 }

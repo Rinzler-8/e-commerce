@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./ProductItem.css";
+import "./ProductItem.scss";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,9 +21,6 @@ function ProductItem() {
   const cart = stateRedux.cartReducer;
   let listProduct = stateRedux.listProductReducer;
   let id = storage.getItem("id");
-  if (!id) {
-    storage.setItem("id", Math.floor(Math.random() * 3000) + 1);
-  }
 
   const handleAddToCart = (id, cartItem) => {
     const prod = listProduct.find(
@@ -72,11 +69,7 @@ function ProductItem() {
             to={`/products/${product.productId}`}
             style={{
               textDecoration: "none",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
               margin: "0px 10px",
-              alignItems: "center",
             }}
           >
             <div className="productItem-img">
@@ -88,44 +81,27 @@ function ProductItem() {
                 }
               />
             </div>
-            <div className="productItem-information">
-              <h5
-                style={{
-                  color: "black",
-                  fontFamily: "Lucida Sans, sans-serif",
-                  height: "50px",
-                }}
-              >
-                {product.name}
-              </h5>
-              <p
-                className="mb-2 text-muted"
-                tag="h6"
-                style={{ height: "50px" }}
-              >
-                {product.info}
-              </p>
-              <p
-                style={{
-                  color: "black",
-                  fontFamily: "Univers LT Std, sans-serif",
-                }}
-              >
-                {product.price.toLocaleString("vi", {
-                  style: "currency",
-                  currency: "VND",
-                })}
-              </p>
-              <p
-                style={{
-                  color: "black",
-                  fontFamily: "Univers LT Std, sans-serif",
-                }}
-              >
-                (Giá tham khảo)
-              </p>
-            </div>
           </NavLink>
+
+          <div className="productItem-information">
+            <h5
+              style={{
+                color: "black",
+                fontFamily: "Lucida Sans, sans-serif",
+                height: "50px",
+              }}
+            >
+              {product.name}
+            </h5>
+            <p id="product-info">{product.info}</p>
+            <p id="price">
+              {product.price.toLocaleString("vi", {
+                style: "currency",
+                currency: "VND",
+              })}
+            </p>
+            <p id="price">(Giá tham khảo)</p>
+          </div>
           <button
             className="add-to-cart-btn"
             onClick={() => handleAddToCart(id, product)}

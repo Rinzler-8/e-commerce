@@ -6,7 +6,7 @@ import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
 import {
   actionFetchProductAPI,
 } from "../../Redux/Action/ProductAction";
-import "./ProductPage.css";
+import "./ProductPage.scss";
 import { Progress } from "reactstrap";
 import productPageBanner from "../../Assets/img/product-page-banner.png";
 function ProductPage(props) {
