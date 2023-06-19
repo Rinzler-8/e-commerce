@@ -8,7 +8,7 @@ import {
 } from "../../Redux/Action/ProductAction";
 import "./ProductPage.css";
 import { Progress } from "reactstrap";
-
+import productPageBanner from "../../Assets/img/product-page-banner.png";
 function ProductPage(props) {
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
@@ -32,7 +32,7 @@ function ProductPage(props) {
   //gọi useEffect để load dữ liệu, chỉ gọi khi các state page hoặc size, ... từ redux thay đổi
   useEffect(() => {
     dispatchRedux(actionFetchProductAPI(filter));
-    dispatchRedux(actionFetchCategoryAPI());
+    // dispatchRedux(actionFetchCategoryAPI());
     // Gọi useEffect để load dữ liệu list Department và Positon
   }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
 
@@ -44,7 +44,7 @@ function ProductPage(props) {
   return (
     <>
       <div className="product-page-banner">
-        <img src={require("../../Assets/img/product-page-banner.png")} alt="banner" />
+        <img src={productPageBanner} alt="banner" />
       </div>
       <div className="product-page-content">
         <div className="product-page-item-cotainer">

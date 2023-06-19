@@ -1,11 +1,11 @@
 import { api } from "./api";
-import FormData from 'form-data';
+import { FormData } from 'form-data';
+
 
 // upload image
 const uploadImgAPI = (image) => {
   const body = new FormData();
   body.append("image", image);
-  console.log("response: ", image);
   return api("POST", "v1/fileUpload", body);
 };
 

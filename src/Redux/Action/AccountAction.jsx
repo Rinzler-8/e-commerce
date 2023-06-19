@@ -1,8 +1,18 @@
-import { addAccountNewAPI, deleteAccountAPI, getAccountAPIList, updateAccountAPI, getSingleAccountAPI } from "../../API/AccountAPI";
+import {
+  addAccountNewAPI,
+  deleteAccountAPI,
+  getAccountAPIList,
+  updateAccountAPI,
+  getSingleAccountAPI,
+} from "../../API/AccountAPI";
 import * as Types from "../Contant/AccountActionType";
 import * as Types_Page from "../Contant/PageActionType";
 import { actionToggleUpdateFormRedux } from "./FormUpdateAction";
-import { actionChangePage, actionChangeSortDirection, actionChangeSortField } from "./PageAction";
+import {
+  actionChangePage,
+  actionChangeSortDirection,
+  actionChangeSortField,
+} from "./PageAction";
 
 // Viết các Action liên quan đến Call API
 export const actionFetchAccountAPI = (filter) => {
@@ -17,8 +27,9 @@ export const actionFetchAccountAPI = (filter) => {
 export const actionFetchSingleAccountAPI = (id) => {
   return (dispatch) => {
     return getSingleAccountAPI(id).then((response) => {
-      dispatch(actionFetchSingleAccountRedux(response));
-      // console.log("single Product Redux: ", response);
+      if (response && response !== undefined) {
+        dispatch(actionFetchSingleAccountRedux(response));
+      }
     });
   };
 };

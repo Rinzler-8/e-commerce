@@ -1,3 +1,4 @@
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "../Page/LoginPage";
 import HomePage from "../Page/HomePage/HomePage";
@@ -5,9 +6,9 @@ import AdminPage from "../Page/AdminPage";
 import RegisterPage from "../Page/RegisterPage";
 import NotFoundPage from "../Page/NotFoundPage";
 import ProductPage from "../Page/ProductPage/ProductPage";
-import CheckoutPage from "./../Page/CheckoutPage";
+import CheckoutPage from "../Page/CheckoutPage";
 import CheckOutSuccess from "../Page/CheckoutSuccessPage";
-import ForgotPasswordPage from "./../Page/ForgotPassPage";
+import ForgotPasswordPage from "../Page/ForgotPassPage";
 import { AdminAuth, WithAuth, WithNav } from "../HOC/Authorization";
 import ProductDetail from "../Page/ProductDetailPage/ProductDetail";
 import ProductCategoryPage from "../Page/ProductPage/ProductCategoryPage";

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Button, Container } from "reactstrap";
 import { Paper, TextField, Avatar } from "@mui/material";
@@ -13,6 +13,7 @@ import { uploadImgAPI } from "../API/ImageAPI";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import "../../src/css/Profile.css";
 import storage from "../Storage/Storage";
+import AppContext from "../AppContext";
 
 const ProfilePage = () => {
   const stateRedux = useSelector((state) => state);
@@ -24,12 +25,12 @@ const ProfilePage = () => {
   const [previewAvatarFile, setPreviewAvatarFile] = useState();
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
-
-  useEffect(() => {
-    if (id && id !== "") {
-      dispatchRedux(actionFetchSingleAccountAPI(id));
-    }
-  }, []);
+  const { accountDefaultImg } = useContext(AppContext);
+  // useEffect(() => {
+  //   if (id && id !== "") {
+  //     dispatchRedux(actionFetchSingleAccountAPI(id));
+  //   }
+  // }, []);
 
   if (!storage.getItem("initAcc")) {
     storage.setItem(
@@ -134,13 +135,13 @@ const ProfilePage = () => {
                     response !== null &&
                     response !== undefined &&
                     (nameImage ||
-                      require(`../Assets/img/account-default-img.png`)) &&
+                      accountDefaultImg) &&
                     (previewAvatarUrl
                       ? /data:image\/(png|jpg|jpeg)/.test(previewAvatarUrl)
                       : account.urlAvatar
-                      ? require(`../Assets/img/account-default-img.png`)
-                      : require(`../Assets/img/account-default-img.png`))
-                    // require(`../Assets/img/account-default-img.png`))
+                      ? accountDefaultImg
+                      : accountDefaultImg)
+                    // accountDefaultImg)
                   ) {
                     storage.setItem(
                       "initAcc",
@@ -299,7 +300,7 @@ const ProfilePage = () => {
                   : account.urlAvatar
                   ? "http://localhost:8080/api/v1/fileUpload/files/" +
                     account.urlAvatar
-                  : require(`../Assets/img/account-default-img.png`)
+                  : accountDefaultImg
               }
               sx={{ width: 200, height: 200, marginTop: "20px" }}
             />

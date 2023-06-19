@@ -8,7 +8,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import { Popover } from "@mui/material";
 import storage from "../../../Storage/Storage";
-
+import productPageBanner from "../../../Assets/img/logowithbackground.png";
 const MenuBar = () => {
   const [anchorSettings, setAnchorSettings] = React.useState(null);
   const openSettings = Boolean(anchorSettings);
@@ -30,7 +30,7 @@ const MenuBar = () => {
   return (
     <div className="menu-container">
       <div className="logo-area">
-        <img src={require("../../../Assets/img/logowithbackground.png")} alt="logo" />
+        <img src={productPageBanner} alt="logo" />
         <span>Genuine & Dignity</span>
       </div>
       <div className="menu-area">

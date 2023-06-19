@@ -3,12 +3,15 @@ import "./Footer.css";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
-
+import logoName from "../../Assets/img/logowithname.png";
+import fbIcon from "../../Assets/icons/fb-icon.png";
+import shopeeIcon from "../../Assets/icons/tiktok-icon.png";
+import tiktokIcon from "../../Assets/icons/shopee-icon.png";
 function Footer(props) {
   return (
     <div className="footer">
       <div className="footer-left">
-        <img src={require("../../Assets/img/logowithname.png")} alt="logo" />
+        <img src={logoName} alt="logo" />
       </div>
       <div className="footer-right">
         <div className="footer-information">
@@ -36,17 +39,17 @@ function Footer(props) {
           <span>THEO DÕI CHÚNG TÔI</span>
           <span>
             <a href="https://www.facebook.com/gnd1818" target="_blank" rel="noreferrer">
-              <img src={require("../../Assets/icons/fb-icon.png")} alt="facebook icon" />
+              <img src={fbIcon} alt="facebook icon" />
             </a>
           </span>
           <span>
             <a href="https://www.tiktok.com/@gnd1818" target="_blank" rel="noreferrer">
-              <img src={require("../../Assets/icons/tiktok-icon.png")} alt="tiktok icon" />
+              <img src={shopeeIcon} alt="tiktok icon" />
             </a>
           </span>
           <span>
             <a href="https://shopee.vn/gnd1818" target="_blank" rel="noreferrer">
-              <img src={require("../../Assets/icons/shopee-icon.png")} alt="shopee icon" />
+              <img src={tiktokIcon} alt="shopee icon" />
             </a>
           </span>
         </div>

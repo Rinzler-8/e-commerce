@@ -5,24 +5,27 @@ import "./slick.css";
 import "./slick-theme.css";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import carousel4 from "../../Assets/img/carousel4.png";
+import carousel1 from "../../Assets/img/carousel1.png";
+import bodyem from "../../Assets/img/bodyem.png";
 
 const items = [
   {
-    src: require("../../Assets/img/carousel4.png"),
+    src: carousel4,
     altText: "Clinically Proven Cleansing for a Soothed Skin Barrier",
     caption: "TRỌN BỘ CHƯƠNG TRÌNH CHĂM SÓC DA",
     altCap: "ĐƯỢC CÔNG NHẬN BỞI CÔNG NGHỆ ĐỘC QUYỀN VÀ HIỆU QUẢ RÕ RỆT",
     key: 1,
   },
   {
-    src: require("../../Assets/img/carousel1.png"),
+    src: carousel1,
     altText: "Slide 2",
     caption: "SẴN SÀNG CHO LÀN DA MỚI",
     altCap: "ĐƯA LÀN DA QUAY LẠI TRẠNG THÁI CÂN BẰNG, KHỎE MẠNH NHẤT",
     key: 2,
   },
   {
-    src: require("../../Assets/img/bodyem.png"),
+    src: bodyem,
     altText: "Clinically Proven Cleansing for a Soothed Skin Barrier",
     caption: "BODY EMULSION",
     altCap: "GIÚP CẢI THIỆN KẾT CẤU DA, ĐỘ MỊN VÀ TỔNG THỂ CHO MỘT LÀN DA KHỎE MẠNH",

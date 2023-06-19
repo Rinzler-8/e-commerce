@@ -53,7 +53,7 @@ function Header() {
   let [anchorCat, setAnchorCat] = React.useState(null);
   const openPopover = Boolean(anchorEl);
   const openCategories = Boolean(anchorCat);
-  const { scrollToComponent, drawerIsOpen } = useContext(AppContext);
+  const { scrollToComponent, drawerIsOpen, logoBackground, accountDefaultImg } = useContext(AppContext);
   let total = 0;
 
   const handleKeyDown = (event) => {
@@ -163,11 +163,11 @@ function Header() {
       <div className={header ? "header active" : "header"}>
         <div className="header-left">
           <img
-            src={require("../../Assets/img/logowithbackground.png")}
+            src={logoBackground}
             alt="logo"
           />
           <NavLink href="/" className="header-logo-name">
-            GENUINE & DIGNITY
+            GENUINE & DIGNITY 
           </NavLink>
         </div>
         <div className="header-center">
@@ -444,7 +444,7 @@ function Header() {
                         account.urlAvatar
                           ? "http://localhost:8080/api/v1/fileUpload/files/" +
                             account.urlAvatar
-                          : require(`../../Assets/img/account-default-img.png`)
+                          : accountDefaultImg
                       }
                       alt="logo"
                     />

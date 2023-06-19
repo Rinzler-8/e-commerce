@@ -35,10 +35,10 @@ const ChangePassPage = () => {
     setIsShown((isShown) => !isShown);
   };
 
-  useEffect(() => {
-    dispatchRedux(actionFetchSingleAccountAPI(id));
-    // Gọi useEffect để load dữ liệu list Department và Positon
-  });
+  // useEffect(() => {
+  //   dispatchRedux(actionFetchSingleAccountAPI(id));
+  //   // Gọi useEffect để load dữ liệu list Department và Positon
+  // });
 
   // console.log("single pass", singleAccount.password);
 

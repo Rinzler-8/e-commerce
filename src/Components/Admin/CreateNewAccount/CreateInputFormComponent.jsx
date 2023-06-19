@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Row, Col, Toast, ToastHeader, ToastBody } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
@@ -10,6 +10,7 @@ import { getEmailExists, getUsernameExists } from "../../../API/AccountAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchUserRolePI, actionFetchUserStatusAPI } from "../../../Redux/Action/EnumAction";
 import "../FormStyle.css";
+import AppContext from "../../../AppContext";
 
 function CreateInputFormComponent(props) {
   let { onHandleCreateNewAccount, toggle } = props;
@@ -20,6 +21,7 @@ function CreateInputFormComponent(props) {
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
   const passRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,50})");
+  const { accountDefaultImg } = useContext(AppContext);
 
   let listUserStatus = useSelector((state) => state.userStatusReducer);
   let listRole = useSelector((state) => state.roleReducer);
@@ -93,7 +95,7 @@ function CreateInputFormComponent(props) {
             firstName: values.Firstname,
             lastName: values.Lastname,
             password: values.Password,
-            urlAvatar: nameImage ? nameImage : require(`../../../Assets/img/account-default-img.png`),
+            urlAvatar: nameImage ? nameImage : accountDefaultImg,
             mobile: values.Mobile,
             address: values.Address,
             status: values.Status,

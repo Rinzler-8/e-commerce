@@ -8,7 +8,7 @@ import LoadMoreButton from "../../Components/Paging/LoadMoreButton";
 import "./ProductPage.css";
 import { Progress } from "reactstrap";
 import { useParams } from "react-router-dom";
-
+import productPageBanner from "../../Assets/img/product-page-banner.png";
 function ProductCategoryPage(props) {
   let stateRedux = useSelector((state) => state);
   let dispatchRedux = useDispatch();
@@ -27,7 +27,7 @@ function ProductCategoryPage(props) {
   return (
     <>
       <div className="product-page-banner">
-        <img src={require("../../Assets/img/product-page-banner.png")} alt="banner" />
+        <img src={productPageBanner} alt="banner" />
       </div>
       <div className="product-page-content">
         <div className="product-page-item-cotainer">

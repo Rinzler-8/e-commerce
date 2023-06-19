@@ -5,6 +5,9 @@ import Footer from "../Components/Footer/Footer";
 import AppContext from '../AppContext';
 import storage from "../Storage/Storage";
 import { useSelector } from "react-redux";
+import logoBackground from "../Assets/img/logowithbackground.png";
+import accountDefaultImg from "../Assets/img/account-default-img.png";
+
 
 const role = storage.getItem("role");
 const status = storage.getItem("status");
@@ -61,7 +64,7 @@ function WithNav() {
     }
   };
   return role !== "ADMIN" ? (
-    <AppContext.Provider value={{ introRef, scrollToComponent, drawerIsOpen }}>
+    <AppContext.Provider value={{ introRef, scrollToComponent, drawerIsOpen, logoBackground, accountDefaultImg }}>
       <Header />
       <Outlet />
       <Footer />

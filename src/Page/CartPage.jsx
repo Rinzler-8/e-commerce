@@ -46,7 +46,7 @@ const CartPage = () => {
   };
 
   useEffect(() => {
-    if (id && id !== "") dispatchRedux(actionGetCartByUserIdAPI(id));
+    // if (id && id !== "") dispatchRedux(actionGetCartByUserIdAPI(id));
     dispatchRedux(actionCloseCart());
   }, [id]);
   // Khai báo item hiển thị dữ liệu
