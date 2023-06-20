@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import CarouselHome from "../../Components/Carousel/CarouselHome";
 import ProductList from "./../../Components/Product/ProductList";
-import "./HomePage.css";
+import "./HomePage.scss";
 import AppContext from "../../AppContext";
 
 function HomePage(props) {

@@ -164,15 +164,16 @@ function Header() {
   return (
     <>
       <div className={header ? "header active" : "header"}>
+        <MenuIcon id="menu"></MenuIcon>
+
         <div className="header-left">
-          <MenuIcon id="menu"></MenuIcon>
           <Popover></Popover>
           <img src={logoBackground} alt="logo" />
           <NavLink href="/" className="header-logo-name">
             GENUINE & DIGNITY
           </NavLink>
         </div>
-        <Menu/>
+        <Menu />
         <div className="header-right">
           <div className="header-icon-area">
             {/* <button className="style-btn-icon"><SearchIcon/>/</button> */}

@@ -108,7 +108,7 @@ const ProductList = () => {
   const settings = {
     // centerMode: true;
     dots: false,
-    touchMove: false,
+    touchMove: true,
     autoplaySpeed: 5000,
     infinite: true,
     speed: 1000,
@@ -123,25 +123,25 @@ const ProductList = () => {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2
-        }
+          initialSlide: 2,
+        },
       },
       {
         breakpoint: 412,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   return (
     <>
@@ -153,10 +153,10 @@ const ProductList = () => {
               <NavLink
                 to={`/products/${product.productId}`}
                 style={{
-                  textDecoration: "none",
                   display: "flex",
-                  flexDirection: "column",
+                  justifyContent: "center",
                   alignItems: "center",
+                  textDecoration: "none",
                   paddingLeft: "17px",
                   padding: "0",
                   width: "400px",
@@ -170,45 +170,44 @@ const ProductList = () => {
                     product.imageName
                   }
                 />
-
-                <div className="productItem-information">
-                  <h5
-                    style={{
-                      color: "black",
-                      fontFamily: "Lucida Sans, sans-serif",
-                      height: "50px",
-                    }}
-                  >
-                    {product.name}
-                  </h5>
-                  <p
-                    className="mb-2 text-muted"
-                    tag="h6"
-                    style={{ height: "50px" }}
-                  >
-                    {product.info}
-                  </p>
-                  <p
-                    style={{
-                      color: "black",
-                      fontFamily: "Univers LT Std, sans-serif",
-                    }}
-                  >
-                    {product.price.toLocaleString("vi", {
-                      style: "currency",
-                      currency: "VND",
-                    })}
-                  </p>
-                  <p
-                    style={{
-                      color: "black",
-                      fontFamily: "Univers LT Std, sans-serif",
-                    }}
-                  >
-                    (Giá tham khảo)
-                  </p>
-                </div>
               </NavLink>
+              <div className="productItem-information">
+                <h5
+                  style={{
+                    color: "black",
+                    fontFamily: "Lucida Sans, sans-serif",
+                    height: "50px",
+                  }}
+                >
+                  {product.name}
+                </h5>
+                <p
+                  className="mb-2 text-muted"
+                  tag="h6"
+                  style={{ height: "50px" }}
+                >
+                  {product.info}
+                </p>
+                <p
+                  style={{
+                    color: "black",
+                    fontFamily: "Univers LT Std, sans-serif",
+                  }}
+                >
+                  {product.price.toLocaleString("vi", {
+                    style: "currency",
+                    currency: "VND",
+                  })}
+                </p>
+                <p
+                  style={{
+                    color: "black",
+                    fontFamily: "Univers LT Std, sans-serif",
+                  }}
+                >
+                  (Giá tham khảo)
+                </p>
+              </div>
               <button
                 className="add-to-cart-btn"
                 onClick={() => handleAddToCart(id, product)}
