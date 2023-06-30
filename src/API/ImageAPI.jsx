@@ -1,6 +1,4 @@
 import { api } from "./api";
-import { FormData } from 'form-data';
-
 
 // upload image
 const uploadImgAPI = (image) => {

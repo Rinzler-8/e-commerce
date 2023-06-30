@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Button, Container } from "reactstrap";
 import { Paper, TextField, Avatar } from "@mui/material";
-import {
-  actionFetchSingleAccountAPI,
-} from "../Redux/Action/AccountAction";
+import { actionFetchSingleAccountAPI } from "../Redux/Action/AccountAction";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
@@ -73,7 +71,6 @@ const ProfilePage = () => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
-
     reader.onloadend = (e) => {
       setPreviewAvatarUrl(reader.result);
       setPreviewAvatarFile(file);
@@ -134,19 +131,14 @@ const ProfilePage = () => {
                   if (
                     response !== null &&
                     response !== undefined &&
-                    (nameImage ||
-                      accountDefaultImg) &&
+                    (nameImage || accountDefaultImg) &&
                     (previewAvatarUrl
                       ? /data:image\/(png|jpg|jpeg)/.test(previewAvatarUrl)
                       : account.urlAvatar
                       ? accountDefaultImg
                       : accountDefaultImg)
-                    // accountDefaultImg)
                   ) {
-                    storage.setItem(
-                      "initAcc",
-                      JSON.stringify(update)
-                    );
+                    storage.setItem("initAcc", JSON.stringify(update));
                     toast.success("Thành công.", {
                       position: "top-right",
                       autoClose: 1000,

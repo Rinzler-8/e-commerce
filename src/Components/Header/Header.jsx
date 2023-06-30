@@ -47,15 +47,11 @@ function Header() {
   const dispatchRedux = useDispatch();
   const cart = stateRedux.cartReducer;
   const account = stateRedux.singleAccountReducer;
-  const listCategories = stateRedux.listCategoryReducer;
-  const shoppingCartIconRef = useRef(null);
   const id = storage.getItem("id");
   const username = storage.getItem("username");
   let [anchorEl, setAnchorEl] = React.useState(null);
-  let [anchorCat, setAnchorCat] = React.useState(null);
   const openPopover = Boolean(anchorEl);
-  const openCategories = Boolean(anchorCat);
-  const { scrollToComponent, drawerIsOpen, logoBackground, accountDefaultImg } =
+  const { drawerIsOpen, logoBackground, accountDefaultImg } =
     useContext(AppContext);
   let total = 0;
 
@@ -72,13 +68,6 @@ function Header() {
 
   const handleClosePopover = () => {
     setAnchorEl(null);
-  };
-  const handleOpenCategories = (event) => {
-    setAnchorCat(event.currentTarget);
-  };
-
-  const handleCloseCategories = () => {
-    setAnchorCat(null);
   };
 
   const handleDrawerOpen = () => {
@@ -167,7 +156,7 @@ function Header() {
         <MenuIcon id="menu"></MenuIcon>
 
         <div className="header-left">
-          <Popover></Popover>
+          {/* <Popover></Popover> */}
           <img src={logoBackground} alt="logo" />
           <NavLink href="/" className="header-logo-name">
             GENUINE & DIGNITY
@@ -183,7 +172,6 @@ function Header() {
                 max={99}
                 showZero
                 onClick={handleDrawerOpen}
-                ref={shoppingCartIconRef}
               >
                 <ShoppingBagIcon
                   color="inherit"

@@ -11,7 +11,6 @@ import "react-toastify/dist/ReactToastify.css";
 function LoginPage(props) {
   let navigate = useNavigate();
   const [showRemember, setShowRemember] = useState(false);
-  console.log("showRemember: ", showRemember);
   let handleLogin = (accountLogin) => {
     // console.log("Value: ", accountLogin);
     // Call API

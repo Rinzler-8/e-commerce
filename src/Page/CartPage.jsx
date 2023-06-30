@@ -41,7 +41,6 @@ const CartPage = () => {
       quantity: e.target.value,
       price: cartObj.price * e.target.value,
     };
-    console.log("cart quantity: ", obj);
     dispatchRedux(actionUpdateCartAPI(id, obj));
   };
 

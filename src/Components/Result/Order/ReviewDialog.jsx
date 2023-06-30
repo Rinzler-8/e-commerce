@@ -64,7 +64,6 @@ export default function ReviewDialog(props) {
       setProductReviews(updatedReviews);
     }
   };
-  console.log("updateReviews", productReviews);
 
   const handleReviewChange = (newValue, productId) => {
     const updatedReviews = productReviews.map((productReview) => {
@@ -121,7 +120,6 @@ export default function ReviewDialog(props) {
               (pr) => pr.productId === item.productId
             );
             ratingValue = productReview ? productReview.ratingStar : 0;
-            console.log("productReview", productReview);
             review = productReview ? productReview.review : "";
           }
           return (

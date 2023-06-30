@@ -3,23 +3,16 @@ import { NavLink, Button } from "reactstrap";
 import { Popover } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
-import { useNavigate } from "react-router-dom";
 import "./Header.scss";
 import AppContext from "../../AppContext";
-import storage from "../../Storage/Storage";
-import MenuIcon from "@mui/icons-material/Menu";
 
-function Header() {
-  let navigate = useNavigate();
+function Menu() {
   const stateRedux = useSelector((cartItems) => cartItems);
   const dispatchRedux = useDispatch();
-  const cart = stateRedux.cartReducer;
   const listCategories = stateRedux.listCategoryReducer;
-  const id = storage.getItem("id");
   let [anchorCat, setAnchorCat] = React.useState(null);
   const openCategories = Boolean(anchorCat);
   const { scrollToComponent, drawerIsOpen } = useContext(AppContext);
-  let total = 0;
 
   const handleOpenCategories = (event) => {
     setAnchorCat(event.currentTarget);
@@ -76,4 +69,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Menu;

@@ -2,18 +2,15 @@ import React, { useRef } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import Header from "../Components/Header/Header";
 import Footer from "../Components/Footer/Footer";
-import AppContext from '../AppContext';
+import AppContext from "../AppContext";
 import storage from "../Storage/Storage";
 import { useSelector } from "react-redux";
 import logoBackground from "../Assets/img/logowithbackground.png";
 import accountDefaultImg from "../Assets/img/account-default-img.png";
 
-
 const role = storage.getItem("role");
 const status = storage.getItem("status");
 const token = storage.getItem("token");
-
-
 
 const parseJwt = (token) => {
   try {
@@ -50,7 +47,6 @@ function WithAuth() {
   return token && status === "ACTIVE" ? <Outlet /> : <Navigate to="/login" />;
 }
 
-
 function WithNav() {
   const introRef = useRef(null);
   const cartStateRedux = useSelector((state) => state);
@@ -64,7 +60,15 @@ function WithNav() {
     }
   };
   return role !== "ADMIN" ? (
-    <AppContext.Provider value={{ introRef, scrollToComponent, drawerIsOpen, logoBackground, accountDefaultImg }}>
+    <AppContext.Provider
+      value={{
+        introRef,
+        scrollToComponent,
+        drawerIsOpen,
+        logoBackground,
+        accountDefaultImg,
+      }}
+    >
       <Header />
       <Outlet />
       <Footer />

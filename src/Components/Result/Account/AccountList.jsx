@@ -346,135 +346,130 @@ export default function AccountList(props) {
 
   return (
     // console.log("order", order),
-    (
-      <Box sx={{ width: "100%" }}>
-        <Paper sx={{ width: "100%", mb: 2 }}>
-          <TableContainer>
-            <Table
-              sx={{ minWidth: 750 }}
-              aria-labelledby="tableTitle"
-              size="large"
-            >
-              <EnhancedTableHead
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                onSelectAllClick={handleSelectAllClick}
-                onRequestSort={handleRequestSort}
-                rowCount={listAccount.length}
-              />
-              <TableBody>
-                {listAccount.map((account, index) => {
-                  const isItemSelected = isSelected(account.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%", mb: 2 }}>
+        <TableContainer>
+          <Table
+            sx={{ minWidth: 750 }}
+            aria-labelledby="tableTitle"
+            size="large"
+          >
+            <EnhancedTableHead
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={listAccount.length}
+            />
+            <TableBody>
+              {listAccount.map((account, index) => {
+                const isItemSelected = isSelected(account.id);
+                const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={account.id}
-                      selected={isItemSelected}
-                      sx={{ ...rowItemStyling }}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          onClick={(event) => handleClick(event, account.id)}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="account"
-                        align="left"
-                        sx={{ paddingLeft: "15px" }}
-                      >
-                        {account.id}
-                      </TableCell>
-                      <TableCell>{account.username}</TableCell>
-                      <TableCell>{account.email}</TableCell>
-                      <TableCell>{account.mobile}</TableCell>
-                      <TableCell>{account.address}</TableCell>
-                      <TableCell align="right">
-                        {account.role.length > 0
-                          ? account.role.map((role, roleindex) => {
-                              return (
-                                <div key={roleindex}>
-                                  <div>{role.name}</div>
-                                </div>
-                              );
-                            })
-                          : "USER"}
-                      </TableCell>
-                      <TableCell align="right">
-                        {account.status === "ACTIVE"
-                          ? "Hoạt động"
-                          : "Không hoạt động"}
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className="user-opertation-cell"
-                      >
-                        <div className="user-operation">
-                          <Button
-                            color="warning"
-                            onClick={(event) =>
-                              handleUpdateAccountButton(event, account)
-                            }
-                            className="btn-edit"
-                          >
-                            <EditIcon />
-                          </Button>
-                          <Button
-                            color="danger"
-                            onClick={() => openDeleteDialog(account.id)}
-                          >
-                            <DeleteIcon />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-                {emptyRows > 0 && (
+                return (
                   <TableRow
-                    style={{
-                      height: 53 * emptyRows,
-                    }}
+                    hover
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={account.id}
+                    selected={isItemSelected}
+                    sx={{ ...rowItemStyling }}
                   >
-                    <TableCell colSpan={6} />
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        color="primary"
+                        checked={isItemSelected}
+                        onClick={(event) => handleClick(event, account.id)}
+                        inputProps={{
+                          "aria-labelledby": labelId,
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell
+                      component="th"
+                      scope="account"
+                      align="left"
+                      sx={{ paddingLeft: "15px" }}
+                    >
+                      {account.id}
+                    </TableCell>
+                    <TableCell>{account.username}</TableCell>
+                    <TableCell>{account.email}</TableCell>
+                    <TableCell>{account.mobile}</TableCell>
+                    <TableCell>{account.address}</TableCell>
+                    <TableCell align="right">
+                      {account.role.length > 0
+                        ? account.role.map((role, roleindex) => {
+                            return (
+                              <div key={roleindex}>
+                                <div>{role.name}</div>
+                              </div>
+                            );
+                          })
+                        : "USER"}
+                    </TableCell>
+                    <TableCell align="right">
+                      {account.status === "ACTIVE"
+                        ? "Hoạt động"
+                        : "Không hoạt động"}
+                    </TableCell>
+                    <TableCell align="center" className="user-opertation-cell">
+                      <div className="user-operation">
+                        <Button
+                          color="warning"
+                          onClick={(event) =>
+                            handleUpdateAccountButton(event, account)
+                          }
+                          className="btn-edit"
+                        >
+                          <EditIcon />
+                        </Button>
+                        <Button
+                          color="danger"
+                          onClick={() => openDeleteDialog(account.id)}
+                        >
+                          <DeleteIcon />
+                        </Button>
+                      </div>
+                    </TableCell>
                   </TableRow>
-                )}
-                <DeleteDialog
-                  toggle={openDeleteDialog}
-                  isDialogOpen={isDialogOpen}
-                  onHandleDelete={onHandleDelete}
-                  selectedAccountId={selectedAccountId}
-                />
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            sx={{ ...tablePaginationStyle }}
-            count={listAccount.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            labelRowsPerPage="Hiển thị số dòng"
-            // showFirstButton="true"
-            // showLastButton="true"
-            ActionsComponent={CustomPaginationBtn}
-          />
-        </Paper>
-      </Box>
-    )
+                );
+              })}
+              {emptyRows > 0 && (
+                <TableRow
+                  style={{
+                    height: 53 * emptyRows,
+                  }}
+                >
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+              <DeleteDialog
+                toggle={openDeleteDialog}
+                isDialogOpen={isDialogOpen}
+                onHandleDelete={onHandleDelete}
+                selectedAccountId={selectedAccountId}
+              />
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          sx={{ ...tablePaginationStyle }}
+          count={listAccount.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage="Hiển thị số dòng"
+          // showFirstButton="true"
+          // showLastButton="true"
+          ActionsComponent={CustomPaginationBtn}
+        />
+      </Paper>
+    </Box>
   );
 }

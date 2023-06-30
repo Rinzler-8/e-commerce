@@ -8,6 +8,7 @@ export const actionFetchProductAPI = (filter) => {
   return (dispatch) => {
     return getProductAPIList(filter).then((response) => {
       // console.log("reponseAPI:", response);
+      // dispatch(actionFetchProductRedux(response.items));
       dispatch(actionFetchProductRedux(response.content));
       dispatch(actionSetTotalPageProductRedux(response.totalPages));
       dispatch(actionSetTotalElementsProductRedux(response.totalElements));
@@ -76,8 +77,6 @@ export const actionSetTotalElementsProductRedux = (totalElements) => {
 export const actionAddProductAPI = (ProductNew) => {
   return (dispatch) => {
     return addProductNewAPI(ProductNew).then((response) => {
-      console.log("reponseAPI After add New Product:", response);
-      alert("Tao san pham thanh cong");
       dispatch(actionFetchProductAPI());
       dispatch(actionChangePage(0)); // Chuyển về trang 1 sau khi thêm mới thành công
       dispatch(actionChangeSortField("id")); // Thay đổi trường sort về id

@@ -78,7 +78,10 @@ export const api = async (method, endpoint, payload) => {
   // console.log('payload', payload);
 
   try {
-    const response = await axiosClient(endpoint, { method: method, data: payload });
+    const response = await axiosClient(endpoint, {
+      method: method,
+      data: payload,
+    });
     return response.data;
   } catch (error) {
     console.log(error);
