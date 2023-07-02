@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Container, Row, Col } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import SelectOrderStatus from "./SelectOrderStatus";
 import "./style.css";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { useEffect } from "react";
 import { actionFetchStatusAPI } from "../../../Redux/Action/EnumAction";
+import AppContext from "../../../AppContext";
 
 function UpdateInputProductForm(props) {
   const { onHandleUpdateOrder } = props;
-  const dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
 
   useEffect(() => {
     dispatchRedux(actionFetchStatusAPI());

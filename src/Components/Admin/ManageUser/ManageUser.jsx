@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./ManageUser.css";
 import HeaderBar from "../HeaderBar";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   actionAddAccountAPI,
   actionDeleteAccountAPI,
@@ -22,10 +22,11 @@ import AccountList from "./../../Result/Account/AccountList";
 import ModalUpdateAccount from "../../../Components/Admin/UpdateAccount/ModalUpdateAccount";
 import ModalCreateNewAccount from "../../../Components/Admin/CreateNewAccount/ModalCreateNewAccount";
 import AddIcon from "@mui/icons-material/Add";
+import AppContext from "../../../AppContext";
 
 function ManageUser(props) {
   let stateRedux = useSelector((state) => state);
-  let dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   let [showModal, SetShowModal] = useState(false);
 
   // Xử lý xóa Account

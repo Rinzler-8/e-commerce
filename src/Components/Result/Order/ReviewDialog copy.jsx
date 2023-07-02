@@ -21,7 +21,8 @@ import "./ReviewDialog.scss";
 export default function ReviewDialog(props) {
   const { isReviewOpen, onHandleReview, toggle, selectedOrder } = props;
   const stateRedux = useSelector((state) => state);
-  const dispatchRedux = useDispatch();
+    const { dispatchRedux  } =
+    useContext(AppContext);
   const orderItemsState = stateRedux.orderItemsReducer;
   const [ratingValue, setRatingValue] = useState([]);
   const [productId, setProductId] = useState();

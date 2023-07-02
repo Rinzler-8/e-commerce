@@ -1,18 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./ManageOrder.css";
 import HeaderBar from "../HeaderBar";
-import { useDispatch, useSelector } from "react-redux";
-import { actionFetchOrderAPI, actionUpdateOrderAPI, actionDeleteOrderAPI } from "../../../Redux/Action/OrderAction";
-import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../../../Redux/Action/PageAction";
-import { actionFetchOrderUpdateInfoRedux, actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
+import { useSelector } from "react-redux";
+import {
+  actionFetchOrderAPI,
+  actionUpdateOrderAPI,
+} from "../../../Redux/Action/OrderAction";
+import {
+  actionChangePage,
+  actionChangeSize,
+  actionChangeSortDirection,
+  actionChangeSortField,
+  actionSearch,
+} from "../../../Redux/Action/PageAction";
+import {
+  actionFetchOrderUpdateInfoRedux,
+  actionToggleUpdateFormRedux,
+} from "../../../Redux/Action/FormUpdateAction";
 import OrderList from "../../Result/Order/OrderList";
 import ModalUpdateOrder from "../UpdateOrder/ModalUpdateOrder";
 import ModalCreateNewOrder from "../CreateNewOrder/ModalCreateNewOrder";
 import { actionAddOrderAPI } from "../../../Redux/Action/OrderAction";
+import AppContext from "../../../AppContext";
 
 function ManageOrder(props) {
   let stateRedux = useSelector((state) => state);
-  let dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   // Lấy dữ liệu page, size được quản lý từ Redux
   let filter = {
     page: stateRedux.pageFilterReducer.page,
@@ -23,7 +36,12 @@ function ManageOrder(props) {
   useEffect(() => {
     dispatchRedux(actionFetchOrderAPI(filter));
     // Gọi useEffect để load dữ liệu list Department và Positon
-  }, [stateRedux.pageFilterReducer.page, stateRedux.pageFilterReducer.size, stateRedux.pageFilterReducer.sort, stateRedux.pageFilterReducer.search]);
+  }, [
+    stateRedux.pageFilterReducer.page,
+    stateRedux.pageFilterReducer.size,
+    stateRedux.pageFilterReducer.sort,
+    stateRedux.pageFilterReducer.search,
+  ]);
 
   // Xử lý khi nhấn nút Edit
   let onHandleEditBtn = (OrderEdit) => {
@@ -81,7 +99,11 @@ function ManageOrder(props) {
   return (
     <div className="manage-user-container">
       <div className="header-area">
-        <HeaderBar onHandleSearch={onHandleSearch} title="Quản lí đơn hàng" placeHolder="Nhập phiên, ID đơn hàng..." />
+        <HeaderBar
+          onHandleSearch={onHandleSearch}
+          title="Quản lí đơn hàng"
+          placeHolder="Nhập phiên, ID đơn hàng..."
+        />
       </div>
       <div className="table-content-area">
         <OrderList
@@ -94,7 +116,11 @@ function ManageOrder(props) {
         />
       </div>
       <ModalUpdateOrder onHandleUpdateOrder={onHandleUpdateOrder} />
-      <ModalCreateNewOrder onHandleCreateNewOrder={onHandleCreateNewOrder} toggle={openCreateNewOrderModal} showModal={showModal} />
+      <ModalCreateNewOrder
+        onHandleCreateNewOrder={onHandleCreateNewOrder}
+        toggle={openCreateNewOrderModal}
+        showModal={showModal}
+      />
     </div>
   );
 }

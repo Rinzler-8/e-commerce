@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./MenuBar.css";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useNavigate } from "react-router-dom";
 import { Popover } from "@mui/material";
 import storage from "../../../Storage/Storage";
 import productPageBanner from "../../../Assets/img/logowithbackground.png";
+import AppContext from "../../../AppContext";
 const MenuBar = () => {
   const [anchorSettings, setAnchorSettings] = React.useState(null);
   const openSettings = Boolean(anchorSettings);
-  let navigate = useNavigate();
+  const { navigate } = useContext(AppContext);
   const handleOpenSettings = (event) => {
     setAnchorSettings(event.currentTarget);
   };

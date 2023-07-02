@@ -7,21 +7,25 @@ import SelectUserStatus from "./SelectUserStatus";
 import SelectCreateRole from "./SelectCreateRole";
 import "./style.css";
 import { getEmailExists, getUsernameExists } from "../../../API/AccountAPI";
-import { useDispatch, useSelector } from "react-redux";
-import { actionFetchUserRolePI, actionFetchUserStatusAPI } from "../../../Redux/Action/EnumAction";
+import { useSelector } from "react-redux";
+import {
+  actionFetchUserRolePI,
+  actionFetchUserStatusAPI,
+} from "../../../Redux/Action/EnumAction";
 import "../FormStyle.css";
 import AppContext from "../../../AppContext";
 
 function CreateInputFormComponent(props) {
   let { onHandleCreateNewAccount, toggle } = props;
-  let dispatchRedux = useDispatch();
   // State quản lý đóng mở thông báo.
   let [showNotificationCreate, setShowNotificationCreate] = useState(false);
 
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
-  const passRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,50})");
-  const { accountDefaultImg } = useContext(AppContext);
+  const passRegExp = new RegExp(
+    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,50})"
+  );
+  const { accountDefaultImg, dispatchRedux } = useContext(AppContext);
 
   let listUserStatus = useSelector((state) => state.userStatusReducer);
   let listRole = useSelector((state) => state.roleReducer);
@@ -48,7 +52,9 @@ function CreateInputFormComponent(props) {
         >
           Notification
         </ToastHeader>
-        <ToastBody style={{ color: "black", fontSize: 25 }}>Create Account Success!!</ToastBody>
+        <ToastBody style={{ color: "black", fontSize: 25 }}>
+          Create Account Success!!
+        </ToastBody>
       </Toast>
       {/* Formik */}
       <Formik
@@ -66,24 +72,36 @@ function CreateInputFormComponent(props) {
         validationSchema={Yup.object({
           Username: Yup.string()
             .required("Trường này là bắt buộc!")
-            .test("checkUniqueUsername", "Tên người dùng đã được đăng ký!", async (username) => {
-              // call api
-              const isExists = await getUsernameExists(username);
-              return !isExists;
-            }),
+            .test(
+              "checkUniqueUsername",
+              "Tên người dùng đã được đăng ký!",
+              async (username) => {
+                // call api
+                const isExists = await getUsernameExists(username);
+                return !isExists;
+              }
+            ),
 
           Email: Yup.string()
             .matches(emailRegExp, "Email không hợp lệ!")
             .required("Trường này là bắt buộc!")
-            .test("checkUniqueEmail", "Email đã được đăng ký!", async (email) => {
-              // call api
-              const isExists = await getEmailExists(email);
-              return !isExists;
-            }),
+            .test(
+              "checkUniqueEmail",
+              "Email đã được đăng ký!",
+              async (email) => {
+                // call api
+                const isExists = await getEmailExists(email);
+                return !isExists;
+              }
+            ),
           Firstname: Yup.string(),
           Lastname: Yup.string(),
-          Password: Yup.string().matches(passRegExp, "Mật khẩu yếu, vui lòng thử lại!").required("Trường này là bắt buộc!"),
-          Mobile: Yup.string().required("Trường này là bắt buộc!").matches(phoneRegExp, "Số điện thoại không hợp lệ!"),
+          Password: Yup.string()
+            .matches(passRegExp, "Mật khẩu yếu, vui lòng thử lại!")
+            .required("Trường này là bắt buộc!"),
+          Mobile: Yup.string()
+            .required("Trường này là bắt buộc!")
+            .matches(phoneRegExp, "Số điện thoại không hợp lệ!"),
           Address: Yup.string(),
         })}
         onSubmit={async (values, actions) => {
@@ -124,23 +142,87 @@ function CreateInputFormComponent(props) {
                 {/* Form thêm mới */}
                 <Form>
                   {/* Email */}
-                  <Field fullWidth name="Email" type="text" placeholder="Nhập Email" label="Email:" component={InputComponent} />
+                  <Field
+                    fullWidth
+                    name="Email"
+                    type="text"
+                    placeholder="Nhập Email"
+                    label="Email:"
+                    component={InputComponent}
+                  />
                   {/* Username */}
-                  <Field fullWidth name="Username" type="text" placeholder="Nhập tên tài khoản" label="Tên Tài Khoản:" component={InputComponent} />
-                  <Field fullWidth className="input" name="Password" type={"text"} placeholder="Nhập Mật khẩu" label="Mật khẩu:" component={InputComponent} />
+                  <Field
+                    fullWidth
+                    name="Username"
+                    type="text"
+                    placeholder="Nhập tên tài khoản"
+                    label="Tên Tài Khoản:"
+                    component={InputComponent}
+                  />
+                  <Field
+                    fullWidth
+                    className="input"
+                    name="Password"
+                    type={"text"}
+                    placeholder="Nhập Mật khẩu"
+                    label="Mật khẩu:"
+                    component={InputComponent}
+                  />
                   {/* Fullname */}
-                  <Field fullWidth name="Firstname" type="text" placeholder="Nhập tên" label="Tên: " component={InputComponent} />
-                  <Field fullWidth name="Lastname" type="text" placeholder="Nhập họ" label="Họ:" component={InputComponent} />
+                  <Field
+                    fullWidth
+                    name="Firstname"
+                    type="text"
+                    placeholder="Nhập tên"
+                    label="Tên: "
+                    component={InputComponent}
+                  />
+                  <Field
+                    fullWidth
+                    name="Lastname"
+                    type="text"
+                    placeholder="Nhập họ"
+                    label="Họ:"
+                    component={InputComponent}
+                  />
                   {/* Mobile */}
-                  <Field fullWidth name="Mobile" type="text" placeholder="Nhập số điện thoại" label="Số điện thoại:" component={InputComponent} />
+                  <Field
+                    fullWidth
+                    name="Mobile"
+                    type="text"
+                    placeholder="Nhập số điện thoại"
+                    label="Số điện thoại:"
+                    component={InputComponent}
+                  />
 
                   {/* Address */}
-                  <Field fullWidth name="Address" type="text" placeholder="Nhập địa chỉ" label="Địa chỉ:" component={InputComponent} />
+                  <Field
+                    fullWidth
+                    name="Address"
+                    type="text"
+                    placeholder="Nhập địa chỉ"
+                    label="Địa chỉ:"
+                    component={InputComponent}
+                  />
                   {/* Role */}
-                  <Field fullWidth name="Role" placeholder="Chọn phân quyền" label="Phân quyền:" listItem={listRole} component={SelectCreateRole} />
+                  <Field
+                    fullWidth
+                    name="Role"
+                    placeholder="Chọn phân quyền"
+                    label="Phân quyền:"
+                    listItem={listRole}
+                    component={SelectCreateRole}
+                  />
 
                   {/* Status */}
-                  <Field fullWidth name="Status" placeholder="Chọn trạng thái" label="Trạng thái:" listItem={listUserStatus} component={SelectUserStatus} />
+                  <Field
+                    fullWidth
+                    name="Status"
+                    placeholder="Chọn trạng thái"
+                    label="Trạng thái:"
+                    listItem={listUserStatus}
+                    component={SelectUserStatus}
+                  />
                   {/* submit */}
                   <div className="modal-footer-btn-area">
                     <Button type="reset" className="btn-common btn-reset">

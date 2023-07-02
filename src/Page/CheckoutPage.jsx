@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Row, Col, Button, Container, NavLink } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -22,12 +22,13 @@ import {
   actionCloseCart,
 } from "../Redux/Action/CartAction";
 import storage from "../Storage/Storage";
+import AppContext from "../AppContext";
 
 const CheckOutList = () => {
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   let navigate = useNavigate();
   let stateRedux = useSelector((state) => state);
-  let dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   let cart = stateRedux.cartReducer;
   let id = storage.getItem("id");
   let total = 0;

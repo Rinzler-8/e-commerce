@@ -12,7 +12,7 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { IconButton } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
@@ -27,6 +27,8 @@ import {
   actionFetchProductAPI,
 } from "../../../Redux/Action/ProductAction";
 import { useEffect } from "react";
+import { useContext } from "react";
+import AppContext from "../../../AppContext";
 
 const headCells = [
   {
@@ -168,7 +170,7 @@ export default function ProductListAdmin(props) {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   const stateRedux = useSelector((state) => state);
   const listProduct = stateRedux.listProductReducer;
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);

@@ -3,7 +3,7 @@ import MenuBar from "../Components/Admin/MenuBar/MenuBar";
 import ManageUser from "../Components/Admin/ManageUser/ManageUser";
 import "../css/AdminPage.css";
 
-function AdminPage(props) {
+export default function AdminPage(props) {
   // Lấy dữ liệu page, size được quản lý từ Redux
   // useEffect(() => {
   //   let accountLoginSaveToStorage = storage.getUserInfo();
@@ -38,4 +38,4 @@ function AdminPage(props) {
   );
 }
 
-export default AdminPage;
+

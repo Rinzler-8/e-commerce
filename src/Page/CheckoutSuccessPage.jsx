@@ -21,7 +21,8 @@ import "../../src/css/CheckoutSuccess.css";
 const CheckOutSuccess = () => {
   let stateRedux = useSelector((state) => state);
   let navigate = useNavigate();
-  let dispatchRedux = useDispatch();
+    const { dispatchRedux  } =
+    useContext(AppContext);
   let orderState = stateRedux.checkoutReducer;
   let orderItemsState = stateRedux.orderItemsReducer;
   let sessionId = orderState.sessionId;

@@ -12,7 +12,7 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { IconButton } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
@@ -28,10 +28,10 @@ import {
   actionUpdateOrderAPI,
 } from "../../../Redux/Action/OrderAction";
 import { useEffect } from "react";
-import { actionGetOrderItemsAPI } from "../../../Redux/Action/CheckoutAction";
 import storage from "../../../Storage/Storage";
-import { actionUpdateProductAPI } from "../../../Redux/Action/ProductAction";
 import { actionReviewAPI } from "../../../Redux/Action/ReviewAction";
+import AppContext from "../../../AppContext";
+import { useContext } from "react";
 
 const headCells = [
   {
@@ -205,7 +205,7 @@ export default function OrderList(props) {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   const stateRedux = useSelector((state) => state);
   const listOrder = stateRedux.listOrderReducer;
   const [isCancelOpen, setIsCancelOpen] = React.useState(false);

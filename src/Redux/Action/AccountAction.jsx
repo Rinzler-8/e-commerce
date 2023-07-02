@@ -26,11 +26,15 @@ export const actionFetchAccountAPI = (filter) => {
 
 export const actionFetchSingleAccountAPI = (id) => {
   return (dispatch) => {
-    return getSingleAccountAPI(id).then((response) => {
-      if (response && response !== undefined) {
-        dispatch(actionFetchSingleAccountRedux(response));
-      }
-    });
+    return getSingleAccountAPI(id)
+      .then((response) => {
+        if (response && response !== undefined) {
+          dispatch(actionFetchSingleAccountRedux(response));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 

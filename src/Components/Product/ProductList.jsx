@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { actionFetchProductAPI } from "../../Redux/Action/ProductAction";
 import {
   actionAddToCartAPI,
@@ -19,6 +19,8 @@ import "../../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import storage from "../../Storage/Storage";
+import { useContext } from "react";
+import AppContext from "../../AppContext";
 
 let slidesToShow = 3;
 
@@ -56,7 +58,7 @@ const NextBtn = (props) => {
 };
 
 const ProductList = () => {
-  const dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   const stateRedux = useSelector((state) => state);
   const cartStateRedux = useSelector((state) => state.cartReducer);
   const cart = stateRedux.cartReducer;

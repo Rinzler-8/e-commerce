@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   List,
   Dialog,
@@ -12,16 +12,17 @@ import {
 } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { actionGetOrderItemsAPI } from "../../../Redux/Action/CheckoutAction";
 import { NavLink } from "reactstrap";
 import Rating from "@mui/material/Rating";
 import "./ReviewDialog.scss";
+import AppContext from "../../../AppContext";
 
 export default function ReviewDialog(props) {
   const { isReviewOpen, onHandleReview, toggle, selectedOrder } = props;
   const stateRedux = useSelector((state) => state);
-  const dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   const orderItemsState = stateRedux.orderItemsReducer;
   const [productReviews, setProductReviews] = useState([]);
 

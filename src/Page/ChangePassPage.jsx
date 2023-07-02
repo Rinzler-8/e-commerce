@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Container, Row, Col } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
@@ -8,16 +8,14 @@ import "../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { resetPassAPI } from "../API/ResetPassAPI";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { actionFetchSingleAccountAPI } from "../Redux/Action/AccountAction";
 import storage from "../Storage/Storage";
+import AppContext from "../AppContext";
 // import bcrypt from "bcryptjs";
 
 const ChangePassPage = () => {
   const [isShown, setIsShown] = useState(false);
   const navigate = useNavigate();
-  const dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   // const singleAccount = useSelector((state) => state.singleAccountReducer);
   const id = storage.getItem("id");
   const token = useParams();
@@ -71,32 +69,28 @@ const ChangePassPage = () => {
       }}
       validationSchema={Yup.object({
         // password: Yup.string().matches(passRegExp, "Mật khẩu yếu, vui lòng thử lại!").required("Trường này là bắt buộc!"),
-        oldPass: Yup.string()
-          .required("Trường này là bắt buộc!")
-          .test(
-            "checkUniquePassword",
-            "Mật khẩu không đúng!",
-            // async (oldPass) => {
-            //   const isExists = await checkPassword(
-            //     oldPass,
-            //     singleAccount.password
-            //   );
-            //   return isExists;
-            // }
-          ),
-        newPass: Yup.string()
-          .required("Trường này là bắt buộc!")
-          .test(
-            "checkUniquePassword",
-            "Mật khẩu đã tồn tại!",
-            // async (oldPass) => {
-            //   const isExists = await checkPassword(
-            //     oldPass,
-            //     singleAccount.password
-            //   );
-            //   return !isExists;
-            // }
-          ),
+        oldPass: Yup.string().required("Trường này là bắt buộc!").test(
+          "checkUniquePassword",
+          "Mật khẩu không đúng!"
+          // async (oldPass) => {
+          //   const isExists = await checkPassword(
+          //     oldPass,
+          //     singleAccount.password
+          //   );
+          //   return isExists;
+          // }
+        ),
+        newPass: Yup.string().required("Trường này là bắt buộc!").test(
+          "checkUniquePassword",
+          "Mật khẩu đã tồn tại!"
+          // async (oldPass) => {
+          //   const isExists = await checkPassword(
+          //     oldPass,
+          //     singleAccount.password
+          //   );
+          //   return !isExists;
+          // }
+        ),
         confirmPassword: Yup.string()
           .required("Trường này là bắt buộc!")
           .when("newPass", {
@@ -112,7 +106,7 @@ const ChangePassPage = () => {
           let pass = {
             newPass: values.newPass,
           };
-          await resetPassAPI(token, pass).then(((response) => {
+          await resetPassAPI(token, pass).then((response) => {
             if (response !== null && response !== undefined) {
               toast.success("Thành công.", {
                 autoClose: 3000,
@@ -124,8 +118,7 @@ const ChangePassPage = () => {
               });
               setTimeout(() => navigate("/"), 3000);
             }
-          }));
-
+          });
         } catch (error) {
           toast.error("Đã có lỗi! Vui lòng thử lại.", {
             position: "top-right",

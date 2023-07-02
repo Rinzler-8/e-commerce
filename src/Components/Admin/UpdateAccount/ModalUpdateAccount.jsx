@@ -1,14 +1,15 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import { actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
 import UpdateInputFormComponent from "./UpdateInputFormComponent";
 import CloseIcon from "@mui/icons-material/Close";
 import "../ModalStyle.css";
+import AppContext from "../../../AppContext";
 function ModalUpdateAccount(props) {
   let { onHandleUpdateAccount } = props;
 
-  let dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
 
   // Quản lý trạng thái ẩn hiện Moadal
   let stateRedux = useSelector((state) => state.formUpdateReducer);
@@ -22,7 +23,11 @@ function ModalUpdateAccount(props) {
 
   return (
     <div className="modal-container-custom">
-      <Modal isOpen={showModal} toggle={toggle} className="modal-wrapper-custom">
+      <Modal
+        isOpen={showModal}
+        toggle={toggle}
+        className="modal-wrapper-custom"
+      >
         <ModalHeader className="modal-header-custom">
           <div>Cập nhật tài khoản</div>
           <button onClick={toggle} className="close-btn">
@@ -30,7 +35,9 @@ function ModalUpdateAccount(props) {
           </button>
         </ModalHeader>
         <ModalBody>
-          <UpdateInputFormComponent onHandleUpdateAccount={onHandleUpdateAccount} />
+          <UpdateInputFormComponent
+            onHandleUpdateAccount={onHandleUpdateAccount}
+          />
         </ModalBody>
       </Modal>
     </div>

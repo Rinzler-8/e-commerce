@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import "./ProductItem.scss";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   actionAddToCartAPI,
   actionOpenCart,
@@ -13,9 +13,10 @@ import "../../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import storage from "../../Storage/Storage";
+import AppContext from "../../AppContext";
 
 function ProductItem() {
-  let dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   let stateRedux = useSelector((state) => state);
   let cartStateRedux = useSelector((state) => state.cartReducer);
   const cart = stateRedux.cartReducer;

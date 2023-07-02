@@ -1,16 +1,27 @@
 import React, { useState } from "react";
 import "./ManageOrder.css";
 import HeaderBar from "../HeaderBar";
-import { useDispatch, useSelector } from "react-redux";
-import { actionChangePage, actionChangeSize, actionChangeSortDirection, actionChangeSortField, actionSearch } from "../../../Redux/Action/PageAction";
-import { actionFetchOrderUpdateInfoRedux, actionToggleUpdateFormRedux } from "../../../Redux/Action/FormUpdateAction";
+import { useSelector } from "react-redux";
+import {
+  actionChangePage,
+  actionChangeSize,
+  actionChangeSortDirection,
+  actionChangeSortField,
+  actionSearch,
+} from "../../../Redux/Action/PageAction";
+import {
+  actionFetchOrderUpdateInfoRedux,
+  actionToggleUpdateFormRedux,
+} from "../../../Redux/Action/FormUpdateAction";
 import OrderList from "../../Result/Order/OrderList";
 import ModalCreateNewOrder from "../CreateNewOrder/ModalCreateNewOrder";
 import { actionAddOrderAPI } from "../../../Redux/Action/OrderAction";
+import { useContext } from "react";
+import AppContext from "../../../AppContext";
 
 function ManageOrderUser(props) {
   let stateRedux = useSelector((state) => state);
-  let dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   // State quản lý đóng mở thông báo.
 
   // Xử lý khi nhấn nút Edit
@@ -62,7 +73,11 @@ function ManageOrderUser(props) {
   return (
     <div className="manage-user-container">
       <div className="header-area">
-        <HeaderBar onHandleSearch={onHandleSearch} title="Đơn hàng của tôi" placeHolder="Nhập phiên..." />
+        <HeaderBar
+          onHandleSearch={onHandleSearch}
+          title="Đơn hàng của tôi"
+          placeHolder="Nhập phiên..."
+        />
       </div>
       <div className="table-content-area-user">
         <OrderList
@@ -74,7 +89,11 @@ function ManageOrderUser(props) {
           onHandleChangeDirectionSort={onHandleChangeDirectionSort}
         />
       </div>
-      <ModalCreateNewOrder onHandleCreateNewOrder={onHandleCreateNewOrder} toggle={openCreateNewOrderModal} showModal={showModal} />
+      <ModalCreateNewOrder
+        onHandleCreateNewOrder={onHandleCreateNewOrder}
+        toggle={openCreateNewOrderModal}
+        showModal={showModal}
+      />
     </div>
   );
 }

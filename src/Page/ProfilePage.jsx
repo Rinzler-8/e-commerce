@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { Row, Col, Button, Container } from "reactstrap";
 import { Paper, TextField, Avatar } from "@mui/material";
-import { actionFetchSingleAccountAPI } from "../Redux/Action/AccountAction";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,7 +14,6 @@ import AppContext from "../AppContext";
 
 const ProfilePage = () => {
   const stateRedux = useSelector((state) => state);
-  const dispatchRedux = useDispatch();
   const account = stateRedux.singleAccountReducer;
   const id = storage.getItem("id");
   const localAcc = JSON.parse(storage.getItem("initAcc") || "{}");
@@ -23,7 +21,9 @@ const ProfilePage = () => {
   const [previewAvatarFile, setPreviewAvatarFile] = useState();
   const phoneRegExp = /((84|0)[3|5|7|8|9])+([0-9]{8})\b/;
   const emailRegExp = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
-  const { accountDefaultImg } = useContext(AppContext);
+  const { accountDefaultImg, dispatchRedux } = useContext(AppContext);
+  // const  = require(`../Assets/img/account-default-img.png`);
+  console.log("accountDefaultImg ", accountDefaultImg);
   // useEffect(() => {
   //   if (id && id !== "") {
   //     dispatchRedux(actionFetchSingleAccountAPI(id));
@@ -126,17 +126,19 @@ const ProfilePage = () => {
                   mobile: values.mobile ? values.mobile : account.mobile,
                   address: values.address ? values.address : account.address,
                   urlAvatar: nameImage ? nameImage : account.urlAvatar,
+                  status: account.status,
                 };
                 await updateAccountAPI(id, update).then((response) => {
                   if (
                     response !== null &&
                     response !== undefined &&
-                    (nameImage || accountDefaultImg) &&
+                    (nameImage ||
+                      require(`../Assets/img/account-default-img.png`)) &&
                     (previewAvatarUrl
                       ? /data:image\/(png|jpg|jpeg)/.test(previewAvatarUrl)
                       : account.urlAvatar
-                      ? accountDefaultImg
-                      : accountDefaultImg)
+                      ? require(`../Assets/img/account-default-img.png`)
+                      : require(`../Assets/img/account-default-img.png`))
                   ) {
                     storage.setItem("initAcc", JSON.stringify(update));
                     toast.success("Thành công.", {
@@ -162,9 +164,9 @@ const ProfilePage = () => {
                   }
                 });
               } catch (error) {
-                toast.error(error, {
+                toast.error("API lỗi! Vui lòng thử lại.", {
                   position: "top-right",
-                  autoClose: 3000,
+                  autoClose: 1500,
                   hideProgressBar: false,
                   closeOnClick: true,
                   pauseOnHover: true,
@@ -190,7 +192,7 @@ const ProfilePage = () => {
                             fullWidth
                             name="firstName"
                             type="text"
-                            defaultValue={localAcc.firstName}
+                            values={values.firstName}
                             placeholder="Nhập tên"
                             label="Tên: "
                             component={CustomInput}
@@ -201,7 +203,7 @@ const ProfilePage = () => {
                             fullWidth
                             name="lastName"
                             type="text"
-                            defaultValue={localAcc.lastName}
+                            value={values.lastName}
                             placeholder="Nhập họ"
                             label="Họ:"
                             component={CustomInput}
@@ -215,7 +217,7 @@ const ProfilePage = () => {
                             fullWidth
                             name="mobile"
                             type="text"
-                            defaultValue={localAcc.mobile}
+                            value={values.mobile}
                             label="Số điện thoại:"
                             component={CustomInput}
                           />
@@ -226,7 +228,7 @@ const ProfilePage = () => {
                             className="input"
                             name="email"
                             type="email"
-                            defaultValue={localAcc.email}
+                            value={values.email}
                             label="Email:"
                             component={CustomInput}
                           />
@@ -237,7 +239,7 @@ const ProfilePage = () => {
                         fullWidth
                         name="address"
                         type="text"
-                        defaultValue={localAcc.address}
+                        value={values.address}
                         label="Địa chỉ:"
                         component={CustomInput}
                       />

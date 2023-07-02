@@ -1,18 +1,18 @@
-import React, { useEffect, useRef, useContext } from "react";
-import { NavLink, Button } from "reactstrap";
+import React, { useEffect, useContext } from "react";
+import { NavLink } from "reactstrap";
 import { Popover } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
 import "./Header.scss";
 import AppContext from "../../AppContext";
 
 function Menu() {
   const stateRedux = useSelector((cartItems) => cartItems);
-  const dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   const listCategories = stateRedux.listCategoryReducer;
   let [anchorCat, setAnchorCat] = React.useState(null);
   const openCategories = Boolean(anchorCat);
-  const { scrollToComponent, drawerIsOpen } = useContext(AppContext);
+  const { scrollToComponent, startTransition, navigate } = useContext(AppContext);
 
   const handleOpenCategories = (event) => {
     setAnchorCat(event.currentTarget);
@@ -24,7 +24,7 @@ function Menu() {
 
   useEffect(() => {
     dispatchRedux(actionFetchCategoryAPI());
-  }, [drawerIsOpen]);
+  }, []);
 
   return (
     <div className="header-center">
@@ -49,7 +49,9 @@ function Menu() {
           {listCategories.map((cat, index) => (
             <div key={index}>
               <NavLink
-                href={`/categories/${cat.name}`}
+                onClick={() =>
+                  startTransition(() => navigate(`/categories/${cat.name}`))
+                }
                 className="popover-item"
               >
                 <span>{cat.name}</span>

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "./ManageProduct.css";
 import HeaderBar from "../HeaderBar";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   actionChangePage,
   actionChangeSize,
@@ -16,7 +16,7 @@ import {
 import ProductListAdmin from "../../Result/Product/ProductListAdmin";
 import ModalUpdateProduct from "../UpdateProduct/ModalUpdateProduct";
 import ModalCreateNewProduct from "../CreateNewProduct/ModalCreateNewProduct";
-import AddIcon from "@mui/icons-material/Add"
+import AddIcon from "@mui/icons-material/Add";
 import DownloadIcon from "@mui/icons-material/Download";
 import {
   actionAddProductAPI,
@@ -26,10 +26,11 @@ import {
 } from "../../../Redux/Action/ProductAction";
 import ImportDialog from "../../Result/Product/ImportDialog";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
+import AppContext from "../../../AppContext";
 
 function ManageProduct(props) {
   const stateRedux = useSelector((state) => state);
-  const dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   let [previewImportFile, setPreviewImportFile] = useState();
   const importFile = useRef(null);

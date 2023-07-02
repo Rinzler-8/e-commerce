@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "reactstrap";
 import { Table, Button } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Container } from "reactstrap";
 import {
-  actionGetCartByUserIdAPI,
   actionAddItemQty,
   actionDecItemQty,
   actionUpdateCartAPI,
@@ -18,10 +17,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import "../../src/css/CartPage.css";
 import storage from "../Storage/Storage";
+import AppContext from "../AppContext";
 
 const CartPage = () => {
   let stateRedux = useSelector((state) => state);
-  let dispatchRedux = useDispatch();
+  const { dispatchRedux } = useContext(AppContext);
   let cart = stateRedux.cartReducer;
   let id = storage.getItem("id");
 

@@ -20,7 +20,8 @@ import AppContext from "../../AppContext";
 function ProductDetail(props) {
   const { drawerIsOpen } = useContext(AppContext);
   let stateRedux = useSelector((state) => state);
-  let dispatchRedux = useDispatch();
+    const { dispatchRedux  } =
+    useContext(AppContext);
   const cart = stateRedux.cartReducer;
   let product = stateRedux.singleProductReducer;
   let id = storage.getItem("id");

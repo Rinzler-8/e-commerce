@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext } from "react";
+import React, { useEffect, useContext, useTransition } from "react";
 import { NavLink, Button } from "reactstrap";
 import {
   ListItem,
@@ -18,7 +18,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   actionGetCartByUserIdAPI,
   actionAddItemQty,
@@ -29,7 +29,6 @@ import {
   actionOpenCart,
 } from "../../Redux/Action/CartAction";
 import { actionFetchSingleAccountAPI } from "../../Redux/Action/AccountAction";
-import { actionFetchCategoryAPI } from "../../Redux/Action/CategoryAction";
 import { useNavigate } from "react-router-dom";
 import "./Header.scss";
 import { StyledBadge } from "../StyledMUI";
@@ -44,15 +43,19 @@ function Header() {
   let [header, setHeader] = React.useState(false);
   let navigate = useNavigate();
   const stateRedux = useSelector((cartItems) => cartItems);
-  const dispatchRedux = useDispatch();
   const cart = stateRedux.cartReducer;
   const account = stateRedux.singleAccountReducer;
   const id = storage.getItem("id");
   const username = storage.getItem("username");
   let [anchorEl, setAnchorEl] = React.useState(null);
   const openPopover = Boolean(anchorEl);
-  const { drawerIsOpen, logoBackground, accountDefaultImg } =
-    useContext(AppContext);
+  const {
+    drawerIsOpen,
+    logoBackground,
+    accountDefaultImg,
+    dispatchRedux,
+    startTransition,
+  } = useContext(AppContext);
   let total = 0;
 
   const handleKeyDown = (event) => {
@@ -125,7 +128,6 @@ function Header() {
       dispatchRedux(actionFetchSingleAccountAPI(id));
     }
     dispatchRedux(actionGetCartByUserIdAPI(id));
-    dispatchRedux(actionFetchCategoryAPI());
 
     //close drawer when hitting "Esc" button on keyboard
     document.addEventListener("keydown", handleKeyDown);
@@ -419,10 +421,17 @@ function Header() {
                 </>
               ) : (
                 <div className="header-login">
-                  <NavLink href="/login" style={{ color: "#0a0f9e" }}>
+                  <NavLink
+                    onClick={() => startTransition(() => navigate(`/login`))}
+                    style={{ color: "#0a0f9e" }}
+                  >
                     ĐĂNG NHẬP
                   </NavLink>
-                  <NavLink href="/register" style={{ color: "#0a0f9e" }}>
+
+                  <NavLink
+                    onClick={() => startTransition(() => navigate(`/register`))}
+                    style={{ color: "#0a0f9e" }}
+                  >
                     ĐĂNG KÝ
                   </NavLink>
                 </div>
