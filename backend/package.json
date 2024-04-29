@@ -4,6 +4,7 @@
   "description": "nodejs version for gd backend",
   "main": "server.js",
   "scripts": {
+    "dev": "nodemon -r server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +21,7 @@
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "chalk": "^5.3.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "date-fns": "^3.6.0",
@@ -37,6 +39,7 @@
     "nodemon": "^3.1.0",
     "redis": "^4.6.13",
     "tiny-retry": "^1.6.5",
+    "winston": "^3.13.0",
     "xlsx": "^0.18.5"
   }
 }

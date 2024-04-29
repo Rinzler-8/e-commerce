@@ -28,10 +28,12 @@
     "reactstrap": "^9.1.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
+    "vite": "^5.2.10",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
   "scripts": {
+    "dev": "vite --force",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

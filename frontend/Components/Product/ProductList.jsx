@@ -12,13 +12,13 @@ import {
 import Slider from "react-slick";
 import "./ProductList.scss";
 import "./slickProduct.scss";
-import "../Carousel/slick-theme.css";
+import "../carousel/slick-theme.css";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "../../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import storage from "../../Storage/Storage";
+import storage from "../../storage/Storage";
 import { useContext } from "react";
 import AppContext from "../../AppContext";
 

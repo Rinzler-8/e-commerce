@@ -1,8 +1,8 @@
 const db = require("../models/db.js");
-const config = require("../config/authConfig.js");
+const config = require("../configs/authConfig.js");
 const User = db.user;
 const Role = db.role;
-const Status = require("../models/eStatus.js");
+const Status = require("../shared/constants/eStatus.js");
 const moment = require("moment");
 const Op = db.Sequelize.Op;
 
@@ -83,14 +83,21 @@ exports.signin = (req, res) => {
         });
       });
 
-      let accessToken = jwt.sign({ id: user.id, role: authorities }, config.secret, {
-        expiresIn: 10000, // 24 hours
-      });
+      let accessToken = jwt.sign(
+        { id: user.id, role: authorities },
+        config.secret,
+        {
+          expiresIn: 10000, // 24 hours
+        }
+      );
 
-      let refreshToken = jwt.sign({ id: user.id, role: authorities }, config.secret, {
-        expiresIn: 30000, // 24 hours
-      });
-
+      let refreshToken = jwt.sign(
+        { id: user.id, role: authorities },
+        config.secret,
+        {
+          expiresIn: 30000, // 24 hours
+        }
+      );
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });

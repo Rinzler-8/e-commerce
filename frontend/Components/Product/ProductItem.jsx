@@ -12,7 +12,7 @@ import {
 import "../../../src/css/toastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import storage from "../../Storage/Storage";
+import storage from "../../storage/Storage";
 import AppContext from "../../AppContext";
 
 function ProductItem() {

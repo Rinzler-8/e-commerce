@@ -1,10 +1,10 @@
-import Storage from "../../Storage/Storage";
+import Storage from "../../storage/Storage";
 import * as types from "../constants";
 
 const initialState = {
   token: Storage.getToken(),
   userInfo: Storage.getUserInfo(),
-  isRememberMe: Storage.isRememberMe()
+  isRememberMe: Storage.isRememberMe(),
 };
 
 export default function reducer(state = initialState, actions) {
@@ -12,17 +12,17 @@ export default function reducer(state = initialState, actions) {
     case types.USER_LOGIN_INFO:
       return {
         ...state,
-        userInfo: actions.payload
+        userInfo: actions.payload,
       };
     case types.TOKEN_INFO:
       return {
         ...state,
-        token: actions.payload
+        token: actions.payload,
       };
     case types.REMEMBER_ME_INFO:
       return {
         ...state,
-        isRememberMe: actions.payload
+        isRememberMe: actions.payload,
       };
     default:
       return state;

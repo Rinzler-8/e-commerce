@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.scss";
-import { routes } from "./Router/routes";
-import storage from "./Storage/Storage";
+import { routes } from "./router/routes";
+import storage from "./storage/Storage";
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";

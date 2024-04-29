@@ -1,6 +1,6 @@
 import axios from "axios";
 import { refreshTokenAPI } from "./LoginAPI";
-import storage from "../Storage/Storage";
+import storage from "../storage/Storage";
 
 const axiosClient = axios.create({
   baseURL: "http://localhost:8080/api/",

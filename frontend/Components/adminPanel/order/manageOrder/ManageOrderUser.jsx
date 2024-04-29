@@ -1,0 +1,101 @@
+import React, { useState } from "react";
+import "./ManageOrder.css";
+import HeaderBar from "../../HeaderBar";
+import { useSelector } from "react-redux";
+import {
+  actionChangePage,
+  actionChangeSize,
+  actionChangeSortDirection,
+  actionChangeSortField,
+  actionSearch,
+} from "../../../../redux/Action/PageAction";
+import {
+  actionFetchOrderUpdateInfoRedux,
+  actionToggleUpdateFormRedux,
+} from "../../../../redux/Action/FormUpdateAction";
+import OrderList from "../../../results/order/OrderList";
+import ModalCreateNewOrder from "../createNewOrder/ModalCreateNewOrder";
+import { actionAddOrderAPI } from "../../../../redux/Action/OrderAction";
+import { useContext } from "react";
+import AppContext from "../../../../AppContext";
+
+function ManageOrderUser(props) {
+  let stateRedux = useSelector((state) => state);
+  const { dispatchRedux } = useContext(AppContext);
+  // State quản lý đóng mở thông báo.
+
+  // Xử lý khi nhấn nút Edit
+  let onHandleEditBtn = (OrderEdit) => {
+    // console.log("Thông tin của Account cần update:", OrderEdit);
+    // Lưu thông tin Account Update lên Redux
+    dispatchRedux(actionFetchOrderUpdateInfoRedux(OrderEdit));
+    // Hiển thị formUpdate
+    dispatchRedux(actionToggleUpdateFormRedux());
+  };
+
+  // Xử lý khi click vào các icon phân trang
+  let onHandleChangePage = (page) => {
+    // console.log("Trang hiện tại: ", page);
+    // Thực hiện dispatch action để set lại giá trị page trên redux
+    dispatchRedux(actionChangePage(page));
+  };
+  // Hàm xử lý khi người dùng ChangeSize
+  let onHandleChangeSize = (item) => {
+    dispatchRedux(actionChangeSize(item));
+  };
+  // Hàm xử lý khi người dùng thay đổi SortField
+  let onHandleChangeFieldSort = (item) => {
+    dispatchRedux(actionChangeSortField(item));
+  };
+
+  // Hàm xử lý khi người dùng thay đổi SortDirection
+  let onHandleChangeDirectionSort = (item) => {
+    dispatchRedux(actionChangeSortDirection(item));
+  };
+  // Hàm xử lý khi nhấn nút Search
+  let onHandleSearch = (valueSearch) => {
+    dispatchRedux(actionSearch(valueSearch));
+  };
+  // Xử lý thêm mới Account
+  let onHandleCreateNewOrder = (orderNew) => {
+    dispatchRedux(actionAddOrderAPI(orderNew));
+  };
+  // Thông tin trang hiện tại từ redux để truyền xuống PaginationButton hiển thị
+  let currentPage = stateRedux.pageFilterReducer;
+
+  let [showModal, SetShowModal] = useState(false);
+
+  // Xử lý ẩn hiện modal
+  const openCreateNewOrderModal = () => {
+    SetShowModal(!showModal);
+  };
+
+  return (
+    <div className="manage-user-container">
+      <div className="header-area">
+        <HeaderBar
+          onHandleSearch={onHandleSearch}
+          title="Đơn hàng của tôi"
+          placeHolder="Nhập phiên..."
+        />
+      </div>
+      <div className="table-content-area-user">
+        <OrderList
+          onHandleEditBtn={onHandleEditBtn}
+          onHandleChangeSize={onHandleChangeSize}
+          onHandleChangePage={onHandleChangePage}
+          currentPage={currentPage}
+          onHandleChangeFieldSort={onHandleChangeFieldSort}
+          onHandleChangeDirectionSort={onHandleChangeDirectionSort}
+        />
+      </div>
+      <ModalCreateNewOrder
+        onHandleCreateNewOrder={onHandleCreateNewOrder}
+        toggle={openCreateNewOrderModal}
+        showModal={showModal}
+      />
+    </div>
+  );
+}
+
+export default ManageOrderUser;

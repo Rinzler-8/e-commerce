@@ -2,61 +2,34 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const cartSchema = new Schema({
-  quantity: {
-    type: Number,
-    required: true,
-  },
-  total_price: {
-    type: Number,
-    required: true,
-  },
-  user_id: {
-    type: Number,
-    required: true,
-  },
-  created_At: {
-    type: Date,
-    default: Date.now,
-  },
-  // Virtual fields
-  price: {
-    type: Number,
-    get() {
-      return this.getProduct().price;
+const cartSchema = new Schema(
+  {
+    quantity: {
+      type: Number,
+      required: true,
     },
-  },
-  imageName: {
-    type: String,
-    get() {
-      return this.getProduct().imageName;
+    totalPrice: {
+      type: Number,
+      required: true,
     },
-  },
-  info: {
-    type: String,
-    get() {
-      return this.getProduct().info;
+    userId: {
+      type: Number,
+      required: true,
     },
-  },
-  detail: {
-    type: String,
-    get() {
-      return this.getProduct().detail;
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: "Product",
+      required: true,
     },
+    // price
+    //   imageName
+    //   info
+    //   detail
+    //   productId
+    //   product_name
   },
-  productId: {
-    type: Number,
-    get() {
-      return this.getProduct().productId;
-    },
-  },
-  product_name: {
-    type: String,
-    get() {
-      return this.getProduct().name;
-    },
-  },
-});
+  { timestamps: true }
+);
 
 const Cart = mongoose.model("Cart", cartSchema);
 

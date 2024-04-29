@@ -35,7 +35,7 @@ import { StyledBadge } from "../StyledMUI";
 import Backdrop from "@mui/material/Backdrop";
 import AppContext from "../../AppContext";
 import KeyIcon from "@mui/icons-material/Key";
-import storage from "../../Storage/Storage";
+import storage from "../../storage/Storage";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "./Menu";
 

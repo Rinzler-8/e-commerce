@@ -2,21 +2,24 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const reviewSchema = new Schema({
-  session_id: {
-    type: Number,
-    ref: "Order",
+const reviewSchema = new Schema(
+  {
+    session_id: {
+      type: Number,
+      ref: "Order",
+    },
+    productId: {
+      type: Number,
+    },
+    review: String,
+    rating: Number,
+    created_at: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  productId: {
-    type: Number,
-  },
-  review: String,
-  rating: Number,
-  created_at: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  { timestamps: true }
+);
 
 const Review = mongoose.model("Review", reviewSchema);
 

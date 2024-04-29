@@ -1,47 +1,56 @@
-const express = require("express");
-const cors = require("cors");
-const app = express();
-const db = require("./app/models/db.js");
+import apiRouter from "@api/router.js";
+import { INDEX_PATH, PORT } from "@configs/env.js";
+import { UNKNOWN } from "@constants/apiError.js";
+import express from "express";
+import { readFileSync } from "fs";
+import { StatusCodes } from "http-status-codes";
+import { join } from "path";
 
-const corsOptions = {
-  origin: "http://localhost:3000",
-};
+const runServer = async () => {
+  const app = express();
 
-db.sequelize
-  // .sync({ force: true })
-  .sync({})
-  .then(() => {
-    console.log("Drop and resync db.");
-    // initial();
-  })
-  .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
+  app.use("/api", apiRouter);
+
+  // eslint-disable-next-line no-unused-vars
+  app.use((error, req, res) => {
+    const response = error?.data?.response ?? error?.response;
+
+    const result = {
+      code: error.httpCode ?? StatusCodes.UNPROCESSABLE_ENTITY,
+      message: error?.description ?? UNKNOWN,
+    };
+
+    if (response) {
+      result.code = response.code;
+      result.errors = response;
+    }
+
+    const errors = JSON.stringify(error) !== "{}" ? error : error.toString();
+
+    result.errors = errors;
+
+    return res.status(result.code).json(result);
   });
 
-app.use(cors(corsOptions));
+  app.use(
+    "*",
+    async (req, res, next) => {
+      try {
+        const shop = req.query.shop;
+        return next();
+      } catch (error) {
+        return next();
+      }
+    },
+    async (req, res) => {
+      return res
+        .status(200)
+        .set("Content-Type", "text/html")
+        .send(readFileSync(join(INDEX_PATH, "index.html")));
+    }
+  );
 
-// Parse request of content-type - application/json
-app.use(express.json());
+  app.listen(PORT);
+};
 
-// Parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
-
-// Simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome" });
-});
-
-require("./app/routes/authRoutes")(app);
-require("./app/routes/userRoutes")(app);
-require("./app/routes/productRoutes")(app);
-require("./app/routes/cartRoutes")(app);
-require("./app/routes/orderRoutes")(app);
-require("./app/routes/categoryRoutes")(app);
-
-// Set port, listen for requests
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
-
-
+export default runServer;

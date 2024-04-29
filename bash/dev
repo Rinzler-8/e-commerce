@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 installNodeModules() {
     echo "Install node_modules"
@@ -7,20 +7,14 @@ installNodeModules() {
     (cd ./backend/ && yarn)
 }
 
-buildAssets() {
-    echo "Build assets"
-
-    yarn sass --style=compressed --no-source-map frontend/styles/menu.scss:frontend/public/menu.css
+devApp() {
+    echo "Run app"
+    (cd ./frontend/ && yarn dev)
+    (cd ./backend/ && yarn dev)
 }
 
-pkill vite
+# pkill vite
 
-rm -rf frontend/node_modules/.vite
+# rm -rf frontend/node_modules/.vite
 
-installNodeModules
-
-echo "Run app"
-
-# buildAssets
-
-devApp
+./bash/dev
