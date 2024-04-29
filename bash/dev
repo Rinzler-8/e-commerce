@@ -1,0 +1,26 @@
+#! /bin/bash
+
+installNodeModules() {
+    echo "Install node_modules"
+    yarn
+    (cd ./frontend/ && yarn)
+    (cd ./backend/ && yarn)
+}
+
+buildAssets() {
+    echo "Build assets"
+
+    yarn sass --style=compressed --no-source-map frontend/styles/menu.scss:frontend/public/menu.css
+}
+
+pkill vite
+
+rm -rf frontend/node_modules/.vite
+
+installNodeModules
+
+echo "Run app"
+
+# buildAssets
+
+devApp

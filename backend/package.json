@@ -1,0 +1,42 @@
+{
+  "name": "nodejs-gd",
+  "version": "1.0.0",
+  "description": "nodejs version for gd backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rinzler-8/nodejs-gd.git"
+  },
+  "author": "Fuchz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rinzler-8/nodejs-gd/issues"
+  },
+  "homepage": "https://github.com/Rinzler-8/nodejs-gd#readme",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "date-fns": "^3.6.0",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "http-status-codes": "^2.3.0",
+    "joi": "^17.13.0",
+    "jsonwebtoken": "^9.0.2",
+    "loadash": "^1.0.0",
+    "moment": "^2.29.4",
+    "mongoose": "^8.3.2",
+    "multer": "^1.4.5-lts.1",
+    "nanoid": "^5.0.7",
+    "nodemailer": "^6.9.13",
+    "nodemon": "^3.1.0",
+    "redis": "^4.6.13",
+    "tiny-retry": "^1.6.5",
+    "xlsx": "^0.18.5"
+  }
+}

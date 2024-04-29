@@ -1,0 +1,65 @@
+#! /bin/bash
+
+installNodeModules() {
+    yarn
+}
+
+buildAssets() {
+    echo "Build assets"
+
+    yarn sass --style=compressed --no-source-map client/styles/menu.scss:client/public/menu.css
+}
+
+buildApp() {
+    (cd ./client/ && yarn && grep -v 'VITE_APP_VERSION' ${envClientFile} >.tmp${envClientFile} && mv .tmp${envClientFile} ${envClientFile} && printf "\nVITE_APP_VERSION=$npm_package_version" >>./${envClientFile})
+
+    (cd ./server/ && yarn)
+
+    (cd ./client/ && yarn vite build --mode=${ENV})
+}
+
+buildCDN() {
+    if [[ ! -z "$ENV" ]]; then
+        echo "Sync assets to CDN"
+        aws s3 rm s3://foxhome/apps/$npm_package_version --recursive
+        aws s3 sync server/dist/ s3://foxhome/apps/$npm_package_version --acl=public-read --exclude ".DS_Store"
+    fi
+}
+
+while [[ ! -z $1 ]]; do
+    key=${1%=*}
+    value=${1#*=}
+    case $key in
+    --env)
+        ENV=$value
+        ;;
+    --token)
+        SHOPIFY_CLI_PARTNERS_TOKEN=$value
+        ;;
+    esac
+    shift
+done
+
+echo $ENV
+
+config="shopify.app.${ENV}.toml"
+envClientFile=".env.${ENV}"
+
+if [ -z "$ENV" ]; then
+    config="shopify.app.toml"
+    envClientFile=".env"
+    ENV="development"
+fi
+
+installNodeModules
+
+echo "Pull shopify config file"
+SHOPIFY_CLI_PARTNERS_TOKEN=$SHOPIFY_CLI_PARTNERS_TOKEN yarn shopify app env pull --env-file=.env --config=${config}
+
+buildAssets
+
+buildApp
+
+# if [[ "$ENV" == "production" ]]; then
+#     buildCDN
+# fi
