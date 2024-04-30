@@ -1,6 +1,6 @@
 const { getPagination, getPagingData } = require("./paginationController");
 const db = require("../models/db.js");
-const Status = require("../shared/constants/eStatus.js");
+const Status = require("../shared/constants/eStatus.mjs");
 const User = db.user;
 const Role = db.role;
 const UserDTO = db.userDTO;

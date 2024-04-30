@@ -3,3 +3,4 @@ export const MONGODB_URI =
 export const REDIS_URI = process.env.REDIS_URI || "redis://127.0.0.1:6379";
 export const MONGODB_NAME = process.env.MONGODB_NAME || "e-commerce-app";
 export const PORT = parseInt(process.env.PORT || 8080, 10);
+export const INDEX_PATH = process.env.INDEX_PATH || "./dist/";

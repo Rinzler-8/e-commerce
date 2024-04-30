@@ -1,20 +1,24 @@
-import config from "../config/authConfig.js";
-import Status from "../models/eStatus.js";
-
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import User from "@models/User.js";
+import User from "#models/User.mjs";
+
+const config = {
+  secret: "fuchz-e-commerce",
+};
 
 const controller = {
   login: async (req, res) => {
     try {
+      console.log("req ", req?.body);
       const user = await User.findOne({
-        where: {
-          email: req.body.email,
-        },
+        email: req?.body?.email,
       });
 
       if (!user) {
+        await User.create({
+          email: req?.body?.email,
+          password: req?.body?.password,
+        });
         return res.status(404).send({ message: "User Not found." });
       }
 

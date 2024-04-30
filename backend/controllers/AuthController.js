@@ -2,7 +2,7 @@ const db = require("../models/db.js");
 const config = require("../configs/authConfig.js");
 const User = db.user;
 const Role = db.role;
-const Status = require("../shared/constants/eStatus.js");
+const Status = require("../shared/constants/eStatus.mjs");
 const moment = require("moment");
 const Op = db.Sequelize.Op;
 

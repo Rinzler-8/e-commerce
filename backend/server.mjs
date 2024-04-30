@@ -1,14 +1,29 @@
-import apiRouter from "@api/router.js";
-import { INDEX_PATH, PORT } from "@configs/env.js";
-import { UNKNOWN } from "@constants/apiError.js";
+import { INDEX_PATH, PORT } from "#shared/constants/env.mjs";
+import { UNKNOWN } from "#shared/constants/apiError.mjs";
 import express from "express";
 import { readFileSync } from "fs";
 import { StatusCodes } from "http-status-codes";
 import { join } from "path";
+import connectMongo from "#configs/mongo.mjs";
+import apiRouter from "#api/router.mjs";
+import bodyParser from "body-parser";
 
 const runServer = async () => {
+  await connectMongo();
   const app = express();
 
+  const bodyParserMiddleware = [
+    bodyParser.json({
+      verify: (req, res, buf) => {
+        req.rawBody = buf;
+      },
+      limit: "5mb",
+    }),
+    bodyParser.urlencoded({ extended: true }),
+    bodyParser.text(),
+  ];
+
+  app.use(bodyParserMiddleware);
   app.use("/api", apiRouter);
 
   // eslint-disable-next-line no-unused-vars
@@ -53,4 +68,4 @@ const runServer = async () => {
   app.listen(PORT);
 };
 
-export default runServer;
+runServer();

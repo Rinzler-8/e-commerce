@@ -1,4 +1,4 @@
-const { authJwt } = require("../../middleware");
+const { authJwt } = require("../../middleware/index.mjs");
 const controller = require("../../controllers/UserController");
 // const uploadController = require("../controllers/upload");
 const upload = require("../../middleware/upload");

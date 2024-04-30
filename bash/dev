@@ -17,4 +17,4 @@ devApp() {
 
 # rm -rf frontend/node_modules/.vite
 
-./bash/dev
+devApp

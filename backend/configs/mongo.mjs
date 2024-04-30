@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import mongoose from "mongoose";
-import { MONGODB_NAME, MONGODB_URI } from "../shared/constants/env";
+import { MONGODB_NAME, MONGODB_URI } from "../shared/constants/env.mjs";
 
 const dbPath = `${MONGODB_URI}/${MONGODB_NAME}`;
 
